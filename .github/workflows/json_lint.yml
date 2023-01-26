@@ -14,5 +14,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}/schema/gdcdictionary
+          ls ${{ github.workspace }}/schema/gdcdictionary/schemas
+      - run: npm i -g @prantlf/jsonlint
+      - run: jsonlint --comments --trailing-commas --no-duplicate-keys --log-files --compact --continue 'schema/gdcdictionary/schemas/*.json'
       - run: echo "🍏 This job's status is ${{ job.status }}."
