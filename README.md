@@ -14,6 +14,7 @@ This space is for development and encoding of a data model for PCOR to support t
 * The docs section includes developer docs for the portal and data model
 * The model-development section includes docs and model planning, sketch data models
 * The schema section holds the encoded model artifacts
+* The workflows section supports GitHub CI/CD actions and automation for model development
 
 
 
