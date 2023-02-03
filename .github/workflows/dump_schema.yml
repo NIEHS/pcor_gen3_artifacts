@@ -3,11 +3,10 @@
 name: Dump Schema
 run-name: ${{ github.actor }} pushed new upadate
 
-on:
-  push:
-    branches: [  feature/action-dump-schema ]
-    paths:
-    - 'schemas/**'
+on: [push]
+  #push:
+    #paths:
+    #- '**'
 
 jobs:
   build:
