@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${{ github.ref#*/ }})"
+        run: echo "$(echo ${{ github.ref#*/ }})"
         id: extract_branch
       - name: checkout repo content and branch on which change is pushed # checkout the repository content to github runner.
         uses: actions/checkout@v3
