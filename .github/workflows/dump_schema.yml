@@ -5,7 +5,7 @@ run-name: ${{ github.actor }} pushed new upadate
 
 on:
   push:
-    paths: ['pcor_gen3_artifacts/schema/gdcdictionary/schemas/**']
+    paths: ['schema/gdcdictionary/schemas/**']
 
 jobs:
   build:
