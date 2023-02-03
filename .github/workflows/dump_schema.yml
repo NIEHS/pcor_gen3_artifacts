@@ -5,9 +5,8 @@ run-name: ${{ github.actor }} pushed new upadate
 
 on:
   push:
-    branches: [ feature/action-dump-schema ]
     paths:
-    - 'schema/gdcdictionary/schemas/**'
+    - '**'
 
 jobs:
   build:
