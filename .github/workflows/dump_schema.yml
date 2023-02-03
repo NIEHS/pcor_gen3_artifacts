@@ -1,0 +1,56 @@
+# This workflow will trigger dump_schema.py which dumps all the schema files in gdcdictionary 
+# folder to one json schema
+name: Dump Schema
+run-name: Build new schema ${{ github.actor }} pushed new upadate
+on:
+  push:
+    paths: schema/**
+jobs:
+  Build-new-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."    
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Current branch name
+        run: |
+          echo "${{ steps.branch-name.outputs.current_branch }}"  
+      - name: checkout repo content and branch on which change is pushed # checkout the repository content to github runner.
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.branch-name.outputs.current_branch }}
+      - name: List files
+        run: ls
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.7" #install the python needed
+
+      - name: Install dependencies
+        run: |
+          python setup.py install
+      - name: Execute dump schema
+        id: script
+        run: |
+          cd schema
+          python dump_schema.py
+      - name: Print errors
+        if: steps.script.outputs.error == 'true'
+        run: |
+          printenv "SCRIPT_STDOUT"
+          printenv "SCRIPT_STDERR"
+        env:
+          SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
+          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "pateldes"
+          git config --global user.email "deeppatel.cs@gmail.com"
+
+          git add -A
+          git commit -m "#1 update schema.json"
+          git push
