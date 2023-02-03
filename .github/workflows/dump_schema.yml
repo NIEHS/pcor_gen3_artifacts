@@ -13,14 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/} >> $GITHUB_OUTPUT
-        id: extract_branch    
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Current branch name
+        run: |
+          echo "${{ steps.branch-name.outputs.current_branch }}"  
       - name: checkout repo content and branch on which change is pushed # checkout the repository content to github runner.
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.extract_branch.outputs.branch }}
+          ref: ${{ steps.branch-name.outputs.current_branch }}
       - name: List files
         run: ls
       - name: setup python
