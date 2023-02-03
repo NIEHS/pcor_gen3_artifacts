@@ -13,10 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+        id: extract_branch    
       - name: checkout repo content and branch on which change is pushed # checkout the repository content to github runner.
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref#*/ }}
+          ref: ${{ steps.extract_branch.outputs.branch }}
           repository: NIEHS/pcor_gen3_artifacts
       - name: List files
         run: ls
