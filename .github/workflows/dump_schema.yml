@@ -1,10 +1,10 @@
 # This workflow will trigger dump_schema.py which dumps all the schema files in gdcdictionary 
 # folder to one json schema
 name: Dump Schema
-run-name: ${{ github.actor }} pushed new upadate
+run-name: Build new schema ${{ github.actor }} pushed new upadate
 on: [push]
 jobs:
-  Explore-Github-Actions:
+  Build-new-schema:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -34,7 +34,7 @@ jobs:
       - name: Execute dump schema
         id: script
         run: |
-          python pcor_gen3_artifacts/schema/dump_schema.py
+          python schema/dump_schema.py
       - name: Print errors
         if: steps.script.outputs.error == 'true'
         run: |
