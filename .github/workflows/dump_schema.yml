@@ -6,7 +6,7 @@ run-name: ${{ github.actor }} pushed new upadate
 on:
   push:
     paths:
-    - '**'
+    - 'schema/**'
 
 jobs:
   build:
