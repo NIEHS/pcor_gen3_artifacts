@@ -13,12 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content to github runner.
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: checkout repo content # checkout the repository content to github runner.
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.extract_branch.outputs.branch }}
+          repository: NIEHS/pcor_gen3_artifacts
       - name: setup python
         uses: actions/setup-python@v3
         with:
           python-version: "3.7" #install the python needed
+
       - name: Install dependencies
         run: |
           python setup.py install
