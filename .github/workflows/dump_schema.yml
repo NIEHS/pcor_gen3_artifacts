@@ -22,6 +22,8 @@ jobs:
         with:
           ref: ${{ steps.extract_branch.outputs.branch }}
           repository: NIEHS/pcor_gen3_artifacts
+      - name: List files
+        run: ls
       - name: setup python
         uses: actions/setup-python@v3
         with:
