@@ -34,7 +34,8 @@ jobs:
       - name: Execute dump schema
         id: script
         run: |
-          python schema/dump_schema.py
+          cd schema
+          python dump_schema.py
       - name: Print errors
         if: steps.script.outputs.error == 'true'
         run: |
