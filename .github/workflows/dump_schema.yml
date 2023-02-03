@@ -2,7 +2,9 @@
 # folder to one json schema
 name: Dump Schema
 run-name: Build new schema ${{ github.actor }} pushed new upadate
-on: [push]
+on:
+  push:
+    paths: schema/**
 jobs:
   Build-new-schema:
     runs-on: ubuntu-latest
@@ -50,5 +52,5 @@ jobs:
           git config --global user.email "deeppatel.cs@gmail.com"
 
           git add -A
-          git commit -m "commit message"
+          git commit -m "#1 update schema.json"
           git push
