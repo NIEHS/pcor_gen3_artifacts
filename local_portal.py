@@ -26,10 +26,21 @@ def setup_and_run(portal_dir, pcor_artifacts, cdismanifest=LOCAL_PORTAL_DNS_NAME
     logging.info("cdismanifest:%s" % cdismanifest)
     logging.info("pcor_artifacts:%s" % pcor_artifacts)
     logging.info("runit:%s" % runit)
+    try:
+        os.makedirs(pcor_artifacts + "/cdis-manifest/" + cdismanifest + "/portal", exist_ok=True)
+    except OSError as error:
+        print(error)
 
+        # move gitops to portal folder
+    shutil.copy2(pcor_artifacts+'/custom_configs/gitops.json', pcor_artifacts + "/cdis-manifest/" + cdismanifest + "/portal/gitops.json")
 
-    # move gitops to portal folder
-    shutil.copy2(pcor_artifacts+'/custom_configs/gitops.json', pcor_artifacts + "/" + cdismanifest + "/portal/gitops.json")
+    if not runit:
+        logger.info("not running, all done!")
+        exit(0)
+
+    logger.info("running npm ci")
+    os.system("cd " + portal_dir)
+    os.system("npm ci")
 
     
 def main():
@@ -38,7 +49,7 @@ def main():
     parser.add_argument("--dataportal", help="local parent directory for the data portal repo", default="/Users/conwaymc/Documents/workspace-pcor/data-portal")
     parser.add_argument("--cdismanifest", help="local parent directory for cdis manfifest", default=LOCAL_PORTAL_DNS_NAME)
     parser.add_argument("--pcorartifacts", help="local parent directory for pcorartifacts", default="/Users/conwaymc/Documents/workspace-pcor/pcor_gen3_artifacts")
-    parser.add_argument("--run", help="flag indicates that the portal should be started", default=False)
+    parser.add_argument("--run", help="flag indicates that the portal should be started", default=True)
 
     args = parser.parse_args()
     portal_dir = args.dataportal
@@ -53,9 +64,7 @@ def main():
 
     setup_and_run(portal_dir=portal_dir, pcor_artifacts=pcor_artifacts, cdismanifest=cdismanifest, runit=runit)
 
-    if not runit:
-        logger.info("not running, all done!")
-        exit(0)
+
 
 
 if __name__ == "__main__":
