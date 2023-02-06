@@ -21,6 +21,7 @@ def run_local(portal_dir, cdismanifest, pcor_artifacts):
     logging.info("portal_dir:%s" % portal_dir)
     logging.info("cdismanifest:%s" % cdismanifest)
     logging.info("pcor_artifacts:%s" % pcor_artifacts)
+    
 
 def main():
     logging.info("startup")
@@ -35,7 +36,11 @@ def main():
     portal_dir = args.dataportal
     cdismanifest = args.cdismanifest
     pcor_artifacts = args.pcorartifacts
-    run_local(portal_dir, cdismanifest, pcor_artifacts)
+
+    
+    logger.debug("portal_dir:%s" % portal_dir)
+    logger.debug("cdismanifest:%s" % cdismanifest)
+    logger.debug("pcor_artifacts:%s" % pcor_artifacts)
 
 
 if __name__ == "__main__":
