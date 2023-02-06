@@ -1,22 +1,42 @@
 {
     "graphql": {
-      "boardCounts": [],
-      "chartCounts": [],
+      "boardCounts": [
+        {
+          "graphql": "_study_count",
+          "name": "Study",
+          "plural": "Studies"
+        },
+        {
+          "graphql": "_microarray_data_file_count",
+          "name": "Microarray",
+          "plural": "Microarrays"
+        }
+      ],
+      "chartCounts": [
+        {
+          "graphql": "_study_count",
+          "name": "Study"
+        },
+        {
+          "graphql": "_microarray_data_file_count",
+          "name": "Microarray"
+        }
+      ],
       "projectDetails": "boardCounts"
     },
     "components": {
       "appName": "PCOR Data Commons",
       "index": {
         "introduction": {
-          "heading": "NIEHS Data Commons",
-          "text": "PCOR Data Commons environment via Gen3",
+          "heading": "PCOR Data Commons",
+          "text": "PCOR NIEHS Data Commons environment via Gen3",
           "link": "/submission"
         },
         "buttons": [
           {
             "name": "Define Data Field",
             "icon": "data-field-define",
-            "body": "The PCOR Data Commons define the data in a general way. Please study the dictionary before you start browsing.",
+            "body": "The Generic Data Commons define the data in a general way. Please study the dictionary before you start browsing.",
             "link": "/DD",
             "label": "Learn more"
           },
@@ -44,7 +64,7 @@
         ]
       },
       "navigation": {
-        "title": "PCOR Data Commons",
+        "title": "NIEHS Data Commons",
         "items": [
           {
             "icon": "dictionary",
@@ -92,7 +112,9 @@
         "email": "mike.conway@nih.gov"
       },
       "featureFlags": {
-        "explorer": true
+        "explorer": true,
+        "explorerPublic": true,
+        "discovery": false
       },
       "dataExplorerConfig": {
         "charts": {
@@ -100,18 +122,23 @@
             "chartType": "count",
             "title": "Projects"
           },
-          "publication_id": {
+          "species": {
             "chartType": "bar",
-            "title": "Publications"
+            "title": "Species"
+          },
+          "chemical": {
+            "chartType": "bar",
+            "title": "Chemical"
           }
         },
         "filters": {
           "tabs": [
             {
-              "title": "Publications",
+              "title": "Study",
               "fields": [
-                "publication-id",
-                "title"
+                "project_id",
+                "species",
+                "chemical"
               ]
             }
           ]
@@ -120,8 +147,8 @@
           "enabled": true,
           "fields": [
             "project_id",
-            "publication-id",
-            "title"
+            "data_format",
+            "data_type"
           ]
         },
         "buttons": [
@@ -134,14 +161,14 @@
           }
         ],
         "guppyConfig": {
-          "dataType": "publication",
-          "nodeCountTitle": "Publications",
+          "dataType": "study",
+          "nodeCountTitle": "Studies",
           "fieldMapping": [],
           "manifestMapping": {
             "resourceIndexType": "file",
             "resourceIdField": "object_id",
-            "referenceIdFieldInResourceIndex": "publication_id",
-            "referenceIdFieldInDataIndex": "publication_id"
+            "referenceIdFieldInResourceIndex": "study_id",
+            "referenceIdFieldInDataIndex": "study_id"
           }
         }
       }
