@@ -39,8 +39,9 @@ def setup_and_run(portal_dir, pcor_artifacts, cdismanifest=LOCAL_PORTAL_DNS_NAME
         exit(0)
 
     logger.info("running npm ci")
-    os.system("cd " + portal_dir)
-    os.system("npm ci")
+    os.chdir(portal_dir)
+    os.system("pwd")
+    os.system("npm ci ")
 
     
 def main():
