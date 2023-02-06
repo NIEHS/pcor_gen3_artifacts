@@ -7,7 +7,7 @@ category: administrative
 program: '*'
 project: '*'
 description: >
-  A broad framework of goals to be achieved. (NCIt C52647) - mcc
+  A broad framework of goals to be achieved. (NCIt C52647)
 additionalProperties: false
 submittable: false
 validators: null
