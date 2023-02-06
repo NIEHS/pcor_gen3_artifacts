@@ -1,9 +1,20 @@
 {
   "graphql": {
-    "boardCounts": [
-     
-    ],
-    "projectDetails": "boardCounts"
+	"boardCounts": [
+	  {
+		"graphql": "_dataset_count",
+		"name": "Expression Dataset",
+		"plural": "Expression data sets"
+	  }
+	],
+	"chartCounts": [
+	  {
+		"graphql": "_dataset_count",
+		"name": "Expression Dataset",
+		"plural": "Expression data sets"
+	  }
+	],
+	"projectDetails": "boardCounts"
   },
   "components": {
     "appName": "DNTP Data Lab",
@@ -96,269 +107,221 @@
     ]
   },
   "featureFlags": {
-    "explorer": true,
-    "analysis": true,
-    "explorerPublic": true
+	"explorer": true,
+	"analysis": true,
+	"explorerPublic": true
   },
-  "analysisTools": [ ],
+  "analysisTools": [],
   "explorerConfig": [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {
-      "tabTitle": "NTP Expression Datasets",
-      "charts": {
-        "project_investigator_affiliation": {
-          "chartType": "bar",
-          "title": "Investigator Affiliation"
-        },
-        "species": {
-          "chartType": "bar",
-          "title": "species"
-        }
-      },
-      "filters": {
-        "tabs": [
-          {
-            "title": "Dataset Properties",
-            "fields":[
-              "project_id",
-              "project_investigator_affiliation",
-              "species",
-              "strain",
-              "project_date",
-              "platform"
-            ]
-          }
-        ]
-      },
-      "table": {
-        "enabled": true,
-        "fields": [
-          "project_id",
-          "project_date",
-          "project_investigator_affiliation",
-          "title",
-          "design",
-          "platform",
-          "species",
-          "strain",
-          "chemicals",
-          "tissue",
-          "cell_line",
-          "genetic_change",
-          "other_agent",
-          "study_duration",
-          "time_points",
-          "route",
-          "vehicle",
-          "geo_link",
-          "analysis_link",
-          "additional_information"
-        ],
-        "linkFields": [
-          "geo_link",
-          "analysis_link",
-          "additional_information"
-        ]
-      },
-      "dropdowns": {
-        "download-table": {
-          "title": "Download Dataset Table"
-        }
-      },
-      "buttons": [
-        {
-          "enabled": true,
-          "type": "data-json",
-          "title": "JSON",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.json"
-        },
-        {
-          "enabled": true,
-          "type": "data-tsv",
-          "title": "TSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.tsv"
-        },
-        {
-          "enabled": true,
-          "type": "data-csv",
-          "title": "CSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.csv"
-        },
-        {
-          "enabled": true,
-          "type": "manifest",
-          "title": "Download File Manifest for Datasets",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "dataset_manifest.json"
-        },
-        {
-          "enabled": true,
-          "type": "export-to-workspace",
-          "title": "Export to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        },
-        {
-          "enabled": true,
-          "type": "export-pfb-to-workspace",
-          "title": "Export PFB to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        }
-      ],
-      "loginForDownload": true,
-      "guppyConfig": {
-        "dataType": "dataset",
-        "nodeCountTitle": "Expression Datasets",
-        "fieldMapping": [
-          {
-            "field": "project_id",
-            "name": "Dataset ID"
-          },
-          {
-            "field": "submitter_id",
-            "name": "Dataset Name"
-          }
-        ],
-        "accessibleFieldCheckList": ["project_id"],
-        "accessibleValidationField": "project_id"
-      }
-    },
-
-
-    {
-      "tabTitle": "CEL Microarray Expression Data",
-      "charts": {
-
-        "species": {
-          "chartType": "bar",
-          "title": "species"
-        }
-      },
-      "filters": {
-        "tabs": [
-          {
-            "title": "Microarray Properties",
-            "fields":[
-              "project_id",
-              "species",
-              "strain",
-              "platform"
-            ]
-          }
-
-        ]
-      },
-      "table": {
-        "enabled": true,
-        "fields": [
-          "project_id",
-          "platform",
-          "species",
-          "strain",
-          "file_name",
-          "file_size",
-          "data_type",
-          "data_format"
-        ],
-        "linkFields": [
-        ]
-      },
-      "dropdowns": {
-        "download-table": {
-          "title": "Download Dataset Table"
-        }
-      },
-      "buttons": [
-        {
-          "enabled": true,
-          "type": "data-json",
-          "title": "JSON",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.json"
-        },
-        {
-          "enabled": true,
-          "type": "data-tsv",
-          "title": "TSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.tsv"
-        },
-        {
-          "enabled": true,
-          "type": "data-csv",
-          "title": "CSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.csv"
-        },
-        {
-          "enabled": true,
-          "type": "manifest",
-          "title": "Download File Manifest for Datasets",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "dataset_manifest.json"
-        },
-        {
-          "enabled": true,
-          "type": "export-to-workspace",
-          "title": "Export to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        },
-        {
-          "enabled": true,
-          "type": "export-pfb-to-workspace",
-          "title": "Export PFB to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        }
-      ],
-      "loginForDownload": true,
-      "guppyConfig": {
-        "dataType": "data_file",
-        "nodeCountTitle": "CEL Files",
-        "fieldMapping": [
-        ],
-        "accessibleFieldCheckList": ["project_id"],
-        "accessibleValidationField": "project_id"
-      }
-    }
-
-
+	{
+	  "tabTitle": "Expression Datasets",
+	  "charts": {
+		"project_investigator_affiliation": {
+		  "chartType": "bar",
+		  "title": "Investigator Affiliation"
+		},
+		"species": {
+		  "chartType": "bar",
+		  "title": "species"
+		}
+	  },
+	  "filters": {
+		"tabs": [
+		  {
+			"title": "Dataset Properties",
+			"fields": [
+			  "project_id",
+			  "project_investigator_affiliation",
+			  "species",
+			  "strain",
+			  "project_date",
+			  "platform"
+			]
+		  }
+		]
+	  },
+	  "table": {
+		"enabled": true,
+		"fields": [
+		  "project_id",
+		  "project_date",
+		  "project_investigator_affiliation",
+		  "title",
+		  "design",
+		  "platform",
+		  "species",
+		  "strain",
+		  "chemicals",
+		  "tissue",
+		  "cell_line",
+		  "genetic_change",
+		  "other_agent",
+		  "study_duration",
+		  "time_points",
+		  "route",
+		  "vehicle",
+		  "geo_link",
+		  "analysis_link",
+		  "additional_information"
+		],
+		"linkFields": [
+		  "geo_link",
+		  "analysis_link",
+		  "additional_information"
+		]
+	  },
+	  "dropdowns": {
+		"download-table": {
+		  "title": "Download Dataset Table"
+		}
+	  },
+	  "buttons": [
+		{
+		  "enabled": true,
+		  "type": "data-json",
+		  "title": "JSON",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.json"
+		},
+		{
+		  "enabled": true,
+		  "type": "data-tsv",
+		  "title": "TSV",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.tsv"
+		},
+		{
+		  "enabled": true,
+		  "type": "data-csv",
+		  "title": "CSV",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.csv"
+		},
+		{
+		  "enabled": true,
+		  "type": "export-pfb-to-workspace",
+		  "title": "Export PFB to Workspace",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download"
+		}
+	  ],
+	  "loginForDownload": true,
+	  "guppyConfig": {
+		"dataType": "dataset",
+		"nodeCountTitle": "Expression Datasets",
+		"fieldMapping": [
+		  {
+			"field": "project_id",
+			"name": "Dataset ID"
+		  },
+		  {
+			"field": "submitter_id",
+			"name": "Dataset Name"
+		  }
+		],
+		"accessibleFieldCheckList": [
+		  "project_id"
+		],
+		"accessibleValidationField": "project_id"
+	  }
+	},
+	{
+	  "tabTitle": "CEL Microarray Expression Data",
+	  "charts": {
+		"species": {
+		  "chartType": "bar",
+		  "title": "species"
+		}
+	  },
+	  "filters": {
+		"tabs": [
+		  {
+			"title": "Microarray Properties",
+			"fields": [
+			  "project_id",
+			  "species",
+			  "strain",
+			  "platform"
+			]
+		  }
+		]
+	  },
+	  "table": {
+		"enabled": true,
+		"fields": [
+		  "project_id",
+		  "platform",
+		  "species",
+		  "strain",
+		  "file_name",
+		  "file_size",
+		  "data_type",
+		  "data_format"
+		],
+		"linkFields": [
+		]
+	  },
+	  "dropdowns": {
+		"download-table": {
+		  "title": "Download Dataset Table"
+		}
+	  },
+	  "buttons": [
+		{
+		  "enabled": true,
+		  "type": "data-json",
+		  "title": "JSON",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.json"
+		},
+		{
+		  "enabled": true,
+		  "type": "data-tsv",
+		  "title": "TSV",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.tsv"
+		},
+		{
+		  "enabled": true,
+		  "type": "data-csv",
+		  "title": "CSV",
+		  "dropdownId": "download-table",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download",
+		  "fileName": "datasets_table.csv"
+		},
+		{
+		  "enabled": true,
+		  "type": "export-pfb-to-workspace",
+		  "title": "Export PFB to Workspace",
+		  "leftIcon": "datafile",
+		  "rightIcon": "download"
+		}
+	  ],
+	  "loginForDownload": true,
+	  "guppyConfig": {
+		"dataType": "data_file",
+		"nodeCountTitle": "CEL Files",
+		"fieldMapping": [
+		],
+		"accessibleFieldCheckList": [
+		  "project_id"
+		],
+		"accessibleValidationField": "project_id"
+	  }
+	}
   ],
   "connectSrcCSPWhitelist": [
-    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov"
+	"https://protogen3.org"
   ]
 }
