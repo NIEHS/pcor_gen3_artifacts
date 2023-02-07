@@ -1,26 +1,7 @@
 {
     "graphql": {
       "boardCounts": [
-        {
-          "graphql": "_study_count",
-          "name": "Study",
-          "plural": "Studies"
-        },
-        {
-          "graphql": "_microarray_data_file_count",
-          "name": "Microarray",
-          "plural": "Microarrays"
-        }
-      ],
-      "chartCounts": [
-        {
-          "graphql": "_study_count",
-          "name": "Study"
-        },
-        {
-          "graphql": "_microarray_data_file_count",
-          "name": "Microarray"
-        }
+       
       ],
       "projectDetails": "boardCounts"
     },
@@ -64,7 +45,7 @@
         ]
       },
       "navigation": {
-        "title": "NIEHS Data Commons",
+        "title": "PCOR Data Commons",
         "items": [
           {
             "icon": "dictionary",
@@ -121,14 +102,6 @@
           "project_id": {
             "chartType": "count",
             "title": "Projects"
-          },
-          "species": {
-            "chartType": "bar",
-            "title": "Species"
-          },
-          "chemical": {
-            "chartType": "bar",
-            "title": "Chemical"
           }
         },
         "filters": {
@@ -137,8 +110,7 @@
               "title": "Study",
               "fields": [
                 "project_id",
-                "species",
-                "chemical"
+                "experiment_type"
               ]
             }
           ]
@@ -147,8 +119,7 @@
           "enabled": true,
           "fields": [
             "project_id",
-            "data_format",
-            "data_type"
+            "experiment_type"
           ]
         },
         "buttons": [
@@ -165,10 +136,6 @@
           "nodeCountTitle": "Studies",
           "fieldMapping": [],
           "manifestMapping": {
-            "resourceIndexType": "file",
-            "resourceIdField": "object_id",
-            "referenceIdFieldInResourceIndex": "study_id",
-            "referenceIdFieldInDataIndex": "study_id"
           }
         }
       }

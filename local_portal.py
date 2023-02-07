@@ -19,7 +19,6 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
 def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, runit=False):
     logging.info("run local")
     logging.info("portal_dir:%s" % portal_dir)
@@ -39,6 +38,8 @@ def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, ru
 
         # move gitops to portal folder
     shutil.copy2(pcor_artifacts+'/custom_configs/gitops.json', parent_dir + "/cdis-manifest/" + hostname + "/portal/gitops.json")
+    shutil.copy2(pcor_artifacts+'/custom_configs/manifest.json', parent_dir + "/cdis-manifest/" + hostname + "/manifest.json")
+
 
     if not runit:
         logger.info("not running, all done!")
