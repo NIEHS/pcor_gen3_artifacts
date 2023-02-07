@@ -34,7 +34,7 @@
       },
     "global": {
         "environment": "gen3aws",
-        "hostname": "pcor.local",
+        "hostname": "localhost",
         "revproxy_arn": "arn:aws:acm:us-east-1:956747263890:certificate/26ea7fd3-9bd2-46b4-ac60-0d39c1ba4589",
         "dictionary_url": "https://raw.githubusercontent.com/NIEHS/niehs-gen3/main/custom_configs/schema.json",
         "portal_app": "gitops",

@@ -10,7 +10,7 @@ import logging
 import argparse
 import shutil
 
-LOCAL_PORTAL_DNS_NAME = "pcor.local"
+LOCAL_PORTAL_DNS_NAME = "localhost"
 
 logging.basicConfig(
     level=logging.INFO,
