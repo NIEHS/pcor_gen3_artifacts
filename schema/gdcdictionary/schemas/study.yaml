@@ -60,6 +60,10 @@ properties:
     description: Flag that indicates whether this is a clinical trial study
     type: boolean
 
+  is_this_ods:
+    description: Is this our schema?
+    type: boolean
+
   study_completeness:
     description: Description of data status. 0=Descriptive data and results as originally
       received from the data provider. 1=Includes updates to the original data submission
