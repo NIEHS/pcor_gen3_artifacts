@@ -1,147 +1,386 @@
 {
-    "graphql": {
-      "boardCounts": [
-       
+  "graphql": {
+    "boardCounts": [
+      {
+        "graphql": "_dataset_count",
+        "name": "Expression Dataset",
+        "plural": "Expression data sets"
+      }
+    ],
+    "chartCounts": [
+      {
+        "graphql": "_dataset_count",
+        "name": "Expression Dataset",
+        "plural": "Expression data sets"
+      }
+    ],
+    "projectDetails": "boardCounts"
+  },
+  "components": {
+    "appName": "DNTP Data Lab",
+    "index": {
+      "introduction": {
+        "heading": "DNTP Data Lab",
+        "text": "The Data Lab is evaluating the use of cloud-based approaches to increase access to and utility of DNTP data in alignment with NIH data sharing goals",
+        "link": "/submission"
+      },
+      "buttons": [
+        {
+          "name": "Explore Data",
+          "icon": "data-explore",
+          "body": "Use the Exploration tool for cohort building via faceted search and downloading of subsets of data.",
+          "link": "/explorer",
+          "label": "Explore Data"
+        },
+        {
+          "name": "Data Dictionary",
+          "icon": "data-field-define",
+          "body": "The Data Commons employs a data model to power queries and data submissions. Study the dictionary to send GraphQL queries or format your data submissions.",
+          "link": "/DD",
+          "label": "View Dictionary"
+        },
+        {
+          "name": "Query Data",
+          "icon": "data-access",
+          "body": "Search and download subsets of data from the Data Commons using GraphQL queries.",
+          "link": "/query",
+          "label": "Query Data"
+        },
+        {
+          "name": "Analyze Data",
+          "icon": "data-analyze",
+          "body": "Perform analysis on the Data Commons data using Jupyter Notebooks.",
+          "link": "/workspace",
+          "label": "Run Analysis"
+        }
       ],
-    
-      "chartCounts": [
-        
-      ],
-      "projectDetails": "boardCounts"
+      "homepageChartNodes": []
     },
-    "components": {
-      "appName": "PCOR Data Commons",
-      "index": {
-        "introduction": {
-          "heading": "PCOR Data Commons",
-          "text": "PCOR NIEHS Data Commons environment via Gen3",
-          "link": "/submission"
+    "navigation": {
+      "items": [
+        {
+          "name": "Exploration",
+          "link": "/explorer",
+          "icon": "exploration",
+          "tooltip": "The Exploration Page enables discovery of the data at the study level and features a cohort builder."
         },
-        "buttons": [
+        {
+          "icon": "dictionary",
+          "link": "/DD",
+          "color": "#a2a2a2",
+          "name": "Dictionary",
+          "tooltip": "The Data Commons employs a data model to power queries and data submissions. Study the dictionary to send GraphQL queries or format your data submissions."
+        },
+        {
+          "name": "Query",
+          "link": "/query",
+          "icon": "query",
+          "tooltip": "Query the databases using GraphQL."
+        },
+        {
+          "name": "Workspace",
+          "link": "/workspace",
+          "icon": "workspace",
+          "tooltip": "The Workspace provides a secure cloud environment featuring Jupyter Notebooks and RStudio."
+        },
+        {
+          "icon": "profile",
+          "link": "/identity",
+          "color": "#a2a2a2",
+          "name": "Profile"
+        }
+      ]
+    },
+    "login": {
+      "title": "DNTP Data Lab",
+      "subTitle": "Explore, Analyze, and Share DNTP Expression Data",
+      "text": "",
+      "contact": "If you have any questions about access or the registration process, please contact ",
+      "email": "mike.conway@nih.gov"
+    },
+    "categorical9Colors": ["#B02F34", "#421C52", "#AEEBF2", "#E0DD10", "#40476D", "#FFA630", "#AE8799", "#035C94", "#462255"],
+    "footerLogos": [
+      {
+        "src": "/src/img/gen3.png",
+        "href": "https://ctds.uchicago.edu/gen3",
+        "alt": "Gen3 Data Commons"
+      }
+    ]
+  },
+  "featureFlags": {
+    "explorer": true,
+    "analysis": true,
+    "explorerPublic": true
+  },
+  "analysisTools": [ ],
+  "explorerConfig": [
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      "tabTitle": "NTP Expression Datasets",
+      "charts": {
+        "project_investigator_affiliation": {
+          "chartType": "bar",
+          "title": "Investigator Affiliation"
+        },
+        "species": {
+          "chartType": "bar",
+          "title": "species"
+        }
+      },
+      "filters": {
+        "tabs": [
           {
-            "name": "Define Data Field",
-            "icon": "data-field-define",
-            "body": "The Generic Data Commons define the data in a general way. Please study the dictionary before you start browsing.",
-            "link": "/DD",
-            "label": "Learn more"
-          },
-          {
-            "name": "Explore Data",
-            "icon": "data-explore",
-            "body": "The Exploration Page gives you insights and a clear overview under selected factors.",
-            "link": "/explorer",
-            "label": "Explore data"
-          },
-          {
-            "name": "Access Data",
-            "icon": "data-access",
-            "body": "Use our selected tool to filter out the data you need.",
-            "link": "/query",
-            "label": "Query data"
-          },
-          {
-            "name": "Submit Data",
-            "icon": "data-submit",
-            "body": "Submit Data based on the dictionary.",
-            "link": "/submission",
-            "label": "Submit data"
+            "title": "Dataset Properties",
+            "fields":[
+              "project_id",
+              "project_investigator_affiliation",
+              "species",
+              "strain",
+              "project_date",
+              "platform"
+            ]
           }
         ]
       },
-      "navigation": {
-        "title": "PCOR Data Commons",
-        "items": [
-          {
-            "icon": "dictionary",
-            "link": "/DD",
-            "color": "#a2a2a2",
-            "name": "Dictionary"
-          },
-          {
-            "icon": "exploration",
-            "link": "/explorer",
-            "color": "#a2a2a2",
-            "name": "Exploration"
-          },
-          {
-            "icon": "files",
-            "link": "/files",
-            "color": "#a2a2a2",
-            "name": "Files"
-          },
-          {
-            "icon": "query",
-            "link": "/query",
-            "color": "#a2a2a2",
-            "name": "Query"
-          },
-          {
-            "icon": "workspace",
-            "link": "#hostname#workspace/",
-            "color": "#a2a2a2",
-            "name": "Workspace"
-          },
-          {
-            "icon": "profile",
-            "link": "/identity",
-            "color": "#a2a2a2",
-            "name": "Profile"
-          }
+      "table": {
+        "enabled": true,
+        "fields": [
+          "project_id",
+          "project_date",
+          "project_investigator_affiliation",
+          "title",
+          "design",
+          "platform",
+          "species",
+          "strain",
+          "chemicals",
+          "tissue",
+          "cell_line",
+          "genetic_change",
+          "other_agent",
+          "study_duration",
+          "time_points",
+          "route",
+          "vehicle",
+          "geo_link",
+          "analysis_link",
+          "additional_information"
+        ],
+        "linkFields": [
+          "geo_link",
+          "analysis_link",
+          "additional_information"
         ]
       },
-      "login": {
-        "title": "PCOR Data Commons",
-        "subTitle": "explore, analyze, and share research data",
-        "text": "PCOR Data Commons",
-        "contact": "If you have any questions about access or the registration process, please contact ",
-        "email": "mike.conway@nih.gov"
+      "dropdowns": {
+        "download-table": {
+          "title": "Download Dataset Table"
+        }
       },
-      "featureFlags": {
-        "explorer": true,
-        "explorerPublic": true,
-        "discovery": false
-      },
-      "dataExplorerConfig": {
-        "charts": {
-          "project_id": {
-            "chartType": "count",
-            "title": "Projects"
-          }
-        },
-        "filters": {
-          "tabs": [
-            {
-              "title": "Study",
-              "fields": [
-                "project_id",
-                "experiment_type"
-              ]
-            }
-          ]
-        },
-        "table": {
+      "buttons": [
+        {
           "enabled": true,
-          "fields": [
-            "project_id",
-            "experiment_type"
-          ]
+          "type": "data-json",
+          "title": "JSON",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.json"
         },
-        "buttons": [
+        {
+          "enabled": true,
+          "type": "data-tsv",
+          "title": "TSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.tsv"
+        },
+        {
+          "enabled": true,
+          "type": "data-csv",
+          "title": "CSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.csv"
+        },
+        {
+          "enabled": true,
+          "type": "manifest",
+          "title": "Download File Manifest for Datasets",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "dataset_manifest.json"
+        },
+        {
+          "enabled": true,
+          "type": "export-to-workspace",
+          "title": "Export to Workspace",
+          "leftIcon": "datafile",
+          "rightIcon": "download"
+        },
+        {
+          "enabled": true,
+          "type": "export-pfb-to-workspace",
+          "title": "Export PFB to Workspace",
+          "leftIcon": "datafile",
+          "rightIcon": "download"
+        }
+      ],
+      "loginForDownload": true,
+      "guppyConfig": {
+        "dataType": "dataset",
+        "nodeCountTitle": "Expression Datasets",
+        "fieldMapping": [
           {
-            "enabled": true,
-            "type": "export-to-workspace",
-            "title": "Export to Workspace",
-            "leftIcon": "datafile",
-            "rightIcon": "external-link"
+            "field": "project_id",
+            "name": "Dataset ID"
+          },
+          {
+            "field": "submitter_id",
+            "name": "Dataset Name"
           }
         ],
-        "guppyConfig": {
-          "dataType": "study",
-          "nodeCountTitle": "Studies",
-          "fieldMapping": [],
-          "manifestMapping": {
-          }
+        "accessibleFieldCheckList": ["project_id"],
+        "accessibleValidationField": "project_id"
+      }
+    },
+
+
+    {
+      "tabTitle": "CEL Microarray Expression Data",
+      "charts": {
+
+        "species": {
+          "chartType": "bar",
+          "title": "species"
         }
+      },
+      "filters": {
+        "tabs": [
+          {
+            "title": "Microarray Properties",
+            "fields":[
+              "project_id",
+              "species",
+              "strain",
+              "platform"
+            ]
+          }
+
+        ]
+      },
+      "table": {
+        "enabled": true,
+        "fields": [
+          "project_id",
+          "platform",
+          "species",
+          "strain",
+          "file_name",
+          "file_size",
+          "data_type",
+          "data_format"
+        ],
+        "linkFields": [
+        ]
+      },
+      "dropdowns": {
+        "download-table": {
+          "title": "Download Dataset Table"
+        }
+      },
+      "buttons": [
+        {
+          "enabled": true,
+          "type": "data-json",
+          "title": "JSON",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.json"
+        },
+        {
+          "enabled": true,
+          "type": "data-tsv",
+          "title": "TSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.tsv"
+        },
+        {
+          "enabled": true,
+          "type": "data-csv",
+          "title": "CSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.csv"
+        },
+        {
+          "enabled": true,
+          "type": "manifest",
+          "title": "Download File Manifest for Datasets",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "dataset_manifest.json"
+        },
+        {
+          "enabled": true,
+          "type": "export-to-workspace",
+          "title": "Export to Workspace",
+          "leftIcon": "datafile",
+          "rightIcon": "download"
+        },
+        {
+          "enabled": true,
+          "type": "export-pfb-to-workspace",
+          "title": "Export PFB to Workspace",
+          "leftIcon": "datafile",
+          "rightIcon": "download"
+        }
+      ],
+      "loginForDownload": true,
+      "guppyConfig": {
+        "dataType": "data_file",
+        "nodeCountTitle": "CEL Files",
+        "fieldMapping": [
+        ],
+        "accessibleFieldCheckList": ["project_id"],
+        "accessibleValidationField": "project_id"
       }
     }
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+  ],
+  "connectSrcCSPWhitelist": [
+    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov"
+  ]
+}
