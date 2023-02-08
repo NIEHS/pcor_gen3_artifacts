@@ -194,39 +194,19 @@ project_id:
         $ref: "_terms.yaml#/project_id"
 
 data_file_properties:
-  id:
-    $ref: "#/UUID"
-    systemAlias: node_id
-  submitter_id:
-    type:
-      - string
-      - "null"
-    description: "The file ID assigned by the submitter." # TOREVIEW
+  $ref: "#/ubiquitous_properties"
   file_name:
     $ref: "#/file_name"
   file_size:
     $ref: "#/file_size"
   md5sum:
-    $ref: "#/md5sum" 
-  file_state:
-    $ref: "#/file_state"
+    $ref: "#/md5sum"
   object_id:
     $ref: "#/object_id"
-  state:
-    $ref: "#/state"
+  file_state:
+    $ref: "#/file_state"
   error_type:
     $ref: "#/data_file_error_type"
-  state_comment:
-    type: string
-    description: > 
-      Optional comment about why the file is in the
-      current state, mainly for invalid state.
-  project_id:
-    $ref: "#/project_id"
-  created_datetime:
-    $ref: "#/datetime"
-  updated_datetime:
-    $ref: "#/datetime"
 
 workflow_properties:
   id:
