@@ -39,3 +39,7 @@ properties:
   dbgap_accession_number:
     type: string
     description: "The dbgap accession number provided for the program."
+  datasets:
+    $ref: "_definitions.yaml#/to_one"
+  core_metadata_collections:
+    $ref: "_definitions.yaml#/to_one"
