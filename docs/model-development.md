@@ -23,8 +23,14 @@ This abstract metadata design as a graph of nodes and a specification of the pro
 
 ## Encode the model as .yaml
 
-This repository is the canonical store for the .yaml files that encode the PCOR model. The yaml files are encoded in [the schema section](schema/gdcdictionary/schemas/).
-Yaml is a markup language similar to JSON. Each node in the model graph is represented in its own .yaml file as illustrated by this example:
+This repository is the canonical store for the .yaml files that encode the PCOR model. The yaml files are encoded in schemas section under schema/gdcdictionary/schemas.
+Yaml is a markup language similar to JSON. 
+
+* Here is reference documentation from Gen3 on [models](https://gen3.org/resources/user/dictionary/)
+* Here is a [demonstration](https://gen3.datacommons.io/dd) of a data dictionary in Gen3
+
+
+Each node in the model graph is represented in its own .yaml file as illustrated by this example. 
 
 ```yaml
 
@@ -177,6 +183,21 @@ properties:
     description: "The dbgap accession number provided for the project."
 
 ```
+
+## Commit to Git to generate schema.json
+
+The yaml files that describe Gen3 nodes need to be converted into a compact json format for reading by Gen3. The yaml files are read in by 
+a [utility](../schema/dump_schema.py) that will emit the schema.json file. For our workflow, the act of committing changes to the model to 
+GitHub will cause an action to run on GitHub that will run the schema tool and place the schema.json file in the custom_configs area of the repository at [schema.json](../custom_configs/schema.json).
+
+The location on github is configured as the source of the schema information for Gen3, and Gen3 will load its schema from this location. Thus, a cycle of 
+encoding in yaml, commit to GitHub, load in Gen3 is possible.
+
+## Bring up Gen3 to view model
+
+Gen3 will read the encoded schema.json and integrate model changes automatically. Here we focus on bringing up the model using a local
+development workflow as described in the [local development workflow](./local-development-workflow.md) document. Please consult that doc for 
+next steps.
 
 
 
