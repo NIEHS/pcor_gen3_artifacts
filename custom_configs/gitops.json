@@ -114,22 +114,6 @@
   },
   "analysisTools": [ ],
   "explorerConfig": [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {
       "tabTitle": "NTP Expression Datasets",
       "charts": {
@@ -260,125 +244,7 @@
         "accessibleFieldCheckList": ["project_id"],
         "accessibleValidationField": "project_id"
       }
-    },
-
-
-    {
-      "tabTitle": "CEL Microarray Expression Data",
-      "charts": {
-
-        "species": {
-          "chartType": "bar",
-          "title": "species"
-        }
-      },
-      "filters": {
-        "tabs": [
-          {
-            "title": "Microarray Properties",
-            "fields":[
-              "project_id",
-              "species",
-              "strain",
-              "platform"
-            ]
-          }
-
-        ]
-      },
-      "table": {
-        "enabled": true,
-        "fields": [
-          "project_id",
-          "platform",
-          "species",
-          "strain",
-          "file_name",
-          "file_size",
-          "data_type",
-          "data_format"
-        ],
-        "linkFields": [
-        ]
-      },
-      "dropdowns": {
-        "download-table": {
-          "title": "Download Dataset Table"
-        }
-      },
-      "buttons": [
-        {
-          "enabled": true,
-          "type": "data-json",
-          "title": "JSON",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.json"
-        },
-        {
-          "enabled": true,
-          "type": "data-tsv",
-          "title": "TSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.tsv"
-        },
-        {
-          "enabled": true,
-          "type": "data-csv",
-          "title": "CSV",
-          "dropdownId": "download-table",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "datasets_table.csv"
-        },
-        {
-          "enabled": true,
-          "type": "manifest",
-          "title": "Download File Manifest for Datasets",
-          "leftIcon": "datafile",
-          "rightIcon": "download",
-          "fileName": "dataset_manifest.json"
-        },
-        {
-          "enabled": true,
-          "type": "export-to-workspace",
-          "title": "Export to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        },
-        {
-          "enabled": true,
-          "type": "export-pfb-to-workspace",
-          "title": "Export PFB to Workspace",
-          "leftIcon": "datafile",
-          "rightIcon": "download"
-        }
-      ],
-      "loginForDownload": true,
-      "guppyConfig": {
-        "dataType": "data_file",
-        "nodeCountTitle": "CEL Files",
-        "fieldMapping": [
-        ],
-        "accessibleFieldCheckList": ["project_id"],
-        "accessibleValidationField": "project_id"
-      }
     }
-
-
-
-
-
-
-
-
-
-
-
-
   ],
   "connectSrcCSPWhitelist": [
     "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov"
