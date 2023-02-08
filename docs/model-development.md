@@ -23,7 +23,7 @@ This abstract metadata design as a graph of nodes and a specification of the pro
 
 ## Encode the model as .yaml
 
-This repository is the canonical store for the .yaml files that encode the PCOR model. The yaml files are encoded in [the schema section](schema/gdcdictionary/schemas).
+This repository is the canonical store for the .yaml files that encode the PCOR model. The yaml files are encoded in [the schema section](schema/gdcdictionary/schemas/).
 Yaml is a markup language similar to JSON. Each node in the model graph is represented in its own .yaml file as illustrated by this example:
 
 ```yaml
