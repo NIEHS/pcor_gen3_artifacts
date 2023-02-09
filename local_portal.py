@@ -42,9 +42,6 @@ def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, ru
     # copy schema.json to data
     shutil.copy2(pcor_artifacts+'/custom_configs/schema.json', portal_dir + "/data/schema.json")
 
-
-
-
     if not runit:
         logger.info("not running, all done!")
         exit(0)
@@ -52,7 +49,7 @@ def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, ru
     logger.info("running npm ci")
     os.chdir(portal_dir)
     os.system("pwd")
-    os.system("npm ci ")
+    #os.system("npm ci ")
     os.system("HOSTNAME=" + hostname + " NODE_ENV=auto bash ./runWebpack.sh")
 
     
