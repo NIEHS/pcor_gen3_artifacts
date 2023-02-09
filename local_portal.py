@@ -19,6 +19,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, runit=False):
     logging.info("run local")
     logging.info("portal_dir:%s" % portal_dir)
