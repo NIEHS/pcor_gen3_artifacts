@@ -36,9 +36,13 @@ def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, ru
     except OSError as error:
         print(error)
 
-        # move gitops to portal folder
+        # move gitops and manifest to cdis manifest
     shutil.copy2(pcor_artifacts+'/custom_configs/gitops.json', parent_dir + "/cdis-manifest/" + hostname + "/portal/gitops.json")
     shutil.copy2(pcor_artifacts+'/custom_configs/manifest.json', parent_dir + "/cdis-manifest/" + hostname + "/manifest.json")
+    # copy schema.json to data
+    shutil.copy2(pcor_artifacts+'/custom_configs/schema.json', portal_dir + "/data/schema.json")
+
+
 
 
     if not runit:
