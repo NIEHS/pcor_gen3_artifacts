@@ -112,6 +112,7 @@
     "analysis": true,
     "explorerPublic": true
   },
+  "requiredCerts": [ ],
   "analysisTools": [ ],
   "explorerConfig": [
     {
