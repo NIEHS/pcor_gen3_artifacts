@@ -3,7 +3,7 @@ $schema: "http://json-schema.org/draft-04/schema#"
 id: "publication"
 title: Publication
 type: object
-namespace: http://gdc.nci.nih.gov
+namespace: http://gen3.niehs.nih.gov/
 category: administrative
 program: '*'
 project: '*'
@@ -34,11 +34,11 @@ required:
 
 uniqueKeys:
   - [ id ]
-  - [ project_id, submitter_id ] 
+  - [ project_id, submitter_id ]
 
 properties:
   type:
-    enum: [ "publication" ] 
+    enum: [ "publication" ]
   id:
     $ref: "_definitions.yaml#/UUID"
     systemAlias: node_id
@@ -48,15 +48,45 @@ properties:
     type:
       - string
       - "null"
+  title:
+    type: string
+    description: "Title of the publication"
+  internal_id:
+    type: string
+  geo:
+    type: string
+  geo_link:
+    type: string
+    description: "GEO Accession link for project level data"
   pmid:
     type: string
-  doi:
+  pubmed_link:
     type: string
-  projects:
-    $ref: "_definitions.yaml#/to_many_project"
+  cebs_acc_no:
+    description: cebs accession number
+    type: string
+  cebs_link:
+    description: cebs accession number
+    type: string
+  institution:
+    type: string
+  author:
+    type: string
+  co_author:
+    type: string
+  chemical:
+    type: string
+    description: "Chemical of interest"
+  species:
+    type: string
+    desription: "Species of interest"
   project_id:
     type: string
+  year_published:
+      type: string
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
+  projects:
+    $ref: "_definitions.yaml#/to_many_project"
