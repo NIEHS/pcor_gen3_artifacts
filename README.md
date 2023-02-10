@@ -11,10 +11,10 @@ PCOR has multiple associated repositories which are cataloged here:
 
 This space is for development and encoding of a data model for PCOR to support the data catalog and other activities.
 
-* The docs section includes developer docs for the portal and data model
-* The model-development section includes docs and model planning, sketch data models
-* The schema section holds the encoded model artifacts
-* The workflows section supports GitHub CI/CD actions and automation for model development
+* The [docs](./docs/) section includes developer docs for [running the portal](./docs/local-development-workflow.md) as a dev and [data model development workflow](./docs/model-development.md)
+* The [schema](./schema/gdcdictionary/schemas/) section holds the encoded model artifacts
+* The [workflows section](./.github/workflows/) supports GitHub CI/CD actions and automation for model development
+* The [custom configs](./custom_configs/) section holds the gitops, manifest, and other deployment artifacts that customize the catalog
 
 
 

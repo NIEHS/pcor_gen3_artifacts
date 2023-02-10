@@ -40,3 +40,10 @@ guppy:
 hatchery:
   enabled: false
 ```
+
+## Developer tools and scripts
+
+This repo will hold scripts and tools that help with the development workflow.
+
+* [pull_containers.sh](../pull_containers.sh) is a script that can will pull the relevant docker images, faster than letting Helm do it
+* [local_portal.py](../local_portal.py) is a utility script for running data_portal locally for gitops development and for building the custom container. This is a work in progres, check the comments in that script for usage
