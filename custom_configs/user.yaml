@@ -1,0 +1,481 @@
+authz:
+  # policies automatically given to anyone, even if they are not authenticated
+  anonymous_policies:
+  - open_data_reader
+
+  # policies automatically given to authenticated users (in addition to their other policies)
+  all_users_policies: []
+
+  groups:
+  # can CRUD programs and projects and upload data files
+  - name: data_submitters
+    policies:
+    - services.sheepdog-admin
+    - data_upload
+    - project_submitter
+    users:
+    - deeppatel.cs@gmail.com
+    - michael.c.conway@gmail.com
+    - sznolte@gmail.com
+    - schmittcp@yahoo.com
+    - test
+
+    # can do workspace operations
+  - name: workspace_users
+    policies:
+      - workspace
+      - sower
+    users:
+      - deeppatel.cs@gmail.com
+      - michael.c.conway@gmail.com
+      - sznolte@gmail.com
+      - schmittcp@yahoo.com
+      - test
+      - schmittcp@yahoo.com
+      - test
+
+    # can create/update/delete indexd records
+  - name: indexd_admins
+    policies:
+    - indexd_admin
+    users:
+    - deeppatel.cs@gmail.com
+    - michael.c.conway@gmail.com
+    - sznolte@gmail.com
+    - schmittcp@yahoo.com
+    - test
+  resources:
+  - name: workspace
+  - name: sower
+  - name: data_file
+  - name: services
+    subresources:
+    - name: sheepdog
+      subresources:
+      - name: submission
+        subresources:
+        - name: program
+        - name: project
+  - name: open
+  - name: programs
+    subresources:
+    - name: NTP
+      subresources:
+      - name: projects
+        subresources:
+          - name: EHES-10
+          - name: EHES-11
+          - name: EHES-12
+          - name: EHES-13
+          - name: EHES-14
+          - name: EHES-15
+          - name: EHES-16
+          - name: EHES-17
+          - name: EHES-18
+          - name: EHES-19
+          - name: EHES-20
+          - name: EHES-21
+          - name: EHES-22
+          - name: EHES-23
+          - name: EHES-24
+          - name: EHES-25
+          - name: EHES-26
+          - name: EHES-27
+          - name: EHES-28
+          - name: EHES-29
+          - name: EHES-30
+          - name: EHES-31
+          - name: EHES-32
+          - name: EHES-33
+          - name: EHES-34
+          - name: EHES-35
+          - name: EHES-36
+          - name: EHES-37
+          - name: EHES-38
+          - name: EHES-39
+          - name: EHES-40
+          - name: EHES-41
+          - name: EHES-42
+          - name: EHES-43
+          - name: EHES-44
+          - name: EHES-45
+          - name: EHES-46
+          - name: EHES-47
+          - name: EHES-48
+          - name: EHES-49
+          - name: EHES-50
+          - name: EHES-51
+          - name: EHES-52
+          - name: EHES-53
+          - name: EHES-54
+          - name: EHES-55
+          - name: EHES-56
+          - name: EHES-57
+          - name: EHES-58
+          - name: EHES-59
+          - name: EHES-60
+          - name: EHES-61
+          - name: EHES-62
+          - name: EHES-63
+          - name: EHES-64
+          - name: EHES-65
+          - name: EHES-66
+          - name: EHES-67
+          - name: EHES-68
+          - name: EHES-69
+          - name: EHES-70
+          - name: EHES-71
+          - name: EHES-72
+          - name: EHES-74
+    - name: jnkns
+      subresources:
+        - name: projects
+          subresources:
+            - name: jenkins
+    #- name: program1
+    #  subresources:
+    #  - name: projects
+    #    subresources:
+    #    - name: P1
+
+  policies:
+  - id: workspace
+    description: be able to use workspace
+    resource_paths:
+    - /workspace
+    role_ids:
+    - workspace_user
+  - id: data_upload
+    description: upload raw data files to S3
+    role_ids:
+    - file_uploader
+    resource_paths:
+    - /data_file
+  - id: services.sheepdog-admin
+    description: CRUD access to programs and projects
+    role_ids:
+      - sheepdog_admin
+    resource_paths:
+      - /services/sheepdog/submission/program
+      - /services/sheepdog/submission/project
+  - id: indexd_admin
+    description: full access to indexd API
+    role_ids:
+      - indexd_admin
+    resource_paths:
+      - /programs
+      - /data_file
+  - id: open_data_reader
+    role_ids:
+      - reader
+      - storage_reader
+    resource_paths:
+    - /open
+    - /programs/NTP/projects/EHES-10
+    - /programs/NTP/projects/EHES-11
+    - /programs/NTP/projects/EHES-12
+    - /programs/NTP/projects/EHES-13
+    - /programs/NTP/projects/EHES-14
+    - /programs/NTP/projects/EHES-15
+    - /programs/NTP/projects/EHES-16
+    - /programs/NTP/projects/EHES-17
+    - /programs/NTP/projects/EHES-18
+    - /programs/NTP/projects/EHES-19
+    - /programs/NTP/projects/EHES-20
+    - /programs/NTP/projects/EHES-21
+    - /programs/NTP/projects/EHES-22
+    - /programs/NTP/projects/EHES-23
+    - /programs/NTP/projects/EHES-24
+    - /programs/NTP/projects/EHES-25
+    - /programs/NTP/projects/EHES-26
+    - /programs/NTP/projects/EHES-27
+    - /programs/NTP/projects/EHES-28
+    - /programs/NTP/projects/EHES-29
+    - /programs/NTP/projects/EHES-30
+    - /programs/NTP/projects/EHES-31
+    - /programs/NTP/projects/EHES-32
+    - /programs/NTP/projects/EHES-33
+    - /programs/NTP/projects/EHES-34
+    - /programs/NTP/projects/EHES-35
+    - /programs/NTP/projects/EHES-36
+    - /programs/NTP/projects/EHES-37
+    - /programs/NTP/projects/EHES-38
+    - /programs/NTP/projects/EHES-39
+    - /programs/NTP/projects/EHES-40
+    - /programs/NTP/projects/EHES-41
+    - /programs/NTP/projects/EHES-42
+    - /programs/NTP/projects/EHES-43
+    - /programs/NTP/projects/EHES-44
+    - /programs/NTP/projects/EHES-45
+    - /programs/NTP/projects/EHES-46
+    - /programs/NTP/projects/EHES-47
+    - /programs/NTP/projects/EHES-48
+    - /programs/NTP/projects/EHES-49
+    - /programs/NTP/projects/EHES-50
+    - /programs/NTP/projects/EHES-51
+    - /programs/NTP/projects/EHES-52
+    - /programs/NTP/projects/EHES-53
+    - /programs/NTP/projects/EHES-54
+    - /programs/NTP/projects/EHES-55
+    - /programs/NTP/projects/EHES-56
+    - /programs/NTP/projects/EHES-57
+    - /programs/NTP/projects/EHES-58
+    - /programs/NTP/projects/EHES-59
+    - /programs/NTP/projects/EHES-60
+    - /programs/NTP/projects/EHES-61
+    - /programs/NTP/projects/EHES-62
+    - /programs/NTP/projects/EHES-63
+    - /programs/NTP/projects/EHES-64
+    - /programs/NTP/projects/EHES-65
+    - /programs/NTP/projects/EHES-66
+    - /programs/NTP/projects/EHES-67
+    - /programs/NTP/projects/EHES-68
+    - /programs/NTP/projects/EHES-69
+    - /programs/NTP/projects/EHES-70
+    - /programs/NTP/projects/EHES-71
+    - /programs/NTP/projects/EHES-72
+    - /programs/NTP/projects/EHES-74
+  - id: all_programs_reader
+    role_ids:
+    - reader
+    - storage_reader
+    resource_paths:
+    - /programs
+  - id: project_submitter
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NTP/projects/EHES-10
+    - /programs/NTP/projects/EHES-11
+    - /programs/NTP/projects/EHES-12
+    - /programs/NTP/projects/EHES-13
+    - /programs/NTP/projects/EHES-14
+    - /programs/NTP/projects/EHES-15
+    - /programs/NTP/projects/EHES-16
+    - /programs/NTP/projects/EHES-17
+    - /programs/NTP/projects/EHES-18
+    - /programs/NTP/projects/EHES-19
+    - /programs/NTP/projects/EHES-20
+    - /programs/NTP/projects/EHES-21
+    - /programs/NTP/projects/EHES-22
+    - /programs/NTP/projects/EHES-23
+    - /programs/NTP/projects/EHES-24
+    - /programs/NTP/projects/EHES-25
+    - /programs/NTP/projects/EHES-26
+    - /programs/NTP/projects/EHES-27
+    - /programs/NTP/projects/EHES-28
+    - /programs/NTP/projects/EHES-29
+    - /programs/NTP/projects/EHES-30
+    - /programs/NTP/projects/EHES-31
+    - /programs/NTP/projects/EHES-32
+    - /programs/NTP/projects/EHES-33
+    - /programs/NTP/projects/EHES-34
+    - /programs/NTP/projects/EHES-35
+    - /programs/NTP/projects/EHES-36
+    - /programs/NTP/projects/EHES-37
+    - /programs/NTP/projects/EHES-38
+    - /programs/NTP/projects/EHES-39
+    - /programs/NTP/projects/EHES-40
+    - /programs/NTP/projects/EHES-41
+    - /programs/NTP/projects/EHES-42
+    - /programs/NTP/projects/EHES-43
+    - /programs/NTP/projects/EHES-44
+    - /programs/NTP/projects/EHES-45
+    - /programs/NTP/projects/EHES-46
+    - /programs/NTP/projects/EHES-47
+    - /programs/NTP/projects/EHES-48
+    - /programs/NTP/projects/EHES-49
+    - /programs/NTP/projects/EHES-50
+    - /programs/NTP/projects/EHES-51
+    - /programs/NTP/projects/EHES-52
+    - /programs/NTP/projects/EHES-53
+    - /programs/NTP/projects/EHES-54
+    - /programs/NTP/projects/EHES-55
+    - /programs/NTP/projects/EHES-56
+    - /programs/NTP/projects/EHES-57
+    - /programs/NTP/projects/EHES-58
+    - /programs/NTP/projects/EHES-59
+    - /programs/NTP/projects/EHES-60
+    - /programs/NTP/projects/EHES-61
+    - /programs/NTP/projects/EHES-62
+    - /programs/NTP/projects/EHES-63
+    - /programs/NTP/projects/EHES-64
+    - /programs/NTP/projects/EHES-65
+    - /programs/NTP/projects/EHES-66
+    - /programs/NTP/projects/EHES-67
+    - /programs/NTP/projects/EHES-68
+    - /programs/NTP/projects/EHES-69
+    - /programs/NTP/projects/EHES-70
+    - /programs/NTP/projects/EHES-71
+    - /programs/NTP/projects/EHES-72
+    - /programs/NTP/projects/EHES-74
+  - id: jnkns
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/jnkns
+    - /programs/jnkns/projects/jenkins
+  - id: sower
+    description: be able to user sower
+    resource_paths:
+    - /sower
+    role_ids:
+    - sower_user
+  - id: NTP
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NTP
+  roles:
+  - id: file_uploader
+    permissions:
+    - id: file_upload
+      action:
+        service: fence
+        method: file_upload
+  - id: workspace_user
+    permissions:
+    - id: workspace_access
+      action:
+        service: jupyterhub
+        method: access
+  - id: sheepdog_admin
+    description: CRUD access to programs and projects
+    permissions:
+    - id: sheepdog_admin_action
+      action:
+        service: sheepdog
+        method: '*'
+  - id: indexd_admin
+    description: full access to indexd API
+    permissions:
+    - id: indexd_admin
+      action:
+        service: indexd
+        method: '*'
+  - id: admin
+    permissions:
+      - id: admin
+        action:
+          service: '*'
+          method: '*'
+  - id: creator
+    permissions:
+      - id: creator
+        action:
+          service: '*'
+          method: create
+  - id: reader
+    permissions:
+      - id: reader
+        action:
+          service: '*'
+          method: read
+  - id: updater
+    permissions:
+      - id: updater
+        action:
+          service: '*'
+          method: update
+  - id: deleter
+    permissions:
+      - id: deleter
+        action:
+          service: '*'
+          method: delete
+  - id: storage_writer
+    permissions:
+      - id: storage_creator
+        action:
+          service: '*'
+          method: write-storage
+  - id: storage_reader
+    permissions:
+      - id: storage_reader
+        action:
+          service: '*'
+          method: read-storage
+  - id: sower_user
+    permissions:
+      - id: sower_access
+        action:
+          method: access
+          service: job
+clients:
+  wts:
+    policies:
+    - all_programs_reader
+    - open_data_reader
+
+users:
+  deeppatel.cs@gmail.com:
+    tags:
+      name: Deep Patel
+#      email: mustbe@differentemail.com
+    policies:
+    - workspace
+    - data_upload
+    - project_submitter
+    - jnkns
+    - NTP
+    - services.sheepdog-admin
+  michael.c.conway@gmail.com:
+    tags:
+      name: Mike Conway
+#      email: johndoe@gmail.com
+    policies:
+    - workspace
+    - data_upload
+    - project_submitter
+    - jnkns
+    - NTP
+    - services.sheepdog-admin
+  sznolte@gmail.com:
+    tags:
+      name: Mike Conway
+    #      email: johndoe@gmail.com
+    policies:
+      - workspace
+      - data_upload
+      - project_submitter
+      - jnkns
+      - NTP
+      - services.sheepdog-admin
+  schmittcp@yahoo.com:
+    tags:
+      name: Charles Schmitt
+    policies:
+      - workspace
+      - data_upload
+      - project_submitter
+      - jnkns
+      - NTP
+      - services.sheepdog-admin
+  test:
+    tags:
+      name: test
+    #      email: johndoe@gmail.com
+    policies:
+      - workspace
+      - data_upload
+      - project_submitter
+      - jnkns
+      - NTP
+      - services.sheepdog-admin
+cloud_providers: {}
+groups: {}
