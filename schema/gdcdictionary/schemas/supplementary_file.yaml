@@ -30,10 +30,16 @@ links:
         target_type: core_metadata_collection
         multiplicity: many_to_one
         required: false
-      - name: datasets
+      - name: geospatial_data_resources
         backref: supplementary_files
         label: refers_to
-        target_type: dataset
+        target_type: geospatial_data_resource
+        multiplicity: many_to_one
+        required: false
+      - name: population_data_resources
+        backref: supplementary_files
+        label: refers_to
+        target_type: population_data_resource
         multiplicity: many_to_one
         required: false
 
@@ -71,10 +77,12 @@ properties:
   data_format:
     description: "The text term describing the file format of the supplementary file, for example, PDF, XLSX, JPEG, PNG, TSV, etc."
     type: string
-
   core_metadata_collections:
     description: The submitter_id or id of the core_metadata_collection to which the supplementary file belongs, i.e., a link to a record in the parent node.
     $ref: "_definitions.yaml#/to_many"
-  datasets:
+  geospatial_data_resources:
+    description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
+    $ref: "_definitions.yaml#/to_many"
+  population_data_resources:
     description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
     $ref: "_definitions.yaml#/to_many"
