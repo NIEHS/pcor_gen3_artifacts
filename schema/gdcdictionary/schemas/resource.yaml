@@ -1,7 +1,7 @@
 $schema: "http://json-schema.org/draft-04/schema#"
 
-id: "dataset"
-title: Dataset
+id: "resource"
+title: Resource
 type: object
 nodeTerms: null
 namespace: http://gen3.niehs.nih.gov/
@@ -22,7 +22,7 @@ systemProperties:
 
 links:
   - name: projects
-    backref: datasets
+    backref: resources
     label: performed_for
     target_type: project
     multiplicity: many_to_one
