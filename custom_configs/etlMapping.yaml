@@ -1,8 +1,8 @@
 mappings:
-  - name: pcor_dataset
-    doc_type: dataset
+  - name: geospatial_resource
+    doc_type: geospatial_data_resource
     type: aggregator
-    root: dataset
+    root: geospatial_data_resource
     props:
       - name: project_id
       - name: submitter_id

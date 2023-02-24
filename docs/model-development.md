@@ -207,3 +207,4 @@ Data that is entered into Gen3 based on the encoded model is stored in a graph f
 to create the schema in Elasticsearch (OpenSearch) that is used by the Gen3 data portal. The ETL transformations are placed in the [custom_configs](../custom_configs/) in the [etlMapping.yaml](../custom_configs/etlMapping.yaml) file.
 
 * [ETL Mapping Guide](https://github.com/uc-cdis/tube/blob/master/docs/configuration_file.md)
+* [CDIS Model Repo] (https://github.com/uc-cdis/cdis-manifest)

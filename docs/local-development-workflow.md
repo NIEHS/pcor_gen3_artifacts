@@ -18,7 +18,8 @@ Once rancher is installed.
 1. Clone the repository
 2. Navigate to the gen3-helm/helm/gen3 directory and run `helm dependency update`
 3. Navigate to the back to the gen3-helm directory and create your values.yaml file. See the Sample values.yaml section for a minimal example.
-4. Run `helm upgrade --install gen3 ./helm/gen3 -f ./values.yaml`
+4. Run `helm install --namespace gen3 gen3 ./helm/gen3 -f ../helm-local/values.yaml` (adjusting the location of your local values).
+5. Bring up https://localhost. You may need an incognito window to accept the cert.
 
 
 ### Sample values.yaml
