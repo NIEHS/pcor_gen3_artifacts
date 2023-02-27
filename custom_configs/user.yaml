@@ -19,7 +19,6 @@ authz:
     - sznolte@gmail.com
     - schmittcp@yahoo.com
     - test
-
     # can do workspace operations
   - name: workspace_users
     policies:
@@ -187,7 +186,7 @@ authz:
     - /sower
     role_ids:
     - sower_user
-  - id: NTP
+  - id: NFS
     role_ids:
     - reader
     - creator
@@ -196,7 +195,47 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/NTP
+    - /programs/NFS
+  - id: USGS
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/USGS
+  - id: NOAA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NOAA
+  - id: EPA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/EPA
+  - id: NASA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NASA
   roles:
   - id: file_uploader
     permissions:
