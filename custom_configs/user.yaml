@@ -30,9 +30,6 @@ authz:
       - sznolte@gmail.com
       - schmittcp@yahoo.com
       - test
-      - schmittcp@yahoo.com
-      - test
-
     # can create/update/delete indexd records
   - name: indexd_admins
     policies:
