@@ -85,7 +85,6 @@ authz:
         subresources:
           - name: NASA-1
           - name: NASA-2
-          
     - name: jnkns
       subresources:
         - name: projects

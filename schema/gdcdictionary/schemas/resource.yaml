@@ -30,8 +30,10 @@ links:
 
 required:
   - submitter_id
+  - resource_id
+  - name
+  - resource_type
   - type
-  - title
   - projects
 
 uniqueKeys:
@@ -53,9 +55,9 @@ properties:
     description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
     type: string
   type:
-    description: The name of the node in the database to be used in queries. In this case "dataset".
+    description: The name of the node in the database to be used in queries. 
     enum:
-      - dataset
+      - resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
 
