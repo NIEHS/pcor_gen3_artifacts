@@ -11,7 +11,7 @@ mappings:
       - name: time_extent_end
       - name: spatial_resolution
       - name: spatial_coverage
-      - name: resource_link
+      - name: resource_link 
     joining_props:
       - index: data_file
         join_on: _dataset_id
@@ -26,7 +26,7 @@ mappings:
             src: data_type
             fn: set
     parent_props:
-      - path: projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected],resources[resource_id, resource_name:name, resource_secondary_name:seconday_name, resource_type, resource_description:description]
+      - path: resources[resource_id, resource_name:name, resource_secondary_name:seconday_name, resource_type, resource_description:description].projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected]
   - name: supplementary_file
     doc_type: data_file
     type: collector
