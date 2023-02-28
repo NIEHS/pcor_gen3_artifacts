@@ -1,5 +1,5 @@
 mappings:
-  - name: geospatial_resource
+  - name: geospatial_data_resource
     doc_type: geospatial_data_resource
     type: aggregator
     root: geospatial_data_resource
