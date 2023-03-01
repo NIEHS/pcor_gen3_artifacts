@@ -133,11 +133,7 @@
             "title": "Geospatial Data Resources",
             "fields":[
               "project_id",
-              "project_investigator_affiliation",
-              "resource_type",
               "observation",
-              "time_extent_start",
-              "time_extent_end",
               "spatial_resolution"
             ]
           }
@@ -147,17 +143,11 @@
         "enabled": true,
         "fields": [
           "project_id",
-          "project_date",
-          "project_investigator_affiliation",
-          "resource_name",
-          "resource_secondary_name",
-          "resource_type",
-          "resource_description",
+          "observation",
+          "spatial_resolution",
+          "spatial_coverage",	
           "resource_link"
           
-        ],
-        "linkFields": [
-          "geo_link"
         ]
       },
       "dropdowns": {
@@ -196,7 +186,7 @@
       ],
       "loginForDownload": true,
       "guppyConfig": {
-        "dataType": "geospatial_resource",
+        "dataType": "geospatial_data_resource",
         "nodeCountTitle": "Geospatial Data Resources",
         "fieldMapping": [
           {

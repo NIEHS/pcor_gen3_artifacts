@@ -2,7 +2,11 @@
     "indices": [
         {
             "index": "geospatial_data_resource",
-            "type": "geospatial_data_resource"
+            "type":  "geospatial_data_resource"
+        },
+        {
+            "index": "supplementary_file",
+            "type": "data_file"
         }
     ],
     "config_index": "geospatial_data_resource-array-config",
