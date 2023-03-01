@@ -6,7 +6,7 @@ mappings:
     props:
       - name: project_id
       - name: submitter_id
-      - name: obervation
+      - name: observation
       - name: time_extent_start
       - name: time_extent_end
       - name: spatial_resolution

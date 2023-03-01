@@ -196,7 +196,7 @@
       ],
       "loginForDownload": true,
       "guppyConfig": {
-        "dataType": "geospatial_resource",
+        "dataType": "geospatial_data_resource",
         "nodeCountTitle": "Geospatial Data Resources",
         "fieldMapping": [
           {
