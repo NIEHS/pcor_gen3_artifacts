@@ -36,12 +36,6 @@ links:
         target_type: geospatial_data_resource
         multiplicity: many_to_one
         required: false
-      - name: population_data_resources
-        backref: supplementary_files
-        label: refers_to
-        target_type: population_data_resource
-        multiplicity: many_to_one
-        required: false
 
 required:
   - submitter_id
