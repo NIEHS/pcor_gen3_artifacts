@@ -109,7 +109,7 @@
   },
   "featureFlags": {
     "explorer": true,
-    "analysis": true,
+    "analysis": false,
     "explorerPublic": true
   },
   "requiredCerts": [ ],
@@ -132,6 +132,7 @@
           {
             "title": "Geospatial Data Resources",
             "fields":[
+              "program_name",
               "project_id",
               "observation",
               "spatial_resolution"
@@ -146,8 +147,12 @@
           "observation",
           "spatial_resolution",
           "spatial_coverage",	
+          "resource_name",
+          "resource_description",
           "resource_link"
-          
+        ],
+        "linkFields": [
+          "resource_link"
         ]
       },
       "dropdowns": {
