@@ -14,3 +14,20 @@ mappings:
       - name: resource_link 
     parent_props:
       - path: resources[resource_id, resource_name:name, resource_secondary_name:secondary_name, resource_type, resource_description:description].projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected].programs[program_name:name]
+  - name: population_data_resource
+    doc_type: population_data_resource
+    type: aggregator
+    root: population_data_resource
+    props:
+      - name: project_id
+      - name: submitter_id
+      - name: observation
+      - name: time_extent_start
+      - name: time_extent_end
+      - name: spatial_resolution
+      - name: spatial_coverage
+      - name: population
+      - name: exposure
+      - name: resource_link 
+    parent_props:
+      - path: resources[resource_id, resource_name:name, resource_secondary_name:secondary_name, resource_type, resource_description:description].projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected].programs[program_name:name]
