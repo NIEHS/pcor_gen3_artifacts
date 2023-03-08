@@ -1,0 +1,116 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "resource"
+title: Resource
+type: object
+nodeTerms: null
+namespace: http://gen3.niehs.nih.gov/
+category: administrative
+program: '*'
+project: '*'
+description: A collection of data or resources, can have files attached or may point to an external reference 
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: projects
+    backref: resources
+    label: performed_for
+    target_type: project
+    multiplicity: many_to_one
+    required: true
+
+required:
+  - submitter_id
+  - resource_id
+  - name
+  - resource_type
+  - type
+  - projects
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+properties:
+ 
+  #system properties, do not change or remove:
+  created_datetime:
+    $ref: "_definitions.yaml#/datetime"
+  id:
+    $ref: "_definitions.yaml#/UUID"
+  project_id:
+    $ref: "_definitions.yaml#/project_id"
+  state:
+    $ref: "_definitions.yaml#/state"
+  submitter_id:
+    description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
+    type: string
+  type:
+    description: The name of the node in the database to be used in queries. 
+    enum:
+      - resource
+  updated_datetime:
+    $ref: "_definitions.yaml#/datetime"
+
+  # additional properties to describe the dataset
+  resource_id:
+    description: Internal identifier.
+    type: string
+  name:
+    description: Name of resource.
+    type: string
+  secondary_name:
+    description: Secondary name of resource.
+    type: string
+  resource_type:
+    description: Type of resource
+    enum:
+      - data_resource
+      - tool_resource
+      - training_resource
+  description:
+    description: A text description of the resource.
+    type: string
+  subject:
+    description: Subject of the resource.
+    type: string
+  keywords: 
+    description: Comma delim keywords.
+    type: string
+  update_frequency:
+    description: Frequency of update of the resource.
+    enum:
+      - fixed
+      - continuous
+      - hourly
+      - monthly
+      - quarterly
+      - annually
+      - unknown
+  license_type:
+    description: Type of license.
+    type: string
+  license_text:
+    description: Text of license terms.
+  verificatin_datetime:
+    description: Date that the resource was last verified.
+    $ref: "_definitions.yaml#/datetime"
+  resource_use_agreement:
+    description: Is a resource use agreement in place?
+    type: boolean
+  resource_contact: 
+    description: Contact information for the resource.
+    type: string
+  projects:
+    description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
+    $ref: "_definitions.yaml#/to_one_project"
+  

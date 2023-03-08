@@ -1,0 +1,96 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "population_data_resource"
+title: PopulationDataResource
+type: object
+nodeTerms: null
+namespace: http://gen3.niehs.nih.gov/
+category: administrative
+program: '*'
+project: '*'
+description: This incorporates the PECO model, we could break out into an peco/pico specific data resource to handle general population data like county cancer statistics
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: resources
+    backref: population_data_resources
+    label: is_a_resource_of
+    target_type: resource
+    multiplicity: many_to_one
+    required: true
+
+required:
+  - submitter_id
+  - type
+  - title
+  - projects
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+properties:
+ 
+  #system properties, do not change or remove:
+  created_datetime:
+    $ref: "_definitions.yaml#/datetime"
+  id:
+    $ref: "_definitions.yaml#/UUID"
+  project_id:
+    $ref: "_definitions.yaml#/project_id"
+  state:
+    $ref: "_definitions.yaml#/state"
+  submitter_id:
+    description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
+    type: string
+  type:
+    description: The name of the node in the database to be used in queries. 
+    enum:
+      - geospatial_data_resource
+  updated_datetime:
+    $ref: "_definitions.yaml#/datetime"
+
+  # additional properties to describe the dataset
+  time_extent_start:
+    description: Earliest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_end:
+    description: Latest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_points:
+    description: Listing of time points.
+    type: string
+  spatial_resolution:
+    description: Maximum spatial resolution of the data.
+    enum:
+      - 10km
+      - census_tract
+  spatial_coverage: 
+    description: Maximum spatial coverage of the data.
+    enum:
+      - county
+      - state
+      - national
+  population:
+    description: Type of population
+    type: array
+    items:
+      type: string
+  exposure:
+    description: Substance the population was exposed to (may be missing for non-specific exposure).
+    type: string
+  resource_link:
+    description: Link to an external resource
+    type: string
+  resources:
+    description: The resource this dataset belongs to, i.e., a link to the parent node.
+    $ref: "_definitions.yaml#/to_many"
