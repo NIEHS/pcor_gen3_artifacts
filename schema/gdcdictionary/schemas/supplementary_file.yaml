@@ -77,3 +77,6 @@ properties:
   geospatial_data_resources:
     description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
     $ref: "_definitions.yaml#/to_many"
+  population_data_resources:
+    description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
+    $ref: "_definitions.yaml#/to_many"
