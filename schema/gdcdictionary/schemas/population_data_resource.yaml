@@ -31,8 +31,8 @@ links:
 required:
   - submitter_id
   - type
-  - projects
-
+  - population
+  - exposure 
 uniqueKeys:
   - [id]
   - [project_id, submitter_id]
