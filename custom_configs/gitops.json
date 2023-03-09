@@ -238,7 +238,6 @@
         "enabled": true,
         "fields": [
           "project_id",
-          "observation",
           "spatial_coverage",
           "spatial_resolution",
           "population",
