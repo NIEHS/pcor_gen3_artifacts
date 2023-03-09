@@ -18,8 +18,8 @@ authz:
     - michael.c.conway@gmail.com
     - sznolte@gmail.com
     - schmittcp@yahoo.com
+    - test@example.com
     - test
-
     # can do workspace operations
   - name: workspace_users
     policies:
@@ -28,12 +28,10 @@ authz:
     users:
       - deeppatel.cs@gmail.com
       - michael.c.conway@gmail.com
+      - test@example.com
       - sznolte@gmail.com
       - schmittcp@yahoo.com
       - test
-      - schmittcp@yahoo.com
-      - test
-
     # can create/update/delete indexd records
   - name: indexd_admins
     policies:
@@ -41,6 +39,7 @@ authz:
     users:
     - deeppatel.cs@gmail.com
     - michael.c.conway@gmail.com
+    - test@example.com
     - sznolte@gmail.com
     - schmittcp@yahoo.com
     - test
@@ -59,74 +58,36 @@ authz:
   - name: open
   - name: programs
     subresources:
-    - name: NTP
+    - name: NFS
       subresources:
       - name: projects
         subresources:
-          - name: EHES-10
-          - name: EHES-11
-          - name: EHES-12
-          - name: EHES-13
-          - name: EHES-14
-          - name: EHES-15
-          - name: EHES-16
-          - name: EHES-17
-          - name: EHES-18
-          - name: EHES-19
-          - name: EHES-20
-          - name: EHES-21
-          - name: EHES-22
-          - name: EHES-23
-          - name: EHES-24
-          - name: EHES-25
-          - name: EHES-26
-          - name: EHES-27
-          - name: EHES-28
-          - name: EHES-29
-          - name: EHES-30
-          - name: EHES-31
-          - name: EHES-32
-          - name: EHES-33
-          - name: EHES-34
-          - name: EHES-35
-          - name: EHES-36
-          - name: EHES-37
-          - name: EHES-38
-          - name: EHES-39
-          - name: EHES-40
-          - name: EHES-41
-          - name: EHES-42
-          - name: EHES-43
-          - name: EHES-44
-          - name: EHES-45
-          - name: EHES-46
-          - name: EHES-47
-          - name: EHES-48
-          - name: EHES-49
-          - name: EHES-50
-          - name: EHES-51
-          - name: EHES-52
-          - name: EHES-53
-          - name: EHES-54
-          - name: EHES-55
-          - name: EHES-56
-          - name: EHES-57
-          - name: EHES-58
-          - name: EHES-59
-          - name: EHES-60
-          - name: EHES-61
-          - name: EHES-62
-          - name: EHES-63
-          - name: EHES-64
-          - name: EHES-65
-          - name: EHES-66
-          - name: EHES-67
-          - name: EHES-68
-          - name: EHES-69
-          - name: EHES-70
-          - name: EHES-71
-          - name: EHES-72
-          - name: EHES-74
+          - name: NFS-1
+          - name: NFS-2
+    - name: USGS
+      subresources:
+      - name: projects
+        subresources:
+          - name: USGS-1
+          - name: USGS-2
+    - name: NOAA
+      subresources:
+      - name: projects
+        subresources:
+          - name: NOAA-1
+          - name: NOAA-2
+    - name: EPA
+      subresources:
+      - name: projects
+        subresources:
+          - name: EPA-1
+          - name: EPA-2
+    - name: NASA
+      subresources:
+      - name: projects
+        subresources:
+          - name: NASA-1
+          - name: NASA-2
     - name: jnkns
       subresources:
         - name: projects
@@ -171,70 +132,17 @@ authz:
       - storage_reader
     resource_paths:
     - /open
-    - /programs/NTP/projects/EHES-10
-    - /programs/NTP/projects/EHES-11
-    - /programs/NTP/projects/EHES-12
-    - /programs/NTP/projects/EHES-13
-    - /programs/NTP/projects/EHES-14
-    - /programs/NTP/projects/EHES-15
-    - /programs/NTP/projects/EHES-16
-    - /programs/NTP/projects/EHES-17
-    - /programs/NTP/projects/EHES-18
-    - /programs/NTP/projects/EHES-19
-    - /programs/NTP/projects/EHES-20
-    - /programs/NTP/projects/EHES-21
-    - /programs/NTP/projects/EHES-22
-    - /programs/NTP/projects/EHES-23
-    - /programs/NTP/projects/EHES-24
-    - /programs/NTP/projects/EHES-25
-    - /programs/NTP/projects/EHES-26
-    - /programs/NTP/projects/EHES-27
-    - /programs/NTP/projects/EHES-28
-    - /programs/NTP/projects/EHES-29
-    - /programs/NTP/projects/EHES-30
-    - /programs/NTP/projects/EHES-31
-    - /programs/NTP/projects/EHES-32
-    - /programs/NTP/projects/EHES-33
-    - /programs/NTP/projects/EHES-34
-    - /programs/NTP/projects/EHES-35
-    - /programs/NTP/projects/EHES-36
-    - /programs/NTP/projects/EHES-37
-    - /programs/NTP/projects/EHES-38
-    - /programs/NTP/projects/EHES-39
-    - /programs/NTP/projects/EHES-40
-    - /programs/NTP/projects/EHES-41
-    - /programs/NTP/projects/EHES-42
-    - /programs/NTP/projects/EHES-43
-    - /programs/NTP/projects/EHES-44
-    - /programs/NTP/projects/EHES-45
-    - /programs/NTP/projects/EHES-46
-    - /programs/NTP/projects/EHES-47
-    - /programs/NTP/projects/EHES-48
-    - /programs/NTP/projects/EHES-49
-    - /programs/NTP/projects/EHES-50
-    - /programs/NTP/projects/EHES-51
-    - /programs/NTP/projects/EHES-52
-    - /programs/NTP/projects/EHES-53
-    - /programs/NTP/projects/EHES-54
-    - /programs/NTP/projects/EHES-55
-    - /programs/NTP/projects/EHES-56
-    - /programs/NTP/projects/EHES-57
-    - /programs/NTP/projects/EHES-58
-    - /programs/NTP/projects/EHES-59
-    - /programs/NTP/projects/EHES-60
-    - /programs/NTP/projects/EHES-61
-    - /programs/NTP/projects/EHES-62
-    - /programs/NTP/projects/EHES-63
-    - /programs/NTP/projects/EHES-64
-    - /programs/NTP/projects/EHES-65
-    - /programs/NTP/projects/EHES-66
-    - /programs/NTP/projects/EHES-67
-    - /programs/NTP/projects/EHES-68
-    - /programs/NTP/projects/EHES-69
-    - /programs/NTP/projects/EHES-70
-    - /programs/NTP/projects/EHES-71
-    - /programs/NTP/projects/EHES-72
-    - /programs/NTP/projects/EHES-74
+    - /programs/NFS/projects/NFS-1
+    - /programs/NFS/projects/NFS-2
+    - /programs/USGS/projects/USGS-1
+    - /programs/USGS/projects/USGS-2
+    - /programs/NOAA/projects/NOAA-1
+    - /programs/NOAA/projects/NOAA-2
+    - /programs/EPA/projects/EPA-1
+    - /programs/EPA/projects/EPA-2
+    - /programs/NASA/projects/NASA-1
+    - /programs/NASA/projects/NASA-2
+    
   - id: all_programs_reader
     role_ids:
     - reader
@@ -250,70 +158,16 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/NTP/projects/EHES-10
-    - /programs/NTP/projects/EHES-11
-    - /programs/NTP/projects/EHES-12
-    - /programs/NTP/projects/EHES-13
-    - /programs/NTP/projects/EHES-14
-    - /programs/NTP/projects/EHES-15
-    - /programs/NTP/projects/EHES-16
-    - /programs/NTP/projects/EHES-17
-    - /programs/NTP/projects/EHES-18
-    - /programs/NTP/projects/EHES-19
-    - /programs/NTP/projects/EHES-20
-    - /programs/NTP/projects/EHES-21
-    - /programs/NTP/projects/EHES-22
-    - /programs/NTP/projects/EHES-23
-    - /programs/NTP/projects/EHES-24
-    - /programs/NTP/projects/EHES-25
-    - /programs/NTP/projects/EHES-26
-    - /programs/NTP/projects/EHES-27
-    - /programs/NTP/projects/EHES-28
-    - /programs/NTP/projects/EHES-29
-    - /programs/NTP/projects/EHES-30
-    - /programs/NTP/projects/EHES-31
-    - /programs/NTP/projects/EHES-32
-    - /programs/NTP/projects/EHES-33
-    - /programs/NTP/projects/EHES-34
-    - /programs/NTP/projects/EHES-35
-    - /programs/NTP/projects/EHES-36
-    - /programs/NTP/projects/EHES-37
-    - /programs/NTP/projects/EHES-38
-    - /programs/NTP/projects/EHES-39
-    - /programs/NTP/projects/EHES-40
-    - /programs/NTP/projects/EHES-41
-    - /programs/NTP/projects/EHES-42
-    - /programs/NTP/projects/EHES-43
-    - /programs/NTP/projects/EHES-44
-    - /programs/NTP/projects/EHES-45
-    - /programs/NTP/projects/EHES-46
-    - /programs/NTP/projects/EHES-47
-    - /programs/NTP/projects/EHES-48
-    - /programs/NTP/projects/EHES-49
-    - /programs/NTP/projects/EHES-50
-    - /programs/NTP/projects/EHES-51
-    - /programs/NTP/projects/EHES-52
-    - /programs/NTP/projects/EHES-53
-    - /programs/NTP/projects/EHES-54
-    - /programs/NTP/projects/EHES-55
-    - /programs/NTP/projects/EHES-56
-    - /programs/NTP/projects/EHES-57
-    - /programs/NTP/projects/EHES-58
-    - /programs/NTP/projects/EHES-59
-    - /programs/NTP/projects/EHES-60
-    - /programs/NTP/projects/EHES-61
-    - /programs/NTP/projects/EHES-62
-    - /programs/NTP/projects/EHES-63
-    - /programs/NTP/projects/EHES-64
-    - /programs/NTP/projects/EHES-65
-    - /programs/NTP/projects/EHES-66
-    - /programs/NTP/projects/EHES-67
-    - /programs/NTP/projects/EHES-68
-    - /programs/NTP/projects/EHES-69
-    - /programs/NTP/projects/EHES-70
-    - /programs/NTP/projects/EHES-71
-    - /programs/NTP/projects/EHES-72
-    - /programs/NTP/projects/EHES-74
+    - /programs/NFS/projects/NFS-1
+    - /programs/NFS/projects/NFS-2
+    - /programs/USGS/projects/USGS-1
+    - /programs/USGS/projects/USGS-2
+    - /programs/NOAA/projects/NOAA-1
+    - /programs/NOAA/projects/NOAA-2
+    - /programs/EPA/projects/EPA-1
+    - /programs/EPA/projects/EPA-2
+    - /programs/NASA/projects/NASA-1
+    - /programs/NASA/projects/NASA-2
   - id: jnkns
     role_ids:
     - reader
@@ -331,7 +185,7 @@ authz:
     - /sower
     role_ids:
     - sower_user
-  - id: NTP
+  - id: NFS
     role_ids:
     - reader
     - creator
@@ -340,7 +194,47 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/NTP
+    - /programs/NFS
+  - id: USGS
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/USGS
+  - id: NOAA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NOAA
+  - id: EPA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/EPA
+  - id: NASA
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/NASA
   roles:
   - id: file_uploader
     permissions:
@@ -432,7 +326,11 @@ users:
     - data_upload
     - project_submitter
     - jnkns
-    - NTP
+    - NFS
+    - USGS
+    - NOAA
+    - EPA
+    - NASA
     - services.sheepdog-admin
   michael.c.conway@gmail.com:
     tags:
@@ -443,7 +341,26 @@ users:
     - data_upload
     - project_submitter
     - jnkns
-    - NTP
+    - NFS
+    - USGS
+    - NOAA
+    - EPA
+    - NASA
+    - services.sheepdog-admin
+  test@example.com:
+    tags:
+      name: Mike Conway
+#      email: johndoe@gmail.com
+    policies:
+    - workspace
+    - data_upload
+    - project_submitter
+    - jnkns
+    - NFS
+    - USGS
+    - NOAA
+    - EPA
+    - NASA
     - services.sheepdog-admin
   sznolte@gmail.com:
     tags:
@@ -454,7 +371,11 @@ users:
       - data_upload
       - project_submitter
       - jnkns
-      - NTP
+      - NFS
+      - USGS
+      - NOAA
+      - EPA
+      - NASA
       - services.sheepdog-admin
   schmittcp@yahoo.com:
     tags:
@@ -464,7 +385,11 @@ users:
       - data_upload
       - project_submitter
       - jnkns
-      - NTP
+      - NFS
+      - USGS
+      - NOAA
+      - EPA
+      - NASA
       - services.sheepdog-admin
   test:
     tags:
@@ -475,7 +400,11 @@ users:
       - data_upload
       - project_submitter
       - jnkns
-      - NTP
+      - NFS
+      - USGS
+      - NOAA
+      - EPA
+      - NASA
       - services.sheepdog-admin
 cloud_providers: {}
 groups: {}

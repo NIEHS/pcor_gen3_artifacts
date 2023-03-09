@@ -1,91 +1,33 @@
 mappings:
-  - name: cebs_dataset
-    doc_type: dataset
+  - name: geospatial_data_resource
+    doc_type: geospatial_data_resource
     type: aggregator
-    root: dataset
+    root: geospatial_data_resource
     props:
       - name: project_id
       - name: submitter_id
-      - name: internal_id
-      - name: title
-      - name: design
-      - name: geo_profile_type
-      - name: platform
-      - name: platform_description
-      - name: species
-      - name: strain
-      - name: tissue
-      - name: chemicals
-      - name: chemical_additional_info
-      - name: cell_line
-      - name: genetic_change
-      - name: other_agent
-      - name: study_duration
-      - name: time_points
-      - name: route
-      - name: vehicle
-      - name: additional_in_life_data
-      - name: cebs_acc_no
-      - name: geo_link
-      - name: analysis_link
-      - name: additional_information
-    joining_props:
-      - index: data_file
-        join_on: _dataset_id
-        props:
-          - name: data_format
-            src: data_format
-            fn: set
-          - name: file_name
-            src: file_name
-            fn: set
-          - name: data_type
-            src: data_type
-            fn: set
+      - name: observation
+      - name: time_extent_start
+      - name: time_extent_end
+      - name: spatial_resolution
+      - name: spatial_coverage
+      - name: resource_link 
     parent_props:
-      - path: projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected]
-  - name: supplementary_file
-    doc_type: data_file
-    type: collector
-    root: None
-    category: data_file
+      - path: resources[resource_id, resource_name:name, resource_secondary_name:secondary_name, resource_type, resource_description:description].projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected].programs[program_name:name]
+  - name: population_data_resource
+    doc_type: population_data_resource
+    type: aggregator
+    root: population_data_resource
     props:
-        - name: object_id
-        - name: md5sum
-        - name: file_name
-        - name: file_size
-        - name: data_format
-        - name: data_type
-    injecting_props:
-      dataset:
-            props:
-              - name: _dataset_id
-                src: id
-                fn: set
-              - name: submitter_id
-                src: submitter_id
-                fn: set
-              - name: project_id
-                src: project_id
-                fn: set
-              - name: platform
-                src: platform
-                fn: set
-              - name: species
-                src: species
-                fn: set
-              - name: strain
-                src: strain
-                fn: set
-              - name: tissue
-                src: tissue
-                fn: set
-              - name: chemicals
-                src: chemicals
-                fn: set
-              - name: route
-                src: route
-                fn: set
-              - name: vehicle
-                src: vehicle
-                fn: set
+      - name: project_id
+      - name: submitter_id
+      - name: observation
+      - name: time_extent_start
+      - name: time_extent_end
+      - name: spatial_resolution
+      - name: spatial_coverage
+      - name: population
+      - name: exposure
+      - name: resource_link 
+    parent_props:
+      - path: resources[resource_id, resource_name:name, resource_secondary_name:secondary_name, resource_type, resource_description:description].projects[project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected].programs[program_name:name]

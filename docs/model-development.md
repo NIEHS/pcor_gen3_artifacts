@@ -10,6 +10,7 @@ The process for developing a catalog model for PCOR has the following workflow, 
 2. Encode the model as .yaml using Gen3 syntax
 3. Commit to Git and generate the schema in json format through an automated Git action or manually build schema using dump_schema.py
 4. Bring up Gen3 with the new model for testing 
+5. Encode the ETL transformations
 
 
 ## Develop the abstract model
@@ -200,4 +201,10 @@ development workflow as described in the [local development workflow](./local-de
 next steps.
 
 
+## Encode the ETL Transformations
 
+Data that is entered into Gen3 based on the encoded model is stored in a graph format serialized into a Postgres database. As data is entered, it goes through an ETL process 
+to create the schema in Elasticsearch (OpenSearch) that is used by the Gen3 data portal. The ETL transformations are placed in the [custom_configs](../custom_configs/) in the [etlMapping.yaml](../custom_configs/etlMapping.yaml) file.
+
+* [ETL Mapping Guide](https://github.com/uc-cdis/tube/blob/master/docs/configuration_file.md)
+* [CDIS Model Repo] (https://github.com/uc-cdis/cdis-manifest)
