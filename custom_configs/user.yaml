@@ -18,6 +18,7 @@ authz:
     - michael.c.conway@gmail.com
     - sznolte@gmail.com
     - schmittcp@yahoo.com
+    - test@example.com
     - test
     # can do workspace operations
   - name: workspace_users
@@ -27,6 +28,7 @@ authz:
     users:
       - deeppatel.cs@gmail.com
       - michael.c.conway@gmail.com
+      - test@example.com
       - sznolte@gmail.com
       - schmittcp@yahoo.com
       - test
@@ -37,6 +39,7 @@ authz:
     users:
     - deeppatel.cs@gmail.com
     - michael.c.conway@gmail.com
+    - test@example.com
     - sznolte@gmail.com
     - schmittcp@yahoo.com
     - test
@@ -330,6 +333,21 @@ users:
     - NASA
     - services.sheepdog-admin
   michael.c.conway@gmail.com:
+    tags:
+      name: Mike Conway
+#      email: johndoe@gmail.com
+    policies:
+    - workspace
+    - data_upload
+    - project_submitter
+    - jnkns
+    - NFS
+    - USGS
+    - NOAA
+    - EPA
+    - NASA
+    - services.sheepdog-admin
+  test@example.com:
     tags:
       name: Mike Conway
 #      email: johndoe@gmail.com
