@@ -304,6 +304,6 @@
     }
   ],
   "connectSrcCSPWhitelist": [
-    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://pcor.local", "https://preprod-gen3.niehs.nih.gov", "https://predev.gen3.niehs.nih.gov"
+    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://pcor.local", "https://ehsntpld06.niehs.nih.gov", "https://ehsodslp02.niehs.nih.gov"
   ]
 }
