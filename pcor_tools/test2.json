@@ -1,6 +1,19 @@
-{'tags': [
-            {"name": resource, "category": "Resource"},
-            {"name": md_foo, "category": "Fubar Metadata"},
-            {"name": md_bar, "category": "Fubar Location"},
-
-        ], 'name': 'Wildfire', 'full_name': 'wildfire stuff', 'description': "its a wildfire, I mean, look out"}
+{
+  "tags": [
+    {
+      "name": "resource",
+      "category": "Resource"
+    },
+    {
+      "name": "md_foo",
+      "category": "Fubar Metadata"
+    },
+    {
+      "name": "md_bar",
+      "category": "Fubar Location"
+    }
+  ],
+  "name": "Wildfire",
+  "full_name": "wildfire stuff",
+  "description": "its a wildfire, I mean, look out"
+}

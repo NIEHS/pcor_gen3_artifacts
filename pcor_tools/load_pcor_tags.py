@@ -5,6 +5,7 @@ import logging
 import asyncio
 
 from gen3.auth import Gen3Auth
+from gen3.metadata import Gen3Metadata
 from gen3.tools import metadata
 from gen3.tools.metadata.ingest_manifest import manifest_row_parsers
 from gen3.utils import get_or_create_event_loop_for_thread
@@ -27,10 +28,15 @@ def main():
     # the metadata service
     metadata_source = "pcor"
     resc_guid ="75964cb1-9d8e-45bd-a7db-14f529aca591"
-    gen3_discovery = json.loads(MANIFEST)
+    f = open(MANIFEST, "r")
 
+    # Reading from file
+    gen3_discovery = json.loads(f.read())
     discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=gen3_discovery)
-    metadata.create(resc_guid,discoverable_data)
+
+    metadata = Gen3Metadata(auth)
+    metadata.admin_endpoint = "http://localhost"
+    metadata.create(resc_guid,discoverable_data, aliases=None, overwrite=True)
 
 
 if __name__ == "__main__":
