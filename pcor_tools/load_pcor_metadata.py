@@ -12,17 +12,17 @@ logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 # a file containing a "guid" column and additional, arbitrary columns to populate
 # into the metadata service
-MANIFEST = "test1.tsv"
+MANIFEST = "test2.tsv"
 
 
 def main():
     loop = get_or_create_event_loop_for_thread()
 
-    auth = Gen3Auth(refresh_file="credentials.json")
+    auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
 
     # must provide a str to namespace the metadata from the file in a block in
     # the metadata service
-    metadata_source = "dbgap"
+    metadata_source = "pcor"
 
     # (optional) override default guid parsing behavior
     def _custom_get_guid_for_row(commons_url, row, lock):
@@ -48,6 +48,7 @@ def main():
             auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
         )
     )
+
 
 if __name__ == "__main__":
     main()
