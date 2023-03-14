@@ -45,7 +45,7 @@ authz:
     - test
   resources:
   - name: 'mds_gateway'
-      description: 'commons /mds-admin'
+    description: 'commons /mds-admin'
   - name: workspace
   - name: sower
   - name: data_file
@@ -103,9 +103,9 @@ authz:
 
   policies:
   - id: 'mds_admin'
-      description: 'be able to use metadata service'
-      resource_paths: ['/mds_gateway']
-      role_ids: ['mds_user']
+    description: 'be able to use metadata service'
+    resource_paths: ['/mds_gateway']
+    role_ids: ['mds_user']
   - id: workspace
     description: be able to use workspace
     resource_paths:
@@ -243,11 +243,11 @@ authz:
     - /programs/NASA
   roles:
   - id: 'mds_user'
-      permissions:
-        - id: 'mds_access'
-          action:
-            service: 'mds_gateway'
-            method: 'access'
+    permissions:
+    - id: 'mds_access'
+      action:
+        service: 'mds_gateway'
+        method: 'access'
   - id: file_uploader
     permissions:
     - id: file_upload
