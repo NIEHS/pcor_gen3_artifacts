@@ -121,6 +121,8 @@
   },
   "requiredCerts": [ ],
   "discoveryConfig":{
+    "requireLogin": false,
+    "public": true,
     "features": {
       "pageTitle": {
         "enabled": true,
@@ -135,7 +137,13 @@
         "enabled": false
       }
     },
-    "aggregations": [],
+    "aggregations": [
+      {
+        "name": "Projects",
+        "field": "project_id",
+        "type": "count"
+      }
+    ],
     "tagSelector": {
       "title": "Tags by category"
     },
@@ -152,7 +160,47 @@
       "includeName": false,
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No summary has been provided for this study."
-    }
+    },
+    "studyPageFields": {
+      "header": {
+        "field": "project_id"
+      },
+      "fieldsToShow": [
+        {
+          "groupName": "PCOR data",
+          "includeName": false,
+          "fields": [
+            {
+              "name": "Project ID",
+              "field": "project_id"
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "name": "Summary",
+              "field": "summary",
+              "contentType": "paragraphs",
+              "includeName": true,
+              "includeIfNotAvailable": true,
+              "valueIfNotAvailable": "No summary has been provided for this study."
+            }
+          ]
+        }
+      ]
+    },
+    "minimalFieldMapping": {
+      "tagsListFieldName": "tags",
+      "uid": "project_id"
+    },
+    "tagCategories": [
+      {
+        "name": "Data Type",
+        "color": "rgba(71, 130, 195, 1)",
+        "display": true
+      }
+    ]
   },
   "analysisTools": [ ],
   "explorerConfig": [
