@@ -120,10 +120,11 @@
     "discovery": true
   },
   "requiredCerts": [ ],
-  "discpveryConfig":{
+  "discoveryConfig":{
     "features": {
       "pageTitle": {
-        "enabled": false
+        "enabled": true,
+        "text": "My Special Test Discovery Page"
       },
       "search": {
         "searchBar": {
