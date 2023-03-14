@@ -45,7 +45,9 @@ def main():
 
     loop.run_until_complete(
         metadata.async_ingest_metadata_manifest(
-            auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
+            #auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
+            "http://localhost", manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
+
         )
     )
 
