@@ -18,6 +18,7 @@ MANIFEST = "test2.tsv"
 def main():
     loop = get_or_create_event_loop_for_thread()
 
+    # auth = Gen3Auth(refresh_file="/Users/pateldes/.gen3/credentials-local.json")
     auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
 
     # must provide a str to namespace the metadata from the file in a block in
@@ -46,7 +47,7 @@ def main():
     loop.run_until_complete(
         metadata.async_ingest_metadata_manifest(
             #auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
-            "http://localhost", manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
+            "http://localhost", manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth, metadata_type='discovery_metadata',
 
         )
     )
