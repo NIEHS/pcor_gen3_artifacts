@@ -59,6 +59,12 @@
     "navigation": {
       "items": [
         {
+          "icon": "query",
+          "link": "/discovery",
+          "name": "Discovery",
+          "tooltip": "Use free-text search and tags to rapidly find relevant studies."
+        },
+        {
           "name": "Exploration",
           "link": "/explorer",
           "icon": "exploration",
@@ -110,9 +116,43 @@
   "featureFlags": {
     "explorer": true,
     "analysis": false,
-    "explorerPublic": true
+    "explorerPublic": true,
+    "discovery": true
   },
   "requiredCerts": [ ],
+  "discpveryConfig":{
+    "features": {
+      "pageTitle": {
+        "enabled": false
+      },
+      "search": {
+        "searchBar": {
+          "enabled": true
+        }
+      },
+      "authorization": {
+        "enabled": false
+      }
+    },
+    "aggregations": [],
+    "tagSelector": {
+      "title": "Tags by category"
+    },
+    "studyColumns":[
+      {
+        "name": "Project ID",
+        "field": "project_id"
+      }
+    ],
+    "studyPreviewField": {
+      "name": "Summary",
+      "field": "summary",
+      "contentType": "string",
+      "includeName": false,
+      "includeIfNotAvailable": true,
+      "valueIfNotAvailable": "No summary has been provided for this study."
+    }
+  },
   "analysisTools": [ ],
   "explorerConfig": [
     {
