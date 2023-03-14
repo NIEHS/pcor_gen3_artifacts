@@ -44,6 +44,8 @@ authz:
     - schmittcp@yahoo.com
     - test
   resources:
+  - name: 'mds_gateway'
+      description: 'commons /mds-admin'
   - name: workspace
   - name: sower
   - name: data_file
@@ -100,6 +102,10 @@ authz:
     #    - name: P1
 
   policies:
+  - id: 'mds_admin'
+      description: 'be able to use metadata service'
+      resource_paths: ['/mds_gateway']
+      role_ids: ['mds_user']
   - id: workspace
     description: be able to use workspace
     resource_paths:
@@ -236,6 +242,12 @@ authz:
     resource_paths:
     - /programs/NASA
   roles:
+  - id: 'mds_user'
+      permissions:
+        - id: 'mds_access'
+          action:
+            service: 'mds_gateway'
+            method: 'access'
   - id: file_uploader
     permissions:
     - id: file_upload
@@ -322,6 +334,7 @@ users:
       name: Deep Patel
 #      email: mustbe@differentemail.com
     policies:
+    - mds_admin
     - workspace
     - data_upload
     - project_submitter
@@ -338,6 +351,7 @@ users:
 #      email: johndoe@gmail.com
     policies:
     - workspace
+    - mds_admin
     - data_upload
     - project_submitter
     - jnkns
@@ -355,6 +369,7 @@ users:
     - workspace
     - data_upload
     - project_submitter
+    - mds_admin
     - jnkns
     - NFS
     - USGS
@@ -399,6 +414,7 @@ users:
       - workspace
       - data_upload
       - project_submitter
+      - mds_admin
       - jnkns
       - NFS
       - USGS
