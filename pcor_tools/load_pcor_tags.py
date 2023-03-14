@@ -35,7 +35,7 @@ def main():
     discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=gen3_discovery)
 
     metadata = Gen3Metadata(auth)
-    metadata.admin_endpoint = "http://localhost"
+    #metadata.admin_endpoint = "http://localhost"
     metadata.create(resc_guid,discoverable_data, aliases=None, overwrite=True)
 
 
