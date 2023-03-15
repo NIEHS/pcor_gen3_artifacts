@@ -133,7 +133,7 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "secondary_name"]
+          "searchableTextFields": ["name", "full_name", "description"]
 
         },
         "tagSearchDropdown": { 
@@ -161,8 +161,12 @@
     },
     "studyColumns":[
       {
-        "name": "Resource ID",
-        "field": "resource_id"
+        "name": "Resource Name",
+        "field": "full_name"
+      },
+      {
+        "name": "Resolution",
+        "field": "resolution"
       }
     ],
     "studyPreviewField": {
@@ -183,32 +187,32 @@
           "includeName": false,
           "fields": [
             {
-              "name": "Resource ID",
-              "field": "resource_id"
-            }, 
-            {
-              "name": "Name",
-              "field": "name"
+              "name": "Resource Name",
+              "field": "full_name"
             },
             {
-              "name": "Secondary Name",
-              "field": "secondary_name"
+              "name": "Resolution",
+              "field": "resolution"
+            },
+            {
+              "name": "Resource Link",
+              "field": "resource_url"
             }
           ]
         },
         {
           "fields": [
             {
-              "name": "Name",
-              "field": "name",
+              "name": "Resource Name",
+              "field": "full_name",
               "contentType": "string",
               "includeName": true,
               "includeIfNotAvailable": true,
               "valueIfNotAvailable": "No name provided."
             },
             {
-              "name": "Secondary Name",
-              "field": "secondary_name",
+              "name": "Resolution",
+              "field": "resolution",
               "contentType": "string",
               "includeName": true,
               "includeIfNotAvailable": true,
@@ -224,13 +228,23 @@
     },
     "tagCategories": [
       {
-        "name": "Fubar Metadata",
+        "name": "Program",
         "color": "rgba(71, 130, 195, 1)",
         "display": true
       },
       {
-        "name": "Fubar Location",
+        "name": "Variable",
         "color": "rgba(81, 175, 195, 1)",
+        "display": true
+      },
+      {
+        "name": "Link Type",
+        "color": "rgba(81, 100, 54, 1)",
+        "display": true
+      },
+      {
+        "name": "Resource Type",
+        "color": "rgba(121, 112, 103, 1)",
         "display": true
       }
 
