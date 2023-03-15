@@ -130,8 +130,20 @@
       },
       "search": {
         "searchBar": {
-          "enabled": true
+          "enabled": true,
+          "inputSubtitle": "PCOR Resource Search",
+          "placeholder": "Search climate and health resources by keyword",
+          "searchableTextFields": ["name", "secondary_name"]
+
+        },
+        "tagSearchDropdown": { 
+          "enabled": true,
+          "collapseOnDefault": false, 
+          "collapsibleButtonText": "Resource Characteristics" 
         }
+      },
+      "advSearchFilters": {
+        "enabled": true
       },
       "authorization": {
         "enabled": false
@@ -212,10 +224,16 @@
     },
     "tagCategories": [
       {
-        "name": "Data Type",
+        "name": "Fubar Metadata",
         "color": "rgba(71, 130, 195, 1)",
         "display": true
+      },
+      {
+        "name": "Fubar Location",
+        "color": "rgba(81, 175, 195, 1)",
+        "display": true
       }
+
     ]
   },
   "analysisTools": [ ],
