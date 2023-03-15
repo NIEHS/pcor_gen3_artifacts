@@ -32,18 +32,27 @@ def main():
     env = Environment(loader=PackageLoader("load_pcor_via_template"))
     env.filters['jsonify'] = json.dumps
 
-
     tags = [{"name": "resource", "category": "Resource"},
-            {"name": "md_foo", "category": "Fubar Metadata"},
-            {"name": "md_bar", "category": "Fubar Location"}]
+            {"name": "USGS", "category": "Program"},
+            {"name": "LANDFIRE", "category": "Data Source"},
+            {"name": "fuel", "category": "Variable"},
+            {"name": "vegetation", "category": "Variable"},
+            {"name": "fire regime", "category": "Variable"},
+            {"name": "web site", "category": "Link Type"},
+            {"name": "geospatial data resource", "category": "Resource Type"}
+            ]
 
-    name = "Wildfire"
-    full_name = "wildfire stuff"
-    description = "its a wildfire, I mean, look out"
-    resource_id = "75964cb1-9d8e-45bd-a7db-14f529aca591"
+    resource_data = {
+        "name": "LANDFIRE",
+        "full_name": "LANDFIRE",
+        "resource_description": "Reports of wildfire incidents, acreage burned, and location",
+        "resource_id": "75964cb1-9d8e-45bd-a7db-14f529aca591",
+        "resource_url": "https://www.fire.ca.gov/incidents/",
+        "resolution": "undetermined"
+    }
 
     template = env.get_template("template.jinja")
-    content = template.render(tags=tags, resource_name=name, resource_full_name=full_name, resource_description=description, resource_id=resource_id)
+    content = template.render(tags=tags, resource_data=resource_data)
 
     # Reading from file
     gen3_discovery = json.loads(content)

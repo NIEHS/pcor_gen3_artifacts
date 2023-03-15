@@ -7,8 +7,11 @@
       }{{ "," if not loop.last }}
     {% endfor %}
   ],
-  "name": "{{ resource_name }}",
-  "full_name": "{{ resource_full_name }}",
-  "description": "{{ resource_description }}",
-  "resource_id": "{{ resource_id }}"
+  "name": "{{ resource_data.name }}",
+  "full_name": "{{ resource_data.full_name }}",
+  "description": "{{ resource_data.resource_description }}",
+  "resource_id": "{{ resource_data.resource_id }}",
+  "resource_url": "{{ resource_data.resource_url }}",
+  "resolution": "{{ resource_data.resolution }}"
+
 }
