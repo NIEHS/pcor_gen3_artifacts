@@ -1,0 +1,14 @@
+{
+  "tags": [
+    {% for tag in tags %}
+      {
+        "name": "{{ tag.name }}",
+        "category": "{{ tag.category }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "name": "{{ resource_name }}",
+  "full_name": "{{ resource_full_name }}",
+  "description": "{{ resource_description }}",
+  "resource_id": "{{ resource_id }}"
+}
