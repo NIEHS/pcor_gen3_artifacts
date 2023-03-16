@@ -190,45 +190,33 @@
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No description has been provided for this resource."
     },
-    "studyPageFields": {
-      "header": {
-        "field": "resource_id"
-      },
-      "fieldsToShow": [
-        {
-          "groupName": "PCOR data",
-          "includeName": false,
-          "fields": [
-            {
-              "name": "Resource Name",
-              "field": "full_name",
-              "contentType": "string",
-              "includeName": true,
-              "includeIfNotAvailable": true,
-              "valueIfNotAvailable": "No name provided."
-            },
-            {
-              "name": "Resolution",
-              "field": "resolution"
-            },
-            {
-              "name": "Resource Link",
-              "field": "resource_url"
+    "detailView": {
+      "headerField": "full_name",
+        "tabs": [
+          {
+            "tabName": "Resource",
+            "groups": [
+              {
+                "header": "Resource Summary",
+                "fields": [
+                  {
+                    "type": "block",
+                    "sourceField": "description"
+                  }
+                ]
+              },
+              {
+                "header": "(Meta)Data Location",
+                "fields": [
+                  {
+                    "type": "link",
+                    "label": "Repository URL",
+                    "sourceField": "resource_url"
+                  }
+                ]
+              }
+            ]
             }
-          ]
-        },
-        {
-          "fields": [
-            {
-              "name": "Resolution",
-              "field": "resolution",
-              "contentType": "string",
-              "includeName": true,
-              "includeIfNotAvailable": true,
-              "valueIfNotAvailable": "No secondary name provided."
-            }
-          ]
-        }
       ]
     },
     "minimalFieldMapping": {
