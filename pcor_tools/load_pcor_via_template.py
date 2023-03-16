@@ -21,8 +21,8 @@ template_file = "templates/template.jinja"
 
 def main():
 
-    # auth = Gen3Auth(refresh_file="/Users/pateldes/.gen3/credentials-local.json")
-    auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
+    auth = Gen3Auth(refresh_file="/Users/pateldes/.gen3/credentials-local.json")
+    # auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
 
     # must provide a str to namespace the metadata from the file in a block in
     # the metadata service

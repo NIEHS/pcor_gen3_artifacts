@@ -21,8 +21,8 @@ MANIFEST = "test2.json"
 def main():
     loop = get_or_create_event_loop_for_thread()
 
-    # auth = Gen3Auth(refresh_file="/Users/pateldes/.gen3/credentials-local.json")
-    auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
+    auth = Gen3Auth(refresh_file="/Users/pateldes/.gen3/credentials-local.json")
+    #auth = Gen3Auth(refresh_file="/Users/conwaymc/credentials-http.json")
 
     # must provide a str to namespace the metadata from the file in a block in
     # the metadata service
@@ -36,8 +36,8 @@ def main():
 
     metadata = Gen3Metadata(auth)
     #metadata.admin_endpoint = "http://localhost"
-    metadata.create(resc_guid,discoverable_data, aliases=None, overwrite=True)
-
+    # metadata.create(resc_guid,discoverable_data, aliases=None, overwrite=True)
+    metadata.delete(resc_guid)
 
 if __name__ == "__main__":
     main()
