@@ -32,7 +32,7 @@ def main():
     env = Environment(loader=PackageLoader("load_pcor_via_template"))
     env.filters['jsonify'] = json.dumps
 
-    tags = [{"name": "resource", "category": "Resource"},
+    tags_1 = [{"name": "resource", "category": "Resource"},
             {"name": "USGS", "category": "Program"},
             {"name": "LANDFIRE", "category": "Data Source"},
             {"name": "fuel", "category": "Variable"},
@@ -42,9 +42,9 @@ def main():
             {"name": "geospatial data resource", "category": "Resource Type"}
             ]
 
-    adv_search_filters = [{"key_name": "Gender", "key_value": "Female"}]
+    adv_search_filters_1 = [{"key_name": "Gender", "key_value": "Female"}]
 
-    resource_data = {
+    resource_data_1 = {
         "name": "LANDFIRE",
         "full_name": "LANDFIRE",
         "resource_description": "Reports of wildfire incidents, acreage burned, and location",
@@ -54,16 +54,43 @@ def main():
     }
 
     template = env.get_template("template.jinja")
-    content = template.render(tags=tags, advSearchFilters=adv_search_filters, resource_data=resource_data)
+    content_1 = template.render(tags=tags_1, advSearchFilters=adv_search_filters_1, resource_data=resource_data_1)
 
     # Reading from file
-    gen3_discovery = json.loads(content)
-    discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=gen3_discovery)
+    gen3_discovery_1 = json.loads(content_1)
+    discoverable_data_1 = dict(_guid_type="discovery_metadata", gen3_discovery=gen3_discovery_1)
 
     metadata = Gen3Metadata(auth)
     #metadata.admin_endpoint = "http://localhost"
-    metadata.create(resc_guid,discoverable_data, aliases=None, overwrite=True)
+    metadata.create(resc_guid,discoverable_data_1, aliases=None, overwrite=True)
 
+    # second entry
+    resc_guid_2 = "12345aa1-9d8e-45bd-a7db-12a123abc123"
+
+    tags_2 = [{"name": "resource", "category": "Resource"},
+              {"name": "USGS", "category": "Program"},
+              {"name": "FLOOD", "category": "Data Source"},
+              {"name": "forest", "category": "Variable"},
+              {"name": "web site", "category": "Link Type"},
+              {"name": "geospatial data resource", "category": "Resource Type"}
+              ]
+
+    adv_search_filters_2 = [{"key_name": "Gender", "key_value": "Male"}]
+
+    resource_data_2 = {
+        "name": "Flood",
+        "full_name": "Flood",
+        "resource_description": "Reports of flood",
+        "resource_id": "712345aa1-9d8e-45bd-a7db-12a123abc123",
+        "resource_url": "https://www.fire.ca.gov/incidents/",
+        "resolution": "undetermined"
+    }
+
+    content_2 = template.render(tags=tags_2, advSearchFilters=adv_search_filters_2, resource_data=resource_data_2)
+    gen3_discovery_2 = json.loads(content_2)
+    discoverable_data_2 = dict(_guid_type="discovery_metadata", gen3_discovery=gen3_discovery_2)
+
+    metadata.create(resc_guid_2, discoverable_data_2, aliases=None, overwrite=True)
 
 if __name__ == "__main__":
     main()
