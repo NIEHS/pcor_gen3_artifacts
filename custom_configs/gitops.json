@@ -148,7 +148,7 @@
         "displayName": "Filters",
         "filters": [
           {
-            "key": "Resources Name"
+            "key": "Gender"
           }
         ]
       },
@@ -201,7 +201,11 @@
           "fields": [
             {
               "name": "Resource Name",
-              "field": "full_name"
+              "field": "full_name",
+              "contentType": "string",
+              "includeName": true,
+              "includeIfNotAvailable": true,
+              "valueIfNotAvailable": "No name provided."
             },
             {
               "name": "Resolution",
@@ -215,14 +219,6 @@
         },
         {
           "fields": [
-            {
-              "name": "Resource Name",
-              "field": "full_name",
-              "contentType": "string",
-              "includeName": true,
-              "includeIfNotAvailable": true,
-              "valueIfNotAvailable": "No name provided."
-            },
             {
               "name": "Resolution",
               "field": "resolution",
