@@ -143,6 +143,19 @@
         }
       },
       "advSearchFilters": {
+        "enabled": true,
+        "field": "advSearchFilters",
+        "displayName": "Filters",
+        "filters": [
+          {
+            "key": "Resources Name"
+          }
+        ]
+      },
+      "tagsColumn": {
+        "enabled": false
+      },
+      "tagsInDescription": {
         "enabled": true
       },
       "authorization": {
