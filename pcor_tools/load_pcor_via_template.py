@@ -42,6 +42,8 @@ def main():
             {"name": "geospatial data resource", "category": "Resource Type"}
             ]
 
+    adv_search_filters = [{"key_name": "Gender", "key_value": "Female"}]
+
     resource_data = {
         "name": "LANDFIRE",
         "full_name": "LANDFIRE",
@@ -52,7 +54,7 @@ def main():
     }
 
     template = env.get_template("template.jinja")
-    content = template.render(tags=tags, resource_data=resource_data)
+    content = template.render(tags=tags, advSearchFilters=adv_search_filters, resource_data=resource_data)
 
     # Reading from file
     gen3_discovery = json.loads(content)

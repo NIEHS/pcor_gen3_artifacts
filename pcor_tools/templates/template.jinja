@@ -7,6 +7,14 @@
       }{{ "," if not loop.last }}
     {% endfor %}
   ],
+  "advSearchFilters": [
+    {% for adv_search_filter in advSearchFilters %}
+      {
+        "key": "{{ adv_search_filter.key_name }}",
+        "value": "{{ adv_search_filter.key_value }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "name": "{{ resource_data.name }}",
   "full_name": "{{ resource_data.full_name }}",
   "description": "{{ resource_data.resource_description }}",
