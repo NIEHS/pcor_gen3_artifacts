@@ -10,7 +10,7 @@ from pcor_ingest.ingest_context import PcorIngestConfiguration
 logger = logging.getLogger(__name__)
 
 
-class Gen3auth:
+class PcorGen3Auth:
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest_configuration = pcor_ingest_configuration
