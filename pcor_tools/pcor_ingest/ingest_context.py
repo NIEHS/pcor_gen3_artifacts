@@ -6,24 +6,19 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 logger = logging.getLogger(__name__)
 
 
-class IngestContext:
-    """Represents the context and configuration for Gen3 ingest of PCOR data"""
-
-    def __int__(self):
-        self.pcor_config_location = os.getenv(ENV_CONFIG_LOCATION)
-
-
 class PcorIngestConfiguration:
     """Configuration for ingesting data into PCOR catalog from some source"""
 
-    def __init__(self, pcor_config_file_name, gen3_creds_file):
+    def __init__(self, pcor_config_file_name, gen3_creds_file, gen3_endpoint):
         """
         initialize a config structure
         :param pcor_config_file_name: file path to pcor properties file
         :param gen3_creds_file: path to gen3 configs file
+        :param gen3_endpoint: address of Gen3
         """
         self.pcor_config_file_name = pcor_config_file_name
         self.gen3_creds_file = gen3_creds_file
+        self.gen3_endpoint = gen3_endpoint
 
 
 def parse_pcor_configuration(pcor_config_location):

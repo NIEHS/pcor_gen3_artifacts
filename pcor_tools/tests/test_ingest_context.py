@@ -2,11 +2,6 @@ import logging
 from unittest import TestCase
 from pcor_ingest.ingest_context import parse_pcor_configuration
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
-)
-
 logger = logging.getLogger(__name__)
 
 """

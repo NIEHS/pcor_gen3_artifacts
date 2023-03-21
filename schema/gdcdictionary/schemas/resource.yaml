@@ -101,7 +101,7 @@ properties:
     type: string
   license_text:
     description: Text of license terms.
-  verificatin_datetime:
+  verification_datetime:
     description: Date that the resource was last verified.
     $ref: "_definitions.yaml#/datetime"
   resource_use_agreement:
