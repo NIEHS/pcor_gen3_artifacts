@@ -13,6 +13,9 @@ class PcorIntermediateProjectModel:
         # project
         self.program_id = None
         self.id = None
+        self.availability_mechanism = None
+        self.dbgap_accession_number = None
+        self.date_collected = None
         self.submitter_id
         self.project_name = None
         self.project_release_date = None
