@@ -2,16 +2,13 @@
   "availability_mechanism": "{{ model.availability_mechanism }}",
   "type": "project",
   "dbgap_accession_number": "{{ model.dbgap_accession_number }}",
-  "*programs": {
-    "name": null
-  },
   "date_collected": "{{ model.date_collected }}",
-  "*code": null,
-  "investigator_name": null,
-  "complete": null,
-  "support_source": null,
-  "availability_type": null,
-  "investigator_affiliation": null,
-  "*name": null,
-  "support_id": null
+  "*code": "{{ model.code }}",
+  "investigator_name": "{{ model.investigator_name }}",
+  "complete": "{{ model.complete }}",
+  "support_source": "{{ model.support_source }}",
+  "availability_type": "{{ model.availability_type }}",
+  "investigator_affiliation": "{{ model. investigator_affiliation }}",
+  "*name": "{{model.name}}",
+  "support_id": "{{ model.support_id }}"
 }

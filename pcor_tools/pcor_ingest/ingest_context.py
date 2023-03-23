@@ -9,29 +9,15 @@ logger = logging.getLogger(__name__)
 class PcorIngestConfiguration:
     """Configuration for ingesting data into PCOR catalog from some source"""
 
-    def __init__(self, pcor_config_file_name, gen3_creds_file, gen3_endpoint):
+    def __init__(self, pcor_config_file_name):
         """
         initialize a config structure
         :param pcor_config_file_name: file path to pcor properties file
-        :param gen3_creds_file: path to gen3 configs file
-        :param gen3_endpoint: address of Gen3
         """
         self.pcor_config_file_name = pcor_config_file_name
-        self.gen3_creds_file = gen3_creds_file
-        self.gen3_endpoint = gen3_endpoint
-
-
-def parse_pcor_configuration(pcor_config_location):
-    """
-    From a file path that points to a pcor.properties file, return the configuration
-    :param pcor_config_location: location of the pcor config
-    :return: pcor_configuration
-    """
-
-    pcor_props_dict = dict_from_props(pcor_config_location)
-    gen3_location = pcor_props_dict['gen3.creds.location']
-    pcor_ingest_configuration = PcorIngestConfiguration(pcor_config_location, gen3_location)
-    return pcor_ingest_configuration
+        self.pcor_props_dict = dict_from_props(self.pcor_config_file_name)
+        self.gen3_creds_location = self.pcor_props_dict['gen3.creds.location']
+        self.gen3_endpoint = self.pcor_props_dict['gen3.endpoint']
 
 
 def dict_from_props(filename):

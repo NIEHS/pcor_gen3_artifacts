@@ -13,7 +13,9 @@ class PcorIntermediateProjectModel:
         # project
         self.program_id = None
         self.id = None
+        self.name = None
         self.availability_mechanism = None
+        self.availability_type = None
         self.dbgap_accession_number = None
         self.date_collected = None
         self.submitter_id
@@ -23,10 +25,12 @@ class PcorIntermediateProjectModel:
         self.investigator_name = None
         self.releasable = False
         self.released = False
-        self.project_support_source = None
-        self.project_support_id = None
+        self.support_source = None
+        self.support_id = None
         self.project_state = 'open'
         self.project_type = None
+        self.project_code = None
+        self.complete = None
 
 
 class PcorIntermediateResourceModel:

@@ -1,7 +1,9 @@
 import logging
+import json
 
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +13,7 @@ class PcorGen3Ingest:
     Library for ingesting data into PCOR
     """
 
-    def __int__(self, pcor_ingest_configuration, gen3_auth=None):
+    def __init__(self, pcor_ingest_configuration, gen3_auth=None):
         """
         Initialize ingest tool
         :param pcor_ingest_configuration: IngestConfiguration with Gen3 server properties
@@ -21,6 +23,8 @@ class PcorGen3Ingest:
 
         self.pcor_ingest_configuration = pcor_ingest_configuration
         self.gen3_auth = gen3_auth
+        self.env = Environment(loader=PackageLoader("load_pcor_via_template"))
+        self.env.filters['jsonify'] = json.dumps
 
         if not gen3_auth:
             logger.info('doing auth')
@@ -45,8 +49,26 @@ class PcorGen3Ingest:
             return 'project already exists'
         else:
             logger.info('Creating project: %s', project)
-            response = sub.create_project(program, json)
+            project_json = self.produce_project_json(project)
+            response = sub.create_project(program, project_json)
             return response
+
+    ############################################
+    # json from template methods
+    ############################################
+
+    def produce_project_json(self, project):
+
+        """
+        Produce the json of a project from the jinja template
+        :param project: PcorIntermediateProjectModel of a project
+        :return: string with project JSON for loading into Gen3
+        """
+        logger.info("produce_project_json()")
+        template = self.env.get_template("templates/project.jinja")
+        rendered = template.render(model=project)
+        logger.info("rendered: %s" % rendered)
+        return rendered
 
     #############################################
     # supporting methods
@@ -122,8 +144,3 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.auth)
         submission_status = sub.submit_record(program, project, json)
         return submission_status
-
-
-
-
-
