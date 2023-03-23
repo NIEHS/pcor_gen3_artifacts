@@ -1,5 +1,6 @@
 import logging
 import json
+import os
 
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
@@ -23,7 +24,8 @@ class PcorGen3Ingest:
 
         self.pcor_ingest_configuration = pcor_ingest_configuration
         self.gen3_auth = gen3_auth
-        self.env = Environment(loader=PackageLoader("load_pcor_via_template"))
+        self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
+
         self.env.filters['jsonify'] = json.dumps
 
         if not gen3_auth:
@@ -65,7 +67,7 @@ class PcorGen3Ingest:
         :return: string with project JSON for loading into Gen3
         """
         logger.info("produce_project_json()")
-        template = self.env.get_template("templates/project.jinja")
+        template = self.env.get_template("project.jinja")
         rendered = template.render(model=project)
         logger.info("rendered: %s" % rendered)
         return rendered

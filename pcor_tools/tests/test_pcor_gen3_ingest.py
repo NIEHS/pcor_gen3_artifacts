@@ -1,8 +1,12 @@
+import os
 import logging
+import pcor_testing_utilities
+
+
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
-import pcor_testing_utilities
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +34,8 @@ class TestPcorGen3Ingest(TestCase):
         project.releasable = True
         project.support_id = "support_id"
         project.support_source = "support_source"
+        os.chdir("..")
+
         actual = pcor_ingest.produce_project_json(project)
 
         self.assertIsNotNone(actual)
