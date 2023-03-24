@@ -14,6 +14,8 @@ class PcorGen3Auth:
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.auth = None
+        self.gen3_token = None
 
     def authenticate_to_gen3(self):
         """
@@ -22,8 +24,8 @@ class PcorGen3Auth:
         """
         logger.info("authenticate_to_gen3()")
         creds = self.obtain_creds_using_config()
-        auth = Gen3Auth(endpoint=self.pcor_ingest_configuration.gen3_endpoint, refresh_token=creds)
-        return auth
+        self.auth = Gen3Auth(endpoint=self.pcor_ingest_configuration.gen3_endpoint, refresh_token=creds)
+        return self.auth
 
     def obtain_creds_using_config(self):
         """
@@ -35,9 +37,10 @@ class PcorGen3Auth:
         logger.info("obtain_token_using_env()")
         with open(self.pcor_ingest_configuration.gen3_creds_location) as f:
             creds = json.load(f)
-            api_key_id = creds["key_id"]
-            api_key = creds["api_key"]
-            return self.obtain_token(api_key_id, api_key, self.pcor_ingest_configuration.gen3_endpoint)
+            return creds
+            #api_key_id = creds["key_id"]
+            #api_key = creds["api_key"]
+            #self.gen3_token = self.obtain_token(api_key_id, api_key, self.pcor_ingest_configuration.gen3_endpoint)
 
 
     @staticmethod
