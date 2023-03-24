@@ -56,4 +56,4 @@ class TestPcorGen3Ingest(TestCase):
         project.dbgap_accession_number = "NFS-2"
         project.date_collected = "2023/01/01T12:01:00Z"
         project.complete = True
-        pcor_ingest.create_project("a480c0f0-6120-5156-937f-515f0aee409c", project)
+        pcor_ingest.create_project("NFS", project)

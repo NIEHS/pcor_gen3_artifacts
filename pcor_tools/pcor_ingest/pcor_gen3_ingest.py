@@ -51,7 +51,7 @@ class PcorGen3Ingest:
             return 'project already exists'
         else:
             logger.info('Creating project: %s', project)
-            project_json = self.produce_project_json(project)
+            project_json = self.produce_project_json(pcor_intermediate_project_model)
             response = sub.create_project(program, project_json)
             return response
 
