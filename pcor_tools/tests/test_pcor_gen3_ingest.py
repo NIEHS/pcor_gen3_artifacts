@@ -39,3 +39,21 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.produce_project_json(project)
 
         self.assertIsNotNone(actual)
+
+    def test_add_project(self):
+        """ Figure out how to clear and delete a project! """
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        project = PcorIntermediateProjectModel()
+        project.project_name = "NFS-2"
+        project.project_code = "NFS-2"
+        project.project_state = "open"
+        project.project_release_date = "2023/01/01T12:01:00Z"
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = True
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
+        project.date_collected = "2023/01/01T12:01:00Z"
+        project.complete = True
+        pcor_ingest.create_project("a480c0f0-6120-5156-937f-515f0aee409c", project)

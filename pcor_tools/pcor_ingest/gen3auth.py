@@ -33,11 +33,11 @@ class PcorGen3Auth:
         :return: creds which is the json content of the creds file
         """
         logger.info("obtain_token_using_env()")
-        with open(self.pcor_ingest_configuration.gen3_creds_file) as f:
+        with open(self.pcor_ingest_configuration.gen3_creds_location) as f:
             creds = json.load(f)
             api_key_id = creds["key_id"]
             api_key = creds["api_key"]
-            return self.obtain_token(api_key_id, api_key, self.endpoint)
+            return self.obtain_token(api_key_id, api_key, self.pcor_ingest_configuration.gen3_endpoint)
 
 
     @staticmethod

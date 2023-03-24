@@ -30,8 +30,8 @@ class PcorGen3Ingest:
 
         if not gen3_auth:
             logger.info('doing auth')
-            gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
-            self.gen3_auth = gen3_auth
+            pcor_gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
+            self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
     def create_project(self, program, pcor_intermediate_project_model):
@@ -41,7 +41,7 @@ class PcorGen3Ingest:
         :return: string or gen3 response dictionary
         """
         logger.info('create_project()')
-        sub = Gen3Submission(self.auth)
+        sub = Gen3Submission(self.gen3_auth)
         project = pcor_intermediate_project_model.project_name
 
         existing_projects = self.get_projects(program)
@@ -95,7 +95,7 @@ class PcorGen3Ingest:
         :return: export file
         """
         logger.info('retrieve_project_files_tsv()')
-        sub = Gen3Submission(self.auth)
+        sub = Gen3Submission(self.gen3_auth)
         sub.export_node(program, project, node_type, "tsv", filename=export_file)
 
     def get_projects(self, program=None):
@@ -106,7 +106,7 @@ class PcorGen3Ingest:
         logger.info('get_projects()')
         if program is None:
             program = self.program
-        sub = Gen3Submission(self.auth)
+        sub = Gen3Submission(self.gen3_auth)
         projects = sub.get_projects(program)
         return projects
 
@@ -129,7 +129,7 @@ class PcorGen3Ingest:
        """.format(project_code)
         logger.info("query:{}".format(json))
 
-        sub = Gen3Submission(self.auth)
+        sub = Gen3Submission(self.gen3_auth)
         result = sub.query(json)
         logger.info("result:{}".format(result))
         return result
@@ -143,6 +143,6 @@ class PcorGen3Ingest:
         :return:
         """
         logger.info('submit_record()')
-        sub = Gen3Submission(self.auth)
+        sub = Gen3Submission(self.gen3_auth)
         submission_status = sub.submit_record(program, project, json)
         return submission_status
