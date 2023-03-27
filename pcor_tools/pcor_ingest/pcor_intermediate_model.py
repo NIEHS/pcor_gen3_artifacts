@@ -41,23 +41,23 @@ class PcorIntermediateResourceModel:
 
     def __int__(self):
 
-        self.intermediate_project_model = None
+        self.project = None
         # resource
-        self.resource_submitter_id = None
+        self.submitter_id = None
         self.created_datetime = None
-        self.resource_id = None
-        self.resource_name = None
-        self.resource_secondary_name = None
+        self.id = None
+        self.name = None
+        self.secondary_name = None
         self.resource_type = None
-        self.resource_description = None
-        self.resource_subject = None
-        self.resource_keywords = []
-        self.update_frequencey = 'unknown'
+        self.description = None
+        self.subject = None
+        self.keywords = []
+        self.update_frequency = 'unknown'
         self.license_type = None
         self.license_text = None
         self.verification_datetime = None
-        self.resource_use_agreement = None
-        self.resource_contact = None
+        self.use_agreement = None
+        self.contact = None
 
 
 class PcorGeospatialDataResourceModel:
@@ -83,6 +83,8 @@ class PcorGeospatialDataResourceModel:
         self.spatial_resolution = None
         self.spatial_coverage = None
         self.resource_link = None
+
+
 
 
 

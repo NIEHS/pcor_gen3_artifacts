@@ -55,6 +55,18 @@ class PcorGen3Ingest:
             response = sub.create_project(program, json.loads(project_json))
             return response
 
+    def create_resource(self, project, resource):
+        """
+        Add (or update) a resource
+        :param project: parent PcorIntermediateProjectModel. NB that the only data that needs to be filled in is the
+        id and submitter_id of the parent project
+        :param resource: PcorIntermediateResourceModel representing the resource
+        :return:
+        """
+        pass
+
+
+
     ############################################
     # json from template methods
     ############################################
@@ -69,6 +81,18 @@ class PcorGen3Ingest:
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
         rendered = template.render(model=project)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
+    def produce_resource_json(self, resource):
+        """
+        Render resource data as JSON via template
+        :param resource: PcorIntermediateResourceModel representing the resource data
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_resource_json()")
+        template = self.env.get_template("resource.jinja")
+        rendered = template.render(resource=resource)
         logger.info("rendered: %s" % rendered)
         return rendered
 

@@ -1,3 +1,4 @@
+import json
 import os
 import logging
 import pcor_testing_utilities
@@ -5,8 +6,7 @@ import pcor_testing_utilities
 
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
-
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +35,31 @@ class TestPcorGen3Ingest(TestCase):
         project.support_id = "support_id"
         project.support_source = "support_source"
         os.chdir("..")
-
         actual = pcor_ingest.produce_project_json(project)
+        json.loads(actual)
 
-        self.assertIsNotNone(actual)
+    def test_produce_resource_json(self):
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        project = PcorIntermediateProjectModel()
+        resource = PcorIntermediateResourceModel()
+        project.id = "id"
+        project.submitter_id = "submitter_id"
+        resource.project = project
+        resource.submitter_id = "resc submitter_id"
+        resource.resource_type = "resc type"
+        resource.description = "description"
+        resource.contact = "contact"
+        resource.created_datetime = "2023/01/01T12:01:00Z"
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.name = "name"
+        resource.secondary_name = "secondary name"
+        resource.subject = "subject"
+        resource.update_frequency = "frequency"
+        #os.chdir("..")
+        actual = pcor_ingest.produce_resource_json(resource)
+        json.loads(actual)
 
     def test_add_project(self):
         """ Figure out how to clear and delete a project! """
