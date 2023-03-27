@@ -55,5 +55,6 @@ class TestPcorGen3Ingest(TestCase):
         project.investigator_affiliation = "NIEHS"
         project.dbgap_accession_number = "NFS-2"
         project.date_collected = "2023/01/01T12:01:00Z"
-        project.complete = True
+        project.complete = "Complete"
+        project.availability_type = "Open"
         pcor_ingest.create_project("NFS", project)

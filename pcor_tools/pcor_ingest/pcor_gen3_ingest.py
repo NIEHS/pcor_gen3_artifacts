@@ -52,7 +52,7 @@ class PcorGen3Ingest:
         else:
             logger.info('Creating project: %s', project)
             project_json = self.produce_project_json(pcor_intermediate_project_model)
-            response = sub.create_project(program, project_json)
+            response = sub.create_project(program, json.loads(project_json))
             return response
 
     ############################################
