@@ -80,6 +80,40 @@ class TestPcorGen3Ingest(TestCase):
         project.availability_type = "Open"
         pcor_ingest.create_project("NFS", project)
 
+    def test_existing_delete_project(self):
+        """ test delete project on existing project """
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "NFS"
+        project = PcorIntermediateProjectModel()
+        # create project
+        project.project_name = "test_delete_project"
+        project.project_code = "test_delete_project"
+        project.dbgap_accession_number = "test_delete_project"
+        project.project_state = "open"
+        project.project_release_date = "2023/01/01T12:01:00Z"
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = True
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.date_collected = "2023/01/01T12:01:00Z"
+        project.complete = "Complete"
+        project.availability_type = "Open"
+
+        pcor_ingest.create_project(program=program, pcor_intermediate_project_model=project)
+        response = pcor_ingest.delete_project(program=program, pcor_intermediate_project_model=project)
+        self.assertTrue(response.status_code == 204)
+
+    def test_non_existing_delete_project(self):
+        """ test delete project on non existing project"""
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "NFS"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "test_non_existing_project"
+        expected = 'project does not exists'
+        actual = pcor_ingest.delete_project(program=program, pcor_intermediate_project_model=project)
+        self.assertEqual(expected, actual)
+
     def test_add_resource(self):
         """ Add a resource under a test project """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())

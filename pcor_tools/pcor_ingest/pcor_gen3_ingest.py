@@ -55,6 +55,26 @@ class PcorGen3Ingest:
             response = sub.create_project(program, json.loads(project_json))
             return response
 
+    def delete_project(self, program, pcor_intermediate_project_model):
+        """
+        :param program: identifier of the program in Gen3
+        :param pcor_intermediate_project_model: data structure representing project data
+        :return: string or gen3 response dictionary
+        """
+        logger.info("delete_project()")
+        sub = Gen3Submission(self.gen3_auth)
+        project = pcor_intermediate_project_model.project_name
+
+        existing_projects = self.get_projects(program)
+        project_already_exist = self.check_project_exists(existing_projects, project)
+        if project_already_exist:
+            logger.info("delete project")
+            response = sub.delete_project(program, pcor_intermediate_project_model.project_name)
+            return response
+        else:
+            logger.info("Project does not exists")
+            return 'project does not exists'
+
     def create_resource(self, program, project, resource):
         """
         Add (or update) a resource
