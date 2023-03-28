@@ -55,16 +55,24 @@ class PcorGen3Ingest:
             response = sub.create_project(program, json.loads(project_json))
             return response
 
-    def create_resource(self, project, resource):
+    def create_resource(self, program, project, resource):
         """
         Add (or update) a resource
+        :param program: program id
         :param project: parent PcorIntermediateProjectModel. NB that the only data that needs to be filled in is the
         id and submitter_id of the parent project
         :param resource: PcorIntermediateResourceModel representing the resource
         :return:
         """
-        pass
 
+        logger.info('create_project()')
+        sub = Gen3Submission(self.gen3_auth)
+
+        resource_json = json.loads(self.produce_resource_json(resource))
+        logger.info('adding dataset to program: {}, project: {}'.format(program, project.submitter_id))
+        status = self.submit_record(program=program, project=project.submitter_id, json=resource_json)
+        logger.info(status)
+        print('Decoding JSON has failed')
 
 
     ############################################
@@ -72,7 +80,6 @@ class PcorGen3Ingest:
     ############################################
 
     def produce_project_json(self, project):
-
         """
         Produce the json of a project from the jinja template
         :param project: PcorIntermediateProjectModel of a project

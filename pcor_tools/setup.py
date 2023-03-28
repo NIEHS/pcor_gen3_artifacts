@@ -31,7 +31,7 @@ def read_requirements(path):
 
 setup(
     name="pcor_ingest",
-    version=read("pcor_ingest", "VERSION"),
+    version="1.0.0",
     description="pcor catalog curation tools",
     url="https://github.com/author_name/project_urlname/",
     long_description=read("README.md"),
