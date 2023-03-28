@@ -79,3 +79,47 @@ class TestPcorGen3Ingest(TestCase):
         project.complete = "Complete"
         project.availability_type = "Open"
         pcor_ingest.create_project("NFS", project)
+
+    def test_add_resource(self):
+        """ Add a resource under a test project """
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "NFS"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "NFS-2"
+        project.project_code = "NFS-2"
+        project.project_state = "open"
+        project.project_release_date = "2023/01/01T12:01:00Z"
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = True
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
+        project.date_collected = "2023/01/01T12:01:00Z"
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        pcor_ingest.create_project("NFS", project)
+
+        resource = PcorIntermediateResourceModel()
+        resource.project = project
+        resource.submitter_id = "NFS-2-RESC-1"
+        resource.name = "Fire and Smoke Map"
+        resource.resource_type = "data_resource"
+        resource.subject = "AQI - Air Quality Index"
+        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
+        resource.update_frequency = "hourly"
+        resource.secondary_name = "AirNow"
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.contact = "USFS - contact firesmokemap@epa.gov"
+        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see:
+Current particle pollution air quality information for your location;
+Fire locations and smoke plumes;
+Smoke Forecast Outlooks, where available; and,
+Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health.
+The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
+        resource.use_agreement = ""
+        resource.verification_datetime = ""
+        actual = pcor_ingest.create_resource(program, project, resource)
+        self.assertIsNotNone(actual)
