@@ -140,7 +140,6 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest.create_project("NFS", project)
 
         resource = PcorIntermediateResourceModel()
-        resource.project = project
         resource.submitter_id = "NFS-2-RESC-1"
         resource.name = "Fire and Smoke Map"
         resource.resource_type = "data_resource"
@@ -155,5 +154,5 @@ class TestPcorGen3Ingest(TestCase):
         resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
         resource.use_agreement = ""
         resource.verification_datetime = ""
-        actual = pcor_ingest.create_resource(program, project, resource)
+        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
