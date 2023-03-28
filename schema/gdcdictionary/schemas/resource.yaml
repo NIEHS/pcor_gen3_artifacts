@@ -85,7 +85,9 @@ properties:
     type: string
   keywords: 
     description: Comma delim keywords.
-    type: string
+    type: array
+    items:
+      type: string
   update_frequency:
     description: Frequency of update of the resource.
     enum:

@@ -6,6 +6,8 @@ from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
 
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+
 logger = logging.getLogger(__name__)
 
 
@@ -75,25 +77,31 @@ class PcorGen3Ingest:
             logger.info("Project does not exists")
             return 'project does not exists'
 
-    def create_resource(self, program, project, resource):
+    def create_resource(self, program_name, project_name, resource):
         """
         Add (or update) a resource
-        :param program: program id
-        :param project: parent PcorIntermediateProjectModel. NB that the only data that needs to be filled in is the
-        id and submitter_id of the parent project
+        :param program_name:  name of program (e.g. NFS)
+        :param project_name: name of project (code)
         :param resource: PcorIntermediateResourceModel representing the resource
         :return:
         """
 
-        logger.info('create_project()')
+        logger.info('create_resource()')
         sub = Gen3Submission(self.gen3_auth)
+
+        # add project info
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        resource.project = pcor_intermediate_project_model
+
         json_string = self.produce_resource_json(resource)
         logger.debug("json_string: %s" % json_string)
         resource_json = json.loads(json_string)
-        logger.info('adding dataset to program: {}, project: {}'.format(program, project.submitter_id))
-        status = self.submit_record(program=program, project=project.submitter_id, json=resource_json)
+        logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
+        status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
         print('Decoding JSON has failed')
+
 
 
     ############################################
@@ -129,6 +137,12 @@ class PcorGen3Ingest:
     ###########################################
 
     def check_project_exists(self, existing_projects, project):
+        """
+
+        :param existing_projects:
+        :param project:
+        :return:
+        """
         project_already_exist = False
         if existing_projects and 'links' in existing_projects:
             for entry in existing_projects['links']:
@@ -161,6 +175,18 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.gen3_auth)
         projects = sub.get_projects(program)
         return projects
+
+    def pcor_project_model_from_id(self, project_submitter_id):
+        """
+        Given a project submitter id, build a skeleton project model with id and other info
+        :param project_submitter_id: code for project
+        :return: pcor_intermediate_project_model with project info
+        """
+        project_json = self.get_individual_project_info(project_submitter_id)
+        pcor_intermediate_project_model = PcorIntermediateProjectModel()
+        pcor_intermediate_project_model.dbgap_accession_number = project_json['data']['project'][0]['code']
+        pcor_intermediate_project_model.id = project_json['data']['project'][0]['id']
+        return pcor_intermediate_project_model
 
     def get_individual_project_info(self, project_code):
         """
