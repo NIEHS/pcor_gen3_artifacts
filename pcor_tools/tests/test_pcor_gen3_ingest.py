@@ -8,6 +8,11 @@ from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
 logger = logging.getLogger(__name__)
 
 
