@@ -152,12 +152,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.license_text = ""
         resource.created_datetime = ""
         resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see:
-Current particle pollution air quality information for your location;
-Fire locations and smoke plumes;
-Smoke Forecast Outlooks, where available; and,
-Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health.
-The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
+        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
         resource.use_agreement = ""
         resource.verification_datetime = ""
         actual = pcor_ingest.create_resource(program, project, resource)

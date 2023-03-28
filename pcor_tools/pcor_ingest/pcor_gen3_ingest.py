@@ -87,8 +87,9 @@ class PcorGen3Ingest:
 
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
-
-        resource_json = json.loads(self.produce_resource_json(resource))
+        json_string = self.produce_resource_json(resource)
+        logger.debug("json_string: %s" % json_string)
+        resource_json = json.loads(json_string)
         logger.info('adding dataset to program: {}, project: {}'.format(program, project.submitter_id))
         status = self.submit_record(program=program, project=project.submitter_id, json=resource_json)
         logger.info(status)

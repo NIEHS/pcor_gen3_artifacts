@@ -35,5 +35,17 @@ The Gen3 instance must be set up and running. It is important that the user has 
 the catalog in Fence for the project and program. The user.yaml in custom_configs reflects the rights
 necessary to run the tests.
 
+### Notes and Tips
+
+If you are running tests or running the code, and you get errors like:
+
+```json
+get_source    raise TemplateNotFound(template) from e
+jinja2.exceptions.TemplateNotFound: project.jinja
+```
+
+This is probably due to your setup. Jinja uses a package loader, so you want to make sure your project is 
+set up with pcor_tools as the root folder, with pcor_ingest as a python package under that root.
+
 
  
