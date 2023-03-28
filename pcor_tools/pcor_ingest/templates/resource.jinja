@@ -2,6 +2,7 @@
 "resource_contact": "{{ resource.contact }}",
   "resource_type": "{{ resource.resource_type }}",
   "project_id": "{{ resource.project.id }}",
+  "type": "resource",
   "keywords":  [
     {% for keyword in resource.keywords %}
 
@@ -16,7 +17,7 @@
   "license_type": "{{ resource.license_type }}",
   "submitter_id": "{{ resource.submitter_id }}",
   "verification_datetime": "{{ resource.verification_datetime }}",
-  "resource_use_agreement": "{{ resource.use_agreement }}",
+  "resource_use_agreement": {{ resource.use_agreement }},
   "license_text": "{{ resource.license_text }}",
   "secondary_name": "{{ resource.secondary_name }}",
   "projects": {
