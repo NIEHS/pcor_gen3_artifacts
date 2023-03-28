@@ -18,7 +18,7 @@ class PcorIntermediateProjectModel:
         self.availability_type = None
         self.dbgap_accession_number = None
         self.date_collected = None
-        self.submitter_id
+        self.submitter_id = None
         self.project_name = None
         self.project_release_date = None
         self.investigator_affiliation = None
@@ -47,6 +47,7 @@ class PcorIntermediateResourceModel:
         self.created_datetime = None
         self.id = None
         self.name = None
+        self.resource_id = None
         self.secondary_name = None
         self.resource_type = None
         self.description = None
