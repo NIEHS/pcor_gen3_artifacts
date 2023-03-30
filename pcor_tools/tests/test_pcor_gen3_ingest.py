@@ -137,7 +137,8 @@ class TestPcorGen3Ingest(TestCase):
         project.date_collected = ""
         project.complete = "Complete"
         project.availability_type = "Open"
-        pcor_ingest.create_project("NFS", project)
+        project_id = pcor_ingest.create_project("NFS", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
 
         resource = PcorIntermediateResourceModel()
         resource.submitter_id = "NFS-2-RESC-1"

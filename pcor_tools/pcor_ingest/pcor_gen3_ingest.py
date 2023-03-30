@@ -40,7 +40,7 @@ class PcorGen3Ingest:
         """
         :param program: identifier of the program in Gen3
         :param pcor_intermediate_project_model: data structure representing project data
-        :return: string or gen3 response dictionary
+        :return: on success returns project id or None in failure
         """
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
@@ -50,12 +50,21 @@ class PcorGen3Ingest:
         project_already_exist = self.check_project_exists(existing_projects, project)
         if project_already_exist:
             logger.info('Project already exists: %s', project)
-            return 'project already exists'
+            logger.info('fetch project details')
+            project_code = self.get_project_code_from_project_name(project_name=project)
+            return project_code
+
         else:
             logger.info('Creating project: %s', project)
             project_json = self.produce_project_json(pcor_intermediate_project_model)
             response = sub.create_project(program, json.loads(project_json))
-            return response
+            if response['success']:
+                project_id = response['entities'][0]['id']
+                return project_id
+            else:
+                logger.error('Project creation failed')
+                logger.error('Response: %s', str(response))
+                return None
 
     def delete_project(self, program, pcor_intermediate_project_model):
         """
@@ -83,7 +92,7 @@ class PcorGen3Ingest:
         :param program_name:  name of program (e.g. NFS)
         :param project_name: name of project (code)
         :param resource: PcorIntermediateResourceModel representing the resource
-        :return:
+        :return:on success returns resource id or None in failure
         """
 
         logger.info('create_resource()')
@@ -100,7 +109,14 @@ class PcorGen3Ingest:
         logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
-        return status
+        if status['success']:
+            resource_id = status['entities'][0]['id']
+            return resource_id
+        else:
+            logger.error('Resouce creation failed')
+            logger.error('Response: %s', str(status))
+            return None
+
 
 
     ############################################
@@ -210,6 +226,34 @@ class PcorGen3Ingest:
         result = sub.query(json)
         logger.info("result:{}".format(result))
         return result
+
+    def get_project_code_from_project_name(self, project_name=None):
+        """
+        ToDo: this can be generic method added to get_individual_project_info()
+        Do a query to get code, id, and name of a project based on the project code
+        :param project_name: name field in project
+        :return: JSON with query result
+        """
+        json = """{{
+                 project(name: "{}") {{
+                   id
+                   code
+                   dbgap_accession_number
+                   submitter_id
+                   name
+                 }}
+               }}
+               """.format(project_name)
+        logger.info("query:{}".format(json))
+        sub = Gen3Submission(self.gen3_auth)
+        result = sub.query(json)
+        logger.info("result:{}".format(result))
+        project_details = result['data']['project'][0]
+        if project_details['name'] == project_name:
+            return project_details['id']
+        else:
+            return None
+
 
     def submit_record(self, program, project, json):
         """
