@@ -60,6 +60,17 @@ class PcorIntermediateResourceModel:
         self.use_agreement = None
         self.contact = None
 
+class SubmitResponse:
+    """
+    Represents the data about an object after submission, showing
+    the result
+    """
+
+    def __int__(self):
+        self.project_id = None
+        self.type = None
+        self.id = None
+        self.submitter_id = None
 
 class PcorGeospatialDataResourceModel:
     """

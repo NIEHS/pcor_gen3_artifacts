@@ -158,3 +158,12 @@ class TestPcorGen3Ingest(TestCase):
         resource.verification_datetime = "null"
         actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
+
+    def test_parse_status(self):
+        json = {"code": 200, "created_entity_count": 0, "entities": [{"action": "update", "errors": [], "id": "2c000697-43c0-442f-bb8f-10c6c6bf8ed6", "type": "resource", "unique_keys": [{"project_id": "NFS-NFS-2", "submitter_id": "NFS-2-RESC-1"}], "valid": True, "warnings": []}], "entity_error_count": 0, "message": "Transaction successful.","success": True, "transaction_id": 20, "transactional_error_count": 0, "transactional_errors": [], "updated_entity_count": 1}
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        actual = pcor_ingest.parse_status(json)
+        self.assertEqual('NFS-2-RESC-1', actual.submitter_id)
+        self.assertEqual('2c000697-43c0-442f-bb8f-10c6c6bf8ed6', actual.id)
+        self.assertEqual('resource', actual.type)
+        self.assertEqual('NFS-NFS-2', actual.project_id)

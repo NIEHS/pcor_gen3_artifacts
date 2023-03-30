@@ -6,7 +6,7 @@ from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse
 
 logger = logging.getLogger(__name__)
 
@@ -109,14 +109,8 @@ class PcorGen3Ingest:
         logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
-        if status['success']:
-            resource_id = status['entities'][0]['id']
-            return resource_id
-        else:
-            logger.error('Resouce creation failed')
-            logger.error('Response: %s', str(status))
-            return None
-
+        submit_response = self.parse_status(status)
+        return submit_response
 
 
     ############################################
@@ -267,3 +261,18 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.gen3_auth)
         submission_status = sub.submit_record(program, project, json)
         return submission_status
+
+    @staticmethod
+    def parse_status(status):
+        """
+        Parse a status response from a record submission
+        :param status: json res
+        :return:
+        """
+
+        status_response = SubmitResponse()
+        status_response.submitter_id = status["entities"][0]["unique_keys"][0]["submitter_id"]
+        status_response.id = status["entities"][0]["id"]
+        status_response.type = status["entities"][0]["type"]
+        status_response.project_id = status["entities"][0]["unique_keys"][0]["project_id"]
+        return status_response
