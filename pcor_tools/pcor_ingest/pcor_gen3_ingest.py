@@ -100,8 +100,7 @@ class PcorGen3Ingest:
         logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
-        print('Decoding JSON has failed')
-
+        return status
 
 
     ############################################
