@@ -97,6 +97,45 @@ class PcorGeospatialDataResourceModel:
         self.resource_link = None
 
 
+class PcorDiscoveryMetadata:
+    """
+    Represents data for Discovery presentation of a resource
+    """
+
+    def __init__(self):
+        self.tags = []
+        self.adv_search_filters = []
+        self.name = None
+        self.full_name = None
+        self.description = None
+        self.resource_id = None
+        self.resource_url = None
+        self.type = None
+        self.subject = None
+
+
+class Tag:
+    """
+    Tag struct in discovery metadata
+    """
+
+    def __init__(self):
+        self.name = None
+        self.category = None
+
+
+class AdvSearchFilter:
+    """
+    advSearchFilters struct for discovery metadata
+    """
+
+    def __init__(self):
+        self.key = None
+        self.value = None
+
+
+
+
 
 
 

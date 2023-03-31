@@ -112,6 +112,10 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def decorate_resc_with_discovery(self, discovery_data):
+
+        logger.info("decorate_resc_with_discovery()")
+        template = self.env.get_template("discoverymd.jinja")
 
     ############################################
     # json from template methods
@@ -138,6 +142,18 @@ class PcorGen3Ingest:
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
         rendered = template.render(resource=resource)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
+    def produce_discovery_json(self, discovery_data):
+        """
+        Render discovery data as JSON via template
+        :param discovery_data: PcorDiscoveryMetadata representing the resource data for discovery page
+        :return: string with JSON for loading into Gen3
+        """
+        logger.info("produce_discovery_json()")
+        template = self.env.get_template("discoverymd.jinja")
+        rendered = template.render(discovery=discovery_data)
         logger.info("rendered: %s" % rendered)
         return rendered
 

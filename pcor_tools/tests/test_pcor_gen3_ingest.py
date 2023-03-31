@@ -6,7 +6,8 @@ import pcor_testing_utilities
 
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
+    PcorDiscoveryMetadata, Tag, AdvSearchFilter
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -62,9 +63,36 @@ class TestPcorGen3Ingest(TestCase):
         resource.secondary_name = "secondary name"
         resource.subject = "subject"
         resource.update_frequency = "frequency"
-        #os.chdir("..")
         actual = pcor_ingest.produce_resource_json(resource)
         json.loads(actual)
+
+    def test_produce_discovery_json(self):
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        discovery = PcorDiscoveryMetadata()
+        tag = Tag()
+        tag.name = "tag1"
+        tag.category = "cat1"
+        discovery.tags.append(tag)
+
+        discovery.name = "name1"
+        discovery.type = "type1"
+        discovery.subject = "subj1"
+        discovery.resource_id = "rescid"
+        discovery.description = "descr"
+        discovery.full_name = "the full name"
+        discovery.resource_url = "http://hello.com"
+
+        adv_search_filter = AdvSearchFilter()
+        adv_search_filter.key = "adv_key1"
+        adv_search_filter.value = "adv_val1"
+        discovery.adv_search_filters.append(adv_search_filter)
+        adv_search_filter = AdvSearchFilter()
+        adv_search_filter.key = "adv_key2"
+        adv_search_filter.value = "adv_val2"
+        discovery.adv_search_filters.append(adv_search_filter)
+        actual = pcor_ingest.produce_discovery_json(discovery)
+        json.loads(actual)
+
 
     def test_add_project(self):
         """ Figure out how to clear and delete a project! """
