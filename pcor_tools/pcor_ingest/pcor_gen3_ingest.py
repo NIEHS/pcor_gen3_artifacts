@@ -117,17 +117,17 @@ class PcorGen3Ingest:
         """
         Add discovery metadata for the given resource
         :param discovery_data: PcorDiscoveryMetadata
-        :return: None
+        :return: Response (just the json for now)
         """
 
         logger.info("decorate_resc_with_discovery()")
         json_string = self.produce_discovery_json(discovery_data)
         logger.debug("json_string: %s" % json_string)
-        resource_json = json.loads(json_string)
+        discovery_json = json.loads(json_string)
         logger.info('adding discovery data')
         metadata = Gen3Metadata(self.gen3_auth)
-        # metadata.admin_endpoint = "http://localhost"
-        metadata.create(discovery_data.resource_id, discovery_data, aliases=None, overwrite=True)
+        response = metadata.create(discovery_data.resource_id, discovery_json, aliases=None, overwrite=True)
+        return response
 
     ############################################
     # json from template methods

@@ -1,13 +1,12 @@
 import json
 import os
 import logging
-import pcor_testing_utilities
-
 
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
     PcorDiscoveryMetadata, Tag, AdvSearchFilter
+from tests import pcor_testing_utilities
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -185,6 +184,108 @@ class TestPcorGen3Ingest(TestCase):
         resource.use_agreement = "false"
         resource.verification_datetime = "null"
         actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        self.assertIsNotNone(actual)
+
+    def test_decorate_resource(self):
+        """ Add a resource under a test project and decorate with discovery metadata """
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "NFS"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "NFS-2"
+        project.project_code = "NFS-2"
+        project.project_state = "open"
+        project.project_release_date = ""
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = True
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        project_id = pcor_ingest.create_project("NFS", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "NFS-2-RESC-DISC-1"
+        resource.resource_id = "NFS-2-RESC-DISC-1"
+        resource.name = "Smoke plume map"
+        resource.resource_type = "data_resource"
+        resource.subject = "AQI - Air Quality Index"
+        resource.keywords = ["fire", "smoke", "aqi", "wildfire", "plume"]
+        resource.update_frequency = "hourly"
+        resource.secondary_name = "AirNow Plume Mapping"
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.contact = "USFS - contact firesmokemap@epa.gov"
+        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
+        resource.use_agreement = "false"
+        resource.verification_datetime = "null"
+        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        resc_id = actual.id
+
+        # now add the discovery data
+        discovery = PcorDiscoveryMetadata()
+        tag = Tag()
+        tag.name = "web site"
+        tag.category = "Link Type"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "NFS"
+        tag.category = "Program"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "smoke plume"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "geospatial data resource"
+        tag.category = "Resource Type"
+        discovery.tags.append(tag)
+
+        for kw in resource.keywords:
+            tag = Tag()
+            tag.name = kw
+            tag.category = "Keyword"
+            discovery.tags.append(tag)
+
+        discovery.name = resource.name
+        discovery.type = resource.resource_type
+        discovery.resource_url = 'http://a.web.site'
+        discovery.resource_id = resc_id
+        discovery.full_name = resource.name
+        discovery.description = resource.description
+        discovery.subject = resource.subject
+
+        filter = AdvSearchFilter()
+        filter.key = "Resource Type"
+        filter.value = "geospatial data resource"
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Program"
+        filter.value = "NFS"
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Subject"
+        filter.value = "smoke"
+        discovery.adv_search_filters.append(filter)
+
+        discovery.name = "name1"
+        discovery.type = "type1"
+        discovery.subject = "subj1"
+        discovery.resource_id = "rescid"
+        discovery.description = "descr"
+        discovery.full_name = "the full name"
+        discovery.resource_url = "http://hello.com"
+
+        actual = pcor_ingest.decorate_resc_with_discovery(discovery)
         self.assertIsNotNone(actual)
 
     def test_parse_status(self):

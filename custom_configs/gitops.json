@@ -148,7 +148,10 @@
         "displayName": "Filters",
         "filters": [
           {
-            "key": "Gender"
+            "key": "Program"
+          },
+          {
+            "key": "Subject"
           }
         ]
       },
@@ -178,8 +181,12 @@
         "field": "full_name"
       },
       {
-        "name": "Resolution",
-        "field": "resolution"
+        "name": "Type",
+        "field": "type"
+      },
+      {
+        "name": "Subject",
+        "field": "subject"
       }
     ],
     "studyPreviewField": {
@@ -237,6 +244,11 @@
       {
         "name": "Link Type",
         "color": "rgba(81, 100, 54, 1)",
+        "display": true
+      },
+      {
+        "name": "Keyword",
+        "color": "rgba(40, 120, 70, 1)",
         "display": true
       },
       {
