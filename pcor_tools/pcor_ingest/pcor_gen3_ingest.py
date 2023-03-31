@@ -2,6 +2,7 @@ import logging
 import json
 import os
 
+from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -113,9 +114,20 @@ class PcorGen3Ingest:
         return submit_response
 
     def decorate_resc_with_discovery(self, discovery_data):
+        """
+        Add discovery metadata for the given resource
+        :param discovery_data: PcorDiscoveryMetadata
+        :return: None
+        """
 
         logger.info("decorate_resc_with_discovery()")
-        template = self.env.get_template("discoverymd.jinja")
+        json_string = self.produce_discovery_json(discovery_data)
+        logger.debug("json_string: %s" % json_string)
+        resource_json = json.loads(json_string)
+        logger.info('adding discovery data')
+        metadata = Gen3Metadata(self.gen3_auth)
+        # metadata.admin_endpoint = "http://localhost"
+        metadata.create(discovery_data.resource_id, discovery_data, aliases=None, overwrite=True)
 
     ############################################
     # json from template methods
