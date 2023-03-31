@@ -6,7 +6,7 @@ import pcor_testing_utilities
 
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, PcorGeospatialDataResourceModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -24,7 +24,7 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
         project.project_name = "name"
-        project.project_type ="type"
+        project.project_type = "type"
         project.project_state = "state"
         project.project_code = "code"
         project.availability_mechanism = "availability_mechanism"
@@ -83,7 +83,7 @@ class TestPcorGen3Ingest(TestCase):
         project.date_collected = "2023/01/01T12:01:00Z"
         project.complete = "Complete"
         project.availability_type = "Open"
-        pcor_ingest.create_project("NFS", project)
+        project_id = pcor_ingest.create_project("NFS", project)
 
     def test_existing_delete_project(self):
         """ test delete project on existing project """
@@ -158,6 +158,61 @@ class TestPcorGen3Ingest(TestCase):
         resource.verification_datetime = "null"
         actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
+
+    def test_create_geo_spatial_data_resource(self):
+        """ Add a geo_spatial_data_resource """
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "NFS"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "NFS-2"
+        project.project_code = "NFS-2"
+        project.project_state = "open"
+        project.project_release_date = ""
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = True
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        project_id = pcor_ingest.create_project("NFS", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "NFS-2-RESC-1"
+        resource.resource_id = "NFS-2-RESC-1"
+        resource.name = "Fire and Smoke Map"
+        resource.resource_type = "data_resource"
+        resource.subject = "AQI - Air Quality Index"
+        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
+        resource.update_frequency = "hourly"
+        resource.secondary_name = "AirNow"
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.contact = "USFS - contact firesmokemap@epa.gov"
+        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
+        resource.use_agreement = "false"
+        resource.verification_datetime = "null"
+        resource_submit_status = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+
+        geo_spatial_resource = PcorGeospatialDataResourceModel()
+        geo_spatial_resource.submitter_id = "NFS-2-GEO-1"
+        geo_spatial_resource.observation = "wildfire_plume"
+        geo_spatial_resource.resource_link = "https://landfire.gov/"
+        geo_spatial_resource.spatial_coverage = "national"
+        geo_spatial_resource.spatial_resolution = "10km"
+
+        # using result from resource creation status
+        geo_spatial_resource.resource_id = resource_submit_status.id
+        geo_spatial_resource.project_submitter_id = resource.submitter_id
+
+        actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program,
+                                                              project_name=project.project_name,
+                                                              geo_spatial_data_resource=geo_spatial_resource)
 
     def test_parse_status(self):
         json = {"code": 200, "created_entity_count": 0, "entities": [{"action": "update", "errors": [], "id": "2c000697-43c0-442f-bb8f-10c6c6bf8ed6", "type": "resource", "unique_keys": [{"project_id": "NFS-NFS-2", "submitter_id": "NFS-2-RESC-1"}], "valid": True, "warnings": []}], "entity_error_count": 0, "message": "Transaction successful.","success": True, "transaction_id": 20, "transactional_error_count": 0, "transactional_errors": [], "updated_entity_count": 1}
