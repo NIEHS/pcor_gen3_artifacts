@@ -130,8 +130,40 @@
       },
       "search": {
         "searchBar": {
-          "enabled": true
+          "enabled": true,
+          "inputSubtitle": "PCOR Resource Search",
+          "placeholder": "Search climate and health resources by keyword",
+          "searchableTextFields": ["name", "full_name", "description", "subject"]
+
+        },
+        "tagSearchDropdown": { 
+          "enabled": true,
+          "collapseOnDefault": false, 
+          "collapsibleButtonText": "Resource Characteristics" 
         }
+      },
+      "advSearchFilters": {
+        "enabled": true,
+        "field": "advSearchFilters",
+        "displayName": "Filters",
+        "filters": [
+          {
+            "key": "Resource Type"
+          },
+          {
+            "key": "Program"
+          },
+          {
+            "key": "Subject"
+          }
+
+        ]
+      },
+      "tagsColumn": {
+        "enabled": false
+      },
+      "tagsInDescription": {
+        "enabled": true
       },
       "authorization": {
         "enabled": false
@@ -148,10 +180,18 @@
       "title": "Tags by category"
     },
     "studyColumns":[
-      {
-        "name": "Resource ID",
-        "field": "resource_id"
-      }
+     {
+            "name": "Resource Type",
+            "field": "type"
+     },
+     {
+        "name": "Resource Name",
+        "field": "full_name"
+     },
+     {
+        "name": "Subject",
+        "field": "subject"
+     }
     ],
     "studyPreviewField": {
       "name": "Description",
@@ -161,49 +201,33 @@
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No description has been provided for this resource."
     },
-    "studyPageFields": {
-      "header": {
-        "field": "resource_id"
-      },
-      "fieldsToShow": [
-        {
-          "groupName": "PCOR data",
-          "includeName": false,
-          "fields": [
-            {
-              "name": "Resource ID",
-              "field": "resource_id"
-            }, 
-            {
-              "name": "Name",
-              "field": "name"
-            },
-            {
-              "name": "Secondary Name",
-              "field": "secondary_name"
+    "detailView": {
+      "headerField": "full_name",
+        "tabs": [
+          {
+            "tabName": "Resource",
+            "groups": [
+              {
+                "header": "Resource Summary",
+                "fields": [
+                  {
+                    "type": "block",
+                    "sourceField": "description"
+                  }
+                ]
+              },
+              {
+                "header": "(Meta)Data Location",
+                "fields": [
+                  {
+                    "type": "link",
+                    "label": "Repository URL",
+                    "sourceField": "resource_url"
+                  }
+                ]
+              }
+            ]
             }
-          ]
-        },
-        {
-          "fields": [
-            {
-              "name": "Name",
-              "field": "name",
-              "contentType": "string",
-              "includeName": true,
-              "includeIfNotAvailable": true,
-              "valueIfNotAvailable": "No name provided."
-            },
-            {
-              "name": "Secondary Name",
-              "field": "secondary_name",
-              "contentType": "string",
-              "includeName": true,
-              "includeIfNotAvailable": true,
-              "valueIfNotAvailable": "No secondary name provided."
-            }
-          ]
-        }
       ]
     },
     "minimalFieldMapping": {
@@ -212,10 +236,26 @@
     },
     "tagCategories": [
       {
-        "name": "Data Type",
+        "name": "Program",
         "color": "rgba(71, 130, 195, 1)",
         "display": true
+      },
+      {
+        "name": "Variable",
+        "color": "rgba(81, 175, 195, 1)",
+        "display": true
+      },
+      {
+        "name": "Link Type",
+        "color": "rgba(81, 100, 54, 1)",
+        "display": true
+      },
+      {
+        "name": "Resource Type",
+        "color": "rgba(121, 112, 103, 1)",
+        "display": true
       }
+
     ]
   },
   "analysisTools": [ ],

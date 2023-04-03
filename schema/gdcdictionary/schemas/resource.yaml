@@ -85,7 +85,9 @@ properties:
     type: string
   keywords: 
     description: Comma delim keywords.
-    type: string
+    type: array
+    items:
+      type: string
   update_frequency:
     description: Frequency of update of the resource.
     enum:
@@ -101,7 +103,7 @@ properties:
     type: string
   license_text:
     description: Text of license terms.
-  verificatin_datetime:
+  verification_datetime:
     description: Date that the resource was last verified.
     $ref: "_definitions.yaml#/datetime"
   resource_use_agreement:

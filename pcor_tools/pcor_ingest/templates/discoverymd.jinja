@@ -1,0 +1,26 @@
+{
+  "tags": [
+    {% for tag in discovery.tags %}
+      {
+        "name": "{{ tag.name }}",
+        "category": "{{ tag.category }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "advSearchFilters": [
+    {% for adv_search_filter in discovery.adv_search_filters %}
+      {
+        "key": "{{ adv_search_filter.key }}",
+        "value": "{{ adv_search_filter.value }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "name": "{{ discovery.name }}",
+  "full_name": "{{ discovery.full_name }}",
+  "description": "{{ discovery.description }}",
+  "resource_id": "{{ discovery.resource_id }}",
+  "resource_url": "{{ discovery.resource_url }}",
+  "type": "{{ discovery.type }}",
+  "subject": "{{ discovery.subject }}"
+
+}

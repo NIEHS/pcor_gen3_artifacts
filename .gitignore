@@ -375,3 +375,5 @@ MigrationBackup/
 
 .venv
 .idea
+pcor_tools/tests/test_resources/*.json
+pcor_tools/tests/test_resources/*.properties
