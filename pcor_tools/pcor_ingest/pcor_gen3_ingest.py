@@ -144,6 +144,21 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
+        logger.info("create_pop_data_resource()")
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pop_data_resource.project = pcor_intermediate_project_model
+
+        json_string = self.produce_pop_data_resource(pop_data_resource)
+        logger.info("json_string: %s" % json_string)
+        pop_data_resource_json = json.loads(json_string)
+        status = self.submit_record(program=program_name, project=project_name, json=pop_data_resource_json)
+        logger.info(status)
+        submit_response = self.parse_status(status)
+        return submit_response
+
+
 
     ############################################
     # json from template methods
@@ -193,6 +208,18 @@ class PcorGen3Ingest:
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
         rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
+    def produce_pop_data_resource(self, pop_data_resource):
+        """
+        Render pop_data_resource  as JSON via template
+        :param pop_data_resource: PcorPopDataResourceModel representing the population data
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_pop_data_resource()")
+        template = self.env.get_template("population_data_resource.jinja")
+        rendered = template.render(pop_data_resource=pop_data_resource)
         logger.info("rendered: %s" % rendered)
         return rendered
 
