@@ -5,7 +5,7 @@ import logging
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel,  PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProgramModel, PcorIntermediateProjectModel, PcorIntermediateResourceModel,  PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -388,6 +388,14 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.create_pop_data_resource(program_name=program,
                                                       project_name=project.project_name,
                                                       pop_data_resource=pop_data_resource)
+
+    def test_create_program(self):
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = PcorIntermediateProgramModel()
+        program.program_name = "NFS"
+        program.dbgap_accession_number = "NFS"
+        program_id = pcor_ingest.create_program(program)
+        logger.debug('Program: %s is associated with id %s' % (program.program_name, program_id))
 
     def test_parse_status(self):
         json = {"code": 200, "created_entity_count": 0, "entities": [{"action": "update", "errors": [], "id": "2c000697-43c0-442f-bb8f-10c6c6bf8ed6", "type": "resource", "unique_keys": [{"project_id": "NFS-NFS-2", "submitter_id": "NFS-2-RESC-1"}], "valid": True, "warnings": []}], "entity_error_count": 0, "message": "Transaction successful.","success": True, "transaction_id": 20, "transactional_error_count": 0, "transactional_errors": [], "updated_entity_count": 1}

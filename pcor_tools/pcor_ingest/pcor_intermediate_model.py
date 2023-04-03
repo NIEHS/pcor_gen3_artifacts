@@ -6,6 +6,15 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 logger = logging.getLogger(__name__)
 
 
+class PcorIntermediateProgramModel:
+    """
+    Represents a program
+    """
+    def __int__(self):
+        self.program_name = None
+        self.dbgap_accession_number = None
+
+
 class PcorIntermediateProjectModel:
 
     def __int__(self):

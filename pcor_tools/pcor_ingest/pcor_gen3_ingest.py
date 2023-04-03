@@ -37,6 +37,37 @@ class PcorGen3Ingest:
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
+    def create_program(self, pcor_intermidate_program_model):
+        """
+        :param pcor_intermidate_project_model: data structure representing program data
+        :return: on success returns program id
+        """
+        logger.info("create_program()")
+        sub = Gen3Submission(self.gen3_auth)
+        existing_programs = sub.get_programs()
+
+        program_name = pcor_intermidate_program_model.program_name
+        program_already_exists = self.check_program_exists(existing_programs=existing_programs,
+                                                           program=program_name)
+        if program_already_exists:
+            logger.info('Program already exists fetch program details')
+            logger.info('')
+            program_query_result = self.get_individual_program_info(program_name=program_name)
+            program_info = program_query_result['data']['program'][0]
+            program_id = program_info.get('id')
+            logger.debug('#####################')
+            logger.debug('Program id: %s' % program_id)
+            logger.debug('Program name: %s' % program_info.get('name'))
+            logger.debug('Program dbgap_accession_number: %s' % program_info.get('dbgap_accession_number'))
+            return program_id
+
+        else:
+            logger.debug('program does not exists, creating new program')
+            program_json = self.produce_program_json(pcor_intermidate_program_model)
+            response = sub.create_program(json.loads(program_json))
+            logger.debug('Response %s' % response)
+            return response.get('id')
+
     def create_project(self, program, pcor_intermediate_project_model):
         """
         :param program: identifier of the program in Gen3
@@ -163,6 +194,17 @@ class PcorGen3Ingest:
     ############################################
     # json from template methods
     ############################################
+    def produce_program_json(self, program):
+        """
+        Produce the json of a program from the jinja template
+        :param program: PcorIntermediateProgramModel of a program
+        :return: string with project JSON for loading into Gen3
+        """
+        logger.info("produce_program_json()")
+        template = self.env.get_template("program.jinja")
+        rendered = template.render(program=program)
+        logger.info("rendered: %s" % rendered)
+        return rendered
 
     def produce_project_json(self, project):
         """
@@ -226,8 +268,23 @@ class PcorGen3Ingest:
     #############################################
     # supporting methods
     ###########################################
+    @staticmethod
+    def check_program_exists( existing_programs, program):
+        """
+        :param existing_programs:
+        :param program:
+        :return:
+        """
+        program_already_exist = False
+        if existing_programs and 'links' in existing_programs:
+            for entry in existing_programs['links']:
+                temp_project = entry.split('/')[-1]
+                if temp_project == program:
+                    program_already_exist = True
+        return program_already_exist
 
-    def check_project_exists(self, existing_projects, project):
+    @staticmethod
+    def check_project_exists(existing_projects, project):
         """
 
         :param existing_projects:
@@ -278,6 +335,29 @@ class PcorGen3Ingest:
         pcor_intermediate_project_model.dbgap_accession_number = project_json['data']['project'][0]['code']
         pcor_intermediate_project_model.id = project_json['data']['project'][0]['id']
         return pcor_intermediate_project_model
+
+    def get_individual_program_info(self, program_name):
+        """
+        Do a query to get program details
+        :param program_name: name field in program
+        :return: JSON with query result
+        """
+        json = """{{
+                 program(name: "{}") {{
+                   id
+                   name
+                   dbgap_accession_number
+                   
+                   name
+                 }}
+               }}
+               """.format(program_name)
+        logger.info("query:{}".format(json))
+
+        sub = Gen3Submission(self.gen3_auth)
+        result = sub.query(json)
+        logger.info("result:{}".format(result))
+        return result
 
     def get_individual_project_info(self, project_code):
         """
