@@ -123,9 +123,11 @@ class PcorGen3Ingest:
         json_string = self.produce_discovery_json(discovery_data)
         logger.debug("json_string: %s" % json_string)
         discovery_json = json.loads(json_string)
+        discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
+
         logger.info('adding discovery data')
         metadata = Gen3Metadata(self.gen3_auth)
-        response = metadata.create(discovery_data.resource_id, discovery_json, aliases=None, overwrite=True)
+        response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
         return response
 
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):

@@ -278,14 +278,6 @@ class TestPcorGen3Ingest(TestCase):
         filter.value = "smoke"
         discovery.adv_search_filters.append(filter)
 
-        discovery.name = "name1"
-        discovery.type = "type1"
-        discovery.subject = "subj1"
-        discovery.resource_id = "rescid"
-        discovery.description = "descr"
-        discovery.full_name = "the full name"
-        discovery.resource_url = "http://hello.com"
-
         actual = pcor_ingest.decorate_resc_with_discovery(discovery)
         self.assertIsNotNone(actual)
 
