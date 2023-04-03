@@ -65,6 +65,7 @@ properties:
     enum: 
       - air_pollution
       - wildfire_plume
+      - fire
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"

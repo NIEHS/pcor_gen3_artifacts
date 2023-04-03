@@ -324,6 +324,7 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.submitter_id = "NFS-2-GEO-1"
         geo_spatial_resource.observation = "wildfire_plume"
         geo_spatial_resource.resource_link = "https://landfire.gov/"
+        geo_spatial_resource.resource_submitter_id = resource.submitter_id
         geo_spatial_resource.spatial_coverage = "national"
         geo_spatial_resource.spatial_resolution = "10km"
 
@@ -358,12 +359,12 @@ class TestPcorGen3Ingest(TestCase):
         resource = PcorIntermediateResourceModel()
         resource.submitter_id = "NFS-2-RESC-1"
         resource.resource_id = "NFS-2-RESC-1"
-        resource.name = "Fire and Smoke Map"
+        resource.name = "Population Map"
         resource.resource_type = "data_resource"
-        resource.subject = "AQI - Air Quality Index"
-        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
+        resource.subject = "Urban/Wild Interface"
+        resource.keywords = ["urban/wild interface", "demographic", "wildfire"]
         resource.update_frequency = "hourly"
-        resource.secondary_name = "AirNow"
+        resource.secondary_name = "A map"
         resource.license_type = ""
         resource.license_text = ""
         resource.created_datetime = ""
