@@ -41,7 +41,7 @@ class PcorGen3Ingest:
         """
         :param program: identifier of the program in Gen3
         :param pcor_intermediate_project_model: data structure representing project data
-        :return: on success returns project id or None in failure
+        :return: on success returns project id
         """
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
@@ -52,20 +52,18 @@ class PcorGen3Ingest:
         if project_already_exist:
             logger.info('Project already exists: %s', project)
             logger.info('fetch project details')
-            project_code = self.get_project_code_from_project_name(project_name=project)
-            return project_code
+            project_query_result = self.get_individual_project_info(project_code=project)
+            project_info = project_query_result['data']['project'][0]
+            project_id = project_info.get('id')
+            return project_id
 
         else:
             logger.info('Creating project: %s', project)
             project_json = self.produce_project_json(pcor_intermediate_project_model)
             response = sub.create_project(program, json.loads(project_json))
-            if response['success']:
-                project_id = response['entities'][0]['id']
-                return project_id
-            else:
-                logger.error('Project creation failed')
-                logger.error('Response: %s', str(response))
-                return None
+            submit_response = self.parse_status(response)
+            project_id = submit_response.id
+            return project_id
 
     def delete_project(self, program, pcor_intermediate_project_model):
         """
@@ -113,6 +111,7 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+<<<<<<< HEAD
     def decorate_resc_with_discovery(self, discovery_data):
         """
         Add discovery metadata for the given resource
@@ -128,6 +127,22 @@ class PcorGen3Ingest:
         metadata = Gen3Metadata(self.gen3_auth)
         response = metadata.create(discovery_data.resource_id, discovery_json, aliases=None, overwrite=True)
         return response
+=======
+    def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
+        logger.info("create_geo_spatial_data_resource()")
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        geo_spatial_data_resource.project = pcor_intermediate_project_model
+
+        json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
+        logger.debug("json_string: %s" % json_string)
+        geo_spatial_data_resource_json = json.loads(json_string)
+        status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_data_resource_json)
+        logger.info(status)
+        submit_response = self.parse_status(status)
+        return submit_response
+
+>>>>>>> feature/curate
 
     ############################################
     # json from template methods
@@ -157,6 +172,7 @@ class PcorGen3Ingest:
         logger.info("rendered: %s" % rendered)
         return rendered
 
+<<<<<<< HEAD
     def produce_discovery_json(self, discovery_data):
         """
         Render discovery data as JSON via template
@@ -166,6 +182,17 @@ class PcorGen3Ingest:
         logger.info("produce_discovery_json()")
         template = self.env.get_template("discoverymd.jinja")
         rendered = template.render(discovery=discovery_data)
+=======
+    def produce_geo_spatial_data_resource(self, geo_spatial_data_resource):
+        """
+        Render geo_spatial_data_resource  as JSON via template
+        :param geo_spatial_data_resource: PcorGeospatialDataResourceModel representing the geo-spatial data
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_geo_spatial_data_resource()")
+        template = self.env.get_template("geospatial_data_resource.jinja")
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
+>>>>>>> feature/curate
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -249,34 +276,6 @@ class PcorGen3Ingest:
         logger.info("result:{}".format(result))
         return result
 
-    def get_project_code_from_project_name(self, project_name=None):
-        """
-        ToDo: this can be generic method added to get_individual_project_info()
-        Do a query to get code, id, and name of a project based on the project code
-        :param project_name: name field in project
-        :return: JSON with query result
-        """
-        json = """{{
-                 project(name: "{}") {{
-                   id
-                   code
-                   dbgap_accession_number
-                   submitter_id
-                   name
-                 }}
-               }}
-               """.format(project_name)
-        logger.info("query:{}".format(json))
-        sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(json)
-        logger.info("result:{}".format(result))
-        project_details = result['data']['project'][0]
-        if project_details['name'] == project_name:
-            return project_details['id']
-        else:
-            return None
-
-
     def submit_record(self, program, project, json):
         """
         :param program: The program to submit to.
@@ -288,6 +287,7 @@ class PcorGen3Ingest:
         logger.info('submit_record()')
         sub = Gen3Submission(self.gen3_auth)
         submission_status = sub.submit_record(program, project, json)
+        logger.info("submission_status: %s", str(submission_status))
         return submission_status
 
     @staticmethod
@@ -299,8 +299,11 @@ class PcorGen3Ingest:
         """
 
         status_response = SubmitResponse()
-        status_response.submitter_id = status["entities"][0]["unique_keys"][0]["submitter_id"]
         status_response.id = status["entities"][0]["id"]
         status_response.type = status["entities"][0]["type"]
-        status_response.project_id = status["entities"][0]["unique_keys"][0]["project_id"]
+
+        # unique_keys are different on project vs resource creation
+        unique_keys = status["entities"][0]["unique_keys"][0]
+        status_response.submitter_id = unique_keys.get("submitter_id")
+        status_response.project_id = unique_keys.get("project_id")
         return status_response

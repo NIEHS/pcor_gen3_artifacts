@@ -1,12 +1,12 @@
 {
     "type": "geospatial_data_resource",
-    "project_id": "{{ model.project_id }}",
-    "submitter_id": "{{ model.resource.submitter_id }}",
-    "observation": "{{ model.observation }}",
-    "resource_link": "{{ model.resource_link }}",
-    "spatial_coverage": "{{ model.spatial_coverage }}",
-    "spatial_resolution": "{{ model.spatial_resolution }}",
-    "time_extent_end": "{{ model.time_extent_end }}",
-    "time_extent_start": "{{ model.time_extent_start }}",
-    "time_points": "{{ model.time_points }}"
+    "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
+    "observation": "{{ geo_spatial_data_resource.observation }}",
+    "resource_link": "{{ geo_spatial_data_resource.resource_link }}",
+    "spatial_coverage": "{{ geo_spatial_data_resource.spatial_coverage }}",
+    "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
+    "resources": {
+        "node_id": "{{ geo_spatial_data_resource.resource_id }}",
+        "submitter_id": "{{ geo_spatial_data_resource.resource_submitter_id }}"
+    }
 }
