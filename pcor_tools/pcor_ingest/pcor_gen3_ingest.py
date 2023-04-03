@@ -111,7 +111,7 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
-<<<<<<< HEAD
+
     def decorate_resc_with_discovery(self, discovery_data):
         """
         Add discovery metadata for the given resource
@@ -127,7 +127,7 @@ class PcorGen3Ingest:
         metadata = Gen3Metadata(self.gen3_auth)
         response = metadata.create(discovery_data.resource_id, discovery_json, aliases=None, overwrite=True)
         return response
-=======
+
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
 
@@ -142,7 +142,6 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
->>>>>>> feature/curate
 
     ############################################
     # json from template methods
@@ -172,7 +171,6 @@ class PcorGen3Ingest:
         logger.info("rendered: %s" % rendered)
         return rendered
 
-<<<<<<< HEAD
     def produce_discovery_json(self, discovery_data):
         """
         Render discovery data as JSON via template
@@ -182,7 +180,8 @@ class PcorGen3Ingest:
         logger.info("produce_discovery_json()")
         template = self.env.get_template("discoverymd.jinja")
         rendered = template.render(discovery=discovery_data)
-=======
+        return rendered
+
     def produce_geo_spatial_data_resource(self, geo_spatial_data_resource):
         """
         Render geo_spatial_data_resource  as JSON via template
@@ -192,7 +191,6 @@ class PcorGen3Ingest:
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
         rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
->>>>>>> feature/curate
         logger.info("rendered: %s" % rendered)
         return rendered
 
