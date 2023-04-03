@@ -133,7 +133,7 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "full_name", "description". "subject"]
+          "searchableTextFields": ["name", "full_name", "description", "subject"]
 
         },
         "tagSearchDropdown": { 
