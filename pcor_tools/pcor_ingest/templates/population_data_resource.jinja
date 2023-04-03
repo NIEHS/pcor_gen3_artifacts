@@ -1,0 +1,18 @@
+{
+  "type": "population_data_resource",
+  "submitter_id": "{{ pop_data_resource.submitter_id }}",
+  "spatial_coverage": "{{ pop_data_resource.spatial_coverage }}",
+  "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
+  "population": [
+    {% for pop_entry in pop_data_resource.population %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "exposure": "{{ pop_data_resource.population }}",
+  "resource_link": "{{ pop_data_resource.resource_link }}",
+  "resources": {
+    "node_id": "{{ pop_data_resource.resource_id }}",
+    "submitter_id": "{{ pop_data_resource.resource_submitter_id }}"
+  }
+}

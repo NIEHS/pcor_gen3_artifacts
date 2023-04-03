@@ -99,7 +99,30 @@ class PcorGeospatialDataResourceModel:
         self.resource_link = None
 
 
+class PcorPopDataResourceModel:
+    """
+    Represents a geospatial data resource subtype
+    """
 
+    def __int__(self):
+        self.pcor_intermediate_resource_model = None
+        self.submitter_id = None
+        self.project_id = None
+        self.project_submitter_id = None
+        self.resource_id = None
+        self.resource.submitter_id = None
+        self.created_datetime = None
+        self.state = None
+        self.submitter_id = None
+        self.updated_datetime = None
+        self.exposure = None
+        self.population = None
+        self.time_extent_start = None
+        self.time_extent_end = None
+        self.time_points = [] # make array in model
+        self.spatial_resolution = None
+        self.spatial_coverage = None
+        self.resource_link = None
 
 
 
