@@ -267,6 +267,26 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NASA
+  - id: Census
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/Census
+  - id: CDC
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/CDC
   roles:
   - id: 'mds_user'
     permissions:
