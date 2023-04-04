@@ -361,3 +361,253 @@ class TestPcorDataLoad(TestCase):
 
         pcor_ingest.decorate_resc_with_discovery(discovery)
 
+    def test_add_sample_resources2(self):
+        """ Sample data load with discovery metadata """
+
+        # ---------------------------------------------
+        # USGS 1
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "USGS"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "USGS-2"
+        project.project_code = "USGS-2"
+        project.project_state = "open"
+        project.project_release_date = ""
+        project.support_source = ""
+        project.support_id = ""
+        project.releasable = True
+        project.investigator_name = ""
+        project.investigator_affiliation = "USGS"
+        project.dbgap_accession_number = "USGS-2"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        project_id = pcor_ingest.create_project("USGS", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "USGS-2-1"
+        resource.resource_id = "USGS-2-1"
+        resource.name = "USGS National Map"
+        resource.resource_type = "data_resource"
+        resource.subject = "Mapping"
+        resource.keywords = ["map", "topography"]
+        resource.update_frequency = "fixed"
+        resource.secondary_name = ""
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.contact = "https://answers.usgs.gov/"
+        resource.description = """Several layers available, on land cover, impervious surface, elevation, but also structures (schools, medical and emergency response facilities, transportation, etc.)"""
+        resource.use_agreement = "false"
+        resource.verification_datetime = "null"
+        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        resc_id = actual.id
+
+        pop_data_resource = PcorPopDataResourceModel()
+        pop_data_resource.submitter_id = "USGS-2-1"
+        pop_data_resource.spatial_coverage = "national"
+        pop_data_resource.spatial_resolution = "10km"
+        pop_data_resource.population = ["general"]
+        pop_data_resource.exposure = ""
+        pop_data_resource.resource_link = "https://apps.nationalmap.gov/viewer/"
+
+        # using result from resource creation status
+        pop_data_resource.resource_submitter_id = resource.submitter_id
+        pop_data_resource.project_submitter_id = project.dbgap_accession_number
+
+        pop_resc_id = pcor_ingest.create_pop_data_resource(program_name=program,
+                                                           project_name=project.project_name,
+                                                           pop_data_resource=pop_data_resource)
+
+        # now add the discovery data
+        discovery = PcorDiscoveryMetadata()
+        tag = Tag()
+        tag.name = "map"
+        tag.category = "Link Type"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = program
+        tag.category = "Program"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "location"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "land cover"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "impervious surfaces"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "population data resource"
+        tag.category = "Resource Type"
+        discovery.tags.append(tag)
+
+        for kw in resource.keywords:
+            tag = Tag()
+            tag.name = kw
+            tag.category = "Keyword"
+            discovery.tags.append(tag)
+
+        discovery.name = resource.name
+        discovery.type = resource.resource_type
+        discovery.resource_url = pop_data_resource.resource_link
+        discovery.resource_id = resc_id
+        discovery.full_name = resource.name
+        discovery.description = resource.description
+        discovery.subject = resource.subject
+
+        filter = AdvSearchFilter()
+        filter.key = "Resource Type"
+        filter.value = "population data resource"
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Program"
+        filter.value = program
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Subject"
+        filter.value = resource.subject
+        discovery.adv_search_filters.append(filter)
+
+        pcor_ingest.decorate_resc_with_discovery(discovery)
+
+        # ---------------------------------------------
+        # Census 1
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+
+        #pcor_ingest.delete_project("NFS", "Census-1")
+        #pcor_ingest.delete_project("NFS", "Census-2")
+
+        program = "Census"
+        project = PcorIntermediateProjectModel()
+        project.project_name = "Census-2"
+        project.project_code = "Census-2"
+        project.project_state = "open"
+        project.project_release_date = ""
+        project.support_source = ""
+        project.support_id = ""
+        project.releasable = True
+        project.investigator_name = ""
+        project.investigator_affiliation = "Census"
+        project.dbgap_accession_number = "Census-2"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        project_id = pcor_ingest.create_project("Census", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "Census-2-1"
+        resource.resource_id = "Census-2-1"
+        resource.name = "ACS"
+        resource.resource_type = "data_resource"
+        resource.subject = "Mapping"
+        resource.keywords = ["map", "population", "socioeconomic", "demographic"]
+        resource.update_frequency = "fixed"
+        resource.secondary_name = ""
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.contact = "https://www.census.gov/programs-surveys/acs/news/data-releases.html"
+        resource.description = """American Community Survey demographic, socioeconomic and other data. Has several variables related to population distributions, specific vulnerabilities, also variables that would be useful to have for planning evacuations/emergency response etc.."""
+        resource.use_agreement = "false"
+        resource.verification_datetime = "null"
+        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        resc_id = actual.id
+
+        pop_data_resource = PcorPopDataResourceModel()
+        pop_data_resource.submitter_id = "Census-2-1"
+        pop_data_resource.spatial_coverage = "national"
+        pop_data_resource.spatial_resolution = ""
+        pop_data_resource.population = ["general"]
+        pop_data_resource.exposure = ""
+        pop_data_resource.resource_link = "https://www.census.gov/programs-surveys/acs/news/data-releases.html"
+
+        # using result from resource creation status
+        pop_data_resource.resource_submitter_id = resource.submitter_id
+        pop_data_resource.project_submitter_id = project.dbgap_accession_number
+
+        pop_resc_id = pcor_ingest.create_pop_data_resource(program_name=program,
+                                                           project_name=project.project_name,
+                                                           pop_data_resource=pop_data_resource)
+
+        # now add the discovery data
+        discovery = PcorDiscoveryMetadata()
+        tag = Tag()
+        tag.name = "map"
+        tag.category = "Link Type"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = program
+        tag.category = "Program"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "location"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "socioeconomic"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "demographic"
+        tag.category = "Variable"
+        discovery.tags.append(tag)
+
+        tag = Tag()
+        tag.name = "population data resource"
+        tag.category = "Resource Type"
+        discovery.tags.append(tag)
+
+        for kw in resource.keywords:
+            tag = Tag()
+            tag.name = kw
+            tag.category = "Keyword"
+            discovery.tags.append(tag)
+
+        discovery.name = resource.name
+        discovery.type = resource.resource_type
+        discovery.resource_url = pop_data_resource.resource_link
+        discovery.resource_id = resc_id
+        discovery.full_name = resource.name
+        discovery.description = resource.description
+        discovery.subject = resource.subject
+
+        filter = AdvSearchFilter()
+        filter.key = "Resource Type"
+        filter.value = "population data resource"
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Program"
+        filter.value = program
+        discovery.adv_search_filters.append(filter)
+
+        filter = AdvSearchFilter()
+        filter.key = "Subject"
+        filter.value = resource.subject
+        discovery.adv_search_filters.append(filter)
+
+        pcor_ingest.decorate_resc_with_discovery(discovery)
+
+
+
+
