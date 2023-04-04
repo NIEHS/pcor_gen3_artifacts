@@ -532,7 +532,7 @@ class TestPcorDataLoad(TestCase):
         pop_data_resource = PcorPopDataResourceModel()
         pop_data_resource.submitter_id = "Census-2-1"
         pop_data_resource.spatial_coverage = "national"
-        pop_data_resource.spatial_resolution = ""
+        pop_data_resource.spatial_resolution = "census_tract"
         pop_data_resource.population = ["general"]
         pop_data_resource.exposure = ""
         pop_data_resource.resource_link = "https://www.census.gov/programs-surveys/acs/news/data-releases.html"
