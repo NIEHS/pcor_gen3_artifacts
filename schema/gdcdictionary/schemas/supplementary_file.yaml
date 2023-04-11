@@ -36,6 +36,12 @@ links:
         target_type: geospatial_data_resource
         multiplicity: many_to_one
         required: false
+      - name: population_data_resources
+        backref: supplementary_files
+        label: refers_to
+        target_type: population_data_resource
+        multiplicity: many_to_one
+        required: false
       - name: geospatial_tool_resources
         backref: supplementary_files
         label: refers_to
@@ -81,6 +87,9 @@ properties:
     description: The submitter_id or id of the core_metadata_collection to which the supplementary file belongs, i.e., a link to a record in the parent node.
     $ref: "_definitions.yaml#/to_many"
   geospatial_data_resources:
+    description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
+    $ref: "_definitions.yaml#/to_many"
+  geospatial_tool_resources:
     description: The submitter_id or id of the dataset to which the supplementary file belongs, i.e., a link to a record in the parent node.
     $ref: "_definitions.yaml#/to_many"
   population_data_resources:
