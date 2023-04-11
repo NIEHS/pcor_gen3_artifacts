@@ -469,6 +469,7 @@ users:
       - NOAA
       - EPA
       - NASA
+      - Census
       - services.sheepdog-admin
 cloud_providers: {}
 groups: {}
