@@ -7,6 +7,10 @@
         {
             "index": "population_data_resource",
             "type": "population_data_resource"
+        },
+        {
+            "index": "population_tool_resource",
+            "type": "population_tool_resource"
         }
     ],
     "config_index": "geospatial_data_resource-array-config",
