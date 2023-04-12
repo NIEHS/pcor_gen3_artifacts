@@ -67,7 +67,7 @@ properties:
       - library
       - framework
       - service
-  open_source:
+  is_open_source:
     description: Indicates if the tool is open-source
     type: boolean
   operating_system:
@@ -96,6 +96,53 @@ properties:
     type: string
   output_format:
     description: Type of data/data format output from the tool
+  time_extent_start:
+    description: Earliest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_end:
+    description: Latest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  times_available:
+    description: Time extent if multiple exist in the resource.
+    type: array
+    items:
+      $ref: "_definitions.yaml#/datetime"
+  temporal_resolution:
+    description: Frequency of time points.
+    enum:
+      - fixed
+      - continuous
+      - hourly
+      - monthly
+      - quarterly
+      - annually
+      - unknown
+  spatial_resolution:
+    description: Maximum spatial resolution of the data.
+    enum:
+      - 10km
+      - census_tract
+  spatial_coverage: 
+    description: Maximum spatial coverage of the data.
+    enum:
+      - county
+      - state
+      - national
+  spatial_bounding_box:
+    description: Bounding box for the data, in comma separated lat/long format.
+    type: string
+  geo_ref_system:
+    description: Geographic coordinate reference system.
+    type: string
+  proj_ref_system:
+    description: projected coordinate reference system.
+    type: string
+  geometry_type:
+    description: Type of geometry used for the data.
+    type: string
+  model_methods:
+    description: If modeled, type of approach used.
+    type: string
   resource_link:
     description: Link to an external resource
     type: string
