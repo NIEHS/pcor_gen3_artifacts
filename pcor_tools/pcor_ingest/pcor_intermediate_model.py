@@ -150,7 +150,7 @@ class AdvSearchFilter:
 
 class PcorPopDataResourceModel:
     """
-    Represents a geospatial data resource subtype
+    Represents a pop data resource subtype
     """
 
     def __int__(self):
@@ -168,9 +168,51 @@ class PcorPopDataResourceModel:
         self.population = None
         self.time_extent_start = None
         self.time_extent_end = None
-        self.time_points = [] # make array in model
+        self.times_available = []
         self.spatial_resolution = None
         self.spatial_coverage = None
+        self.spatial_bounding_box = None
+        self.geometry_type = None
+        self.geometry_source = None
+        self.population = []
+        self.vulnerable_population = []
+        self.exposures = []
+        self.outcomes = []
+        self.resource_link = None
+
+class PcorGeoToolModel:
+    """
+    Represents a geospatial tool resource subtype
+    """
+
+    def __int__(self):
+        self.pcor_intermediate_resource_model = None
+        self.submitter_id = None
+        self.project_id = None
+        self.project_submitter_id = None
+        self.resource_id = None
+        self.resource_submitter_id = None
+        self.created_datetime = None
+        self.state = None
+        self.submitter_id = None
+        self.updated_datetime = None
+        self.tool_type = None
+        self.is_open_source = None
+        self.operating_system = []
+        self.language = None
+        self.input_format = None
+        self.output_format = None
+        self.time_extent_start = None
+        self.time_extent_end = None
+        self.times_available = []
+        self.temporal_resolution = None
+        self.spatial_resolution = None
+        self.spatial_coverage = None
+        self.spatial_bounding_box = None
+        self.geo_ref_system = None
+        self.proj_ref_system = None
+        self.geometry_type = None
+        self.model_methods = None
         self.resource_link = None
 
 
