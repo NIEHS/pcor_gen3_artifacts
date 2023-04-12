@@ -14,6 +14,7 @@ class PcorIntermediateProjectModel:
         self.program_id = None
         self.id = None
         self.name = None
+        self.short_name = None
         self.availability_mechanism = None
         self.availability_type = None
         self.dbgap_accession_number = None
@@ -48,9 +49,15 @@ class PcorIntermediateResourceModel:
         self.id = None
         self.name = None
         self.resource_id = None
-        self.secondary_name = None
+        self.short_name = None
+        self.source_name = None
+        self.source_url = None
         self.resource_type = None
         self.description = None
+        self.intended_use = None
+        self.citation = None
+        self.is_citizen_collected = False
+        self.has_api = False
         self.subject = None
         self.keywords = []
         self.update_frequency = 'unknown'
@@ -81,22 +88,27 @@ class PcorGeospatialDataResourceModel:
 
     def __int__(self):
         self.pcor_intermediate_resource_model = None
+        self.measures = [],
+        self.time_extent_start = None
+        self.time_extent_end = None
+        self.times_available = []
+        self.temporal_resolution = None
         self.submitter_id = None
+        self.observation = None
+        self.resource_link = None
+        self.spatial_coverage = None
+        self.spatial_resolution = None
+        self.spatial_bounding_box = None
+        self.geo_ref_system = None
+        self.geometry_type = None
+        self.geometry_source = None
+        self.geographic_feature = None
+        self.is_modeled = False
+        self.exposure_media = []
         self.project_id = None
         self.project_submitter_id = None
         self.resource_id = None
         self.resource_submitter_id = None
-        self.created_datetime = None
-        self.state = None
-        self.submitter_id = None
-        self.updated_datetime = None
-        self.observation = None
-        self.time_extent_start = None
-        self.time_extent_end = None
-        self.time_points = [] # make array in model
-        self.spatial_resolution = None
-        self.spatial_coverage = None
-        self.resource_link = None
 
 
 class PcorDiscoveryMetadata:
