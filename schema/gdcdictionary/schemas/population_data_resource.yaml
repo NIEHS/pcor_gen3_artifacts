@@ -65,9 +65,11 @@ properties:
   time_extent_end:
     description: Latest time for the data.
     $ref: "_definitions.yaml#/datetime"
-  time_points:
+  times_available:
     description: Listing of time points.
-    type: string
+    type: array
+    items:
+      $ref: "_definitions.yaml#/datetime"
   spatial_resolution:
     description: Maximum spatial resolution of the data.
     enum:
@@ -79,14 +81,35 @@ properties:
       - county
       - state
       - national
+  spatial_bounding_box:
+    description: Bounding box for the data, in comma separated lat/long format.
+    type: string
+  geometry_type:
+    description: Type of geometry used for the data.
+    type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
+    type: string
   population:
     description: Type of population
     type: array
     items:
       type: string
-  exposure:
+  vulnerable_population:
+    description: Type of vulnerable population
+    type: array
+    items:
+      type: string
+  exposures:
     description: Substance the population was exposed to (may be missing for non-specific exposure).
-    type: string
+    type: array
+    items:
+      type: string
+  outcomes:
+    description: Health outcome being assessed specific measures will contribute to the outcome.
+    type: array
+    items:
+      type: string
   resource_link:
     description: Link to an external resource
     type: string

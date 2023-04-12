@@ -60,21 +60,32 @@ properties:
     $ref: "_definitions.yaml#/datetime"
 
   # additional properties to describe the dataset
-  observation:
+  measures:
     description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
-    enum: 
-      - air_pollution
-      - wildfire_plume
-      - fire
+    type: array
+    items:
+      type: string
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
   time_extent_end:
     description: Latest time for the data.
     $ref: "_definitions.yaml#/datetime"
-  time_points:
-    description: Listing of time points.
-    type: string
+  times_available:
+    description: Time extent if multiple exist in the resource.
+    type: array
+    items:
+      $ref: "_definitions.yaml#/datetime"
+  temporal_resolution:
+    description: Frequency of time points.
+    enum:
+      - fixed
+      - continuous
+      - hourly
+      - monthly
+      - quarterly
+      - annually
+      - unknown
   spatial_resolution:
     description: Maximum spatial resolution of the data.
     enum:
@@ -86,6 +97,34 @@ properties:
       - county
       - state
       - national
+  spatial_bounding_box:
+    description: Bounding box for the data, in comma separated lat/long format.
+    type: string
+  geo_ref_system:
+    description: Geographic coordinate reference system.
+    type: string
+  proj_ref_system:
+    description: projected coordinate reference system.
+    type: string
+  geometry_type:
+    description: Type of geometry used for the data.
+    type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
+    type: string
+  geographic_feature:
+    description: The type of geographic feature associated with the data
+  is_modeled:
+    description: is the data observed or moduled based on other observed data.
+    type: boolean
+  model_methods:
+    description: If modeled, type of approach used.
+    type: string
+  exposure_media:
+    description: Media that the phenomena is related to.
+    type: array
+    items:
+      type: string
   resource_link:
     description: Link to an external resource
     type: string

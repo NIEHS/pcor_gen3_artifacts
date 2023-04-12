@@ -68,8 +68,14 @@ properties:
   name:
     description: Name of resource.
     type: string
-  secondary_name:
+  short_name:
     description: Secondary name of resource.
+    type: string
+  source_name:
+    description: Name of source.
+    type: string
+  source_url:
+    description: URL of source.
     type: string
   resource_type:
     description: Type of resource
@@ -80,8 +86,19 @@ properties:
   description:
     description: A text description of the resource.
     type: string
-  subject:
-    description: Subject of the resource.
+  intended_use:
+    description: Narrative that speaks to the how the data can be used in research projects, could include references to good data uses.
+    type: string
+  citation:
+    description: Citation to use for this resource
+    type: string
+  is_citizen_collected:
+    description: Flag indicating that the data is from citizen science.
+    type: boolean
+  has_api:
+    description: Flag if the resource has an API
+  domain:
+    description: Domain of the resource.
     type: string
   keywords: 
     description: Comma delim keywords.

@@ -58,7 +58,7 @@ properties:
       - geospatial_tool_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
-
+  
   # additional properties to describe the dataset
   tool_type:
     description: The type of tool
