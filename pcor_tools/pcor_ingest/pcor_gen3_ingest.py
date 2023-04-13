@@ -47,8 +47,7 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.gen3_auth)
         program_json = self.produce_program_json(program)
         response = sub.create_program(json.loads(program_json))
-        submit_response = self.parse_status(response)
-        program_id = submit_response.id
+        program_id = response["id"]
         logger.info("program created with id:%s" % program_id)
         return program_id
 
