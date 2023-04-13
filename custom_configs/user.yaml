@@ -60,6 +60,18 @@ authz:
   - name: open
   - name: programs
     subresources:
+    - name: CDC
+      subresources:
+      - name: projects
+        subresources:
+          - name: CDC-1
+          - name: CDC-2
+    - name: Census
+      subresources:
+      - name: projects
+        subresources:
+          - name: Census-1
+          - name: Census-2
     - name: NFS
       subresources:
       - name: projects
@@ -78,6 +90,8 @@ authz:
         subresources:
           - name: NOAA-1
           - name: NOAA-2
+          - name: NOAA-3
+          - name: NOAA-4
     - name: EPA
       subresources:
       - name: projects
@@ -140,10 +154,16 @@ authz:
     - /open
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2
+    - /programs/CDC/projects/CDC-1
+    - /programs/CDC/projects/CDC-2
+    - /programs/Census/projects/Census-1
+    - /programs/Census/projects/Census-2
     - /programs/USGS/projects/USGS-1
     - /programs/USGS/projects/USGS-2
     - /programs/NOAA/projects/NOAA-1
     - /programs/NOAA/projects/NOAA-2
+    - /programs/NOAA/projects/NOAA-3
+    - /programs/NOAA/projects/NOAA-4
     - /programs/EPA/projects/EPA-1
     - /programs/EPA/projects/EPA-2
     - /programs/NASA/projects/NASA-1
@@ -166,10 +186,16 @@ authz:
     resource_paths:
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2
+    - /programs/CDC/projects/CDC-1
+    - /programs/CDC/projects/CDC-2
+    - /programs/Census/projects/Census-1
+    - /programs/Census/projects/Census-2
     - /programs/USGS/projects/USGS-1
     - /programs/USGS/projects/USGS-2
     - /programs/NOAA/projects/NOAA-1
     - /programs/NOAA/projects/NOAA-2
+    - /programs/NOAA/projects/NOAA-3
+    - /programs/NOAA/projects/NOAA-4
     - /programs/EPA/projects/EPA-1
     - /programs/EPA/projects/EPA-2
     - /programs/NASA/projects/NASA-1
@@ -241,6 +267,26 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NASA
+  - id: Census
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/Census
+  - id: CDC
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/CDC
   roles:
   - id: 'mds_user'
     permissions:
@@ -371,6 +417,8 @@ users:
     - project_submitter
     - mds_admin
     - jnkns
+    - CDC
+    - Census
     - NFS
     - USGS
     - NOAA

@@ -94,7 +94,7 @@ class PcorGeospatialDataResourceModel:
         self.project_id = None
         self.project_submitter_id = None
         self.resource_id = None
-        self.resource.submitter_id = None
+        self.resource_submitter_id = None
         self.created_datetime = None
         self.state = None
         self.submitter_id = None
@@ -156,7 +156,7 @@ class PcorPopDataResourceModel:
         self.project_id = None
         self.project_submitter_id = None
         self.resource_id = None
-        self.resource.submitter_id = None
+        self.resource_submitter_id = None
         self.created_datetime = None
         self.state = None
         self.submitter_id = None
