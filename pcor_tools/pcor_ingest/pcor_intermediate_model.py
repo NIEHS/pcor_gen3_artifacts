@@ -66,6 +66,7 @@ class PcorIntermediateResourceModel:
         self.verification_datetime = None
         self.use_agreement = None
         self.contact = None
+        self.domain = None
 
 
 class SubmitResponse:
@@ -79,6 +80,16 @@ class SubmitResponse:
         self.type = None
         self.id = None
         self.submitter_id = None
+
+
+class PcorProgramModel:
+    """
+    A program in Gen3
+    """
+
+    def __int__(self):
+        self.program_name = None
+        self.dbgap_accession_number = None
 
 
 class PcorGeospatialDataResourceModel:

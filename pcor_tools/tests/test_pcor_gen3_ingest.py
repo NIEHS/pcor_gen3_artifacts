@@ -5,7 +5,9 @@ import logging
 from unittest import TestCase
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel,  PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
+    PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
+    PcorProgramModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -23,6 +25,7 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
         project.project_name = "name"
+        project.short_name = "short name"
         project.project_type = "type"
         project.project_state = "state"
         project.project_code = "code"
@@ -52,14 +55,20 @@ class TestPcorGen3Ingest(TestCase):
         resource.submitter_id = "resc submitter_id"
         resource.resource_type = "resc type"
         resource.description = "description"
+        resource.intended_use = "intended use"
+        resource.citation = "citation"
+        resource.is_citizen_collected = True
+        resource.has_api = True
         resource.contact = "contact"
         resource.created_datetime = "2023/01/01T12:01:00Z"
         resource.keywords = ["this", "is", "keywords"]
         resource.license_text = "license text"
         resource.license_type = "license type"
         resource.name = "name"
-        resource.secondary_name = "secondary name"
-        resource.subject = "subject"
+        resource.short_name = "secondary name"
+        resource.source_name = "source name"
+        resource.source_url = "source_url"
+        resource.domain = "subject"
         resource.update_frequency = "frequency"
         actual = pcor_ingest.produce_resource_json(resource)
         json.loads(actual)
@@ -91,6 +100,14 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.produce_discovery_json(discovery)
         json.loads(actual)
 
+    def test_add_program(self):
+        """ Figure out how to clear and delete a program! """
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+        self.assertIsNotNone(program_id, 'no program id returned')
 
     def test_add_project(self):
         """ Figure out how to clear and delete a project! """

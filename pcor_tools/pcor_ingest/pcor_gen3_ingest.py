@@ -37,6 +37,21 @@ class PcorGen3Ingest:
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
+    def create_program(self, program):
+        """
+        Creates a program in gen3
+        :param program: data structure representing the program
+        :return: on success return program id
+        """
+        logger.info('adding program:%s' % program)
+        sub = Gen3Submission(self.gen3_auth)
+        program_json = self.produce_program_json(program)
+        response = sub.create_program(json.loads(program_json))
+        submit_response = self.parse_status(response)
+        program_id = submit_response.id
+        logger.info("program created with id:%s" % program_id)
+        return program_id
+
     def create_project(self, program, pcor_intermediate_project_model):
         """
         :param program: identifier of the program in Gen3
@@ -151,11 +166,22 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
-
-
     ############################################
     # json from template methods
     ############################################
+
+    def produce_program_json(self, program):
+
+        """
+        Produce the json of a pgogram from the jinja template
+        :param program: PcorProgramModel of a project
+        :return: string with project JSON for loading into Gen3
+        """
+        logger.info("produce_program_json()")
+        template = self.env.get_template("program.jinja")
+        rendered = template.render(program=program)
+        logger.info("rendered: %s" % rendered)
+        return rendered
 
     def produce_project_json(self, project):
         """
