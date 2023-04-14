@@ -98,7 +98,6 @@ class PcorGeospatialDataResourceModel:
         self.times_available = []
         self.temporal_resolution = None
         self.submitter_id = None
-        self.observation = None
         self.resource_link = None
         self.spatial_coverage = None
         self.spatial_resolution = None
