@@ -19,17 +19,11 @@ class PcorIntermediateProjectModel:
         self.availability_type = None
         self.dbgap_accession_number = None
         self.date_collected = None
-        self.submitter_id = None
         self.project_name = None
-        self.project_release_date = None
         self.investigator_affiliation = None
         self.investigator_name = None
-        self.releasable = False
-        self.released = False
         self.support_source = None
         self.support_id = None
-        self.project_state = 'open'
-        self.project_type = None
         self.project_code = None
         self.complete = None
 
@@ -58,7 +52,6 @@ class PcorIntermediateResourceModel:
         self.citation = None
         self.is_citizen_collected = False
         self.has_api = False
-        self.subject = None
         self.keywords = []
         self.update_frequency = 'unknown'
         self.license_type = None

@@ -12,8 +12,8 @@
   "resource_id": "{{ resource.resource_id }}",
   "intended_use": "{{ resource.intended_use }}",
   "citation": "{{ resource.citation }}",
-  "is_citizen_collected": "{{ resource.is_citizen_collected }}",
-  "has_api": "{{ resource.has_api }}",
+  "is_citizen_collected": {{ resource.is_citizen_collected }},
+  "has_api": {{ resource.has_api }},
   "domain": "{{ resource.domain }}",
   "keywords":  [
     {% for keyword in resource.keywords %}
@@ -25,7 +25,7 @@
   "update_frequency": "{{ resource.update_frequency }}",
   "license_type": "{{ resource.license_type }}",
   "license_text": "{{ resource.license_text }}",
-  "resource_use_agreement": "{{ resource.use_agreement }}",
+  "resource_use_agreement": {{ resource.use_agreement }},
   "resource_contact": "{{ resource.contact }}",
   "projects": {
     "node_id": "{{ resource.project.id }}",

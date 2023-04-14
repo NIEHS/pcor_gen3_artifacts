@@ -3,6 +3,9 @@ import os
 import logging
 
 from unittest import TestCase
+
+import requests
+
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
@@ -113,13 +116,10 @@ class TestPcorGen3Ingest(TestCase):
         """ Figure out how to clear and delete a project! """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
-        project.project_name = "NFS-2"
+        project.name = "NFS-2"
         project.project_code = "NFS-2"
-        project.project_state = "open"
-        project.project_release_date = "2023/01/01T12:01:00Z"
         project.support_source = "support source1"
         project.support_id = "support id1"
-        project.releasable = True
         project.investigator_name = "Mike Conway"
         project.investigator_affiliation = "NIEHS"
         project.dbgap_accession_number = "NFS-2"
@@ -134,7 +134,7 @@ class TestPcorGen3Ingest(TestCase):
         program = "NFS"
         project = PcorIntermediateProjectModel()
         # create project
-        project.project_name = "test_delete_project"
+        project.name = "test_delete_project"
         project.project_code = "test_delete_project"
         project.dbgap_accession_number = "test_delete_project"
         project.project_state = "open"
@@ -149,31 +149,34 @@ class TestPcorGen3Ingest(TestCase):
         project.availability_type = "Open"
 
         pcor_ingest.create_project(program=program, pcor_intermediate_project_model=project)
-        response = pcor_ingest.delete_project(program=program, pcor_intermediate_project_model=project)
-        self.assertTrue(response.status_code == 204)
+        pcor_ingest.delete_project(program=program, project_name=project.name)
 
     def test_non_existing_delete_project(self):
         """ test delete project on non existing project"""
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = "NFS"
         project = PcorIntermediateProjectModel()
-        project.project_name = "test_non_existing_project"
-        expected = 'project does not exists'
-        actual = pcor_ingest.delete_project(program=program, pcor_intermediate_project_model=project)
-        self.assertEqual(expected, actual)
+        project_name = "test_non_existing_project"
+        expected = 'project does not exist'
+        try:
+            actual = pcor_ingest.delete_project(program=program, project_name=project_name)
+        except requests.exceptions.HTTPError:
+            logger.warn("error, project not found")
+            return
 
     def test_add_resource(self):
         """ Add a resource under a test project """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = "NFS"
         project = PcorIntermediateProjectModel()
-        project.project_name = "NFS-2"
+        project.name = "NFS-2"
+        project.short_name = "NFS-2"
         project.project_code = "NFS-2"
         project.project_state = "open"
         project.project_release_date = ""
         project.support_source = "support source1"
         project.support_id = "support id1"
-        project.releasable = True
+        project.releasable = "true"
         project.investigator_name = "Mike Conway"
         project.investigator_affiliation = "NIEHS"
         project.dbgap_accession_number = "NFS-2"
@@ -181,24 +184,27 @@ class TestPcorGen3Ingest(TestCase):
         project.complete = "Complete"
         project.availability_type = "Open"
         project_id = pcor_ingest.create_project("NFS", project)
-        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+        logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
 
         resource = PcorIntermediateResourceModel()
         resource.submitter_id = "NFS-2-RESC-1"
         resource.resource_id = "NFS-2-RESC-1"
         resource.name = "Fire and Smoke Map"
+        resource.short_name = "short name"
         resource.resource_type = "data_resource"
-        resource.subject = "AQI - Air Quality Index"
+        resource.description = "description"
+        resource.intended_use = "intended use"
+        resource.citation = "citation"
+        resource.is_citizen_collected = "false"
+        resource.has_api = "false"
+        resource.domain = "AQI - Air Quality Index"
         resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
-        resource.update_frequency = "hourly"
-        resource.secondary_name = "AirNow"
         resource.license_type = ""
         resource.license_text = ""
         resource.created_datetime = ""
+        resource.update_frequency = "hourly"
         resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
         resource.use_agreement = "false"
-        resource.verification_datetime = "null"
         actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
 

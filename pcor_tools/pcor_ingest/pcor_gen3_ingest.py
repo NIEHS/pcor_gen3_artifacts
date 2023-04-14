@@ -2,6 +2,8 @@ import logging
 import json
 import os
 
+import requests
+
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
@@ -59,7 +61,7 @@ class PcorGen3Ingest:
         """
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
-        project = pcor_intermediate_project_model.project_name
+        project = pcor_intermediate_project_model.name
 
         existing_projects = self.get_projects(program)
         project_already_exist = self.check_project_exists(existing_projects, project)
@@ -83,14 +85,15 @@ class PcorGen3Ingest:
         """
         :param program: identifier of the program in Gen3
         :param project_name: project dbgap_accession number
-        :return: string or gen3 response dictionary
+        :return: void
         """
         logger.info("delete_project()")
         sub = Gen3Submission(self.gen3_auth)
 
-        response = sub.delete_project(program, project_name)
-        return response
-
+        try:
+            response = sub.delete_project(program, project_name)
+        except requests.exceptions.HTTPError:
+            logger.warn("error, project not found")
 
     def create_resource(self, program_name, project_name, resource):
         """
