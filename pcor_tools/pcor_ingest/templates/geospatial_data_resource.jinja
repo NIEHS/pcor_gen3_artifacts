@@ -7,8 +7,12 @@
           {{ "," if not loop.last }}
         {% endfor %}
                 ],
-    "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
-    "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
+    {% if geo_spatial_data_resource.time_extent_start is defined and geo_spatial_data_resource.time_extent_start|length %}
+        "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
+    {% endif %}
+    {% if geo_spatial_data_resource.time_extent_end is defined and geo_spatial_data_resource.time_extent_end|length %}
+        "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
+    {% endif %}
     "times_available":  [
         {% for time_available in geo_spatial_data_resource.times_available  %}
 
@@ -16,7 +20,7 @@
           {{ "," if not loop.last }}
         {% endfor %}
                 ],
-    "temporal_resolution": "{{ geo_spatial_data_resource.temporalk_resolution }}",
+    "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
     "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
     "resource_link": "{{ geo_spatial_data_resource.resource_link }}",
     "spatial_coverage": "{{ geo_spatial_data_resource.spatial_coverage }}",
@@ -26,7 +30,7 @@
     "geometry_type": "{{ geo_spatial_data_resource.geometry_type }}",
     "geometry_source": "{{ geo_spatial_data_resource.geometry_source }}",
     "geographic_feature": "{{ geo_spatial_data_resource.geographic_feature }}",
-    "is_modeled": "{{ geo_spatial_data_resource.is_modeled }}",
+    "is_modeled": {{ geo_spatial_data_resource.is_modeled }},
     "exposure_media":  [
         {% for exp in geo_spatial_data_resource.exposure_media  %}
             "{{ exp }}"

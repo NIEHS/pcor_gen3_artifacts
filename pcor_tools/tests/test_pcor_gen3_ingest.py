@@ -357,6 +357,9 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.resource_submitter_id = resource.submitter_id
         geo_spatial_resource.spatial_coverage = "national"
         geo_spatial_resource.spatial_resolution = "10km"
+        geo_spatial_resource.temporal_resolution = "unknown"
+        geo_spatial_resource.is_modeled = "false"
+
 
         # using result from resource creation status
         geo_spatial_resource.resource_id = resource_submit_status.id
