@@ -34,7 +34,7 @@ class PcorIntermediateResourceModel:
     This allows introduction of new curation tools that will follow the same pipeline on the Gen3 side
     """
 
-    def __int__(self):
+    def __init__(self):
 
         self.project = None
         # resource
@@ -50,8 +50,8 @@ class PcorIntermediateResourceModel:
         self.description = None
         self.intended_use = None
         self.citation = None
-        self.is_citizen_collected = False
-        self.has_api = False
+        self.is_citizen_collected = 'false'
+        self.has_api = 'false'
         self.keywords = []
         self.update_frequency = 'unknown'
         self.license_type = None
@@ -156,7 +156,7 @@ class PcorPopDataResourceModel:
     Represents a pop data resource subtype
     """
 
-    def __int__(self):
+    def __init__(self):
         self.pcor_intermediate_resource_model = None
         self.submitter_id = None
         self.project_id = None
@@ -167,7 +167,6 @@ class PcorPopDataResourceModel:
         self.state = None
         self.submitter_id = None
         self.updated_datetime = None
-        self.exposure = None
         self.population = None
         self.time_extent_start = None
         self.time_extent_end = None

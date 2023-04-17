@@ -1,10 +1,10 @@
 {
   "type": "population_data_resource",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
-  "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
-  "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
+  "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
+  "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
   "times_available":  [
-        {% for time_available in geo_spatial_data_resource.times_available  %}
+        {% for time_available in pop_data_resource.times_available  %}
 
             "{{ time_available }}"
           {{ "," if not loop.last }}
@@ -28,14 +28,14 @@
     {% endfor %}
   ],
   "exposures":  [
-        {% for exposure in geo_spatial_data_resource.exposures  %}
+        {% for exposure in pop_data_resource.exposures  %}
 
             "{{ exposure }}"
           {{ "," if not loop.last }}
         {% endfor %}
                 ],
   "outcomes":  [
-        {% for outcome in geo_spatial_data_resource.outcomes  %}
+        {% for outcome in pop_data_resource.outcomes  %}
 
             "{{ outcome }}"
           {{ "," if not loop.last }}

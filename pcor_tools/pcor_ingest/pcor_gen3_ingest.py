@@ -61,7 +61,7 @@ class PcorGen3Ingest:
         """
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
-        project = pcor_intermediate_project_model.name
+        project = pcor_intermediate_project_model.project_name
 
         existing_projects = self.get_projects(program)
         project_already_exist = self.check_project_exists(existing_projects, project)

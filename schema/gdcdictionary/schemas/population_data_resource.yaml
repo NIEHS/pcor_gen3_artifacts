@@ -32,7 +32,6 @@ required:
   - submitter_id
   - type
   - population
-  - exposure 
 uniqueKeys:
   - [id]
   - [project_id, submitter_id]

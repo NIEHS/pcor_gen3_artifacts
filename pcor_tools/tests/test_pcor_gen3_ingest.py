@@ -412,7 +412,8 @@ class TestPcorGen3Ingest(TestCase):
         pop_data_resource.spatial_coverage = "national"
         pop_data_resource.spatial_resolution = "10km"
         pop_data_resource.population = ["wildland/urban interface"]
-        pop_data_resource.exposure = "toxic smoke"
+        pop_data_resource.exposures.append("toxic smoke")
+        pop_data_resource.outcomes.append("asthma")
         pop_data_resource.resource_link = "https://landfire.gov/"
 
         # using result from resource creation status

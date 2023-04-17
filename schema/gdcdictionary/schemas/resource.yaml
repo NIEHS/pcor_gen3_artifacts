@@ -35,6 +35,8 @@ required:
   - resource_type
   - type
   - projects
+  - has_api
+  - is_citizen_collected
 
 uniqueKeys:
   - [id]
