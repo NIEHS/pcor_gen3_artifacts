@@ -186,7 +186,7 @@ class PcorGeoToolModel:
     Represents a geospatial tool resource subtype
     """
 
-    def __int__(self):
+    def __init__(self):
         self.pcor_intermediate_resource_model = None
         self.submitter_id = None
         self.project_id = None

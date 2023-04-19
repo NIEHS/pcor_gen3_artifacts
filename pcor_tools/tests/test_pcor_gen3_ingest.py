@@ -9,7 +9,7 @@ from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
     PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
-    PcorProgramModel
+    PcorProgramModel, PcorGeoToolModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -206,7 +206,6 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
 
-
     def test_decorate_resource(self):
         """ Add a resource under a test project and decorate with discovery metadata """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
@@ -358,7 +357,6 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.temporal_resolution = "unknown"
         geo_spatial_resource.is_modeled = "false"
 
-
         # using result from resource creation status
         geo_spatial_resource.resource_id = resource_submit_status.id
         geo_spatial_resource.project_submitter_id = resource.submitter_id
@@ -366,6 +364,76 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program,
                                                               project_name=project.name,
                                                               geo_spatial_data_resource=geo_spatial_resource)
+
+    def test_create_geo_spatial_tool_resource(self):
+        """ Add a geo_spatial_tool_resource """
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = PcorProgramModel()
+        program.name = 'NOAA'
+        program.dbgap_accession_number = 'NOAA'
+        program_id = pcor_ingest.create_program(program)
+
+        project = PcorIntermediateProjectModel()
+        project.name = "NOAA-1"
+        project.short_name = "NOAA-1"
+        project.project_code = "NOAA-1"
+        project.project_state = "open"
+        project.project_release_date = ""
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = "true"
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NOAA-1"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "Open"
+        project_id = pcor_ingest.create_project(program.name, project)
+        logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "NOAA-1-RESC-3"
+        resource.resource_id = "NOAA-1-RESC-3"
+        resource.name = "geo tool 1"
+        resource.short_name = "geotool1"
+        resource.resource_type = "tool_resource"
+        resource.description = "description"
+        resource.intended_use = "intended use"
+        resource.citation = "citation"
+        resource.is_citizen_collected = "false"
+        resource.has_api = "false"
+        resource.domain = "mapping"
+        resource.keywords = ["mapping", "prevailing winds", "weather"]
+        resource.license_type = ""
+        resource.license_text = ""
+        resource.created_datetime = ""
+        resource.update_frequency = "hourly"
+        resource.contact = "Just call NOAA"
+        resource.use_agreement = "false"
+        resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+        geo_tool_resource = PcorGeoToolModel()
+        geo_tool_resource.submitter_id = "NOAA-1-GEOTOOL-1"
+        geo_tool_resource.resource_link = "https://a.tool.gov/"
+        geo_tool_resource.resource_submitter_id = resource.submitter_id
+        geo_tool_resource.spatial_coverage = "national"
+        geo_tool_resource.spatial_resolution = "10km"
+        geo_tool_resource.temporal_resolution = "unknown"
+        geo_tool_resource.is_open_source = "false"
+        geo_tool_resource.tool_type = "software"
+        geo_tool_resource.operating_system.append("linux")
+        geo_tool_resource.language = "Go"
+        geo_tool_resource.input_format = "Net/CDF"
+        geo_tool_resource.output_format = "binary"
+
+        # using result from resource creation status
+        geo_tool_resource.resource_id = resource_submit_status.id
+        geo_tool_resource.project_submitter_id = resource.submitter_id
+
+        actual = pcor_ingest.create_geo_tool_resource(program_name=program,
+                                                              project_name=project.name,
+                                                              geo_tool_resource=geo_tool_resource)
 
     def test_create_pop_data_resource(self):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())

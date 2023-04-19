@@ -121,7 +121,6 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
-
     def decorate_resc_with_discovery(self, discovery_data):
         """
         Add discovery metadata for the given resource
@@ -231,6 +230,19 @@ class PcorGen3Ingest:
         rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
         logger.info("rendered: %s" % rendered)
         return rendered
+
+    def produce_geo_spatial_tool_resource(self, geo_spatial_tool_resource):
+        """
+        Render geo_spatial_tool_resource  as JSON via template
+        :param geo_spatial_tool_resource: PcorGeospatialToolResourceModel representing the geo-spatial tool
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_geo_spatial_tool_resource()")
+        template = self.env.get_template("geospatial_tool_resource.jinja")
+        rendered = template.render(geo_spatial_tool_resource=geo_spatial_tool_resource)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
 
     def produce_pop_data_resource(self, pop_data_resource):
         """
