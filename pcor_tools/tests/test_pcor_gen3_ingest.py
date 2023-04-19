@@ -3,7 +3,6 @@ import os
 import logging
 
 from unittest import TestCase
-
 import requests
 
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
@@ -27,7 +26,7 @@ class TestPcorGen3Ingest(TestCase):
     def test_produce_project_json(self):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
-        project.project_name = "name"
+        project.name = "name"
         project.short_name = "short name"
         project.project_type = "type"
         project.project_state = "state"
@@ -44,7 +43,6 @@ class TestPcorGen3Ingest(TestCase):
         project.releasable = True
         project.support_id = "support_id"
         project.support_source = "support_source"
-        os.chdir("..")
         actual = pcor_ingest.produce_project_json(project)
         json.loads(actual)
 
@@ -60,8 +58,8 @@ class TestPcorGen3Ingest(TestCase):
         resource.description = "description"
         resource.intended_use = "intended use"
         resource.citation = "citation"
-        resource.is_citizen_collected = True
-        resource.has_api = True
+        resource.is_citizen_collected = "true"
+        resource.has_api = "false"
         resource.contact = "contact"
         resource.created_datetime = "2023/01/01T12:01:00Z"
         resource.keywords = ["this", "is", "keywords"]
@@ -373,7 +371,7 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = "NFS"
         project = PcorIntermediateProjectModel()
-        project.project_name = "NFS-2"
+        project.name = "NFS-2"
         project.project_code = "NFS-2"
         project.project_state = "open"
         project.project_release_date = ""
@@ -387,7 +385,7 @@ class TestPcorGen3Ingest(TestCase):
         project.complete = "Complete"
         project.availability_type = "Open"
         project_id = pcor_ingest.create_project("NFS", project)
-        logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+        logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
 
         resource = PcorIntermediateResourceModel()
         resource.submitter_id = "NFS-2-RESC-1"
@@ -418,10 +416,10 @@ class TestPcorGen3Ingest(TestCase):
 
         # using result from resource creation status
         pop_data_resource.resource_id = resource_submit_status.id
-        pop_data_resource.project_submitter_id = resource.submitter_id
+        pop_data_resource.resource_submitter_id = resource.submitter_id
 
         actual = pcor_ingest.create_pop_data_resource(program_name=program,
-                                                      project_name=project.project_name,
+                                                      project_name=project.name,
                                                       pop_data_resource=pop_data_resource)
 
     def test_parse_status(self):

@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class PcorIntermediateProjectModel:
 
-    def __int__(self):
+    def __init__(self):
         self.program = None
         # project
         self.program_id = None
@@ -19,7 +19,6 @@ class PcorIntermediateProjectModel:
         self.availability_type = None
         self.dbgap_accession_number = None
         self.date_collected = None
-        self.project_name = None
         self.investigator_affiliation = None
         self.investigator_name = None
         self.support_source = None
@@ -57,7 +56,7 @@ class PcorIntermediateResourceModel:
         self.license_type = None
         self.license_text = None
         self.verification_datetime = None
-        self.use_agreement = None
+        self.use_agreement = 'false'
         self.contact = None
         self.domain = None
 

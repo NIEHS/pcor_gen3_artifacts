@@ -32,9 +32,19 @@
     {% endfor %}
   ],
   "spatial_resolution": "{{ geo_tool_resource.spatial_resolution }}",
-  "time_extent_start": "{{ geo_tool_resource.time_extent_start }}",
   "tool_type": "{{ geo_tool_resource.tool_type }}",
-  "time_extent_end": "{{ geo_tool_resource.time_extent_end }}",
+  {% if not geo_tool_resource.time_extent_start %}
+      "time_extent_start": null,
+  {% else %}
+      "time_extent_start": "{{ geo_tool_resource.time_extent_start }}",
+  {% endif %}
+
+   {% if not geo_tool_resource.time_extent_end %}
+      "time_extent_end": null,
+  {% else %}
+      "time_extent_end": "{{ geo_tool_resource.time_extent_end }}",
+  {% endif %}
+
   "geometry_type": "{{ geo_tool_resource.geometry_type }}",
   "proj_ref_system": "{{ geo_tool_resource.proj_ref_system }}",
   "spatial_bounding_box": "{{ geo_tool_resource.spatial_bounding_box }}",
