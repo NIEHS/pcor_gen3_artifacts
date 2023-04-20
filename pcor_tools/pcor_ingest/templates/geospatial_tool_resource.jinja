@@ -54,11 +54,3 @@
     "submitter_id": "{{ geo_tool_resource.resource_submitter_id }}"
   }
 }
-
-
-"population": [
-    {% for pop_entry in pop_data_resource.population %}
-        "{{ pop_entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],

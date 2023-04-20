@@ -153,6 +153,20 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def create_geo_spatial_tool_resource(self, program_name, project_name, geo_spatial_tool_resource):
+        logger.info("create_geo_spatial_tool_resource()")
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        geo_spatial_tool_resource.project = pcor_intermediate_project_model
+
+        json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
+        logger.debug("json_string: %s" % json_string)
+        geo_spatial_tool_resource_json = json.loads(json_string)
+        status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_tool_resource_json)
+        logger.info(status)
+        submit_response = self.parse_status(status)
+        return submit_response
+
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
         logger.info("create_pop_data_resource()")
 
@@ -239,7 +253,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_tool_resource()")
         template = self.env.get_template("geospatial_tool_resource.jinja")
-        rendered = template.render(geo_spatial_tool_resource=geo_spatial_tool_resource)
+        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource)
         logger.info("rendered: %s" % rendered)
         return rendered
 

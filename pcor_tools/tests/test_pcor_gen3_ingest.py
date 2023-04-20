@@ -431,9 +431,9 @@ class TestPcorGen3Ingest(TestCase):
         geo_tool_resource.resource_id = resource_submit_status.id
         geo_tool_resource.project_submitter_id = resource.submitter_id
 
-        actual = pcor_ingest.create_geo_tool_resource(program_name=program,
+        actual = pcor_ingest.create_geo_spatial_tool_resource(program_name=program.name,
                                                               project_name=project.name,
-                                                              geo_tool_resource=geo_tool_resource)
+                                                              geo_spatial_tool_resource=geo_tool_resource)
 
     def test_create_pop_data_resource(self):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
