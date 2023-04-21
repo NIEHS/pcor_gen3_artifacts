@@ -80,7 +80,7 @@ class PcorProgramModel:
     """
 
     def __int__(self):
-        self.program_name = None
+        self.name = None
         self.dbgap_accession_number = None
 
 
@@ -192,6 +192,7 @@ class PcorPopDataResourceModel:
         self.exposures = []
         self.outcomes = []
         self.resource_link = None
+
 
 class PcorGeoToolModel:
     """

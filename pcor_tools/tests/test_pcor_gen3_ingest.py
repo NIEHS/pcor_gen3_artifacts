@@ -178,7 +178,11 @@ class TestPcorGen3Ingest(TestCase):
     def test_add_resource(self):
         """ Add a resource under a test project """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        program = "NFS"
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
@@ -216,13 +220,17 @@ class TestPcorGen3Ingest(TestCase):
         resource.update_frequency = "hourly"
         resource.contact = "USFS - contact firesmokemap@epa.gov"
         resource.use_agreement = "false"
-        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
 
     def test_decorate_resource(self):
         """ Add a resource under a test project and decorate with discovery metadata """
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        program = "NFS"
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
@@ -260,7 +268,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.update_frequency = "hourly"
         resource.contact = "USFS - contact firesmokemap@epa.gov"
         resource.use_agreement = "false"
-        actual = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
         resc_id = actual.id
 
         # now add the discovery data
@@ -311,7 +319,11 @@ class TestPcorGen3Ingest(TestCase):
         """ Add a geo_spatial_data_resource """
 
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        program = "NFS"
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
@@ -349,7 +361,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.update_frequency = "hourly"
         resource.contact = "USFS - contact firesmokemap@epa.gov"
         resource.use_agreement = "false"
-        resource_submit_status = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
 
         geo_spatial_resource = PcorGeospatialDataResourceModel()
         geo_spatial_resource.submitter_id = "NFS-2-GEO-1"
@@ -364,7 +376,7 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.resource_id = resource_submit_status.id
         geo_spatial_resource.project_submitter_id = resource.submitter_id
 
-        actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program,
+        actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
                                                               project_name=project.name,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
@@ -440,7 +452,11 @@ class TestPcorGen3Ingest(TestCase):
 
     def test_create_pop_data_resource(self):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        program = "NFS"
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.project_code = "NFS-2"
@@ -474,7 +490,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
         resource.use_agreement = "false"
         resource.verification_datetime = "null"
-        resource_submit_status = pcor_ingest.create_resource(program, project.dbgap_accession_number, resource)
+        resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
 
         pop_data_resource = PcorPopDataResourceModel()
         pop_data_resource.submitter_id = "NFS-2-POP-1"
@@ -489,7 +505,7 @@ class TestPcorGen3Ingest(TestCase):
         pop_data_resource.resource_id = resource_submit_status.id
         pop_data_resource.resource_submitter_id = resource.submitter_id
 
-        actual = pcor_ingest.create_pop_data_resource(program_name=program,
+        actual = pcor_ingest.create_pop_data_resource(program_name=program.name,
                                                       project_name=project.name,
                                                       pop_data_resource=pop_data_resource)
 
