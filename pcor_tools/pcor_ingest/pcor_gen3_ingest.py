@@ -9,7 +9,8 @@ from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
+    Tag, AdvSearchFilter
 
 logger = logging.getLogger(__name__)
 
@@ -121,6 +122,73 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def create_discovery_from_resource(self, program_name, project, resource):
+       """
+       Given a project and resource derive the discovery
+        model data (to be augmented based on the subtype)
+
+        :param program_name
+        :param project: PcorIntermediateProjectModel
+        :param resource: PcorIntermediateResourceModel
+        :return: PcorDiscoveryMetadata with the metadata that can be derived
+       from the given model data
+       """
+       discovery = PcorDiscoveryMetadata()
+       discovery.name = resource.name
+       discovery.investigator_name = project.investigator_name
+       discovery.investigator_affiliation = project.investigator_affiliation
+       discovery.intended_use = resource.intended_use
+       discovery.short_name = resource.short_name
+       discovery.description = resource.description
+       discovery.support_source = resource.source_name
+       discovery.source_url = resource.source_url
+       discovery.citation = resource.citation
+       discovery.domain = resource.domain
+       discovery.has_api = resource.has_api
+       discovery.is_citizen_collected = resource.is_citizen_collected
+       discovery.license_type = resource.license_type
+       discovery.license_text = resource.license_text
+       discovery.resource_use_agreement = resource.use_agreement
+       discovery.resource_contact = resource.contact
+       discovery.type = resource.resource_type
+       discovery.resource_id = resource.id
+
+       # migrate keywords that are available in resource
+       for kw in resource.keywords:
+           tag = Tag()
+           tag.name = kw
+           tag.category = "Keyword"
+           discovery.tags.append(tag)
+
+       filter = AdvSearchFilter()
+       filter.key = "Program"
+       filter.value = program_name
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Subject"
+       filter.value = resource.domain
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Citizen Science"
+       filter.value = resource.is_citizen_collected
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Has API"
+       filter.value = resource.has_api
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Resource Type"
+       filter.value = resource.resource_type
+       discovery.adv_search_filters.append(filter)
+
+
+       # TODO: migrate resc link to resc from child
+       return discovery
+
     def decorate_resc_with_discovery(self, discovery_data):
         """
         Add discovery metadata for the given resource
@@ -155,6 +223,7 @@ class PcorGen3Ingest:
 
     def create_geo_spatial_tool_resource(self, program_name, project_name, geo_spatial_tool_resource):
         logger.info("create_geo_spatial_tool_resource()")
+        self.get_individual_project_info(project_name)
 
         pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
         geo_spatial_tool_resource.project = pcor_intermediate_project_model
@@ -165,6 +234,14 @@ class PcorGen3Ingest:
         status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_tool_resource_json)
         logger.info(status)
         submit_response = self.parse_status(status)
+        logger.info("create accompanying disovery metadata")
+
+        # look up project data for use in creating discovery metadata
+
+        project_data = self.get_individual_project_info(project_name)
+        logger.info("project data:%s" % project_data)
+
+
         return submit_response
 
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
@@ -337,6 +414,14 @@ class PcorGen3Ingest:
          project(code: "{}") {{
            id
            code
+           name
+           short_name
+           investigator_affiliation
+           investigator_name
+           availability_mechanism
+           availability_type
+           support_source
+           support_id
            dbgap_accession_number
            submitter_id
            name

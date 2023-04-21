@@ -83,11 +83,24 @@ class TestPcorGen3Ingest(TestCase):
         discovery.tags.append(tag)
 
         discovery.name = "name1"
-        discovery.type = "type1"
-        discovery.subject = "subj1"
-        discovery.resource_id = "rescid"
-        discovery.description = "descr"
+        discovery.investigator_name = "inv name"
+        discovery.investigator_affiliation = "inv affil"
+        discovery.intended_use = "intended use"
         discovery.full_name = "the full name"
+        discovery.description = "descr"
+        discovery.support_source = "support source"
+        discovery.source_url = "http://source.url"
+        discovery.citation = "citation"
+        discovery.type = "type1"
+        discovery.domain = "subj1"
+        discovery.has_api = "false"
+        discovery.is_citizen_collected = "false"
+        discovery.license_type = "license_type"
+        discovery.license_text = "license_text"
+        discovery.resource_use_agreement = "true"
+        discovery.resource_contact = "contact"
+
+        discovery.resource_id = "rescid"
         discovery.resource_url = "http://hello.com"
 
         adv_search_filter = AdvSearchFilter()
@@ -251,7 +264,8 @@ class TestPcorGen3Ingest(TestCase):
         resc_id = actual.id
 
         # now add the discovery data
-        discovery = PcorDiscoveryMetadata()
+        discovery = pcor_ingest.create_discovery_from_resource(program, project, resource)
+
         tag = Tag()
         tag.name = "web site"
         tag.category = "Link Type"
@@ -278,22 +292,11 @@ class TestPcorGen3Ingest(TestCase):
             tag.category = "Keyword"
             discovery.tags.append(tag)
 
-        discovery.name = resource.name
-        discovery.type = resource.resource_type
         discovery.resource_url = 'http://a.web.site'
-        discovery.resource_id = resc_id
-        discovery.full_name = resource.name
-        discovery.description = resource.description
-        discovery.subject = resource.domain
 
         filter = AdvSearchFilter()
         filter.key = "Resource Type"
         filter.value = "geospatial data resource"
-        discovery.adv_search_filters.append(filter)
-
-        filter = AdvSearchFilter()
-        filter.key = "Program"
-        filter.value = "NFS"
         discovery.adv_search_filters.append(filter)
 
         filter = AdvSearchFilter()

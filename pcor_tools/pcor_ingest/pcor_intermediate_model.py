@@ -122,12 +122,24 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.name = None
-        self.full_name = None
+        self.investigator_name = None
+        self.investigator_affiliation = None
+        self.intended_use = None
+        self.short_name = None
         self.description = None
+        self.support_source = None
+        self.source_url = None
+        self.citation = None
+        self.domain = None
+        self.has_api = None
+        self.is_citizen_collected = None
+        self.license_type = None
+        self.license_text = None
+        self.resource_use_agreement = None
+        self.resource_contact = None
         self.resource_id = None
         self.resource_url = None
         self.type = None
-        self.subject = None
 
 
 class Tag:
