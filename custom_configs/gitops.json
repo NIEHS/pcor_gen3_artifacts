@@ -421,7 +421,8 @@
               "geometry_source",
               "time_extent_start",
               "time_extent_end",
-              "temporal_resolution"
+              "geometry_type",
+              "geometry_source"
             ]
           }
         ]

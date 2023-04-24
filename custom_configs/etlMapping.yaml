@@ -50,8 +50,9 @@ mappings:
       - name: project_id
       - name: submitter_id
       - name: observation
+      - name: time_extent_start
+      - name: time_extent_end
       - name: times_available
-      - name: temporal_resolution
       - name: spatial_resolution
       - name: spatial_coverage
       - name: spatial_bounding_box
