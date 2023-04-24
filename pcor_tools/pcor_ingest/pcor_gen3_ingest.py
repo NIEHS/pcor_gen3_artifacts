@@ -70,8 +70,7 @@ class PcorGen3Ingest:
             logger.info('Project already exists: %s', project)
             logger.info('fetch project details')
             project_query_result = self.get_individual_project_info(project_code=project)
-            project_info = project_query_result['data']['project'][0]
-            project_id = project_info.get('id')
+            project_id = project_query_result.id
             return project_id
 
         else:
@@ -236,12 +235,6 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         logger.info("create accompanying disovery metadata")
 
-        # look up project data for use in creating discovery metadata
-
-        project_data = self.get_individual_project_info(project_name)
-        logger.info("project data:%s" % project_data)
-
-
         return submit_response
 
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
@@ -397,11 +390,8 @@ class PcorGen3Ingest:
         :param project_submitter_id: code for project
         :return: pcor_intermediate_project_model with project info
         """
-        project_json = self.get_individual_project_info(project_submitter_id)
-        pcor_intermediate_project_model = PcorIntermediateProjectModel()
-        pcor_intermediate_project_model.dbgap_accession_number = project_json['data']['project'][0]['code']
-        pcor_intermediate_project_model.id = project_json['data']['project'][0]['id']
-        return pcor_intermediate_project_model
+        return self.get_individual_project_info(project_submitter_id)
+
 
     def get_individual_project_info(self, project_code):
         """
@@ -410,7 +400,7 @@ class PcorGen3Ingest:
         :return: JSON with query result
         """
 
-        json = """{{
+        query = """{{
          project(code: "{}") {{
            id
            code
@@ -431,9 +421,19 @@ class PcorGen3Ingest:
         logger.info("query:{}".format(json))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(json)
+        result = sub.query(query)
         logger.info("result:{}".format(result))
-        return result
+
+        project = PcorIntermediateProjectModel()
+        project.name = result["data"]["project"][0]["name"]
+        project.project_code = result["data"]["project"][0]["code"]
+        project.investigator_name = result["data"]["project"][0]["investigator_name"]
+        project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
+        project.short_name = result["data"]["project"][0]["short_name"]
+        project.support_source = result["data"]["project"][0]["support_source"]
+        project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
+        project.id = result["data"]["project"][0]["id"]
+        return project
 
     def submit_record(self, program, project, json):
         """

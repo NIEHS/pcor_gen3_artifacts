@@ -450,6 +450,11 @@ class TestPcorGen3Ingest(TestCase):
                                                               project_name=project.name,
                                                               geo_spatial_tool_resource=geo_tool_resource)
 
+        # now decorate with metadata
+
+        discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+        pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
     def test_create_pop_data_resource(self):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = PcorProgramModel()
