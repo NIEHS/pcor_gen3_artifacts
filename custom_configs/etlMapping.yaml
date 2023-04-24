@@ -18,6 +18,7 @@ mappings:
       - name: proj_ref_system
       - name: geometry_type
       - name: geometry_source
+      - name: geographic_feature
       - name: is_modeled
       - name: model_methods
       - name: exposure_media

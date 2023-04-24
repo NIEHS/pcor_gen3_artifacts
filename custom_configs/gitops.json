@@ -409,8 +409,7 @@
               "population",
               "vulnerable_population",
               "exposures",
-              "outcomes",
-              "is_modeled"
+              "outcomes"
             ]
           },
           {
