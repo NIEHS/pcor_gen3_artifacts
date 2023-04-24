@@ -314,7 +314,7 @@
               "geo_ref_system",
               "proj_ref_system",
               "geometry_type",
-              "geograpic_feature",
+              "geographic_feature",
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution"
