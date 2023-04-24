@@ -380,6 +380,11 @@ class TestPcorGen3Ingest(TestCase):
                                                               project_name=project.name,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
+        # now decorate with metadata
+
+        discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+        pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
     def test_create_geo_spatial_tool_resource(self):
         """ Add a geo_spatial_tool_resource """
 
@@ -513,6 +518,11 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.create_pop_data_resource(program_name=program.name,
                                                       project_name=project.name,
                                                       pop_data_resource=pop_data_resource)
+
+        # now decorate with metadata
+
+        discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+        pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
     def test_parse_status(self):
         json = {"code": 200, "created_entity_count": 0, "entities": [{"action": "update", "errors": [], "id": "2c000697-43c0-442f-bb8f-10c6c6bf8ed6", "type": "resource", "unique_keys": [{"project_id": "NFS-NFS-2", "submitter_id": "NFS-2-RESC-1"}], "valid": True, "warnings": []}], "entity_error_count": 0, "message": "Transaction successful.","success": True, "transaction_id": 20, "transactional_error_count": 0, "transactional_errors": [], "updated_entity_count": 1}
