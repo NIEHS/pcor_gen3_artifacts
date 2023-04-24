@@ -58,7 +58,6 @@ mappings:
       - name: geometry_source
       - name: population
       - name: vulnerable_population
-      - name: is_modeled
       - name: exposures
       - name: outcomes
       - name: resource_link 
