@@ -16,11 +16,23 @@
     {% endfor %}
   ],
   "name": "{{ discovery.name }}",
-  "full_name": "{{ discovery.full_name }}",
+  "investigator_name": "{{ discovery.investigator_name }}",
+  "investigator_affiliation": "{{ discovery.investigator_affiliation }}",
+  "intended_use": "{{ discovery.intended_use }}",
+  "short_name": "{{ discovery.short_name }}",
   "description": "{{ discovery.description }}",
+  "support_source": "{{ discovery.source_name }}",
+  "source_url": "{{ discovery.source_url }}",
+  "citation": "{{ discovery.citation }}",
   "resource_id": "{{ discovery.resource_id }}",
   "resource_url": "{{ discovery.resource_url }}",
   "type": "{{ discovery.type }}",
-  "subject": "{{ discovery.subject }}"
+  "domain": "{{ discovery.domain }}",
+  "has_api": "{{ discovery.has_api }}",
+  "is_citizen_collected": "{{ discovery.is_citizen_collected }}",
+  "license_type": "{{ discovery.license_type }}",
+  "license_text": "{{ discovery.license_text }}",
+  "resource_use_agreement": "{{ discovery.resource_use_agreement }}",
+  "resource_contact": "{{ discovery.resource_contact }}"
 
 }

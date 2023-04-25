@@ -91,6 +91,10 @@ properties:
     type: string
     description: "Display name/brief description for the project." # TOREVIEW
 
+  short_name:
+    type: string
+    description: "Short display name/brief description for the project."
+
   releasable:
     description: |
       A project can only be released by the user when `releasable` is true.

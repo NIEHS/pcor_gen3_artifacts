@@ -2,12 +2,15 @@ import logging
 import json
 import os
 
+import requests
+
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
+    Tag, AdvSearchFilter
 
 logger = logging.getLogger(__name__)
 
@@ -37,36 +40,19 @@ class PcorGen3Ingest:
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
-    def create_program(self, pcor_intermidate_program_model):
+    def create_program(self, program):
         """
-        :param pcor_intermidate_project_model: data structure representing program data
-        :return: on success returns program id
+        Creates a program in gen3
+        :param program: data structure representing the program
+        :return: on success return program id
         """
-        logger.info("create_program()")
+        logger.info('adding program:%s' % program)
         sub = Gen3Submission(self.gen3_auth)
-        existing_programs = sub.get_programs()
-
-        program_name = pcor_intermidate_program_model.program_name
-        program_already_exists = self.check_program_exists(existing_programs=existing_programs,
-                                                           program=program_name)
-        if program_already_exists:
-            logger.info('Program already exists fetch program details')
-            logger.info('')
-            program_query_result = self.get_individual_program_info(program_name=program_name)
-            program_info = program_query_result['data']['program'][0]
-            program_id = program_info.get('id')
-            logger.debug('#####################')
-            logger.debug('Program id: %s' % program_id)
-            logger.debug('Program name: %s' % program_info.get('name'))
-            logger.debug('Program dbgap_accession_number: %s' % program_info.get('dbgap_accession_number'))
-            return program_id
-
-        else:
-            logger.debug('program does not exists, creating new program')
-            program_json = self.produce_program_json(pcor_intermidate_program_model)
-            response = sub.create_program(json.loads(program_json))
-            logger.debug('Response %s' % response)
-            return response.get('id')
+        program_json = self.produce_program_json(program)
+        response = sub.create_program(json.loads(program_json))
+        program_id = response["id"]
+        logger.info("program created with id:%s" % program_id)
+        return program_id
 
     def create_project(self, program, pcor_intermediate_project_model):
         """
@@ -76,7 +62,7 @@ class PcorGen3Ingest:
         """
         logger.info('create_project()')
         sub = Gen3Submission(self.gen3_auth)
-        project = pcor_intermediate_project_model.project_name
+        project = pcor_intermediate_project_model.name
 
         existing_projects = self.get_projects(program)
         project_already_exist = self.check_project_exists(existing_projects, project)
@@ -84,8 +70,7 @@ class PcorGen3Ingest:
             logger.info('Project already exists: %s', project)
             logger.info('fetch project details')
             project_query_result = self.get_individual_project_info(project_code=project)
-            project_info = project_query_result['data']['project'][0]
-            project_id = project_info.get('id')
+            project_id = project_query_result.id
             return project_id
 
         else:
@@ -100,14 +85,15 @@ class PcorGen3Ingest:
         """
         :param program: identifier of the program in Gen3
         :param project_name: project dbgap_accession number
-        :return: string or gen3 response dictionary
+        :return: void
         """
         logger.info("delete_project()")
         sub = Gen3Submission(self.gen3_auth)
 
-        response = sub.delete_project(program, project_name)
-        return response
-
+        try:
+            response = sub.delete_project(program, project_name)
+        except requests.exceptions.HTTPError:
+            logger.warn("error, project not found")
 
     def create_resource(self, program_name, project_name, resource):
         """
@@ -135,6 +121,72 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def create_discovery_from_resource(self, program_name, project, resource):
+       """
+       Given a project and resource derive the discovery
+        model data (to be augmented based on the subtype)
+
+        :param program_name
+        :param project: PcorIntermediateProjectModel
+        :param resource: PcorIntermediateResourceModel
+        :return: PcorDiscoveryMetadata with the metadata that can be derived
+       from the given model data
+       """
+       discovery = PcorDiscoveryMetadata()
+       discovery.name = resource.name
+       discovery.investigator_name = project.investigator_name
+       discovery.investigator_affiliation = project.investigator_affiliation
+       discovery.intended_use = resource.intended_use
+       discovery.short_name = resource.short_name
+       discovery.description = resource.description
+       discovery.support_source = resource.source_name
+       discovery.source_url = resource.source_url
+       discovery.citation = resource.citation
+       discovery.domain = resource.domain
+       discovery.has_api = resource.has_api
+       discovery.is_citizen_collected = resource.is_citizen_collected
+       discovery.license_type = resource.license_type
+       discovery.license_text = resource.license_text
+       discovery.resource_use_agreement = resource.use_agreement
+       discovery.resource_contact = resource.contact
+       discovery.type = resource.resource_type
+       discovery.resource_id = resource.id
+
+       # migrate keywords that are available in resource
+       for kw in resource.keywords:
+           tag = Tag()
+           tag.name = kw
+           tag.category = "Keyword"
+           discovery.tags.append(tag)
+
+       filter = AdvSearchFilter()
+       filter.key = "Program"
+       filter.value = program_name
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Subject"
+       filter.value = resource.domain
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Citizen Science"
+       filter.value = resource.is_citizen_collected
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Has API"
+       filter.value = resource.has_api
+       discovery.adv_search_filters.append(filter)
+
+       filter = AdvSearchFilter()
+       filter.key = "Resource Type"
+       filter.value = resource.resource_type
+       discovery.adv_search_filters.append(filter)
+
+
+       # TODO: migrate resc link to resc from child
+       return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
         """
@@ -168,6 +220,23 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
+    def create_geo_spatial_tool_resource(self, program_name, project_name, geo_spatial_tool_resource):
+        logger.info("create_geo_spatial_tool_resource()")
+        self.get_individual_project_info(project_name)
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        geo_spatial_tool_resource.project = pcor_intermediate_project_model
+
+        json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
+        logger.debug("json_string: %s" % json_string)
+        geo_spatial_tool_resource_json = json.loads(json_string)
+        status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_tool_resource_json)
+        logger.info(status)
+        submit_response = self.parse_status(status)
+        logger.info("create accompanying disovery metadata")
+
+        return submit_response
+
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
         logger.info("create_pop_data_resource()")
 
@@ -182,8 +251,6 @@ class PcorGen3Ingest:
         submit_response = self.parse_status(status)
         return submit_response
 
-
-
     ############################################
     # json from template methods
     ############################################
@@ -191,6 +258,19 @@ class PcorGen3Ingest:
         """
         Produce the json of a program from the jinja template
         :param program: PcorIntermediateProgramModel of a program
+        :return: string with project JSON for loading into Gen3
+        """
+        logger.info("produce_program_json()")
+        template = self.env.get_template("program.jinja")
+        rendered = template.render(program=program)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
+    def produce_program_json(self, program):
+
+        """
+        Produce the json of a pgogram from the jinja template
+        :param program: PcorProgramModel of a project
         :return: string with project JSON for loading into Gen3
         """
         logger.info("produce_program_json()")
@@ -245,6 +325,19 @@ class PcorGen3Ingest:
         rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
         logger.info("rendered: %s" % rendered)
         return rendered
+
+    def produce_geo_spatial_tool_resource(self, geo_spatial_tool_resource):
+        """
+        Render geo_spatial_tool_resource  as JSON via template
+        :param geo_spatial_tool_resource: PcorGeospatialToolResourceModel representing the geo-spatial tool
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_geo_spatial_tool_resource()")
+        template = self.env.get_template("geospatial_tool_resource.jinja")
+        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
 
     def produce_pop_data_resource(self, pop_data_resource):
         """
@@ -323,11 +416,8 @@ class PcorGen3Ingest:
         :param project_submitter_id: code for project
         :return: pcor_intermediate_project_model with project info
         """
-        project_json = self.get_individual_project_info(project_submitter_id)
-        pcor_intermediate_project_model = PcorIntermediateProjectModel()
-        pcor_intermediate_project_model.dbgap_accession_number = project_json['data']['project'][0]['code']
-        pcor_intermediate_project_model.id = project_json['data']['project'][0]['id']
-        return pcor_intermediate_project_model
+        return self.get_individual_project_info(project_submitter_id)
+
 
     def get_individual_program_info(self, program_name):
         """
@@ -359,10 +449,18 @@ class PcorGen3Ingest:
         :return: JSON with query result
         """
 
-        json = """{{
+        query = """{{
          project(code: "{}") {{
            id
            code
+           name
+           short_name
+           investigator_affiliation
+           investigator_name
+           availability_mechanism
+           availability_type
+           support_source
+           support_id
            dbgap_accession_number
            submitter_id
            name
@@ -372,9 +470,19 @@ class PcorGen3Ingest:
         logger.info("query:{}".format(json))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(json)
+        result = sub.query(query)
         logger.info("result:{}".format(result))
-        return result
+
+        project = PcorIntermediateProjectModel()
+        project.name = result["data"]["project"][0]["name"]
+        project.project_code = result["data"]["project"][0]["code"]
+        project.investigator_name = result["data"]["project"][0]["investigator_name"]
+        project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
+        project.short_name = result["data"]["project"][0]["short_name"]
+        project.support_source = result["data"]["project"][0]["support_source"]
+        project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
+        project.id = result["data"]["project"][0]["id"]
+        return project
 
     def submit_record(self, program, project, json):
         """

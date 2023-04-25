@@ -1,14 +1,14 @@
 $schema: "http://json-schema.org/draft-04/schema#"
 
-id: "geospatial_data_resource"
-title: GeospatialDataResource
+id: "geospatial_tool_resource"
+title: GeospatialToolResource
 type: object
 nodeTerms: null
 namespace: http://gen3.niehs.nih.gov/
 category: administrative
 program: '*'
 project: '*'
-description: A collection of geospatial data or resources, can have files attached or may point to an external reference 
+description: A tool for dealing with geospatial data 
 additionalProperties: false
 submittable: true
 validators: null
@@ -22,7 +22,7 @@ systemProperties:
 
 links:
   - name: resources
-    backref: geospatial_data_resources
+    backref: geospatial_tool_resources
     label: is_a_resource_of
     target_type: resource
     multiplicity: many_to_one
@@ -54,16 +54,47 @@ properties:
   type:
     description: The name of the node in the database to be used in queries. 
     enum:
-      - geospatial_data_resource
+      - geospatial_tool_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
-
+  
   # additional properties to describe the dataset
-  measures:
-    description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
+  tool_type:
+    description: The type of tool
+    enum:
+      - software
+      - library
+      - framework
+      - service
+  is_open_source:
+    description: Indicates if the tool is open-source
+    type: boolean
+  operating_system:
+    description: The operating system the tool runs on
     type: array
     items:
-      type: string
+      enum:
+      - windows
+      - linux
+      - mac
+      - cross-platform
+  language:
+    description: Programming language 
+    enum:
+      - Python
+      - R
+      - Java
+      - C/C++
+      - C#/.Net
+      - Javascript
+      - Fortran
+      - Go
+      - Other
+  input_format:
+    description: Type of data/data format used as input (e.g. NetCDF)
+    type: string
+  output_format:
+    description: Type of data/data format output from the tool
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
@@ -108,22 +139,9 @@ properties:
   geometry_type:
     description: Type of geometry used for the data.
     type: string
-  geometry_source:
-    description: Source or provider of the geometry data.
-    type: string
-  geographic_feature:
-    description: The type of geographic feature associated with the data
-  is_modeled:
-    description: is the data observed or moduled based on other observed data.
-    type: boolean
   model_methods:
     description: If modeled, type of approach used.
     type: string
-  exposure_media:
-    description: Media that the phenomena is related to.
-    type: array
-    items:
-      type: string
   resource_link:
     description: Link to an external resource
     type: string

@@ -1,15 +1,57 @@
 {
   "type": "population_data_resource",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
+
+  {% if not pop_data_resource.time_extent_start %}
+      "time_extent_start": null,
+  {% else %}
+      "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
+  {% endif %}
+
+   {% if not pop_data_resource.time_extent_end %}
+      "time_extent_end": null,
+  {% else %}
+      "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
+  {% endif %}
+
+  "times_available":  [
+        {% for time_available in pop_data_resource.times_available  %}
+
+            "{{ time_available }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+                ],
   "spatial_coverage": "{{ pop_data_resource.spatial_coverage }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
+  "spatial_bounding_box": "{{ pop_data_resource.spatial_bounding_box }}",
+  "geometry_type": "{{ pop_data_resource.geometry_type }}",
+  "geometry_source": "{{ pop_data_resource.geometry_source }}",
   "population": [
     {% for pop_entry in pop_data_resource.population %}
         "{{ pop_entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "exposure": "{{ pop_data_resource.population }}",
+  "vulnerable_population": [
+    {% for pop_entry in pop_data_resource.vulnerable_population %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "exposures":  [
+        {% for exposure in pop_data_resource.exposures  %}
+
+            "{{ exposure }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+                ],
+  "outcomes":  [
+        {% for outcome in pop_data_resource.outcomes  %}
+
+            "{{ outcome }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+                ],
   "resource_link": "{{ pop_data_resource.resource_link }}",
   "resources": {
     "node_id": "{{ pop_data_resource.resource_id }}",
