@@ -260,6 +260,16 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NFS
+  - id: AHRQ
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/AHRQ
   - id: USGS
     role_ids:
     - reader
