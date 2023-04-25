@@ -159,6 +159,16 @@ class PcorGen3Ingest:
            tag.category = "Keyword"
            discovery.tags.append(tag)
 
+       tag = Tag()
+       tag.name = discovery.domain
+       tag.category = "Domain"
+       discovery.tags.append(tag)
+
+       tag = Tag()
+       tag.name = discovery.type
+       tag.category = "Resource Type"
+       discovery.tags.append(tag)
+
        filter = AdvSearchFilter()
        filter.key = "Program"
        filter.value = program_name

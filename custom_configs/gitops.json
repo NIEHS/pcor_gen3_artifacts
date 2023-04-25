@@ -154,7 +154,7 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "full_name", "description", "subject", "intended_use"]
+          "searchableTextFields": ["name", "short_name", "description", "domain", "intended_use"]
 
         },
         "tagSearchDropdown": { 
@@ -176,6 +176,12 @@
           },
           {
             "key": "Subject"
+          },
+          {
+            "key": "Citizen Science"
+          },
+          {
+            "key": "Has API"
           }
 
         ]
@@ -207,12 +213,17 @@
      },
      {
         "name": "Resource Name",
-        "field": "full_name"
+        "field": "name"
      },
      {
-        "name": "Subject",
-        "field": "subject"
-     }
+        "name": "Domain",
+        "field": "domain"
+     },
+     {
+      "name": "Description",
+      "field": "description"
+    }
+
     ],
     "studyPreviewField": {
       "name": "Description",
@@ -226,24 +237,38 @@
       "headerField": "full_name",
         "tabs": [
           {
-            "tabName": "Resource",
+            "tabName": "Summary",
             "groups": [
               {
-                "header": "Resource Summary",
+                "header": "Description",
                 "fields": [
                   {
                     "type": "block",
                     "sourceField": "description"
+                  },
+                  {
+                    "type": "block",
+                    "sourceField": "intended_use"
                   }
                 ]
               },
               {
-                "header": "(Meta)Data Location",
+                "header": "Resource Links",
                 "fields": [
                   {
                     "type": "link",
-                    "label": "Repository URL",
+                    "label": "Resource URL",
                     "sourceField": "resource_url"
+                  },
+                  {
+                    "type": "block",
+                    "label": "License Text",
+                    "sourceField": "license_text"
+                  },
+                  {
+                    "type": "block",
+                    "label": "Citation",
+                    "sourceField": "citation"
                   }
                 ]
               }
@@ -262,12 +287,12 @@
         "display": true
       },
       {
-        "name": "Variable",
+        "name": "Keyword",
         "color": "rgba(81, 175, 195, 1)",
         "display": true
       },
       {
-        "name": "Link Type",
+        "name": "Domain",
         "color": "rgba(81, 100, 54, 1)",
         "display": true
       },
