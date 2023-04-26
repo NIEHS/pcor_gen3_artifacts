@@ -7,7 +7,7 @@ from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
     PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
-    PcorProgramModel
+    PcorProgramModel, PcorGeoToolModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -104,4 +104,84 @@ class TestPcorDataLoad(TestCase):
     pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
 
+
+
+
+
+    # geospatial tool
+
+    # EPA
+
+    program = PcorProgramModel()
+    program.name = 'EPA'
+    program.dbgap_accession_number = 'EPA'
+    program_id = pcor_ingest.create_program(program)
+
+    project = PcorIntermediateProjectModel()
+    project.name = "EPA-1"
+    project.short_name = "EJSCREEN"
+    project.project_code = "EPA-1"
+    project.project_state = "open"
+    project.project_release_date = "2023-04-25T12:15:59Z"
+    project.support_source = "EJScreen: Environmental Justice Screening and Mapping Tool"
+    project.support_id = "EPA"
+    project.releasable = "true"
+    project.investigator_name = "U.S. Environmental Protection Agency"
+    project.investigator_affiliation = "U.S. Environmental Protection Agency"
+    project.dbgap_accession_number = "EPA-1"
+    project.date_collected = "2021-1-01T00:00:00Z"
+    project.complete = "Complete"
+    project.availability_type = "Open"
+    project_id = pcor_ingest.create_project("EPA", project)
+    logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
+
+    resource = PcorIntermediateResourceModel()
+    resource.submitter_id = "EPA-EPA-1"
+    resource.resource_id = "EPA-EPA-1"
+    resource.name = "EJScreen: Environmental Justice Screening and Mapping Tool"
+    resource.short_name = "EJScreen"
+    resource.resource_type = "tool_resource"
+    resource.description = "In order to better meet the Agency’s responsibilities related to the protection of public health and the environment, EPA has developed a new environmental justice (EJ) mapping and screening tool called EJScreen. It is based on nationally consistent data and an approach that combines environmental and demographic indicators in maps and reports. "
+    resource.intended_use = "Screening tools should be used for a 'screening-level' look. Screening is a useful first step in understanding or highlighting locations that may be candidates for further review."
+    resource.citation = ""
+    resource.is_citizen_collected = "false"
+    resource.has_api = "true"
+    resource.domain = "exposures"
+    resource.keywords = ["air quality", "lead paint", "superfund", "hazardous waste", "wastewater discharge"]
+    resource.license_type = ""
+    resource.license_text = ""
+    resource.created_datetime = "2023-04-25T12:15:59Z"
+    resource.update_frequency = "unknown"
+    resource.contact = "https://www.epa.gov/ejscreen/forms/contact-us-about-ejscreen"
+    resource.use_agreement = "false"
+    resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+    geo_tool_resource = PcorGeoToolModel()
+    geo_tool_resource.submitter_id = "EPA-EPA-1-TOOL-1"
+    geo_tool_resource.resource_link = "https://www.epa.gov/ejscreen"
+    geo_tool_resource.resource_id = resource_submit_status.id
+    geo_tool_resource.tool_type = "service"
+    geo_tool_resource.input_format = ""
+    geo_tool_resource.output_format = "report"
+    geo_tool_resource.language = "Other"
+    geo_tool_resource.is_open_source = "false"
+    geo_tool_resource.temporal_resolution = "fixed"
+    geo_tool_resource.geometry_type = "census tract"
+    geo_tool_resource.geo_ref_system = ""
+    geo_tool_resource.spatial_resolution = "census_tract"
+    geo_tool_resource.spatial_coverage = "national"
+
+    # using result from resource creation status
+    geo_tool_resource.resource_id = resource_submit_status.id
+    geo_tool_resource.resource_submitter_id = resource.submitter_id
+
+    actual = pcor_ingest.create_geo_spatial_tool_resource(program_name=program.name,
+                                                  project_name=project.name,
+                                                  geo_spatial_tool_resource=geo_tool_resource)
+
+    # now decorate with metadata
+
+    discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+    discovery_data.resource_url = geo_tool_resource.resource_link
+    pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
