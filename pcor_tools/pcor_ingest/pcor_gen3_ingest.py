@@ -119,6 +119,7 @@ class PcorGen3Ingest:
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
         submit_response = self.parse_status(status)
+        resource.id = submit_response.id
         return submit_response
 
     def create_discovery_from_resource(self, program_name, project, resource):

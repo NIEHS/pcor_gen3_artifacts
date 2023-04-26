@@ -56,7 +56,6 @@ class TestPcorDataLoad(TestCase):
 
     resource = PcorIntermediateResourceModel()
     resource.submitter_id = "AHRQ-AHRQ-1"
-    resource.resource_id = "AHRQ-AHRQ-1"
     resource.name = "AHRQ Social Determinants of Health Database"
     resource.short_name = "AHRQ SDoH"
     resource.resource_type = "data_resource"
@@ -77,6 +76,8 @@ class TestPcorDataLoad(TestCase):
 
     pop_data_resource = PcorPopDataResourceModel()
     pop_data_resource.submitter_id = "AHRQ-AHRQ-1-POP-1"
+    pop_data_resource.resource_submitter_id = resource.submitter_id
+    pop_data_resource.resource_id = resource.id
     pop_data_resource.spatial_coverage = "national"
     pop_data_resource.spatial_resolution = "census_tract"
     pop_data_resource.population = ["general"]
@@ -88,11 +89,6 @@ class TestPcorDataLoad(TestCase):
 
     pop_data_resource.outcomes.append("")
     pop_data_resource.resource_link = "https://www.ahrq.gov/sdoh/data-analytics/sdoh-data.html"
-
-    # using result from resource creation status
-    pop_data_resource.resource_id = resource_submit_status.id
-    pop_data_resource.resource_submitter_id = resource.submitter_id
-
     actual = pcor_ingest.create_pop_data_resource(program_name=program.name,
                                                   project_name=project.name,
                                                   pop_data_resource=pop_data_resource)
@@ -102,11 +98,6 @@ class TestPcorDataLoad(TestCase):
     discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
     discovery_data.resource_url = pop_data_resource.resource_link
     pcor_ingest.decorate_resc_with_discovery(discovery_data)
-
-
-
-
-
 
     # geospatial tool
 
@@ -137,7 +128,6 @@ class TestPcorDataLoad(TestCase):
 
     resource = PcorIntermediateResourceModel()
     resource.submitter_id = "EPA-EPA-1"
-    resource.resource_id = "EPA-EPA-1"
     resource.name = "EJScreen: Environmental Justice Screening and Mapping Tool"
     resource.short_name = "EJScreen"
     resource.resource_type = "tool_resource"
@@ -159,7 +149,8 @@ class TestPcorDataLoad(TestCase):
     geo_tool_resource = PcorGeoToolModel()
     geo_tool_resource.submitter_id = "EPA-EPA-1-TOOL-1"
     geo_tool_resource.resource_link = "https://www.epa.gov/ejscreen"
-    geo_tool_resource.resource_id = resource_submit_status.id
+    geo_tool_resource.resource_id = resource.id
+    geo_tool_resource.resource_submitter_id = resource.submitter_id
     geo_tool_resource.tool_type = "service"
     geo_tool_resource.input_format = ""
     geo_tool_resource.output_format = "report"
