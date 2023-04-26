@@ -139,7 +139,12 @@ class PcorGen3Ingest:
        discovery.intended_use = resource.intended_use
        discovery.short_name = resource.short_name
        discovery.description = resource.description
-       discovery.support_source = resource.source_name
+
+       if resource.source_name:
+            discovery.source_name = resource.source_name
+       else:
+            discovery.source_name = program_name
+
        discovery.source_url = resource.source_url
        discovery.citation = resource.citation
        discovery.domain = resource.domain
