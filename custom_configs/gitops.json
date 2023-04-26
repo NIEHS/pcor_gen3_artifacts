@@ -228,7 +228,7 @@
     "studyPreviewField": {
       "name": "Description",
       "field": "description",
-      "contentType": "string",
+      "contentType": "block",
       "includeName": false,
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No description has been provided for this resource."
@@ -245,7 +245,13 @@
                   {
                     "type": "block",
                     "sourceField": "description"
-                  },
+                  }
+                ]
+              },
+              {
+                "header": "Intended Use",
+                "fields": [
+                 
                   {
                     "type": "block",
                     "sourceField": "intended_use"
@@ -269,11 +275,66 @@
                     "type": "block",
                     "label": "Citation",
                     "sourceField": "citation"
+                  },
+                  {
+                    "type": "string",
+                    "label": "Subject to Data Usage Agreement",
+                    "sourceField": "resource_use_agreement"
                   }
                 ]
               }
             ]
-            }
+            },
+            {
+              "tabName": "Source",
+              "groups": [
+                {
+                  "header": "Source Information",
+                  "fields": [
+                    {
+                      "type": "string",
+                      "label": "Support Source",
+                      "sourceField": "support_source"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Source URL",
+                      "sourceField": "source_url"
+                    }
+                  ]
+                },
+                {
+                  "header": "Intended Use",
+                  "fields": [
+                   
+                    {
+                      "type": "block",
+                      "sourceField": "intended_use"
+                    }
+                  ]
+                },
+                {
+                  "header": "Resource Links",
+                  "fields": [
+                    {
+                      "type": "link",
+                      "label": "Resource URL",
+                      "sourceField": "resource_url"
+                    },
+                    {
+                      "type": "block",
+                      "label": "License Text",
+                      "sourceField": "license_text"
+                    },
+                    {
+                      "type": "block",
+                      "label": "Citation",
+                      "sourceField": "citation"
+                    }
+                  ]
+                }
+              ]
+              }
       ]
     },
     "minimalFieldMapping": {

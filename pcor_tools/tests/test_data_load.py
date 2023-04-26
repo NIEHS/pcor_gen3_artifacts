@@ -100,6 +100,7 @@ class TestPcorDataLoad(TestCase):
     # now decorate with metadata
 
     discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+    discovery_data.resource_url = pop_data_resource.resource_link
     pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
 
