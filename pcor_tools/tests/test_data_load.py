@@ -27,6 +27,192 @@ class TestPcorDataLoad(TestCase):
 
     pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
 
+    # ---------------------------------------------
+    # NFS 1
+
+    pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+    program = PcorProgramModel()
+    program.name = 'NFS'
+    program.dbgap_accession_number = 'NFS'
+    program_id = pcor_ingest.create_program(program)
+    project = PcorIntermediateProjectModel()
+    project.project_name = "NFS-1"
+    project.project_code = "NFS-1"
+    project.project_state = "open"
+    project.project_release_date = ""
+    project.support_source = ""
+    project.support_id = ""
+    project.releasable = True
+    project.investigator_name = "Mike Conway"
+    project.investigator_affiliation = "NFS"
+    project.dbgap_accession_number = "NFS-1"
+    project.date_collected = ""
+    project.complete = "Complete"
+    project.availability_type = "Open"
+    project_id = pcor_ingest.create_project("NFS", project)
+    logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+    resource = PcorIntermediateResourceModel()
+    resource.submitter_id = "NFS-1-1"
+    resource.resource_id = "NFS-1-1"
+    resource.name = "AirNow"
+    resource.resource_type = "data_resource"
+    resource.subject = "AQI - Air Quality Index"
+    resource.keywords = ["fire", "smoke", "wildfire"]
+    resource.update_frequency = "hourly"
+    resource.secondary_name = "AirNow Plume Mapping"
+    resource.license_type = ""
+    resource.license_text = ""
+    resource.created_datetime = ""
+    resource.contact = "NFS - contact firesmokemap@epa.gov"
+    resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
+    resource.use_agreement = "false"
+    resource.verification_datetime = "null"
+    actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+    geo_spatial_resource = PcorGeospatialDataResourceModel()
+    geo_spatial_resource.resource_id = resource.id
+    geo_spatial_resource.resource_submitter_id = resource.submitter_id
+    geo_spatial_resource.submitter_id = "NFS-1-1-1"
+    geo_spatial_resource.observation = "wildfire_plume"
+    geo_spatial_resource.resource_link = "https://fire.airnow.gov/"
+    geo_spatial_resource.spatial_coverage = "national"
+    geo_spatial_resource.spatial_resolution = "10km"
+    geo_spatial_resource.is_modeled = "false"
+    geo_spatial_resource.temporal_resolution = "unknown"
+
+    actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
+                                                          project_name=project.project_code,
+                                                          geo_spatial_data_resource=geo_spatial_resource)
+
+    # now decorate with metadata
+
+    discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+    discovery_data.resource_url = geo_spatial_resource.resource_link
+    pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
+    # ---------------------------------------------
+    # NOAA 1
+
+    program = PcorProgramModel()
+    program.name = 'NOAA'
+    program.dbgap_accession_number = 'NOAA'
+    program_id = pcor_ingest.create_program(program)
+    project = PcorIntermediateProjectModel()
+    project.project_name = "NOAA-1"
+    project.project_code = "NOAA-1"
+    project.project_state = "open"
+    project.project_release_date = ""
+    project.support_source = ""
+    project.support_id = ""
+    project.releasable = True
+    project.investigator_name = "Wilfrid Schroeder"
+    project.investigator_affiliation = "NOAA"
+    project.dbgap_accession_number = "NOAA-1"
+    project.date_collected = ""
+    project.complete = "Complete"
+    project.availability_type = "Open"
+    project_id = pcor_ingest.create_project("NOAA", project)
+    logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+    resource = PcorIntermediateResourceModel()
+    resource.submitter_id = "NOAA-1-1"
+    resource.resource_id = "NOAA-1-1"
+    resource.name = "Hazard Mapping System Fire and Smoke Product"
+    resource.resource_type = "data_resource"
+    resource.subject = "Smoke"
+    resource.keywords = ["fire", "smoke", "wildfire"]
+    resource.update_frequency = "continuous"
+    resource.secondary_name = "Office of Satellite and Product Operations"
+    resource.license_type = ""
+    resource.license_text = ""
+    resource.created_datetime = ""
+    resource.contact = "SPSD.Userservices@noaa.gov"
+    resource.description = """To disseminate satellite derived, quality controlled information on active fires and the extent of smoke plumes. JPEG and text since early 2000s, GIS since 2005, KML since 2009, WFS since 2021"""
+    resource.use_agreement = "false"
+    resource.verification_datetime = "null"
+    actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+    geo_spatial_resource = PcorGeospatialDataResourceModel()
+    geo_spatial_resource.resource_id = resource.id
+    geo_spatial_resource.resource_submitter_id = resource.submitter_id
+    geo_spatial_resource.submitter_id = "NOAA-1-1-1"
+    geo_spatial_resource.observation = "wildfire_plume"
+    geo_spatial_resource.resource_link = "https://www.ospo.noaa.gov/Products/land/hms.html#maps"
+    geo_spatial_resource.spatial_coverage = "national"
+    geo_spatial_resource.spatial_resolution = "10km"
+    geo_spatial_resource.is_modeled = "false"
+    geo_spatial_resource.temporal_resolution = "unknown"
+
+    actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
+                                                          project_name=project.project_name,
+                                                          geo_spatial_data_resource=geo_spatial_resource)
+    # now decorate with metadata
+
+    discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+    discovery_data.resource_url = geo_spatial_resource.resource_link
+    pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
+
+    # ---------------------------------------------
+    # EPA 1
+
+    program = PcorProgramModel()
+    program.name = 'EPA'
+    program.dbgap_accession_number = 'EPA'
+    program_id = pcor_ingest.create_program(program)
+    project = PcorIntermediateProjectModel()
+    project.project_name = "EPA-1"
+    project.project_code = "EPA-1"
+    project.project_state = "open"
+    project.project_release_date = ""
+    project.support_source = ""
+    project.support_id = ""
+    project.releasable = True
+    project.investigator_name = "EPA Office of Environmental Justice"
+    project.investigator_affiliation = "EPA"
+    project.dbgap_accession_number = "EPA-1"
+    project.date_collected = ""
+    project.complete = "Complete"
+    project.availability_type = "Open"
+    project_id = pcor_ingest.create_project("EPA", project)
+    logger.info('Project name: %s is associated with id: %s' % (project.project_name, project_id))
+
+    resource = PcorIntermediateResourceModel()
+    resource.submitter_id = "EPA-1-1"
+    resource.resource_id = "EPA-1-1"
+    resource.name = "EJSCREEN"
+    resource.resource_type = "data_resource"
+    resource.subject = "Environmental Justice"
+    resource.keywords = ["environmental justice", "population"]
+    resource.update_frequency = "unknown"
+    resource.secondary_name = " Environmental Justice Screening and Mapping Tool"
+    resource.license_type = ""
+    resource.license_text = ""
+    resource.created_datetime = ""
+    resource.contact = "https://www.epa.gov/ejscreen/forms/contact-us-about-ejscreen"
+    resource.description = """Environmental justice screening and mapping tool"""
+    resource.use_agreement = "false"
+    resource.verification_datetime = "null"
+    actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+    pop_data_resource = PcorPopDataResourceModel()
+    pop_data_resource.resource_submitter_id = resource.submitter_id
+    pop_data_resource.resource_id = resource.id
+    pop_data_resource.submitter_id = "EPA-1-1"
+    pop_data_resource.spatial_coverage = "national"
+    pop_data_resource.spatial_resolution = "census_tract"
+    pop_data_resource.population = ["general"]
+    pop_data_resource.exposure = "environmental and socioeconomic"
+    pop_data_resource.resource_link = "https://www.epa.gov/ejscreen"
+
+    pop_resc_id = pcor_ingest.create_pop_data_resource(program_name=program.name,
+                                                       project_name=project.project_name,
+                                                       pop_data_resource=pop_data_resource)
+    discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+    discovery_data.resource_url = geo_spatial_resource.resource_link
+    pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
     # pop data sources
 
     # AHRQ
