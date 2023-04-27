@@ -60,6 +60,24 @@ authz:
   - name: open
   - name: programs
     subresources:
+    - name: AHRQ
+      subresources:
+      - name: projects
+        subresources:
+          - name: AHRQ-1
+          - name: AHRQ-2
+    - name: CDC
+      subresources:
+      - name: projects
+        subresources:
+          - name: CDC-1
+          - name: CDC-2
+    - name: Census
+      subresources:
+      - name: projects
+        subresources:
+          - name: Census-1
+          - name: Census-2
     - name: NFS
       subresources:
       - name: projects
@@ -78,12 +96,31 @@ authz:
         subresources:
           - name: NOAA-1
           - name: NOAA-2
+          - name: NOAA-3
+          - name: NOAA-4
     - name: EPA
       subresources:
       - name: projects
         subresources:
           - name: EPA-1
           - name: EPA-2
+    - name: FEMA
+      subresources:
+        - name: projects
+          subresources:
+            - name: FEMA-1
+            - name: FEMA-2
+    - name: HHS
+      subresources:
+        - name: projects
+          subresources:
+            - name: HHS-1
+            - name: HHS-2
+    - name: HRSA
+      subresources:
+        - name: projects
+          subresources:
+            - name: HRSA-1
     - name: NASA
       subresources:
       - name: projects
@@ -140,12 +177,24 @@ authz:
     - /open
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2
+    - /programs/AHRQ/projects/AHRQ-1
+    - /programs/CDC/projects/CDC-1
+    - /programs/CDC/projects/CDC-2
+    - /programs/Census/projects/Census-1
+    - /programs/Census/projects/Census-2
     - /programs/USGS/projects/USGS-1
     - /programs/USGS/projects/USGS-2
     - /programs/NOAA/projects/NOAA-1
     - /programs/NOAA/projects/NOAA-2
+    - /programs/NOAA/projects/NOAA-3
+    - /programs/NOAA/projects/NOAA-4
     - /programs/EPA/projects/EPA-1
     - /programs/EPA/projects/EPA-2
+    - /programs/HHS/projects/HHS-1
+    - /programs/HHS/projects/HHS-2
+    - /programs/FEMA/projects/FEMA-1
+    - /programs/FEMA/projects/FEMA-2
+    - /programs/HRSA/projects/HRSA-1
     - /programs/NASA/projects/NASA-1
     - /programs/NASA/projects/NASA-2
     
@@ -164,14 +213,24 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
+    - /programs/AHRQ/projects/AHRQ-1
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2
+    - /programs/CDC/projects/CDC-1
+    - /programs/CDC/projects/CDC-2
+    - /programs/Census/projects/Census-1
+    - /programs/Census/projects/Census-2
     - /programs/USGS/projects/USGS-1
     - /programs/USGS/projects/USGS-2
     - /programs/NOAA/projects/NOAA-1
     - /programs/NOAA/projects/NOAA-2
+    - /programs/NOAA/projects/NOAA-3
+    - /programs/NOAA/projects/NOAA-4
     - /programs/EPA/projects/EPA-1
     - /programs/EPA/projects/EPA-2
+    - /programs/HHS/projects/HHS-1
+    - /programs/HHS/projects/HHS-2
+    - /programs/HRSA/projects/HRSA-1
     - /programs/NASA/projects/NASA-1
     - /programs/NASA/projects/NASA-2
   - id: jnkns
@@ -201,6 +260,16 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NFS
+  - id: AHRQ
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/AHRQ
   - id: USGS
     role_ids:
     - reader
@@ -231,6 +300,36 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/EPA
+  - id: FEMA
+    role_ids:
+      - reader
+      - creator
+      - updater
+      - deleter
+      - storage_reader
+      - storage_writer
+    resource_paths:
+      - /programs/FEMA
+  - id: HRSA
+    role_ids:
+      - reader
+      - creator
+      - updater
+      - deleter
+      - storage_reader
+      - storage_writer
+    resource_paths:
+      - /programs/HRSA
+  - id: HHS
+    role_ids:
+      - reader
+      - creator
+      - updater
+      - deleter
+      - storage_reader
+      - storage_writer
+    resource_paths:
+      - /programs/HHS
   - id: NASA
     role_ids:
     - reader
@@ -241,6 +340,26 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NASA
+  - id: Census
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/Census
+  - id: CDC
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/CDC
   roles:
   - id: 'mds_user'
     permissions:
@@ -339,10 +458,14 @@ users:
     - data_upload
     - project_submitter
     - jnkns
+    - AHRQ
     - NFS
     - USGS
     - NOAA
     - EPA
+    - HHS
+    - FEMA
+    - HRSA
     - NASA
     - services.sheepdog-admin
   michael.c.conway@gmail.com:
@@ -355,10 +478,14 @@ users:
     - data_upload
     - project_submitter
     - jnkns
+    - AHRQ
     - NFS
     - USGS
     - NOAA
     - EPA
+    - HHS
+    - FEMA
+    - HRSA
     - NASA
     - services.sheepdog-admin
   test@example.com:
@@ -371,10 +498,15 @@ users:
     - project_submitter
     - mds_admin
     - jnkns
+    - AHRQ
+    - CDC
+    - Census
     - NFS
     - USGS
     - NOAA
     - EPA
+    - HHS
+    - FEMA
     - NASA
     - services.sheepdog-admin
   sznolte@gmail.com:
@@ -386,10 +518,14 @@ users:
       - data_upload
       - project_submitter
       - jnkns
+      - AHRQ
       - NFS
       - USGS
       - NOAA
       - EPA
+      - HHS
+      - FEMA
+      - HRSA
       - NASA
       - services.sheepdog-admin
   schmittcp@yahoo.com:
@@ -400,10 +536,14 @@ users:
       - data_upload
       - project_submitter
       - jnkns
+      - AHRQ
       - NFS
       - USGS
       - NOAA
       - EPA
+      - HHS
+      - FEMA
+      - HRSA
       - NASA
       - services.sheepdog-admin
   test:
@@ -416,11 +556,16 @@ users:
       - project_submitter
       - mds_admin
       - jnkns
+      - AHRQ
       - NFS
       - USGS
       - NOAA
       - EPA
+      - HHS
+      - FEMA
+      - HRSA
       - NASA
+      - Census
       - services.sheepdog-admin
 cloud_providers: {}
 groups: {}

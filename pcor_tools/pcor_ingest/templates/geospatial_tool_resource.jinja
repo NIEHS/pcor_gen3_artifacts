@@ -1,0 +1,46 @@
+{
+  "type": "geospatial_tool_resource",
+  "submitter_id": "{{ geo_tool_resource.submitter_id }}",
+  "is_open_source": {{ geo_tool_resource.is_open_source }},
+  "temporal_resolution": "{{ geo_tool_resource.temporal_resolution }}",
+  "language": "{{ geo_tool_resource.language }}",
+  "resource_link": "{{ geo_tool_resource.resource_link }}",
+  "geo_ref_system": "{{ geo_tool_resource.geo_ref_system }}",
+  "spatial_coverage": "{{ geo_tool_resource.spatial_coverage }}",
+  "operating_system": [
+    {% for entry in geo_tool_resource.operating_system %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "input_format": "geospatial_tool_resource.input_format",
+  "output_format": "geospatial_tool_resource.output_format",
+  "times_available": [
+    {% for entry in geo_tool_resource.times_available %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_resolution": "{{ geo_tool_resource.spatial_resolution }}",
+  "tool_type": "{{ geo_tool_resource.tool_type }}",
+  {% if not geo_tool_resource.time_extent_start %}
+      "time_extent_start": null,
+  {% else %}
+      "time_extent_start": "{{ geo_tool_resource.time_extent_start }}",
+  {% endif %}
+
+   {% if not geo_tool_resource.time_extent_end %}
+      "time_extent_end": null,
+  {% else %}
+      "time_extent_end": "{{ geo_tool_resource.time_extent_end }}",
+  {% endif %}
+
+  "geometry_type": "{{ geo_tool_resource.geometry_type }}",
+  "proj_ref_system": "{{ geo_tool_resource.proj_ref_system }}",
+  "spatial_bounding_box": "{{ geo_tool_resource.spatial_bounding_box }}",
+  "model_methods": "{{ geo_tool_resource.model_methods }}",
+  "resources": {
+    "node_id": "{{ geo_tool_resource.resource_id }}",
+    "submitter_id": "{{ geo_tool_resource.resource_submitter_id }}"
+  }
+}

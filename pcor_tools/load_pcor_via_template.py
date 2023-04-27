@@ -16,7 +16,7 @@ logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 # a file containing a "guid" column and additional, arbitrary columns to populate
 # into the metadata service
-template_file = "templates/template.jinja"
+template_file = "pcor_ingest/templates/discoverymd.jinja"
 
 
 def main():
@@ -53,7 +53,7 @@ def main():
         "resolution": "undetermined"
     }
 
-    template = env.get_template("template.jinja")
+    template = env.get_template("discoverymd.jinja")
     content_1 = template.render(tags=tags_1, advSearchFilters=adv_search_filters_1, resource_data=resource_data_1)
 
     # Reading from file

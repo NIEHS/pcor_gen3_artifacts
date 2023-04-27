@@ -5,13 +5,34 @@
         "graphql": "_geospatial_data_resource_count",
         "name": "Geospatial Data Resource",
         "plural": "Geospatial Data Resources"
+      },
+      {
+        "graphql": "_geospatial_tool_resource_count",
+        "name": "Geospatial Tool Resource",
+        "plural": "Geospatial Tool Resources"
+      },
+      {
+        "graphql": "_population_data_resource_count",
+        "name": "Population Data Resource",
+        "plural": "Population Data Resources"
       }
+
     ],
     "chartCounts": [
       {
         "graphql": "_geospatial_data_resource_count",
         "name": "Geospatial Data Resource",
         "plural": "Geospatial Data Resources"
+      },
+      {
+        "graphql": "_geospatial_tool_resource_count",
+        "name": "Geospatial Tool Resource",
+        "plural": "Geospatial Tool Resources"
+      },
+      {
+        "graphql": "_population_data_resource_count",
+        "name": "Population Data Resource",
+        "plural": "Population Data Resources"
       }
     ],
     "projectDetails": "boardCounts"
@@ -133,12 +154,12 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "full_name", "description"]
+          "searchableTextFields": ["name", "short_name", "description", "domain", "intended_use"]
 
         },
         "tagSearchDropdown": { 
           "enabled": true,
-          "collapseOnDefault": false, 
+          "collapseOnDefault": true, 
           "collapsibleButtonText": "Resource Characteristics" 
         }
       },
@@ -148,8 +169,21 @@
         "displayName": "Filters",
         "filters": [
           {
-            "key": "Gender"
+            "key": "Resource Type"
+          },
+          {
+            "key": "Program"
+          },
+          {
+            "key": "Subject"
+          },
+          {
+            "key": "Citizen Science"
+          },
+          {
+            "key": "Has API"
           }
+
         ]
       },
       "tagsColumn": {
@@ -173,50 +207,215 @@
       "title": "Tags by category"
     },
     "studyColumns":[
-      {
+     {
+        "name": "Resource Type",
+        "field": "type",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
+     },
+     {
+      "name": "Source",
+      "field": "support_source",
+      "errorIfNotAvailable": false,
+      "valueIfNotAvailable": "n/a"
+     },
+     {
         "name": "Resource Name",
-        "field": "full_name"
-      },
-      {
-        "name": "Resolution",
-        "field": "resolution"
-      }
+        "field": "name",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
+     },
+     {
+        "name": "Domain",
+        "field": "domain",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
+     }
     ],
     "studyPreviewField": {
       "name": "Description",
       "field": "description",
-      "contentType": "string",
+      "contentType": "block",
       "includeName": false,
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No description has been provided for this resource."
     },
     "detailView": {
-      "headerField": "full_name",
+      "headerField": "name",
         "tabs": [
           {
-            "tabName": "Resource",
+            "tabName": "Summary",
             "groups": [
               {
-                "header": "Resource Summary",
+                "header": "Description",
                 "fields": [
                   {
                     "type": "block",
-                    "sourceField": "description"
+                    "sourceField": "description",
+                    "default": "Not specified"
+
                   }
                 ]
               },
               {
-                "header": "(Meta)Data Location",
+                "header": "Intended Use",
+                "fields": [
+                 
+                  {
+                    "type": "block",
+                    "sourceField": "intended_use",
+                    "default": "Not specified"
+
+                  }
+                ]
+              },
+              {
+                "header": "Details",
+                "fields": [
+                  {
+                    "type": "string",
+                    "label": "Has API",
+                    "sourceField": "has_api",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Citizen Collected?",
+                    "sourceField": "is_citizen_collected",
+                    "default": "Not specified"
+
+                  }
+                ]
+              },
+              {
+                "header": "Resource Links",
                 "fields": [
                   {
                     "type": "link",
-                    "label": "Repository URL",
-                    "sourceField": "resource_url"
+                    "label": "Resource URL",
+                    "sourceField": "resource_url",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "License Type",
+                    "sourceField": "license_type",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "block",
+                    "label": "License Text",
+                    "sourceField": "license_text",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "block",
+                    "label": "Citation",
+                    "sourceField": "citation",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Subject to Data Usage Agreement",
+                    "sourceField": "resource_use_agreement",
+                    "default": "Not specified"
+
                   }
                 ]
               }
             ]
-            }
+            },
+            {
+              "tabName": "Source",
+              "groups": [
+                {
+                  "header": "Source Information",
+                  "fields": [
+                    {
+                      "type": "string",
+                      "label": "Support Source",
+                      "sourceField": "support_source",
+                      "default": "Not specified"
+                     
+                    },
+                    {
+                      "type": "link",
+                      "label": "Source URL",
+                      "sourceField": "source_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Investigator Name",
+                      "sourceField": "investigator_name",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Investigator Affiliation",
+                      "sourceField": "investigator_affiliation",
+                      "default": "Not specified"
+                    }
+                  ]
+                },
+                {
+                  "header": "Intended Use",
+                  "fields": [
+                    {
+                      "type": "block",
+                      "sourceField": "intended_use",
+                      "default": "Not specified"
+                    }
+                  ]
+                },
+                {
+                  "header": "Resource Links",
+                  "fields": [
+                    {
+                      "type": "link",
+                      "label": "Resource URL",
+                      "sourceField": "resource_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "License Type",
+                      "sourceField": "license_type",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "label": "License Text",
+                      "sourceField": "license_text",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "label": "Citation",
+                      "sourceField": "citation",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Resource Use Agreement?",
+                      "sourceField": "resource_use_agreement",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Resource Contact",
+                      "sourceField": "resource_contact",
+                      "default": "Not specified"
+                    }
+                  ]
+                }
+              ]
+              }
       ]
     },
     "minimalFieldMapping": {
@@ -230,12 +429,12 @@
         "display": true
       },
       {
-        "name": "Variable",
+        "name": "Keyword",
         "color": "rgba(81, 175, 195, 1)",
         "display": true
       },
       {
-        "name": "Link Type",
+        "name": "Domain",
         "color": "rgba(81, 100, 54, 1)",
         "display": true
       },
@@ -255,10 +454,6 @@
         "project_investigator_affiliation": {
           "chartType": "bar",
           "title": "Investigator Affiliation"
-        },
-        "resource_type": {
-          "chartType": "bar",
-          "title": "Resource Types"
         }
       },
       "filters": {
@@ -267,9 +462,29 @@
             "title": "Geospatial Data Resources",
             "fields":[
               "program_name",
+              "project_name",
               "project_id",
-              "observation",
-              "spatial_resolution"
+              "measures",
+              "is_citizen_collected",
+              "domain",
+              "has_api",
+              "is_modeled",
+              "model_methods",
+              "exposure_media"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields":[
+              "spatial_resolution",
+              "spatial_coverage",
+              "geo_ref_system",
+              "proj_ref_system",
+              "geometry_type",
+              "geographic_feature",
+              "time_extent_start",
+              "time_extent_end",
+              "temporal_resolution"
             ]
           }
         ]
@@ -278,15 +493,17 @@
         "enabled": true,
         "fields": [
           "project_id",
-          "observation",
-          "spatial_resolution",
-          "spatial_coverage",	
+          "measures",
+          "source_name",
+          "source_url",
           "resource_name",
           "resource_description",
+          "resource_intended_use",
           "resource_link"
         ],
         "linkFields": [
-          "resource_link"
+          "resource_link",
+          "source_url"
         ]
       },
       "dropdowns": {
@@ -347,10 +564,6 @@
         "project_investigator_affiliation": {
           "chartType": "bar",
           "title": "Investigator Affiliation"
-        },
-        "resource_type": {
-          "chartType": "bar",
-          "title": "Resource Types"
         }
       },
       "filters": {
@@ -360,10 +573,23 @@
             "fields":[
               "program_name",
               "project_id",
-              "spatial_coverage",
-              "spatial_resolution",
               "population",
-              "exposure"
+              "vulnerable_population",
+              "exposures",
+              "outcomes"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields":[
+              "spatial_resolution",
+              "spatial_coverage",
+              "geometry_type",
+              "geometry_source",
+              "time_extent_start",
+              "time_extent_end",
+              "geometry_type",
+              "geometry_source"
             ]
           }
         ]
@@ -372,16 +598,19 @@
         "enabled": true,
         "fields": [
           "project_id",
-          "spatial_coverage",
-          "spatial_resolution",
           "population",
-          "exposure",
+          "vulnerable_population",
+          "exposures",
+          "outcomes",
+          "source_name",
+          "source_url",
           "resource_name",
           "resource_description",
-          "resource_link"
+          "resource_intended_use"
         ],
         "linkFields": [
-          "resource_link"
+          "resource_link",
+          "source_url"
         ]
       },
       "dropdowns": {
@@ -422,6 +651,103 @@
       "guppyConfig": {
         "dataType": "population_data_resource",
         "nodeCountTitle": "Population Data Resources",
+        "fieldMapping": [
+          {
+            "field": "project_id",
+            "name": "Dataset ID"
+          },
+          {
+            "field": "submitter_id",
+            "name": "Dataset Name"
+          }
+        ],
+        "accessibleFieldCheckList": ["project_id"],
+        "accessibleValidationField": "project_id"
+      }
+    },
+    {
+      "tabTitle": "Geospatial Tool Resources",
+      "charts": {
+        "project_investigator_affiliation": {
+          "chartType": "bar",
+          "title": "Investigator Affiliation"
+        }
+      },
+      "filters": {
+        "tabs": [
+          {
+            "title": "Geospatial Tool Resources",
+            "fields":[
+              "program_name",
+              "project_id",
+              "tool_type",
+              "is_open_source",
+              "operating_system",
+              "language",
+              "input_format",
+              "output_format",
+              "model_methods",
+              "has_api",
+              "domain"
+            ]
+          }
+        ]
+      },
+      "table": {
+        "enabled": true,
+        "fields": [
+          "project_id",
+          "tool_type",
+          "source_name",
+          "source_url",
+          "resource_name",
+          "resource_description",
+          "resource_intended_use",
+          "resource_link"
+        ],
+        "linkFields": [
+          "resource_link",
+          "source_url"
+        ]
+      },
+      "dropdowns": {
+        "download-table": {
+          "title": "Download Dataset Table"
+        }
+      },
+      "buttons": [
+        {
+          "enabled": true,
+          "type": "data-json",
+          "title": "JSON",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.json"
+        },
+        {
+          "enabled": true,
+          "type": "data-tsv",
+          "title": "TSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.tsv"
+        },
+        {
+          "enabled": true,
+          "type": "data-csv",
+          "title": "CSV",
+          "dropdownId": "download-table",
+          "leftIcon": "datafile",
+          "rightIcon": "download",
+          "fileName": "datasets_table.csv"
+        }
+      ],
+      "loginForDownload": true,
+      "guppyConfig": {
+        "dataType": "geospatial_tool_resource",
+        "nodeCountTitle": "Geospatial Tool Resources",
         "fieldMapping": [
           {
             "field": "project_id",
