@@ -80,7 +80,8 @@ class PcorSpreadsheeetReader:
 
         # if result=error -> send validation/error report
 
-    def determine_template_instance_type(self, template_absolute_path):
+    @staticmethod
+    def determine_template_instance_type(template_absolute_path):
         """
         Determine the type (e.g. geospatial_data_resource) of an instance based on its contents
         :param template_absolute_path: absolute path to the template
