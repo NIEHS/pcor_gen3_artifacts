@@ -67,7 +67,7 @@ class SubmitResponse:
     the result
     """
 
-    def __int__(self):
+    def __init__(self):
         self.project_id = None
         self.type = None
         self.id = None
@@ -79,7 +79,7 @@ class PcorProgramModel:
     A program in Gen3
     """
 
-    def __int__(self):
+    def __init__(self):
         self.name = None
         self.dbgap_accession_number = None
 
@@ -89,7 +89,7 @@ class PcorGeospatialDataResourceModel:
     Represents a geospatial data resource subtype
     """
 
-    def __int__(self):
+    def __init__(self):
         self.pcor_intermediate_resource_model = None
         self.measures = [],
         self.time_extent_start = None
