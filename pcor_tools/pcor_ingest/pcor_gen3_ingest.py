@@ -119,6 +119,7 @@ class PcorGen3Ingest:
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
         submit_response = self.parse_status(status)
+        resource.id = submit_response.id
         return submit_response
 
     def create_discovery_from_resource(self, program_name, project, resource):
@@ -139,7 +140,12 @@ class PcorGen3Ingest:
        discovery.intended_use = resource.intended_use
        discovery.short_name = resource.short_name
        discovery.description = resource.description
-       discovery.support_source = resource.source_name
+
+       if resource.source_name:
+            discovery.source_name = resource.source_name
+       else:
+            discovery.source_name = program_name
+
        discovery.source_url = resource.source_url
        discovery.citation = resource.citation
        discovery.domain = resource.domain
@@ -158,6 +164,16 @@ class PcorGen3Ingest:
            tag.name = kw
            tag.category = "Keyword"
            discovery.tags.append(tag)
+
+       tag = Tag()
+       tag.name = discovery.domain
+       tag.category = "Domain"
+       discovery.tags.append(tag)
+
+       tag = Tag()
+       tag.name = discovery.type
+       tag.category = "Resource Type"
+       discovery.tags.append(tag)
 
        filter = AdvSearchFilter()
        filter.key = "Program"
