@@ -1,6 +1,8 @@
 import logging
 import json
 import os
+import pandas as pd
+
 
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
@@ -63,3 +65,20 @@ class PcorSpreadsheeetReader:
         :return: PcorActionResult object that indicates the success/failure and validation
         results
         """
+
+        df = pd.read_excel(template_absolute_path)
+
+
+        # python class to parse header for type (e.g. geospatial_data_resource)
+
+        # parser = parsers[type]
+
+        # models = parser.parse()
+
+        # processer = processors[type] -> move to processing folder
+
+        # result = processer.process
+
+        # if result=success -> move to processed, notif, etc
+
+        # if result=error -> send validation/error report
