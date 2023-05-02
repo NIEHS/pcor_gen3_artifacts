@@ -3,3 +3,4 @@ asyncio~=3.4.3
 gen3~=4.9.4
 jinja2
 xlrd
+openpyxl

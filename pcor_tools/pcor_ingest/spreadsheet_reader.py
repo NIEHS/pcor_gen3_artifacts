@@ -66,9 +66,6 @@ class PcorSpreadsheeetReader:
         results
         """
 
-        df = pd.read_excel(template_absolute_path)
-
-
         # python class to parse header for type (e.g. geospatial_data_resource)
 
         # parser = parsers[type]
@@ -82,3 +79,17 @@ class PcorSpreadsheeetReader:
         # if result=success -> move to processed, notif, etc
 
         # if result=error -> send validation/error report
+
+    def determine_template_instance_type(self, template_absolute_path):
+        """
+        Determine the type (e.g. geospatial_data_resource) of an instance based on its contents
+        :param template_absolute_path: absolute path to the template
+        :return: string value which is the resource type, used for dictionary lookups
+        """
+
+        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        type_field = df.iat[2, 0]
+        if type_field != "TYPE":
+            logger.error("did not find expected TYPE field")
+            raise "Cannot determine resource type via TYPE field"
+        return df.iat[2, 1]
