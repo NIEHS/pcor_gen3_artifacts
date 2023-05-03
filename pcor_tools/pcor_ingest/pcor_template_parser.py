@@ -2,7 +2,8 @@ import logging
 import os
 import pandas as pd
 
-from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel
+from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
+    PcorIntermediateResourceModel
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +74,36 @@ class PcorTemplateParser:
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'availability type':
+                        project.availability_type = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'RESOURCE':
+                        return project
+
+        logger.warn("no program found, return null")
+        return None
+
+    @staticmethod
+    def extract_resource_data(template_df):
+        """
+        Given a pandas dataframe with the template date, extract out the resource related data
+        :param template_df: pandas df of the spreadsheet
+        :return: PcorProjectModel with project data from ss
+        """
+
+        # loop thru the template until the marker 'PROGRAM' is found
+
+        ss_rows = template_df.shape[0]
+        logging.debug("iterate looking for the RESOURCE stanza")
+        resource = PcorIntermediateResourceModel()
+
+        for i in range(ss_rows):
+            if template_df.iat[i, 0] == 'RESOURCE':
+                logging.debug("found RESOURCE")
+                for j in range(i, ss_rows):
+                    if template_df.iat[j, 0] == 'submitter id':
+                        resource.submitter_id = template_df.iat[j, 1]
+                    if template_df.iat[j, 0] == 'temporal resolution':
+                        resource.t = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'measures':
                         project.availability_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'RESOURCE':
                         return project
