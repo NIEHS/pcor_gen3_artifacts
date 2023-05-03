@@ -19,18 +19,43 @@ class PcorTemplateParser:
     def parse(self, template_absolute_path):
 
         # example path /deep/documents/foo.xls
+        logger.info("parse()")
 
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
         :return: PcorTemplateParseResult with the outcome
         """
-        pass
+        parse_result = PcorTemplateParseResult()
+        df = pd.read_excel(template_absolute_path, sheet_name=0)
 
-        # parse result = new parseresult()
-        # create a dataframe df
-        # result.models["program"] = PcorTemplateParser.extract_program_data(df)
-        # result.models["project"] blah
+        try:
+            parse_result.model_data["program"] = self.extract_program_data(df)
+        except Exception as err:
+            logger.error("exception parsing program: %s" % err)
+            parse_result.success = False
+            parse_result.errors.append("error parsing program: %s" % err)
+            return parse_result
+
+        try:
+            parse_result.model_data["project"] = self.extract_project_data(df)
+        except Exception as err:
+            logger.error("exception parsing project: %s" % err)
+            parse_result.success = False
+            parse_result.errors.append("error parsing project: %s" % err)
+            return parse_result
+
+        try:
+            parse_result.model_data["resource"] = self.extract_resource_data(df)
+        except Exception as err:
+            logger.error("exception parsing resource: %s" % err)
+            parse_result.success = False
+            parse_result.errors.append("error parsing resource: %s" % err)
+            return parse_result
+
+        logger.info("returning general parsed data: %s" % parse_result)
+        return parse_result
+
 
     @staticmethod
     def extract_program_data(template_df):
@@ -122,11 +147,10 @@ class PcorTemplateParseResult:
     Result of a parse action, indicates success or failure of parsing and any relevant error messages
     """
 
-    def __init__(self, resource_type):
+    def __init__(self):
 
         """
         Init method for parse result
-        :param resource_type: type of pcor resource parsed
         """
         self.errors=[]
         self.success=True

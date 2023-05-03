@@ -50,6 +50,13 @@ class TestGeospatialDataRescourceParser(unittest.TestCase):
         logger.info("resource details: %s" % actual)
         self.assertIsNotNone(actual)
 
+    def test_parse_(self):
+        test_ss_path = 'test_resources/pcor_geospatial_data_resource_test1.xlsx'
+        parser = GeoSpatialDataResourceParser()
+        actual = parser.parse(test_ss_path)
+        logger.info("parse_result: %s" % actual)
+        self.assertIsNotNone(actual)
+
 
 if __name__ == '__main__':
     unittest.main()
