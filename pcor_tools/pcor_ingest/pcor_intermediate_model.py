@@ -12,6 +12,7 @@ class PcorIntermediateProjectModel:
         self.program = None
         # project
         self.program_id = None
+        self.submitter_id = None # TODO: make sure sub id carried forward to update
         self.id = None
         self.name = None
         self.short_name = None
