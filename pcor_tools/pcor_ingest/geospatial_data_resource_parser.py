@@ -28,7 +28,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
 
 
     @staticmethod
-    def extract_geo_data_resource_data(template_df):
+    def extract_resource_details(template_df):
         """
         Given a pandas dataframe with the template date, extract out the resource related data
         :param template_df: pandas df of the spreadsheet
@@ -51,7 +51,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         for k in range(1, template_df.shape[1]):
                             val = template_df.iat[j, k]
                             if val:
-                                geo_resource.measures.add(val)
+                                geo_resource.measures.append(val)
                             else:
                                 break
 

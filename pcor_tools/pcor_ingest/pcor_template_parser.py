@@ -106,8 +106,10 @@ class PcorTemplateParser:
                 for j in range(i, ss_rows):
                     if template_df.iat[j, 0] == 'submitter id':
                         resource.submitter_id = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'temporal resolution':
-                        resource.t = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'source url':
+                        resource.source_url = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'source name':
+                        resource.source_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'RESOURCE DETAILS':
                         return resource
 

@@ -101,7 +101,7 @@ class PcorGeospatialDataResourceModel:
 
     def __init__(self):
         self.pcor_intermediate_resource_model = None
-        self.measures = [],
+        self.measures = []
         self.time_extent_start = None
         self.time_extent_end = None
         self.times_available = []
