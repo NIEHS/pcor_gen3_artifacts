@@ -1,3 +1,14 @@
+import logging
+from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
+from pcor_ingest.ingest_context import PcorIngestConfiguration
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
+logger = logging.getLogger(__name__)
+
 
 class PcorTemplateProcessor:
     """
@@ -17,4 +28,11 @@ class PcorTemplateProcessor:
         :param template_absolute_path: absolute path to the template file
         :return: PcorTemplateProcessResult with the outcome
         """
-        pass
+        logger.info('Process()')
+        logger.info('Template absolute path %s' % template_absolute_path)
+        logger.info('Model data %s' % str(model_data))
+
+        if 'program' in model_data.keys():
+            pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
+            pcor_ingest.create_program(program=model_data['program'])
+
