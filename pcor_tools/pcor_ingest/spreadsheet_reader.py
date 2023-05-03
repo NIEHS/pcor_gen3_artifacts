@@ -70,7 +70,7 @@ class PcorSpreadsheeetReader:
 
         # parser = parsers[type]
 
-        # models = parser.parse()
+        # parse result = parser.parse()
 
         # processer = processors[type] -> move to processing folder
 

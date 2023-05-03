@@ -27,6 +27,11 @@ class PcorTemplateParser:
         """
         pass
 
+        # parse result = new parseresult()
+        # create a dataframe df
+        # result.models["program"] = PcorTemplateParser.extract_program_data(df)
+        # result.models["project"] blah
+
     @staticmethod
     def extract_program_data(template_df):
         """
@@ -108,34 +113,6 @@ class PcorTemplateParser:
 
         logger.warn("no program found, return null")
         return None
-
-    @staticmethod
-    def extract_geo_data_resource_data(template_df):
-        """
-        Given a pandas dataframe with the template date, extract out the resource related data
-        :param template_df: pandas df of the spreadsheet
-        :return: PcorProjectModel with project data from ss
-        """
-
-        # loop thru the template until the marker 'PROGRAM' is found
-
-        ss_rows = template_df.shape[0]
-        logging.debug("iterate looking for the RESOURCE DETAILS stanza")
-        geo_resource = PcorGeospatialDataResourceModel()
-
-        for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'RESOURCE DETAILS':
-                logging.debug("found RESOURCE DETAILS")
-                for j in range(i, ss_rows):
-                    if template_df.iat[j, 0] == 'temporal resolution':
-                        geo_resource.temporal_resolution = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'measures':
-                        for k in range(1, template_df.shape[1]):
-                            val = template_df.iat[j, k]
-                            if val:
-                                geo_resource.temporal_resolution = val
-
-        return geo_resource
 
 
 class PcorTemplateParseResult:
