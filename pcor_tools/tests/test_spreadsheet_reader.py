@@ -26,6 +26,12 @@ class TestSpreadsheetReader(unittest.TestCase):
         actual = ss_reader.determine_template_instance_type(test_ss_path)
         self.assertEqual('geospatial_data_resource', actual)
 
+    def test_process_template_instance(self):
+        ss_reader = PcorSpreadsheeetReader(pcor_testing_utilities.get_pcor_ingest_configuration())
+        test_ss_path = 'test_resources/pcor_geospatial_data_resource_test1.xlsx'
+        actual = ss_reader.process_template_instance(test_ss_path)
+
+
 
 if __name__ == '__main__':
     unittest.main()

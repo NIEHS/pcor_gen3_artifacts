@@ -31,6 +31,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             return parse_result
 
         logger.info("returning general parsed data: %s" % parse_result)
+        return parse_result
 
     @staticmethod
     def extract_resource_details(template_df):

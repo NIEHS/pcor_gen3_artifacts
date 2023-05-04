@@ -5,8 +5,11 @@ import pandas as pd
 
 
 from pcor_ingest.gen3auth import PcorGen3Auth
+from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter
+from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
+from pcor_ingest.pcor_template_process_result import PcorTemplateProcessResult
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +32,7 @@ class PcorSpreadsheeetReader:
 
     """
 
-    def __init__(self, pcor_ingest_configuration, gen3_auth=None, parsers=[], processors=[],
+    def __init__(self, pcor_ingest_configuration, gen3_auth=None, parsers={}, processors={},
                  result_handler=None):
 
         """
@@ -58,6 +61,8 @@ class PcorSpreadsheeetReader:
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
+        self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
+
     def process_template_instance(self, template_absolute_path):
         """
         Process a single template instance, given the path to the spreadsheet file
@@ -66,11 +71,25 @@ class PcorSpreadsheeetReader:
         results
         """
 
-        # python class to parse header for type (e.g. geospatial_data_resource)
+        logger.info("process_template_instance for: %s" % template_absolute_path)
+        type = self.determine_template_instance_type(template_absolute_path)
+        logger.info("of type: %s" % type)
 
-        # parser = parsers[type]
+        parser = self.parsers[type]
 
-        # parse result = parser.parse()
+        if parser is None:
+            logger.error("No parser found for type: %s" % type)
+            result = PcorTemplateParseResult()
+            result.resource_type = type
+            result.success = False
+            result.source = template_absolute_path
+            result.errors.append("no template parser found for type %s" % type)
+            return result
+
+        result = parser.parse(template_absolute_path)
+        logger.info("result of parsing:%s" % result)
+
+        # do the processing stuff here for a template
 
         # processer = processors[type] -> move to processing folder
 
@@ -79,6 +98,11 @@ class PcorSpreadsheeetReader:
         # if result=success -> move to processed, notif, etc
 
         # if result=error -> send validation/error report
+
+        pcor_action_result = PcorTemplateProcessResult()
+        return pcor_action_result
+
+
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):

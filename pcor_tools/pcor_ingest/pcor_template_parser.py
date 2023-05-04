@@ -156,4 +156,5 @@ class PcorTemplateParseResult:
         self.success=True
         self.model_data={}
         self.resource_type=None
+        self.source = None
 
