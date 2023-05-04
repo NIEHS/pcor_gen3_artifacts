@@ -6,12 +6,22 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 logger = logging.getLogger(__name__)
 
 
+class PcorIntermediateProgramModel:
+    """
+    Represents a program
+    """
+    def __int__(self):
+        self.program_name = None
+        self.dbgap_accession_number = None
+
+
 class PcorIntermediateProjectModel:
 
     def __init__(self):
         self.program = None
         # project
         self.program_id = None
+        self.submitter_id = None # TODO: make sure sub id carried forward to update
         self.id = None
         self.name = None
         self.short_name = None
@@ -67,7 +77,7 @@ class SubmitResponse:
     the result
     """
 
-    def __int__(self):
+    def __init__(self):
         self.project_id = None
         self.type = None
         self.id = None
@@ -79,7 +89,7 @@ class PcorProgramModel:
     A program in Gen3
     """
 
-    def __int__(self):
+    def __init__(self):
         self.name = None
         self.dbgap_accession_number = None
 
@@ -89,9 +99,9 @@ class PcorGeospatialDataResourceModel:
     Represents a geospatial data resource subtype
     """
 
-    def __int__(self):
+    def __init__(self):
         self.pcor_intermediate_resource_model = None
-        self.measures = [],
+        self.measures = []
         self.time_extent_start = None
         self.time_extent_end = None
         self.times_available = []
