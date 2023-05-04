@@ -154,12 +154,12 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "full_name", "description", "subject", "intended_use"]
+          "searchableTextFields": ["name", "short_name", "description", "domain", "intended_use"]
 
         },
         "tagSearchDropdown": { 
           "enabled": true,
-          "collapseOnDefault": false, 
+          "collapseOnDefault": true, 
           "collapsibleButtonText": "Resource Characteristics" 
         }
       },
@@ -176,6 +176,12 @@
           },
           {
             "key": "Subject"
+          },
+          {
+            "key": "Citizen Science"
+          },
+          {
+            "key": "Has API"
           }
 
         ]
@@ -202,53 +208,214 @@
     },
     "studyColumns":[
      {
-            "name": "Resource Type",
-            "field": "type"
+        "name": "Resource Type",
+        "field": "type",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
+     },
+     {
+      "name": "Source",
+      "field": "support_source",
+      "errorIfNotAvailable": false,
+      "valueIfNotAvailable": "n/a"
      },
      {
         "name": "Resource Name",
-        "field": "full_name"
+        "field": "name",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
      },
      {
-        "name": "Subject",
-        "field": "subject"
+        "name": "Domain",
+        "field": "domain",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
      }
     ],
     "studyPreviewField": {
       "name": "Description",
       "field": "description",
-      "contentType": "string",
+      "contentType": "block",
       "includeName": false,
       "includeIfNotAvailable": true,
       "valueIfNotAvailable": "No description has been provided for this resource."
     },
     "detailView": {
-      "headerField": "full_name",
+      "headerField": "name",
         "tabs": [
           {
-            "tabName": "Resource",
+            "tabName": "Summary",
             "groups": [
               {
-                "header": "Resource Summary",
+                "header": "Description",
                 "fields": [
                   {
                     "type": "block",
-                    "sourceField": "description"
+                    "sourceField": "description",
+                    "default": "Not specified"
+
                   }
                 ]
               },
               {
-                "header": "(Meta)Data Location",
+                "header": "Intended Use",
+                "fields": [
+                 
+                  {
+                    "type": "block",
+                    "sourceField": "intended_use",
+                    "default": "Not specified"
+
+                  }
+                ]
+              },
+              {
+                "header": "Details",
+                "fields": [
+                  {
+                    "type": "string",
+                    "label": "Has API",
+                    "sourceField": "has_api",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Citizen Collected?",
+                    "sourceField": "is_citizen_collected",
+                    "default": "Not specified"
+
+                  }
+                ]
+              },
+              {
+                "header": "Resource Links",
                 "fields": [
                   {
                     "type": "link",
-                    "label": "Repository URL",
-                    "sourceField": "resource_url"
+                    "label": "Resource URL",
+                    "sourceField": "resource_url",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "License Type",
+                    "sourceField": "license_type",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "block",
+                    "label": "License Text",
+                    "sourceField": "license_text",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "block",
+                    "label": "Citation",
+                    "sourceField": "citation",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Subject to Data Usage Agreement",
+                    "sourceField": "resource_use_agreement",
+                    "default": "Not specified"
+
                   }
                 ]
               }
             ]
-            }
+            },
+            {
+              "tabName": "Source",
+              "groups": [
+                {
+                  "header": "Source Information",
+                  "fields": [
+                    {
+                      "type": "string",
+                      "label": "Support Source",
+                      "sourceField": "support_source",
+                      "default": "Not specified"
+                     
+                    },
+                    {
+                      "type": "link",
+                      "label": "Source URL",
+                      "sourceField": "source_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Investigator Name",
+                      "sourceField": "investigator_name",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Investigator Affiliation",
+                      "sourceField": "investigator_affiliation",
+                      "default": "Not specified"
+                    }
+                  ]
+                },
+                {
+                  "header": "Intended Use",
+                  "fields": [
+                    {
+                      "type": "block",
+                      "sourceField": "intended_use",
+                      "default": "Not specified"
+                    }
+                  ]
+                },
+                {
+                  "header": "Resource Links",
+                  "fields": [
+                    {
+                      "type": "link",
+                      "label": "Resource URL",
+                      "sourceField": "resource_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "License Type",
+                      "sourceField": "license_type",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "label": "License Text",
+                      "sourceField": "license_text",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "label": "Citation",
+                      "sourceField": "citation",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Resource Use Agreement?",
+                      "sourceField": "resource_use_agreement",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Resource Contact",
+                      "sourceField": "resource_contact",
+                      "default": "Not specified"
+                    }
+                  ]
+                }
+              ]
+              }
       ]
     },
     "minimalFieldMapping": {
@@ -262,12 +429,12 @@
         "display": true
       },
       {
-        "name": "Variable",
+        "name": "Keyword",
         "color": "rgba(81, 175, 195, 1)",
         "display": true
       },
       {
-        "name": "Link Type",
+        "name": "Domain",
         "color": "rgba(81, 100, 54, 1)",
         "display": true
       },
