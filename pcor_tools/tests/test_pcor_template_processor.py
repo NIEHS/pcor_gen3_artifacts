@@ -5,6 +5,7 @@ import logging
 from unittest import TestCase
 import requests
 
+from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 from tests import pcor_testing_utilities
 
@@ -96,59 +97,53 @@ class TestPcorTemplateProcessor(TestCase):
     def test_process_add_program(self):
         logger.info('test_process_add_program')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        process_template.process(parsed_data=parsed_data)
 
     def test_process_add_project(self):
         logger.info('test_process_add_project')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program,
-            'project': project
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        parsed_data.model_data["project"] = project
+        process_template.process(parsed_data=parsed_data)
 
     def test_process_add_resource(self):
         logger.info('test_process_add_resource')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program,
-            'project': project,
-            'resource': resource
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        parsed_data.model_data["project"] = project
+        parsed_data.model_data["resource"] = resource
+        process_template.process(parsed_data=parsed_data)
 
     def test_process_add_geo_spatial_resource(self):
         logger.info('test_process_add_geo_spatial_resource')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program,
-            'project': project,
-            'resource': resource,
-            'geo_spatial_resource': geo_spatial_resource
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        parsed_data.model_data["project"] = project
+        parsed_data.model_data["resource"] = resource
+        parsed_data.model_data["geo_spatial_resource"] = geo_spatial_resource
+        process_template.process(parsed_data=parsed_data)
 
     def test_process_add_pop_data_resource(self):
         logger.info('test_process_add_pop_data_resource')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program,
-            'project': project,
-            'resource': resource,
-            'pop_data_resource': pop_data_resource
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        parsed_data.model_data["project"] = project
+        parsed_data.model_data["resource"] = resource
+        parsed_data.model_data["pop_data_resource"] = pop_data_resource
+        process_template.process(parsed_data=parsed_data)
 
     def test_process_add_geo_tool_resource(self):
         logger.info('test_process_add_geo_tool_resource')
         process_template = PcorTemplateProcessor()
-        model_data = {
-            'program': program,
-            'project': project,
-            'resource': resource,
-            'geo_tool_resource': geo_tool_resource
-        }
-        process_template.process(template_absolute_path='test_location', model_data=model_data)
+        parsed_data = PcorTemplateParseResult()
+        parsed_data.model_data["program"] = program
+        parsed_data.model_data["project"] = project
+        parsed_data.model_data["resource"] = resource
+        parsed_data.model_data["geo_tool_resource"] = geo_tool_resource
+        process_template.process(parsed_data=parsed_data)

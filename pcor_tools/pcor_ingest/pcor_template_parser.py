@@ -103,6 +103,14 @@ class PcorTemplateParser:
                 for j in range(i, ss_rows):
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'code':
+                        project.project_code = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'date collected':
+                        project.date_collected = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'name':
+                        project.name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'complete':
+                        project.complete = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'availability type':
                         project.availability_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'RESOURCE':

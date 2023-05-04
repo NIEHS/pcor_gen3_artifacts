@@ -10,6 +10,7 @@ from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, Su
     Tag, AdvSearchFilter
 from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
 from pcor_ingest.pcor_template_process_result import PcorTemplateProcessResult
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +93,8 @@ class PcorSpreadsheeetReader:
         # do the processing stuff here for a template
 
         # processer = processors[type] -> move to processing folder
+        process_template = PcorTemplateProcessor()
+        process_template.process(parsed_data=result)
 
         # result = processer.process
 

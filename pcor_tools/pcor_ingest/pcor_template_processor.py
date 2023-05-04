@@ -19,7 +19,7 @@ class PcorTemplateProcessor:
     def __init__(self):
         self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
 
-    def process(self, template_absolute_path, model_data):
+    def process(self, parsed_data):
 
         # example path /deep/documents/foo.xls
         # model data is dict [program=pcorIntermediateProgram,project= pcorIntermediateProject, resc, geospat resc]
@@ -29,56 +29,63 @@ class PcorTemplateProcessor:
         :param template_absolute_path: absolute path to the template file
         :return: PcorTemplateProcessResult with the outcome
         """
+        logger.info('Parsed_data %s ' % str(parsed_data))
         logger.info('Process()')
-        logger.info('Template absolute path %s' % template_absolute_path)
-        logger.info('Model data %s' % str(model_data))
+        model_data = parsed_data.model_data
 
         # ToDo: validate create response
         try:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
-                self.pcor_ingest.create_program(program=model_data['program'])
+                program = model_data['program']
+                self.pcor_ingest.create_program(program=program)
 
                 if 'project' in model_data.keys():
                     logger.info('process:: adding project')
-                    self.pcor_ingest.create_project(program=model_data['program'].name,
-                                                    pcor_intermediate_project_model=model_data['project'])
+                    project = model_data['project']
+                    logger.info('Project %s' % str(project))
+                    self.pcor_ingest.create_project(program=program.name,
+                                                    pcor_intermediate_project_model=project)
 
                     if 'resource' in model_data.keys():
                         logger.info('process:: adding resource')
+                        resource = model_data['resource']
                         resource_submit_status = self.pcor_ingest.create_resource(
-                            program_name=model_data['program'].name,
-                            project_name=model_data['project'].name,
-                            resource=model_data['resource'])
+                            program_name=program.name,
+                            project_name=project.name,
+                            resource=resource)
 
                         if 'geo_spatial_resource' in model_data.keys():
                             logger.info('process:: adding geo_spatial_resource')
-                            model_data['geo_spatial_resource'].resource_id = resource_submit_status.id
-                            model_data['geo_spatial_resource'].resource_submitter_id = model_data['resource'].submitter_id
+                            geo_spatial_resource = model_data['geo_spatial_resource']
+                            geo_spatial_resource.resource_id = resource_submit_status.id
+                            geo_spatial_resource.resource_submitter_id = resource.submitter_id
                             self.pcor_ingest.create_geo_spatial_data_resource(
-                                program_name=model_data['program'].name,
-                                project_name=model_data['project'].name,
-                                geo_spatial_data_resource=model_data['geo_spatial_resource']
+                                program_name=program.name,
+                                project_name=project.name,
+                                geo_spatial_data_resource=geo_spatial_resource
                             )
 
                         if 'pop_data_resource' in model_data.keys():
                             logger.info('process:: adding pop_data_resource')
-                            model_data['pop_data_resource'].resource_id = resource_submit_status.id
-                            model_data['pop_data_resource'].resource_submitter_id = model_data['resource'].submitter_id
+                            pop_data_resource = model_data['pop_data_resource']
+                            pop_data_resource.resource_id = resource_submit_status.id
+                            pop_data_resource.resource_submitter_id = resource.submitter_id
                             self.pcor_ingest.create_pop_data_resource(
-                                program_name=model_data['program'].name,
-                                project_name=model_data['project'].name,
-                                pop_data_resource=model_data['pop_data_resource']
+                                program_name=program.name,
+                                project_name=project.name,
+                                pop_data_resource=pop_data_resource
                             )
 
                         if 'geo_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
-                            model_data['geo_tool_resource'].resource_id = resource_submit_status.id
-                            model_data['geo_tool_resource'].resource_submitter_id = model_data['resource'].submitter_id
+                            geo_tool_resource = model_data['geo_tool_resource']
+                            geo_tool_resource.resource_id = resource_submit_status.id
+                            geo_tool_resource.resource_submitter_id = resource.submitter_id
                             self.pcor_ingest.create_geo_spatial_tool_resource(
-                                program_name=model_data['program'].name,
-                                project_name=model_data['project'].name,
-                                geo_spatial_tool_resource=model_data['geo_tool_resource']
+                                program_name=program.name,
+                                project_name=project.name,
+                                geo_spatial_tool_resource=geo_tool_resource
                             )
 
         except requests.HTTPError as exception:
