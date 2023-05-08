@@ -13,6 +13,8 @@ additionalProperties: false
 submittable: true
 validators: null
 
+# GeoExposure_Tool_Resource
+
 systemProperties:
   - id
   - project_id
@@ -58,92 +60,82 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   
-  # additional properties to describe the dataset
+  # common properties for tool resources
+
   tool_type:
     description: The type of tool
+    type: array
+    items: string
+  usage_type:
+    description: Is the tool open source, paid, or a combination.
     enum:
-      - software
-      - library
-      - framework
-      - service
-  is_open_source:
-    description: Indicates if the tool is open-source
-    type: boolean
+      - Open-source
+      - Paid
+      - Combination
   operating_system:
     description: The operating system the tool runs on
     type: array
     items:
       enum:
-      - windows
-      - linux
-      - mac
+      - Windows
+      - Linux
+      - Mac
       - cross-platform
-  language:
+  languages:
     description: Programming language 
-    enum:
-      - Python
-      - R
-      - Java
-      - C/C++
-      - C#/.Net
-      - Javascript
-      - Fortran
-      - Go
-      - Other
-  input_format:
+    type: array
+    items:
+      enum:
+        - Python
+        - R
+        - Java
+        - C/C++
+        - C#/.Net
+        - Javascript
+        - Fortran
+        - Go
+        - Other
+  input_formats:
     description: Type of data/data format used as input (e.g. NetCDF)
-    type: string
-  output_format:
+    type: array
+    items: string
+  output_formats:
     description: Type of data/data format output from the tool
-  time_extent_start:
+    type: array
+    items: string
+
+  # specific properties
+
+
+   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
   time_extent_end:
     description: Latest time for the data.
     $ref: "_definitions.yaml#/datetime"
-  times_available:
-    description: Time extent if multiple exist in the resource.
-    type: array
-    items:
-      $ref: "_definitions.yaml#/datetime"
+  time_available_comment:
+    description: Narrative to describe time extent details if multiple exist in the resource.
+    type: string
   temporal_resolution:
     description: Frequency of time points.
-    enum:
-      - fixed
-      - continuous
-      - hourly
-      - monthly
-      - quarterly
-      - annually
-      - unknown
+    type: string
   spatial_resolution:
-    description: Maximum spatial resolution of the data.
-    enum:
-      - 10km
-      - census_tract
+    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    type: string
   spatial_coverage: 
     description: Maximum spatial coverage of the data.
-    enum:
-      - county
-      - state
-      - national
+    type: string
   spatial_bounding_box:
-    description: Bounding box for the data, in comma separated lat/long format.
-    type: string
-  geo_ref_system:
-    description: Geographic coordinate reference system.
-    type: string
-  proj_ref_system:
-    description: projected coordinate reference system.
+    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
     type: string
   geometry_type:
-    description: Type of geometry used for the data.
+    description: Type of geometric data, the file extension will be different for different types.
+    type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
     type: string
   model_methods:
     description: If modeled, type of approach used.
-    type: string
-  resource_link:
-    description: Link to an external resource
     type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.

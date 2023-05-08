@@ -34,7 +34,20 @@ properties:
     systemAlias: node_id
   name:
     type: string
-    description: "Full name/title of the program."
+    description: "The name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department name."
+  short_name:
+    type: string
+    description" "The program name abbreviation or short name"
+  program_type:
+     description: Type of program
+    enum:
+      - Federal Agency
+      - State Agency 
+      - Academic Institution
+      - Non-profit Organization
+      - Other
+  program_url:
+      description
   dbgap_accession_number:
     type: string
     description: "The dbgap accession number provided for the program."

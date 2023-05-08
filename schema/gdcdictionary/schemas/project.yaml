@@ -156,7 +156,22 @@ properties:
         #   - release (project.released -> true)
         - closed
 
-  type:
+  project_type:
+    description: "Type of project. If multiple use Multiple"
+    enum:
+      - Data Provider
+      - Software Provider
+      - Training Material
+      - Cohort Study
+      - Multiple
+      - Other
+
+  project_url:
+    description: "URL for the project"
+    type: string
+
+  description:
+    description" "Description of the project"
     type: string
 
   programs:
