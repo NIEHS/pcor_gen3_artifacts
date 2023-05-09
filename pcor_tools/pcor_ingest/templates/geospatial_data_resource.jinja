@@ -13,16 +13,18 @@
     {% if geo_spatial_data_resource.time_extent_end is defined and geo_spatial_data_resource.time_extent_end|length %}
         "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
     {% endif %}
-    "times_available":  [
-        {% for time_available in geo_spatial_data_resource.times_available  %}
-
-            "{{ time_available }}"
-          {{ "," if not loop.last }}
-        {% endfor %}
-                ],
+    "times_available_comment": "{{ geo_spatial_data_resource.times_available_comment }}",
+    "comments": "{{ geo_spatial_data_resource.comments }}",
+    "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
+    "source_name": "{{ geo_spatial_data_resource.source_name }}",
+    "source_url": "{{ geo_spatial_data_resource.source_url }}",
+    "update_frequency": "{{ geo_spatial_data_resource.update_frequency }}",
+    "includes_citizen_collected": "{{ geo_spatial_data_resource.includes_citizen_collected }}",
+    "has_api": "{{ geo_spatial_data_resource.has_api }}",
+    "has_visualization_tool": "{{ geo_spatial_data_resource.has_visualization_tool }}",
+    "measurement_method": "{{ geo_spatial_data_resource.measurement_method }}",
     "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
     "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
-    "resource_link": "{{ geo_spatial_data_resource.resource_link }}",
     "spatial_coverage": "{{ geo_spatial_data_resource.spatial_coverage }}",
     "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
     "spatial_bounding_box": "{{ geo_spatial_data_resource.spatial_bounding_box }}",
@@ -30,7 +32,7 @@
     "geometry_type": "{{ geo_spatial_data_resource.geometry_type }}",
     "geometry_source": "{{ geo_spatial_data_resource.geometry_source }}",
     "geographic_feature": "{{ geo_spatial_data_resource.geographic_feature }}",
-    "is_modeled": {{ geo_spatial_data_resource.is_modeled }},
+    "model_methods": {{ geo_spatial_data_resource.model_methods }},
     "exposure_media":  [
         {% for exp in geo_spatial_data_resource.exposure_media  %}
             "{{ exp }}"

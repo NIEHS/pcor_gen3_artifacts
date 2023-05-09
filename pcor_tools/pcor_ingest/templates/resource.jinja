@@ -10,10 +10,7 @@
   "source_name": "{{ resource.source_name }}",
   "source_url": "{{ resource.source_url }}",
   "resource_id": "{{ resource.resource_id }}",
-  "intended_use": "{{ resource.intended_use }}",
   "citation": "{{ resource.citation }}",
-  "is_citizen_collected": {{ resource.is_citizen_collected }},
-  "has_api": {{ resource.has_api }},
   "domain": "{{ resource.domain }}",
   "keywords":  [
     {% for keyword in resource.keywords %}
@@ -22,10 +19,10 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "update_frequency": "{{ resource.update_frequency }}",
   "license_text": "{{ resource.license_text }}",
   "resource_use_agreement": {{ resource.use_agreement }},
   "resource_contact": "{{ resource.contact }}",
+  "resource_link": "{{ resource.resource_link }}",
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.dbgap_accession_number }}"

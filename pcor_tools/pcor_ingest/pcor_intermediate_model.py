@@ -12,6 +12,9 @@ class PcorIntermediateProgramModel:
     """
     def __int__(self):
         self.program_name = None
+        self.short_name = None
+        self.program_type = None
+        self.program_url = None
         self.dbgap_accession_number = None
 
 
@@ -20,21 +23,27 @@ class PcorIntermediateProjectModel:
     def __init__(self):
         self.program = None
         # project
-        self.program_id = None
-        self.submitter_id = None # TODO: make sure sub id carried forward to update
-        self.id = None
-        self.name = None
-        self.short_name = None
         self.availability_mechanism = None
         self.availability_type = None
-        self.dbgap_accession_number = None
+        self.code = None
+        self.complete = None
         self.date_collected = None
+        self.dbgap_accession_number = None
+        self.id = None
         self.investigator_affiliation = None
         self.investigator_name = None
+        self.name = None
+        self.short_name = None
         self.support_source = None
         self.support_id = None
-        self.project_code = None
-        self.complete = None
+        self.program_id = None
+        self.submitter_id = None # TODO: make sure sub id carried forward to update
+        self.project_type = None
+        self.project_url = None
+        self.description = None
+
+
+
 
 
 class PcorIntermediateResourceModel:
@@ -51,24 +60,20 @@ class PcorIntermediateResourceModel:
         self.created_datetime = None
         self.id = None
         self.name = None
-        self.resource_id = None
         self.short_name = None
-        self.source_name = None
-        self.source_url = None
+        self.resource_id = None
         self.resource_type = None
         self.description = None
-        self.intended_use = None
         self.citation = None
-        self.is_citizen_collected = 'false'
-        self.has_api = 'false'
+        self.payment_required = None
+        self.domain = []
         self.keywords = []
-        self.update_frequency = 'unknown'
         self.license_type = None
         self.license_text = None
         self.verification_datetime = None
-        self.use_agreement = 'false'
-        self.contact = None
-        self.domain = None
+        self.resource_use_agreement = 'false'
+        self.resource_contact = None
+        self.resource_link = None
 
 
 class SubmitResponse:
@@ -101,13 +106,21 @@ class PcorGeospatialDataResourceModel:
 
     def __init__(self):
         self.pcor_intermediate_resource_model = None
+        self.submitter_id = None
+        self.comments = None
+        self.intended_use = None
+        self.source_name = None
+        self.source_url = None
+        self.update_frequency = None
+        self.includes_citizen_collected = None
+        self.has_api = "false"
+        self.has_visualization_tool = "false"
         self.measures = []
+        self.measurement_method = None
         self.time_extent_start = None
         self.time_extent_end = None
-        self.times_available = []
+        self.times_available_comment = None
         self.temporal_resolution = None
-        self.submitter_id = None
-        self.resource_link = None
         self.spatial_coverage = None
         self.spatial_resolution = None
         self.spatial_bounding_box = None
@@ -115,7 +128,7 @@ class PcorGeospatialDataResourceModel:
         self.geometry_type = None
         self.geometry_source = None
         self.geographic_feature = None
-        self.is_modeled = False
+        self.model_methods = None
         self.exposure_media = []
         self.project_id = None
         self.project_submitter_id = None
@@ -186,12 +199,18 @@ class PcorPopDataResourceModel:
         self.resource_submitter_id = None
         self.created_datetime = None
         self.state = None
-        self.submitter_id = None
         self.updated_datetime = None
-        self.population = None
+        self.comments = None
+        self.intended_use = None
+        self.source_name = None
+        self.source_url = None
+        self.update_frequency = None
+        self.includes_citizen_collected = None
+        self.has_api = "false"
+        self.has_visualization_tool = "false"
         self.time_extent_start = None
         self.time_extent_end = None
-        self.times_available = []
+        self.times_available_comment = None
         self.spatial_resolution = None
         self.spatial_coverage = None
         self.spatial_bounding_box = None
@@ -201,7 +220,7 @@ class PcorPopDataResourceModel:
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
-        self.resource_link = None
+        self.model_methods = None
 
 
 class PcorGeoToolModel:
@@ -221,21 +240,20 @@ class PcorGeoToolModel:
         self.submitter_id = None
         self.updated_datetime = None
         self.tool_type = None
-        self.is_open_source = None
+        self.usage_type = None
         self.operating_system = []
-        self.language = None
-        self.input_format = None
-        self.output_format = None
+        self.languages = []
+        self.input_formats = []
+        self.output_formats = []
         self.time_extent_start = None
         self.time_extent_end = None
-        self.times_available = []
+        self.times_available_comment = None
         self.temporal_resolution = None
         self.spatial_resolution = None
         self.spatial_coverage = None
         self.spatial_bounding_box = None
-        self.geo_ref_system = None
-        self.proj_ref_system = None
         self.geometry_type = None
+        self.geometry_source = None
         self.model_methods = None
         self.resource_link = None
 
