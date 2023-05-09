@@ -59,9 +59,7 @@ properties:
       - geospatial_tool_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
-  
   # common properties for tool resources
-
   tool_type:
     description: The type of tool
     type: array
@@ -103,11 +101,8 @@ properties:
     description: Type of data/data format output from the tool
     type: array
     items: string
-
   # specific properties
-
-
-   time_extent_start:
+  time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
   time_extent_end:
