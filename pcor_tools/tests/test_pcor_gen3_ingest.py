@@ -44,6 +44,8 @@ class TestPcorGen3Ingest(TestCase):
         project.releasable = True
         project.support_id = "support_id"
         project.support_source = "support_source"
+        project.project_type = "Data Provider"
+        project.project_url = "http://project.url"
         actual = pcor_ingest.produce_project_json(project)
         json.loads(actual)
 
@@ -57,21 +59,19 @@ class TestPcorGen3Ingest(TestCase):
         resource.submitter_id = "resc submitter_id"
         resource.resource_type = "resc type"
         resource.description = "description"
-        resource.intended_use = "intended use"
         resource.citation = "citation"
-        resource.is_citizen_collected = "true"
-        resource.has_api = "false"
-        resource.contact = "contact"
+        resource.resource_contact = "contact"
+        resource.resource_link = "http://resource.link"
         resource.created_datetime = "2023/01/01T12:01:00Z"
+        resource.verification_datetime = "2023/01/01T12:01:00Z"
         resource.keywords = ["this", "is", "keywords"]
         resource.license_text = "license text"
         resource.license_type = "license type"
         resource.name = "name"
         resource.short_name = "secondary name"
-        resource.source_name = "source name"
-        resource.source_url = "source_url"
-        resource.domain = "subject"
-        resource.update_frequency = "frequency"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
         actual = pcor_ingest.produce_resource_json(resource)
         json.loads(actual)
 
@@ -129,7 +129,10 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
+        project.short_name = "NFS-2"
         project.project_code = "NFS-2"
+        project.project_type = "Data Provider"
+        project.project_url = "https://www.niehs.nih.gov"
         project.support_source = "support source1"
         project.support_id = "support id1"
         project.investigator_name = "Mike Conway"
@@ -145,17 +148,16 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = "NFS"
         project = PcorIntermediateProjectModel()
-        # create project
-        project.name = "test_delete_project"
-        project.project_code = "test_delete_project"
-        project.dbgap_accession_number = "test_delete_project"
-        project.project_state = "open"
-        project.project_release_date = "2023/01/01T12:01:00Z"
+        project.name = "NFS-2"
+        project.short_name = "NFS-2"
+        project.project_code = "NFS-2"
+        project.project_type = "Data Provider"
+        project.project_url = "https://www.niehs.nih.gov"
         project.support_source = "support source1"
         project.support_id = "support id1"
-        project.releasable = True
         project.investigator_name = "Mike Conway"
         project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
         project.date_collected = "2023/01/01T12:01:00Z"
         project.complete = "Complete"
         project.availability_type = "Open"
@@ -184,43 +186,45 @@ class TestPcorGen3Ingest(TestCase):
         program.dbgap_accession_number = 'NFS'
         program_id = pcor_ingest.create_program(program)
 
+
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
-        project.project_code = "NFS-2"
-        project.project_state = "open"
-        project.project_release_date = ""
+        project.code = "NFS-2"
+        project.project_type = "Data Provider"
+        project.project_url = "https://www.niehs.nih.gov"
         project.support_source = "support source1"
         project.support_id = "support id1"
-        project.releasable = "true"
         project.investigator_name = "Mike Conway"
         project.investigator_affiliation = "NIEHS"
         project.dbgap_accession_number = "NFS-2"
-        project.date_collected = ""
+        project.date_collected = "2023/01/01T12:01:00Z"
         project.complete = "Complete"
         project.availability_type = "Open"
         project_id = pcor_ingest.create_project("NFS", project)
+        project.id = project_id
         logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
+        pcor_ingest.create_project(program=program.dbgap_accession_number, pcor_intermediate_project_model=project)
+
 
         resource = PcorIntermediateResourceModel()
-        resource.submitter_id = "NFS-2-RESC-1"
-        resource.resource_id = "NFS-2-RESC-1"
-        resource.name = "Fire and Smoke Map"
-        resource.short_name = "short name"
-        resource.resource_type = "data_resource"
+        resource.project = project
+        resource.submitter_id = "resc submitter_id"
+        resource.resource_type = "resc type"
         resource.description = "description"
-        resource.intended_use = "intended use"
         resource.citation = "citation"
-        resource.is_citizen_collected = "false"
-        resource.has_api = "false"
-        resource.domain = "AQI - Air Quality Index"
-        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
-        resource.license_type = ""
-        resource.license_text = ""
-        resource.created_datetime = ""
-        resource.update_frequency = "hourly"
-        resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.use_agreement = "false"
+        resource.resource_contact = "contact"
+        resource.resource_link = "http://resource.link"
+        resource.created_datetime = "2023/01/01T12:01:00Z"
+        resource.verification_datetime = "2023/01/01T12:01:00Z"
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.name = "name"
+        resource.short_name = "secondary name"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
         actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
 

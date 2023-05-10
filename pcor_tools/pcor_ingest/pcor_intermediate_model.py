@@ -43,9 +43,6 @@ class PcorIntermediateProjectModel:
         self.description = None
 
 
-
-
-
 class PcorIntermediateResourceModel:
     """
     Represents an intermediate data model from some source (e.g. spreadsheet or CEDAR) that is to be ingested into Gen3
