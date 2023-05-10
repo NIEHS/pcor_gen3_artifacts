@@ -210,7 +210,7 @@ class TestPcorGen3Ingest(TestCase):
         resource = PcorIntermediateResourceModel()
         resource.project = project
         resource.submitter_id = "resc submitter_id"
-        resource.resource_type = "resc type"
+        resource.resource_type = "data_resource"
         resource.description = "description"
         resource.citation = "citation"
         resource.resource_contact = "contact"

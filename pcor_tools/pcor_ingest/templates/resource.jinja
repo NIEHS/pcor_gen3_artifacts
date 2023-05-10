@@ -7,11 +7,15 @@
   "license_type": "{{ resource.license_type }}",
   "submitter_id": "{{ resource.submitter_id }}",
   "short_name": "{{ resource.short_name }}",
-  "source_name": "{{ resource.source_name }}",
-  "source_url": "{{ resource.source_url }}",
   "resource_id": "{{ resource.resource_id }}",
   "citation": "{{ resource.citation }}",
-  "domain": "{{ resource.domain }}",
+  "domain": [
+   {% for entry in resource.domain %}
+
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "keywords":  [
     {% for keyword in resource.keywords %}
 
