@@ -32,6 +32,5 @@ class TestSpreadsheetReader(unittest.TestCase):
         actual = ss_reader.process_template_instance(test_ss_path)
 
 
-
 if __name__ == '__main__':
     unittest.main()
