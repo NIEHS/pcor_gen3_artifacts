@@ -10,7 +10,7 @@ from pcor_ingest.gen3auth import PcorGen3Auth
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
-    Tag, AdvSearchFilter
+    Tag, AdvSearchFilter, PcorIntermediateProgramModel
 
 logger = logging.getLogger(__name__)
 
@@ -123,86 +123,81 @@ class PcorGen3Ingest:
         return submit_response
 
     def create_discovery_from_resource(self, program_name, project, resource):
-       """
-       Given a project and resource derive the discovery
-        model data (to be augmented based on the subtype)
+        """
+        Given a project and resource derive the discovery
+         model data (to be augmented based on the subtype)
 
-        :param program_name
-        :param project: PcorIntermediateProjectModel
-        :param resource: PcorIntermediateResourceModel
-        :return: PcorDiscoveryMetadata with the metadata that can be derived
-       from the given model data
-       """
-       discovery = PcorDiscoveryMetadata()
-       discovery.name = resource.name
-       discovery.investigator_name = project.investigator_name
-       discovery.investigator_affiliation = project.investigator_affiliation
-       discovery.intended_use = resource.intended_use
-       discovery.short_name = resource.short_name
-       discovery.description = resource.description
+         :param program_name
+         :param project: PcorIntermediateProjectModel
+         :param resource: PcorIntermediateResourceModel
+         :return: PcorDiscoveryMetadata with the metadata that can be derived
+        from the given model data
+        """
+        logger.info("create_discovery_from_resource()")
 
-       if resource.source_name:
-            discovery.source_name = resource.source_name
-       else:
-            discovery.source_name = program_name
+        logger.info("looking up program: %")
 
-       discovery.source_url = resource.source_url
-       discovery.citation = resource.citation
-       discovery.domain = resource.domain
-       discovery.has_api = resource.has_api
-       discovery.is_citizen_collected = resource.is_citizen_collected
-       discovery.license_type = resource.license_type
-       discovery.license_text = resource.license_text
-       discovery.resource_use_agreement = resource.use_agreement
-       discovery.resource_contact = resource.contact
-       discovery.type = resource.resource_type
-       discovery.resource_id = resource.id
+        program = self.get_individual_program_info(program_name)
 
-       # migrate keywords that are available in resource
-       for kw in resource.keywords:
-           tag = Tag()
-           tag.name = kw
-           tag.category = "Keyword"
-           discovery.tags.append(tag)
+        discovery = PcorDiscoveryMetadata()
+        discovery.program_name = program_name
+        discovery.program_type = program.program_type
+        discovery.program_url = program.program_url
+        discovery.project_type = project.project_type
+        discovery.project_description = project.description
+        discovery.name = resource.name
+        discovery.investigator_name = project.investigator_name
+        discovery.investigator_affiliation = project.investigator_affiliation
+        discovery.intended_use = resource.intended_use
+        discovery.short_name = resource.short_name
+        discovery.description = resource.description
+        discovery.citation = resource.citation
+        discovery.domain = resource.domain
+        discovery.has_api = "false"
+        discovery.has_visualization_tool = "false"
+        discovery.is_citizen_collected = "false"
+        discovery.license_type = resource.license_type
+        discovery.license_text = resource.license_text
+        discovery.resource_use_agreement = resource.resource_use_agreement
+        discovery.resource_contact = resource.resource_contact
+        discovery.resource_id = resource.id
+        discovery.resource_url = resource.resource_link
 
-       tag = Tag()
-       tag.name = discovery.domain
-       tag.category = "Domain"
-       discovery.tags.append(tag)
+        # migrate keywords that are available in resource
+        for kw in resource.keywords:
+            tag = Tag()
+            tag.name = kw
+            tag.category = "Keyword"
+            discovery.tags.append(tag)
 
-       tag = Tag()
-       tag.name = discovery.type
-       tag.category = "Resource Type"
-       discovery.tags.append(tag)
+        for item in resource.domain:
+            tag = Tag()
+            tag.name = item
+            tag.category = "Domain"
+            discovery.tags.append(tag)
 
-       filter = AdvSearchFilter()
-       filter.key = "Program"
-       filter.value = program_name
-       discovery.adv_search_filters.append(filter)
+        tag = Tag()
+        tag.name = discovery.type
+        tag.category = "Resource Type"
+        discovery.tags.append(tag)
 
-       filter = AdvSearchFilter()
-       filter.key = "Subject"
-       filter.value = resource.domain
-       discovery.adv_search_filters.append(filter)
+        filter = AdvSearchFilter()
+        filter.key = "Program"
+        filter.value = program_name
+        discovery.adv_search_filters.append(filter)
 
-       filter = AdvSearchFilter()
-       filter.key = "Citizen Science"
-       filter.value = resource.is_citizen_collected
-       discovery.adv_search_filters.append(filter)
+        for item in resource.domain:
+            filter = AdvSearchFilter()
+            filter.key = "Domain"
+            filter.value = item
+            discovery.adv_search_filters.append(filter)
 
-       filter = AdvSearchFilter()
-       filter.key = "Has API"
-       filter.value = resource.has_api
-       discovery.adv_search_filters.append(filter)
+        filter = AdvSearchFilter()
+        filter.key = "Resource Type"
+        filter.value = resource.resource_type
+        discovery.adv_search_filters.append(filter)
 
-       filter = AdvSearchFilter()
-       filter.key = "Resource Type"
-       filter.value = resource.resource_type
-       discovery.adv_search_filters.append(filter)
-
-
-       # TODO: migrate resc link to resc from child
-       return discovery
+        return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
         """
@@ -354,7 +349,6 @@ class PcorGen3Ingest:
         logger.info("rendered: %s" % rendered)
         return rendered
 
-
     def produce_pop_data_resource(self, pop_data_resource):
         """
         Render pop_data_resource  as JSON via template
@@ -434,12 +428,11 @@ class PcorGen3Ingest:
         """
         return self.get_individual_project_info(project_submitter_id)
 
-
     def get_individual_program_info(self, program_name):
         """
         Do a query to get program details
         :param program_name: name field in program
-        :return: JSON with query result
+        :return: PCORIntermediateProgramModel
         """
         json = """{{
                  program(name: "{}") {{
@@ -457,7 +450,16 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.gen3_auth)
         result = sub.query(json)
         logger.info("result:{}".format(result))
-        return result
+
+        program = PcorIntermediateProgramModel()
+        program.id = result["data"]["program"][0]["id"]
+        program.program_name = result["data"]["program"][0]["program_name"]
+        program.short_name = result["data"]["program"][0]["short_name"]
+        program.program_type = result["data"]["program"][0]["program_type"]
+        program.program_url = result["data"]["program"][0]["program_url"]
+        program.dbgap_accession_number = result["data"]["program"][0]["dbgap_accession_number"]
+
+        return program
 
     def get_individual_project_info(self, project_code):
         """

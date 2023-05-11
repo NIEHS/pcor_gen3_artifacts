@@ -10,7 +10,8 @@ class PcorIntermediateProgramModel:
     """
     Represents a program
     """
-    def __int__(self):
+    def __init__(self):
+        self.id = None
         self.program_name = None
         self.short_name = None
         self.program_type = None
