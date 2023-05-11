@@ -445,9 +445,10 @@ class PcorGen3Ingest:
                  program(name: "{}") {{
                    id
                    name
+                   short_name
+                   program_type
+                   program_url
                    dbgap_accession_number
-                   
-                   name
                  }}
                }}
                """.format(program_name)

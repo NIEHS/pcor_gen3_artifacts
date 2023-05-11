@@ -141,10 +141,19 @@ class PcorDiscoveryMetadata:
     def __init__(self):
         self.tags = []
         self.adv_search_filters = []
+        self.program_name = None
+        self.program_type = None
+        self.program_url = None
+        self.project_type = None
+        self.project_url = None
+        self.project_description = None
         self.name = None
+        self.short_name = None
+        self.payment_required = None
+        self.verification_datetime = None
         self.investigator_name = None
         self.investigator_affiliation = None
-        self.intended_use = None
+        self.comment = None # collapses intended_use and other descriptions
         self.short_name = None
         self.description = None
         self.support_source = None
@@ -152,6 +161,7 @@ class PcorDiscoveryMetadata:
         self.citation = None
         self.domain = None
         self.has_api = None
+        self.has_visualization_tool = None
         self.is_citizen_collected = None
         self.license_type = None
         self.license_text = None
@@ -159,6 +169,9 @@ class PcorDiscoveryMetadata:
         self.resource_contact = None
         self.resource_id = None
         self.resource_url = None
+        self.measures = [] # convert to tags/filters
+        self.exposure_media = [] # convert to tags/filters
+        self.tool_type = None # tags/filters?
         self.type = None
 
 
