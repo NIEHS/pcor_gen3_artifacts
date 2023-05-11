@@ -206,7 +206,6 @@ class TestPcorGen3Ingest(TestCase):
         logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
         pcor_ingest.create_project(program=program.dbgap_accession_number, pcor_intermediate_project_model=project)
 
-
         resource = PcorIntermediateResourceModel()
         resource.project = project
         resource.submitter_id = "resc submitter_id"
@@ -266,56 +265,23 @@ class TestPcorGen3Ingest(TestCase):
         resource.is_citizen_collected = "false"
         resource.has_api = "false"
         resource.domain = "AQI - Air Quality Index"
-        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
-        resource.license_type = ""
-        resource.license_text = ""
-        resource.created_datetime = ""
-        resource.update_frequency = "hourly"
-        resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.use_agreement = "false"
-        actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
-        resc_id = actual.id
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.name = "name"
+        resource.short_name = "secondary name"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
+        resc_id = resource.id
 
         # now add the discovery data
-        discovery = pcor_ingest.create_discovery_from_resource(program, project, resource)
-
-        tag = Tag()
-        tag.name = "web site"
-        tag.category = "Link Type"
-        discovery.tags.append(tag)
+        discovery = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
 
         tag = Tag()
         tag.name = "NFS"
         tag.category = "Program"
         discovery.tags.append(tag)
-
-        tag = Tag()
-        tag.name = "smoke plume"
-        tag.category = "Variable"
-        discovery.tags.append(tag)
-
-        tag = Tag()
-        tag.name = "geospatial data resource"
-        tag.category = "Resource Type"
-        discovery.tags.append(tag)
-
-        for kw in resource.keywords:
-            tag = Tag()
-            tag.name = kw
-            tag.category = "Keyword"
-            discovery.tags.append(tag)
-
-        discovery.resource_url = 'http://a.web.site'
-
-        filter = AdvSearchFilter()
-        filter.key = "Resource Type"
-        filter.value = "geospatial data resource"
-        discovery.adv_search_filters.append(filter)
-
-        filter = AdvSearchFilter()
-        filter.key = "Subject"
-        filter.value = "smoke"
-        discovery.adv_search_filters.append(filter)
 
         actual = pcor_ingest.decorate_resc_with_discovery(discovery)
         self.assertIsNotNone(actual)
@@ -359,23 +325,29 @@ class TestPcorGen3Ingest(TestCase):
         resource.is_citizen_collected = "false"
         resource.has_api = "false"
         resource.domain = "AQI - Air Quality Index"
-        resource.keywords = ["fire", "smoke", "aqi", "wildfire"]
-        resource.license_type = ""
-        resource.license_text = ""
-        resource.created_datetime = ""
-        resource.update_frequency = "hourly"
-        resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.use_agreement = "false"
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
+        resource.resource_link = "https://landfire.gov/"
         resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
 
         geo_spatial_resource = PcorGeospatialDataResourceModel()
         geo_spatial_resource.submitter_id = "NFS-2-GEO-1"
-        geo_spatial_resource.resource_link = "https://landfire.gov/"
+        geo_spatial_resource.comments = "comment"
+        geo_spatial_resource.intended_use = "intended use" # TODO: do we need a second general comment field in discovery? mc
         geo_spatial_resource.resource_submitter_id = resource.submitter_id
+        geo_spatial_resource.update_frequency = "unknown"
+        geo_spatial_resource.includes_citizen_collected = "false"
+        geo_spatial_resource.has_api = "false"
+        geo_spatial_resource.has_visualization_tool = "false"
+        geo_spatial_resource.measures = ["measure1", "measure2"]
+        geo_spatial_resource.measurement_method = "method1"
         geo_spatial_resource.spatial_coverage = "national"
         geo_spatial_resource.spatial_resolution = "10km"
         geo_spatial_resource.temporal_resolution = "unknown"
-        geo_spatial_resource.is_modeled = "false"
 
         # using result from resource creation status
         geo_spatial_resource.resource_id = resource_submit_status.id
@@ -388,6 +360,7 @@ class TestPcorGen3Ingest(TestCase):
         # now decorate with metadata
 
         discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+        discovery_data.comment = geo_spatial_resource.comments # intended use?
         pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
     def test_create_geo_spatial_tool_resource(self):

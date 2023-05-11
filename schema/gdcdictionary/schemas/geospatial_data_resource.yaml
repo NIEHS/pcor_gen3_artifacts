@@ -87,9 +87,10 @@ properties:
     type: boolean
   has_api:
     description: Flag if the resource has an API
+    type: boolean
   has_visualization_tool:
     description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
-
+    type: boolean
   # additional properties to describe the dataset
 
   measures:
