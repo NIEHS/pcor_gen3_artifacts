@@ -63,7 +63,8 @@ properties:
   tool_type:
     description: The type of tool
     type: array
-    items: string
+    items:
+      type: string
   usage_type:
     description: Is the tool open source, paid, or a combination.
     enum:
@@ -96,12 +97,13 @@ properties:
   input_formats:
     description: Type of data/data format used as input (e.g. NetCDF)
     type: array
-    items: string
+    items:
+      type: string
   output_formats:
     description: Type of data/data format output from the tool
     type: array
-    items: string
-  # specific properties
+    items:
+      type: string  # specific properties
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"

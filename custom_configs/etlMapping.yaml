@@ -6,7 +6,6 @@ mappings:
     props:
       - name: project_id
       - name: submitter_id
-
       - name: comments
       - name: intended_use
       - name: source_name
@@ -15,7 +14,6 @@ mappings:
       - name: includes_citizen_collected
       - name: has_api
       - name: has_visualization_tool
-
       - name: measures
       - name: time_extent_start
       - name: time_extent_end
@@ -38,7 +36,7 @@ mappings:
     props:
       - name: project_id
       - name: submitter_id
-      - name: tool_type
+      
       - name: usage_type
       - name: operating_system
       - name: languages
@@ -63,7 +61,6 @@ mappings:
     props:
       - name: project_id
       - name: submitter_id
-
       - name: comments
       - name: intended_use
       - name: source_name
@@ -72,7 +69,6 @@ mappings:
       - name: includes_citizen_collected
       - name: has_api
       - name: has_visualization_tool
-
       - name: time_extent_start
       - name: time_extent_end
       - name: time_available_comment
