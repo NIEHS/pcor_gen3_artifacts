@@ -453,7 +453,7 @@ class PcorGen3Ingest:
 
         program = PcorIntermediateProgramModel()
         program.id = result["data"]["program"][0]["id"]
-        program.program_name = result["data"]["program"][0]["program_name"]
+        program.program_name = result["data"]["program"][0]["name"]
         program.short_name = result["data"]["program"][0]["short_name"]
         program.program_type = result["data"]["program"][0]["program_type"]
         program.program_url = result["data"]["program"][0]["program_url"]
