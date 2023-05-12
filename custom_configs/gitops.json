@@ -175,13 +175,7 @@
             "key": "Program"
           },
           {
-            "key": "Subject"
-          },
-          {
-            "key": "Citizen Science"
-          },
-          {
-            "key": "Has API"
+            "key": "Domain"
           }
 
         ]
@@ -258,15 +252,71 @@
                 ]
               },
               {
-                "header": "Intended Use",
+                "header": "Details",
                 "fields": [
                  
                   {
                     "type": "block",
-                    "sourceField": "intended_use",
+                    "sourceField": "comment",
                     "default": "Not specified"
 
                   }
+                ]
+              },
+              {
+                "header": "Program",
+                "fields": [
+                  {
+                    "type": "string",
+                    "label": "Program Name",
+                    "sourceField": "program_name",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Program Type",
+                    "sourceField": "program_type",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "link",
+                    "label": "Program Link",
+                    "sourceField": "program_url",
+                    "default": "Not specified"
+                  }
+                ]
+                },
+                {
+                  "header": "Project",
+                  "fields": [
+                    {
+                      "type": "string",
+                      "label": "Project Name",
+                      "sourceField": "project_name",
+                      "default": "Not specified"
+
+                    },
+                    {
+                      "type": "string",
+                      "label": "Project Type",
+                      "sourceField": "project_type",
+                      "default": "Not specified"
+
+                    },
+                    {
+                      "type": "link",
+                      "label": "Project Link",
+                      "sourceField": "project_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "sourceField": "project_description",
+                      "default": "Not specified"
+  
+                    }
                 ]
               },
               {
@@ -274,8 +324,22 @@
                 "fields": [
                   {
                     "type": "string",
+                    "label": "Domain",
+                    "sourceField": "domain",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
                     "label": "Has API",
                     "sourceField": "has_api",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Has Visualization Tool",
+                    "sourceField": "has_visualization_tool",
                     "default": "Not specified"
 
                   },
@@ -288,6 +352,7 @@
                   }
                 ]
               },
+
               {
                 "header": "Resource Links",
                 "fields": [
@@ -325,6 +390,13 @@
                     "sourceField": "resource_use_agreement",
                     "default": "Not specified"
 
+                  },
+                  {
+                    "type": "string",
+                    "label": "Resource Contact",
+                    "sourceField": "resource_contact",
+                    "default": "Not specified"
+
                   }
                 ]
               }
@@ -359,16 +431,6 @@
                       "type": "string",
                       "label": "Investigator Affiliation",
                       "sourceField": "investigator_affiliation",
-                      "default": "Not specified"
-                    }
-                  ]
-                },
-                {
-                  "header": "Intended Use",
-                  "fields": [
-                    {
-                      "type": "block",
-                      "sourceField": "intended_use",
                       "default": "Not specified"
                     }
                   ]
