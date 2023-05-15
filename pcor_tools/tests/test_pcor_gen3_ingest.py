@@ -413,17 +413,17 @@ class TestPcorGen3Ingest(TestCase):
 
         geo_tool_resource = PcorGeoToolModel()
         geo_tool_resource.submitter_id = "NOAA-1-GEOTOOL-1"
-        geo_tool_resource.resource_link = "https://a.tool.gov/"
         geo_tool_resource.resource_submitter_id = resource.submitter_id
         geo_tool_resource.spatial_coverage = "national"
         geo_tool_resource.spatial_resolution = "10km"
         geo_tool_resource.temporal_resolution = "unknown"
         geo_tool_resource.is_open_source = "false"
-        geo_tool_resource.tool_type = "software"
-        geo_tool_resource.operating_system.append("linux")
-        geo_tool_resource.language = "Go"
-        geo_tool_resource.input_format = "Net/CDF"
-        geo_tool_resource.output_format = "binary"
+        geo_tool_resource.tool_type = ["software"]
+        geo_tool_resource.usage_type = "Open-source"
+        geo_tool_resource.operating_system.append("Linux")
+        geo_tool_resource.languages.append("Go")
+        geo_tool_resource.input_formats.append("Net/CDF")
+        geo_tool_resource.output_formats.append("binary")
 
         # using result from resource creation status
         geo_tool_resource.resource_id = resource_submit_status.id
