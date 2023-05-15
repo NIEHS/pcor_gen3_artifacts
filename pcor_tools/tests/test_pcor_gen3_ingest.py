@@ -31,7 +31,7 @@ class TestPcorGen3Ingest(TestCase):
         project.short_name = "short name"
         project.project_type = "type"
         project.project_state = "state"
-        project.project_code = "code"
+        project.code = "code"
         project.availability_mechanism = "availability_mechanism"
         project.availability_type = "availability_type"
         project.complete = True
@@ -130,7 +130,7 @@ class TestPcorGen3Ingest(TestCase):
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
-        project.project_code = "NFS-2"
+        project.code = "NFS-2"
         project.project_type = "Data Provider"
         project.project_url = "https://www.niehs.nih.gov"
         project.support_source = "support source1"
@@ -150,7 +150,7 @@ class TestPcorGen3Ingest(TestCase):
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
-        project.project_code = "NFS-2"
+        project.code = "NFS-2"
         project.project_type = "Data Provider"
         project.project_url = "https://www.niehs.nih.gov"
         project.support_source = "support source1"
@@ -238,7 +238,7 @@ class TestPcorGen3Ingest(TestCase):
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
-        project.project_code = "NFS-2"
+        project.code = "NFS-2"
         project.project_state = "open"
         project.project_release_date = ""
         project.support_source = "support source1"
@@ -264,7 +264,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.citation = "citation"
         resource.is_citizen_collected = "false"
         resource.has_api = "false"
-        resource.domain = "AQI - Air Quality Index"
+        resource.domain = ["AQI - Air Quality Index"]
         resource.keywords = ["this", "is", "keywords"]
         resource.license_text = "license text"
         resource.license_type = "license type"
@@ -298,8 +298,9 @@ class TestPcorGen3Ingest(TestCase):
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
-        project.project_code = "NFS-2"
+        project.code = "NFS-2"
         project.project_state = "open"
+        project.project_type = "Data Provider"
         project.project_release_date = ""
         project.support_source = "support source1"
         project.support_id = "support id1"
@@ -320,11 +321,10 @@ class TestPcorGen3Ingest(TestCase):
         resource.short_name = "short name"
         resource.resource_type = "data_resource"
         resource.description = "description"
-        resource.intended_use = "intended use"
         resource.citation = "citation"
         resource.is_citizen_collected = "false"
         resource.has_api = "false"
-        resource.domain = "AQI - Air Quality Index"
+        resource.domain = ["AQI - Air Quality Index"]
         resource.keywords = ["this", "is", "keywords"]
         resource.license_text = "license text"
         resource.license_type = "license type"
@@ -375,8 +375,9 @@ class TestPcorGen3Ingest(TestCase):
         project = PcorIntermediateProjectModel()
         project.name = "NOAA-1"
         project.short_name = "NOAA-1"
-        project.project_code = "NOAA-1"
+        project.code = "NOAA-1"
         project.project_state = "open"
+        project.project_type = "Data Provider"
         project.project_release_date = ""
         project.support_source = "support source1"
         project.support_id = "support id1"
@@ -397,18 +398,17 @@ class TestPcorGen3Ingest(TestCase):
         resource.short_name = "geotool1"
         resource.resource_type = "tool_resource"
         resource.description = "description"
-        resource.intended_use = "intended use"
         resource.citation = "citation"
         resource.is_citizen_collected = "false"
         resource.has_api = "false"
-        resource.domain = "mapping"
-        resource.keywords = ["mapping", "prevailing winds", "weather"]
-        resource.license_type = ""
-        resource.license_text = ""
-        resource.created_datetime = ""
-        resource.update_frequency = "hourly"
-        resource.contact = "Just call NOAA"
-        resource.use_agreement = "false"
+        resource.domain = ["AQI - Air Quality Index"]
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
+        resource.resource_link = "https://landfire.gov/"
         resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
 
         geo_tool_resource = PcorGeoToolModel()
@@ -447,7 +447,7 @@ class TestPcorGen3Ingest(TestCase):
 
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
-        project.project_code = "NFS-2"
+        project.code = "NFS-2"
         project.project_state = "open"
         project.project_release_date = ""
         project.support_source = "support source1"
