@@ -88,6 +88,7 @@ class PcorSpreadsheeetReader:
             return result
 
         result = parser.parse(template_absolute_path)
+
         logger.info("result of parsing:%s" % result)
 
         # do the processing stuff here for a template
