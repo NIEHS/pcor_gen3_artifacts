@@ -148,7 +148,6 @@ class PcorGen3Ingest:
         discovery.name = resource.name
         discovery.investigator_name = project.investigator_name
         discovery.investigator_affiliation = project.investigator_affiliation
-        discovery.intended_use = resource.intended_use
         discovery.short_name = resource.short_name
         discovery.description = resource.description
         discovery.citation = resource.citation

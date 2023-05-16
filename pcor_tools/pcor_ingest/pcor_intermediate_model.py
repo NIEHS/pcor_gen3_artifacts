@@ -255,10 +255,9 @@ class PcorGeoToolModel:
         self.resource_id = ""
         self.resource_submitter_id = ""
         self.created_datetime = ""
-        self.state = ""
         self.submitter_id = ""
         self.updated_datetime = ""
-        self.tool_type = ""
+        self.tool_type = []
         self.usage_type = ""
         self.operating_system = []
         self.languages = []
@@ -274,7 +273,6 @@ class PcorGeoToolModel:
         self.geometry_type = ""
         self.geometry_source = ""
         self.model_methods = ""
-        self.resource_link = ""
 
 
 
