@@ -1,15 +1,14 @@
 {
   "type": "population_data_resource",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
-  "times_available_comment": "{{ pop_data_resource.times_available_comment }}",
   "comments": "{{ pop_data_resource.comments }}",
   "intended_use": "{{ pop_data_resource.intended_use }}",
   "source_name": "{{ pop_data_resource.source_name }}",
   "source_url": "{{ pop_data_resource.source_url }}",
   "update_frequency": "{{ pop_data_resource.update_frequency }}",
-  "includes_citizen_collected": "{{ pop_data_resource.includes_citizen_collected }}",
-  "has_api": "{{ pop_data_resource.has_api }}",
-  "has_visualization_tool": "{{ pop_data_resource.has_visualization_tool }}",
+  "includes_citizen_collected": {{ pop_data_resource.includes_citizen_collected }},
+  "has_api": {{ pop_data_resource.has_api }},
+  "has_visualization_tool": {{ pop_data_resource.has_visualization_tool }},
 
   {% if not pop_data_resource.time_extent_start %}
       "time_extent_start": null,
@@ -22,9 +21,8 @@
   {% else %}
       "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
   {% endif %}
-  "times_available_comment": "{{ pop_data_resource.times_available_comment }}",
+  "time_available_comment": "{{ pop_data_resource.times_available_comment }}",
   "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
-
   "spatial_coverage": "{{ pop_data_resource.spatial_coverage }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
   "spatial_bounding_box": "{{ pop_data_resource.spatial_bounding_box }}",

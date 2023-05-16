@@ -467,17 +467,18 @@ class TestPcorGen3Ingest(TestCase):
         resource.resource_id = "NFS-2-RESC-1"
         resource.name = "Population Map"
         resource.resource_type = "data_resource"
-        resource.subject = "Urban/Wild Interface"
-        resource.keywords = ["urban/wild interface", "demographic", "wildfire"]
-        resource.update_frequency = "hourly"
-        resource.secondary_name = "A map"
-        resource.license_type = ""
-        resource.license_text = ""
-        resource.created_datetime = ""
-        resource.contact = "USFS - contact firesmokemap@epa.gov"
-        resource.description = """The AirNow Fire and Smoke Map provides information that you can use to help protect your health from wildfire smoke. Use this map to see Current particle pollution air quality information for your location; Fire locations and smoke plumes; Smoke Forecast Outlooks, where available; and,Recommendations for actions to take to protect yourself from smoke. These recommendations were developed by EPA scientists who are experts in air quality and health. The Map is a collaborative effort between the U.S. Forest Service (USFS)-led Interagency Wildland Fire Air Quality Response Program and the U.S. Environmental Protection Agency (EPA)."""
-        resource.use_agreement = "false"
-        resource.verification_datetime = "null"
+        resource.description = "description"
+        resource.citation = "citation"
+        resource.is_citizen_collected = "false"
+        resource.has_api = "false"
+        resource.domain = ["AQI - Air Quality Index"]
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
+        resource.resource_link = "https://landfire.gov/"
         resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
 
         pop_data_resource = PcorPopDataResourceModel()
@@ -487,7 +488,10 @@ class TestPcorGen3Ingest(TestCase):
         pop_data_resource.population = ["wildland/urban interface"]
         pop_data_resource.exposures.append("toxic smoke")
         pop_data_resource.outcomes.append("asthma")
-        pop_data_resource.resource_link = "https://landfire.gov/"
+        pop_data_resource.update_frequency = "unknown"
+        pop_data_resource.includes_citizen_collected = "false"
+        pop_data_resource.has_api = "false"
+        pop_data_resource.has_visualization_tool = "false"
 
         # using result from resource creation status
         pop_data_resource.resource_id = resource_submit_status.id
