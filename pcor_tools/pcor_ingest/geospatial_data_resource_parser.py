@@ -44,12 +44,12 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         # loop thru the template until the marker 'PROGRAM' is found
 
         ss_rows = template_df.shape[0]
-        logging.debug("iterate looking for the RESOURCE DETAILS stanza")
+        logging.debug("iterate looking for the GeoExposure_Data_Resource stanza")
         geo_resource = PcorGeospatialDataResourceModel()
 
         for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'RESOURCE DETAILS':
-                logging.debug("found RESOURCE DETAILS")
+            if template_df.iat[i, 0] == 'GeoExposure_Data_Resource':
+                logging.debug("found GeoExposure_Data_Resource ")
                 for j in range(i, ss_rows):
                     if template_df.iat[j, 0] == 'temporal resolution':
                         geo_resource.temporal_resolution = template_df.iat[j, 1]

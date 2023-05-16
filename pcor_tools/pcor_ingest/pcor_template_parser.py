@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel
+    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel
 
 logger = logging.getLogger(__name__)
 
@@ -69,16 +69,26 @@ class PcorTemplateParser:
 
         ss_rows = template_df.shape[0]
         logging.debug("iterate looking for the PROGRAM stanza")
-        program = PcorProgramModel()
+        program = PcorIntermediateProgramModel()
         for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'PROGRAM':
-                logging.debug("found PROGRAM")
+            if template_df.iat[i, 0] == 'Program':
+                logging.debug("found Program")
                 for j in range(i, ss_rows):
+                    # FixMe:  program id is missing in template!
                     if template_df.iat[j, 0] == 'program id':
                         program.dbgap_accession_number = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program name':
+                    elif template_df.iat[j, 0] == 'program_name':
                         program.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'PROJECT':
+                    elif template_df.iat[j, 0] == 'program_short_name':
+                        program.short_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'program_type':
+                        program.program_type = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'program_url':
+                        program.program_url = template_df.iat[j, 1]
+                    # FixMe:  code is missing in schema!
+                    elif template_df.iat[j, 0] == 'program_description':
+                        program.program_description = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'Project':
                         return program
 
         logger.warn("no program found, return null")
@@ -98,22 +108,35 @@ class PcorTemplateParser:
         logging.debug("iterate looking for the PROJECT stanza")
         project = PcorIntermediateProjectModel()
         for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'PROJECT':
-                logging.debug("found PROJECT")
+            if template_df.iat[i, 0] == 'Project':
+                logging.debug("found Project")
                 for j in range(i, ss_rows):
+                    # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
+                    # FixMe:  code is missing in template!
                     elif template_df.iat[j, 0] == 'code':
                         project.project_code = template_df.iat[j, 1]
+
+                    elif template_df.iat[j, 0] == 'project_name':
+                        project.name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'short_name':
+                        project.short_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_type':
+                        project.project_type = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_url':
+                        project.project_url = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_description':
+                        project.description = template_df.iat[j, 1]
+
+                    # FixMe:  following things are missing in template!
                     elif template_df.iat[j, 0] == 'date collected':
                         project.date_collected = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'name':
-                        project.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'complete':
                         project.complete = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'availability type':
                         project.availability_type = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'RESOURCE':
+                    elif template_df.iat[j, 0] == 'Resource':
                         return project
 
         logger.warn("no program found, return null")
@@ -130,20 +153,57 @@ class PcorTemplateParser:
         # loop thru the template until the marker 'PROGRAM' is found
 
         ss_rows = template_df.shape[0]
-        logging.debug("iterate looking for the RESOURCE stanza")
+        logging.debug("iterate looking for the Resource stanza")
         resource = PcorIntermediateResourceModel()
 
         for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'RESOURCE':
-                logging.debug("found RESOURCE")
+            if template_df.iat[i, 0] == 'Resource':
+                logging.debug("found Resource")
                 for j in range(i, ss_rows):
+                    # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         resource.submitter_id = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'source url':
-                        resource.source_url = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'source name':
+                    elif template_df.iat[j, 0] == 'resource_name':
                         resource.source_name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'RESOURCE DETAILS':
+                    elif template_df.iat[j, 0] == 'resource_short_name':
+                        resource.short_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'resource_type':
+                        resource.resource_type = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'resource_url':
+                        resource.source_url = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'resource_description':
+                        resource.description = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'domain':
+                        resource.domain = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'keywords':
+                        resource.keywords = template_df.iat[j, 1]
+
+                    # FixMe:  access_type is missing in schema!
+                    elif template_df.iat[j, 0] == 'access_type':
+                        resource.access_type = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'payment_required':
+                        resource.payment_required = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'date_added':
+                        resource.created_datetime = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'date_updated':
+                        resource.updated_datetime = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'date_verified':
+                        resource.verification_datetime = template_df.iat[j, 1]
+
+                    # FixMe:  resource_reference is missing in schema!
+                    elif template_df.iat[j, 0] == 'resource_reference':
+                        resource.resource_reference = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'resource_use_agreement':
+                        resource.resource_use_agreement = template_df.iat[j, 1]
+
+                    # FixMe:  publications is missing in schema!
+                    elif template_df.iat[j, 0] == 'publications':
+                        resource.publications = template_df.iat[j, 1]
+
+                    # FixMe:  is_static is missing in schema!
+                    elif template_df.iat[j, 0] == 'is_static':
+                        resource.is_static = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'Data_Resource':
                         return resource
 
         logger.warn("no program found, return null")
@@ -160,9 +220,9 @@ class PcorTemplateParseResult:
         """
         Init method for parse result
         """
-        self.errors=[]
-        self.success=True
-        self.model_data={}
-        self.resource_type=None
+        self.errors = []
+        self.success = True
+        self.model_data = {}
+        self.resource_type = None
         self.source = None
 

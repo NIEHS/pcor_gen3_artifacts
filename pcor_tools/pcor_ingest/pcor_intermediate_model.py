@@ -16,6 +16,7 @@ class PcorIntermediateProgramModel:
         self.short_name = None
         self.program_type = None
         self.program_url = None
+        self.program_description = None
         self.dbgap_accession_number = None
 
 
@@ -56,6 +57,7 @@ class PcorIntermediateResourceModel:
         # resource
         self.submitter_id = ""
         self.created_datetime = ""
+        self.updated_datetime = ""
         self.id = ""
         self.name = ""
         self.short_name = ""
@@ -66,12 +68,17 @@ class PcorIntermediateResourceModel:
         self.payment_required = "false"
         self.domain = []
         self.keywords = []
+        self.access_type = ""
         self.license_type = ""
         self.license_text = ""
         self.verification_datetime = ""
         self.resource_use_agreement = 'false'
         self.resource_contact = ""
         self.resource_link = ""
+        self.resource_reference = ""
+        self.publications = ""
+        self.is_static = None
+
 
 
 class SubmitResponse:
