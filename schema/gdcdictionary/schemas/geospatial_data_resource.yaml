@@ -1,5 +1,5 @@
 $schema: "http://json-schema.org/draft-04/schema#"
-
+# GeoExposure_Data_Resource
 id: "geospatial_data_resource"
 title: GeospatialDataResource
 type: object
@@ -58,25 +58,22 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
 
-  # additional properties to describe the dataset
-  measures:
-    description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
-    type: array
-    items:
-      type: string
-  time_extent_start:
-    description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_extent_end:
-    description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  times_available:
-    description: Time extent if multiple exist in the resource.
-    type: array
-    items:
-      $ref: "_definitions.yaml#/datetime"
-  temporal_resolution:
-    description: Frequency of time points.
+    # data resc props are common
+
+  comments:
+    description: Notes on usage of the data, including warnings.
+    type: string
+  intended_use:
+    description: Narrative that speaks to the how the data can be used in research projects, could include references to good data uses.
+    type: string
+  source_name:
+    description: Name of source.
+    type: string
+  source_url:
+    description: URL of source.
+    type: string
+  update_frequency:
+    description: Frequency of update of the resource.
     enum:
       - fixed
       - continuous
@@ -85,37 +82,54 @@ properties:
       - quarterly
       - annually
       - unknown
+  includes_citizen_collected:
+    description: Flag indicating that the data is from citizen science.
+    type: boolean
+  has_api:
+    description: Flag if the resource has an API
+    type: boolean
+  has_visualization_tool:
+    description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
+    type: boolean
+  # additional properties to describe the dataset
+
+  measures:
+    description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
+    type: array
+    items:
+      type: string
+  measurement_method:
+    description: Method used to capture the measure.  
+    type: string
+  time_extent_start:
+    description: Earliest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_end:
+    description: Latest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_available_comment:
+    description: Narrative to describe time extent details if multiple exist in the resource.
+    type: string
+  temporal_resolution:
+    description: Frequency of time points.
+    type: string
   spatial_resolution:
-    description: Maximum spatial resolution of the data.
-    enum:
-      - 10km
-      - census_tract
+    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    type: string
   spatial_coverage: 
     description: Maximum spatial coverage of the data.
-    enum:
-      - county
-      - state
-      - national
+    type: string
   spatial_bounding_box:
-    description: Bounding box for the data, in comma separated lat/long format.
-    type: string
-  geo_ref_system:
-    description: Geographic coordinate reference system.
-    type: string
-  proj_ref_system:
-    description: projected coordinate reference system.
+    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
     type: string
   geometry_type:
-    description: Type of geometry used for the data.
+    description: Type of geometric data, the file extension will be different for different types.
     type: string
   geometry_source:
     description: Source or provider of the geometry data.
     type: string
   geographic_feature:
     description: The type of geographic feature associated with the data
-  is_modeled:
-    description: is the data observed or moduled based on other observed data.
-    type: boolean
   model_methods:
     description: If modeled, type of approach used.
     type: string
@@ -124,9 +138,6 @@ properties:
     type: array
     items:
       type: string
-  resource_link:
-    description: Link to an external resource
-    type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"

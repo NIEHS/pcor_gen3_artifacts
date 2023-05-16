@@ -175,13 +175,7 @@
             "key": "Program"
           },
           {
-            "key": "Subject"
-          },
-          {
-            "key": "Citizen Science"
-          },
-          {
-            "key": "Has API"
+            "key": "Domain"
           }
 
         ]
@@ -258,15 +252,71 @@
                 ]
               },
               {
-                "header": "Intended Use",
+                "header": "Details",
                 "fields": [
                  
                   {
                     "type": "block",
-                    "sourceField": "intended_use",
+                    "sourceField": "comment",
                     "default": "Not specified"
 
                   }
+                ]
+              },
+              {
+                "header": "Program",
+                "fields": [
+                  {
+                    "type": "string",
+                    "label": "Program Name",
+                    "sourceField": "program_name",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Program Type",
+                    "sourceField": "program_type",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "link",
+                    "label": "Program Link",
+                    "sourceField": "program_url",
+                    "default": "Not specified"
+                  }
+                ]
+                },
+                {
+                  "header": "Project",
+                  "fields": [
+                    {
+                      "type": "string",
+                      "label": "Project Name",
+                      "sourceField": "project_name",
+                      "default": "Not specified"
+
+                    },
+                    {
+                      "type": "string",
+                      "label": "Project Type",
+                      "sourceField": "project_type",
+                      "default": "Not specified"
+
+                    },
+                    {
+                      "type": "link",
+                      "label": "Project Link",
+                      "sourceField": "project_url",
+                      "default": "Not specified"
+                    },
+                    {
+                      "type": "block",
+                      "sourceField": "project_description",
+                      "default": "Not specified"
+  
+                    }
                 ]
               },
               {
@@ -274,8 +324,22 @@
                 "fields": [
                   {
                     "type": "string",
+                    "label": "Domain",
+                    "sourceField": "domain",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
                     "label": "Has API",
                     "sourceField": "has_api",
+                    "default": "Not specified"
+
+                  },
+                  {
+                    "type": "string",
+                    "label": "Has Visualization Tool",
+                    "sourceField": "has_visualization_tool",
                     "default": "Not specified"
 
                   },
@@ -288,6 +352,7 @@
                   }
                 ]
               },
+
               {
                 "header": "Resource Links",
                 "fields": [
@@ -325,6 +390,13 @@
                     "sourceField": "resource_use_agreement",
                     "default": "Not specified"
 
+                  },
+                  {
+                    "type": "string",
+                    "label": "Resource Contact",
+                    "sourceField": "resource_contact",
+                    "default": "Not specified"
+
                   }
                 ]
               }
@@ -359,16 +431,6 @@
                       "type": "string",
                       "label": "Investigator Affiliation",
                       "sourceField": "investigator_affiliation",
-                      "default": "Not specified"
-                    }
-                  ]
-                },
-                {
-                  "header": "Intended Use",
-                  "fields": [
-                    {
-                      "type": "block",
-                      "sourceField": "intended_use",
                       "default": "Not specified"
                     }
                   ]
@@ -461,16 +523,17 @@
           {
             "title": "Geospatial Data Resources",
             "fields":[
-              "program_name",
-              "project_name",
-              "project_id",
+             
+              "includes_citizen_collected",
               "measures",
-              "is_citizen_collected",
               "domain",
-              "has_api",
-              "is_modeled",
+              "keywords",
+              "exposure_media",
               "model_methods",
-              "exposure_media"
+              "has_api",
+              "has_visualization_tool",
+              "resource_use_agreement",
+              "payment_required"
             ]
           },
           {
@@ -478,13 +541,21 @@
             "fields":[
               "spatial_resolution",
               "spatial_coverage",
-              "geo_ref_system",
-              "proj_ref_system",
               "geometry_type",
+              "geometry_source",
               "geographic_feature",
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields":[
+              "program_name",
+              "project_name",
+              "project_type",
+              "program_type"
             ]
           }
         ]
@@ -492,13 +563,21 @@
       "table": {
         "enabled": true,
         "fields": [
-          "project_id",
-          "measures",
-          "source_name",
-          "source_url",
           "resource_name",
           "resource_description",
           "resource_intended_use",
+          "source_name",
+          "source_url",
+          "measures",
+          "exposure_media",
+          "domain",
+          "keywords",
+          "time_extent_start",
+          "time_extent_end",
+          "resource_description",
+          "resource_intended_use",
+          "spatial_resolution",
+          "spatial_coverage",
           "resource_link"
         ],
         "linkFields": [
@@ -571,25 +650,32 @@
           {
             "title": "Population Data Resources",
             "fields":[
-              "program_name",
-              "project_id",
               "population",
               "vulnerable_population",
               "exposures",
-              "outcomes"
+              "outcomes",
+              "model_methods"
             ]
           },
           {
             "title": "Temporal/Spatial Details",
             "fields":[
+              "time_extent_start",
+              "time_extent_end",
+              "temporal_resolution",
               "spatial_resolution",
               "spatial_coverage",
               "geometry_type",
-              "geometry_source",
-              "time_extent_start",
-              "time_extent_end",
-              "geometry_type",
               "geometry_source"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields":[
+              "program_name",
+              "project_name",
+              "project_type",
+              "program_type"
             ]
           }
         ]
@@ -597,13 +683,16 @@
       "table": {
         "enabled": true,
         "fields": [
-          "project_id",
+          "resource_name",
+          "resource_description",
+          "resource_intended_use",
+          "source_name",
+          "source_url",
           "population",
           "vulnerable_population",
           "exposures",
           "outcomes",
-          "source_name",
-          "source_url",
+          "model_methods",
           "resource_name",
           "resource_description",
           "resource_intended_use"
@@ -681,14 +770,34 @@
               "program_name",
               "project_id",
               "tool_type",
-              "is_open_source",
+              "usage_type",
               "operating_system",
-              "language",
-              "input_format",
-              "output_format",
-              "model_methods",
-              "has_api",
-              "domain"
+              "languages",
+              "input_formats",
+              "output_formats",
+              "domain",
+              "model_methods"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields":[
+              "time_extent_start",
+              "time_extent_end",
+              "temporal_resolution",
+              "spatial_resolution",
+              "spatial_coverage",
+              "geometry_type",
+              "geometry_source"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields":[
+              "program_name",
+              "project_name",
+              "project_type",
+              "program_type"
             ]
           }
         ]
@@ -696,13 +805,17 @@
       "table": {
         "enabled": true,
         "fields": [
-          "project_id",
-          "tool_type",
-          "source_name",
-          "source_url",
           "resource_name",
           "resource_description",
           "resource_intended_use",
+          "source_name",
+          "source_url",
+          "tool_type",
+          "usage_type",
+          "operating_system",
+          "languages",
+          "input_formats",
+          "output_formats",
           "resource_link"
         ],
         "linkFields": [

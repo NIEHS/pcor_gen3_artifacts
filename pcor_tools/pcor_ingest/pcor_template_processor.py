@@ -17,7 +17,7 @@ class PcorTemplateProcessor:
     """
 
     def __init__(self):
-        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
+        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties.gen3'))
 
     def process(self, parsed_data):
 
