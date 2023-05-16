@@ -110,6 +110,7 @@ class PcorGeospatialDataResourceModel:
     """
 
     def __init__(self):
+        self.data_type = ""
         self.pcor_intermediate_resource_model = None
         self.submitter_id = ""
         self.comments = ""
