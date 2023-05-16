@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 class TestGeospatialDataRescourceParser(unittest.TestCase):
 
     def test_parse_program(self):
-        test_ss_path = 'test_resources/pcor_geospatial_data_resource_test1.xlsx'
+        test_ss_path = '../pcor_ingest/spreadsheet/GeoExposure _template.xlsx'
         parser = GeoSpatialDataResourceParser()
         df = pd.read_excel(test_ss_path, sheet_name=0)
         actual = parser.extract_program_data(df)

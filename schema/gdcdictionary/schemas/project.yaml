@@ -41,18 +41,18 @@ constraints: null
 
 properties:
   availability_mechanism:
-    description: "Mechanism by which the project will be made avilable."
+    description: Mechanism by which the project will be made avilable.
     type: string
 
   availability_type:
-    description: "Is the project open or restricted?"
+    description: Is the project open or restricted?
     enum:
       - Open
       - Restricted
 
   code:
     type: string
-    description: "Unique identifier for the project."
+    description: Unique identifier for the project.
 
   complete:
     description: >
@@ -62,12 +62,12 @@ properties:
       - "Incomplete"
 
   date_collected:
-    description: "The date or date range in which the project data was collected."
+    description: The date or date range in which the project data was collected.
     type: string
 
   dbgap_accession_number:
     type: string
-    description: "The dbgap accession number provided for the project."
+    description: The dbgap accession number provided for the project.
 
   id:
     $ref: "_definitions.yaml#/UUID"
@@ -80,20 +80,20 @@ properties:
     format: date-time
 
   investigator_affiliation:
-    description: "The investigator's affiliation with respect to a research institution."
+    description: The investigator's affiliation with respect to a research institution.
     type: string
 
   investigator_name:
-    description: "Name of the principal investigator for the project."
+    description: Name of the principal investigator for the project.
     type: string
 
   name:
     type: string
-    description: "Display name/brief description for the project." # TOREVIEW
+    description: Display name/brief description for the project. # TOREVIEW
 
   short_name:
     type: string
-    description: "Short display name/brief description for the project."
+    description: Short display name/brief description for the project.
 
   releasable:
     description: |
@@ -109,11 +109,11 @@ properties:
     type: boolean
 
   support_source:
-    description: "The name of source providing support/grant resources."
+    description: The name of source providing support/grant resources.
     type: string
 
   support_id:
-    description: "The ID of the source providing support/grant resources."
+    description: The ID of the source providing support/grant resources.
     type: string
 
   state:
@@ -156,7 +156,22 @@ properties:
         #   - release (project.released -> true)
         - closed
 
-  type:
+  project_type:
+    description: Type of project. If multiple use Multiple
+    enum:
+      - Data Provider
+      - Software Provider
+      - Training Material
+      - Cohort Study
+      - Multiple
+      - Other
+
+  project_url:
+    description: URL for the project
+    type: string
+
+  description:
+    description: Description of the project
     type: string
 
   programs:
