@@ -775,7 +775,6 @@
               "languages",
               "input_formats",
               "output_formats",
-              "has_api",
               "domain",
               "model_methods"
             ]
