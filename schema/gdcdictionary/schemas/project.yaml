@@ -57,10 +57,11 @@ properties:
   complete:
     description: >
       Description of whether the project submission is complete or still in progress.
+    nullable: true
     enum:
       - "Complete"
       - "Incomplete"
-
+    
   date_collected:
     description: The date or date range in which the project data was collected.
     type: string
