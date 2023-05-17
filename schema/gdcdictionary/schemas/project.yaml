@@ -46,6 +46,7 @@ properties:
 
   availability_type:
     description: Is the project open or restricted?
+    nullable: true
     enum:
       - Open
       - Restricted
