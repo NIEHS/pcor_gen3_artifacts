@@ -1,7 +1,9 @@
 import logging
+import uuid
 import requests
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -17,7 +19,7 @@ class PcorTemplateProcessor:
     """
 
     def __init__(self):
-        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties.gen3'))
+        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
 
     def process(self, parsed_data):
 
@@ -38,11 +40,21 @@ class PcorTemplateProcessor:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
                 program = model_data['program']
+                # ToDo: program dbgap_accession_number assignment logic?
+                program.dbgap_accession_number = str(uuid.uuid4())
                 self.pcor_ingest.create_program(program=program)
 
                 if 'project' in model_data.keys():
                     logger.info('process:: adding project')
                     project = model_data['project']
+
+                    # ToDo: project code and dbgap_accession_number assignment logic?
+                    project.code = str(uuid.uuid4())
+                    project.dbgap_accession_number = project.code
+
+                    # ToDo: resolve following required fields getting 500 error when not present
+                    project.complete = 'Complete'
+
                     logger.info('Project %s' % str(project))
                     self.pcor_ingest.create_project(program=program.name,
                                                     pcor_intermediate_project_model=project)

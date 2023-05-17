@@ -117,8 +117,9 @@ class PcorSpreadsheeetReader:
         """
 
         df = pd.read_excel(template_absolute_path, sheet_name=0)
-        type_field = df.iat[2, 0]
+        logger.info(df)
+        type_field = df.iat[0, 0]
         if type_field != "TYPE":
             logger.error("did not find expected TYPE field")
             raise "Cannot determine resource type via TYPE field"
-        return df.iat[2, 1]
+        return df.iat[0, 1]

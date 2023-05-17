@@ -28,7 +28,7 @@ class PcorIntermediateProjectModel:
         self.availability_mechanism = ""
         self.availability_type = ""
         self.code = ""
-        self.complete = ""
+        self.complete = None
         self.date_collected = ""
         self.dbgap_accession_number = ""
         self.id = ""
