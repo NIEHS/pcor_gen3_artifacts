@@ -79,16 +79,19 @@ class PcorTemplateParser:
                         program.dbgap_accession_number = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'program_name':
                         program.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_short_name':
-                        program.short_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'program_long_name':
+                        program.long_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'program_type':
                         program.program_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'program_url':
                         program.program_url = template_df.iat[j, 1]
-                    # FixMe:  code is missing in schema!
                     elif template_df.iat[j, 0] == 'program_description':
                         program.program_description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Project':
+
+                        # ToDo: dbgap_accession_number assignment logic?
+                        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
+                            program.dbgap_accession_number = program.name
                         return program
 
         logger.warn("no program found, return null")
@@ -114,14 +117,13 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
-                    # FixMe:  code is missing in template!
-                    elif template_df.iat[j, 0] == 'code':
-                        project.project_code = template_df.iat[j, 1]
-
                     elif template_df.iat[j, 0] == 'project_name':
                         project.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'short_name':
-                        project.short_name = template_df.iat[j, 1]
+                    # FixMe:  code is missing in template!
+                    elif template_df.iat[j, 0] == 'code':
+                        project.code = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_long_name':
+                        project.long_names = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_type':
                         project.project_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_url':
@@ -137,6 +139,12 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'availability type':
                         project.availability_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Resource':
+
+                        # ToDo: code and dbgap_accession_number assignment logic?
+                        if project.code == "" or project.code is None:
+                            project.code = project.name
+                        if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
+                            project.dbgap_accession_number = project.name
                         return project
 
         logger.warn("no program found, return null")

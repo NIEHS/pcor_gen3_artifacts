@@ -4,6 +4,8 @@ import os
 
 import requests
 
+from urllib.parse import quote
+
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
@@ -76,7 +78,7 @@ class PcorGen3Ingest:
         else:
             logger.info('Creating project: %s', project)
             project_json = self.produce_project_json(pcor_intermediate_project_model)
-            response = sub.create_project(program, json.loads(project_json))
+            response = sub.create_project(quote(program), json.loads(project_json))
             submit_response = self.parse_status(response)
             project_id = submit_response.id
             return project_id
@@ -297,7 +299,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project)
+        rendered = template.render(model=project).replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 

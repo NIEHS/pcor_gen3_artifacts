@@ -13,7 +13,7 @@ class PcorIntermediateProgramModel:
     def __init__(self):
         self.id = None
         self.program_name = None
-        self.short_name = None
+        self.long_name = None
         self.program_type = None
         self.program_url = None
         self.program_description = None
@@ -25,24 +25,24 @@ class PcorIntermediateProjectModel:
     def __init__(self):
         self.program = None
         # project
-        self.availability_mechanism = ""
-        self.availability_type = ""
-        self.code = ""
+        self.availability_mechanism = None
+        self.availability_type = None
+        self.code = None
         self.complete = None
-        self.date_collected = ""
-        self.dbgap_accession_number = ""
-        self.id = ""
-        self.investigator_affiliation = ""
-        self.investigator_name = ""
-        self.name = ""
-        self.short_name = ""
-        self.support_source = ""
-        self.support_id = ""
-        self.program_id = ""
-        self.submitter_id = "" # TODO: make sure sub id carried forward to update
-        self.project_type = ""
-        self.project_url = ""
-        self.description = ""
+        self.date_collected = None
+        self.dbgap_accession_number = None
+        self.id = None
+        self.investigator_affiliation = None
+        self.investigator_name = None
+        self.name = None
+        self.long_name = None
+        self.support_source = None
+        self.support_id = None
+        self.program_id = None
+        self.submitter_id = None # TODO: make sure sub id carried forward to update
+        self.project_type = None
+        self.project_url = None
+        self.description = None
 
 
 class PcorIntermediateResourceModel:
