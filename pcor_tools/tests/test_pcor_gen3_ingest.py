@@ -363,6 +363,87 @@ class TestPcorGen3Ingest(TestCase):
         discovery_data.comment = geo_spatial_resource.comments # intended use?
         pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
+    def test_create_geo_spatial_data_resource_with_validation_errors(self):
+        """ Add a geo_spatial_data_resource """
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = PcorProgramModel()
+        program.name = 'NFS'
+        program.dbgap_accession_number = 'NFS'
+        program_id = pcor_ingest.create_program(program)
+
+        project = PcorIntermediateProjectModel()
+        project.name = "NFS-2"
+        project.short_name = "NFS-2"
+        project.code = "NFS-2"
+        project.project_state = "open"
+        project.project_type = "I am invalid"
+        project.project_release_date = ""
+        project.support_source = "support source1"
+        project.support_id = "support id1"
+        project.releasable = "true"
+        project.investigator_name = "Mike Conway"
+        project.investigator_affiliation = "NIEHS"
+        project.dbgap_accession_number = "NFS-2"
+        project.date_collected = ""
+        project.complete = "Complete"
+        project.availability_type = "This is bad data"
+        project_id = pcor_ingest.create_project("NFS", project)
+        logger.info('Project name: %s is associated with id: %s' % (project.name, project_id))
+
+        resource = PcorIntermediateResourceModel()
+        resource.submitter_id = "NFS-2-RESC-1"
+        resource.resource_id = "NFS-2-RESC-1"
+        resource.name = "Fire and Smoke Map"
+        resource.short_name = "short name"
+        resource.resource_type = "i_am_invalid"
+        resource.description = "description"
+        resource.citation = "citation"
+        resource.is_citizen_collected = "false"
+        resource.has_api = "false"
+        resource.domain = ["AQI - Air Quality Index"]
+        resource.keywords = ["this", "is", "keywords"]
+        resource.license_text = "license text"
+        resource.license_type = "license type"
+        resource.payment_required = "false"
+        resource.domain = ["subject"]
+        resource.resource_use_agreement = "false"
+        resource.resource_link = "https://landfire.gov/"
+        resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+
+        if not resource_submit_status.success:
+            logger.error("error in submission: %s" % resource_submit_status)
+            return resource_submit_status
+
+        geo_spatial_resource = PcorGeospatialDataResourceModel()
+        geo_spatial_resource.submitter_id = "NFS-2-GEO-1"
+        geo_spatial_resource.comments = "comment"
+        geo_spatial_resource.intended_use = "intended use"  # TODO: do we need a second general comment field in discovery? mc
+        geo_spatial_resource.resource_submitter_id = resource.submitter_id
+        geo_spatial_resource.update_frequency = "unknown"
+        geo_spatial_resource.includes_citizen_collected = "false"
+        geo_spatial_resource.has_api = "false"
+        geo_spatial_resource.has_visualization_tool = "false"
+        geo_spatial_resource.measures = ["measure1", "measure2"]
+        geo_spatial_resource.measurement_method = "method1"
+        geo_spatial_resource.spatial_coverage = "national"
+        geo_spatial_resource.spatial_resolution = "10km"
+        geo_spatial_resource.temporal_resolution = "unknown"
+
+        # using result from resource creation status
+        geo_spatial_resource.resource_id = resource_submit_status.id
+        geo_spatial_resource.project_submitter_id = resource.submitter_id
+
+        actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
+                                                              project_name=project.name,
+                                                              geo_spatial_data_resource=geo_spatial_resource)
+
+        # now decorate with metadata
+
+        discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+        discovery_data.comment = geo_spatial_resource.comments  # intended use?
+        pcor_ingest.decorate_resc_with_discovery(discovery_data)
+
     def test_create_geo_spatial_tool_resource(self):
         """ Add a geo_spatial_tool_resource """
 
@@ -506,12 +587,3 @@ class TestPcorGen3Ingest(TestCase):
         discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
         pcor_ingest.decorate_resc_with_discovery(discovery_data)
 
-
-    def test_parse_status(self):
-        json = {"code": 200, "created_entity_count": 0, "entities": [{"action": "update", "errors": [], "id": "2c000697-43c0-442f-bb8f-10c6c6bf8ed6", "type": "resource", "unique_keys": [{"project_id": "NFS-NFS-2", "submitter_id": "NFS-2-RESC-1"}], "valid": True, "warnings": []}], "entity_error_count": 0, "message": "Transaction successful.","success": True, "transaction_id": 20, "transactional_error_count": 0, "transactional_errors": [], "updated_entity_count": 1}
-        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        actual = pcor_ingest.parse_status(json)
-        self.assertEqual('NFS-2-RESC-1', actual.submitter_id)
-        self.assertEqual('2c000697-43c0-442f-bb8f-10c6c6bf8ed6', actual.id)
-        self.assertEqual('resource', actual.type)
-        self.assertEqual('NFS-NFS-2', actual.project_id)

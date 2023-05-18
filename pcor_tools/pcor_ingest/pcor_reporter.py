@@ -25,7 +25,7 @@ class PcorReporter():
 
         """
         Produce the html report showing an error in curating pcor data
-        :param pcor_processing_result: PcorTemplateProcessResult result data structure
+        :param pcor_processing_result: PcorProcessResult result data structure
         :return: html error report
         """
         logger.info("produce_html_report()")

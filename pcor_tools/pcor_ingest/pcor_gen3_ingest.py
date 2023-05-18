@@ -3,6 +3,7 @@ import json
 import os
 
 import requests
+from requests import HTTPError
 
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
@@ -11,6 +12,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel
+from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 logger = logging.getLogger(__name__)
 
@@ -118,9 +120,8 @@ class PcorGen3Ingest:
         logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
         status = self.submit_record(program=program_name, project=project_name, json=resource_json)
         logger.info(status)
-        submit_response = self.parse_status(status)
-        resource.id = submit_response.id
-        return submit_response
+        resource.id = status.id
+        return status
 
     def create_discovery_from_resource(self, program_name, project, resource):
         """
@@ -227,8 +228,7 @@ class PcorGen3Ingest:
         geo_spatial_data_resource_json = json.loads(json_string)
         status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_data_resource_json)
         logger.info(status)
-        submit_response = self.parse_status(status)
-        return submit_response
+        return status
 
     def create_geo_spatial_tool_resource(self, program_name, project_name, geo_spatial_tool_resource):
         logger.info("create_geo_spatial_tool_resource()")
@@ -242,10 +242,7 @@ class PcorGen3Ingest:
         geo_spatial_tool_resource_json = json.loads(json_string)
         status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_tool_resource_json)
         logger.info(status)
-        submit_response = self.parse_status(status)
-        logger.info("create accompanying disovery metadata")
-
-        return submit_response
+        return status
 
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
         logger.info("create_pop_data_resource()")
@@ -258,8 +255,7 @@ class PcorGen3Ingest:
         pop_data_resource_json = json.loads(json_string)
         status = self.submit_record(program=program_name, project=project_name, json=pop_data_resource_json)
         logger.info(status)
-        submit_response = self.parse_status(status)
-        return submit_response
+        return status
 
     ############################################
     # json from template methods
@@ -518,24 +514,26 @@ class PcorGen3Ingest:
         """
         logger.info('submit_record()')
         sub = Gen3Submission(self.gen3_auth)
-        submission_status = sub.submit_record(program, project, json)
-        logger.info("submission_status: %s", str(submission_status))
-        return submission_status
+        try:
+            status_response = sub.submit_record(program, project, json)
+            logger.info("status_response: %s", str(status_response))
+            submission_status = PcorProcessResult()
 
-    @staticmethod
-    def parse_status(status):
-        """
-        Parse a status response from a record submission
-        :param status: json res
-        :return:
-        """
+            submission_status.id = status_response["entities"][0]["id"]
+            submission_status.type = status_response["entities"][0]["type"]
 
-        status_response = SubmitResponse()
-        status_response.id = status["entities"][0]["id"]
-        status_response.type = status["entities"][0]["type"]
-
-        # unique_keys are different on project vs resource creation
-        unique_keys = status["entities"][0]["unique_keys"][0]
-        status_response.submitter_id = unique_keys.get("submitter_id")
-        status_response.project_id = unique_keys.get("project_id")
-        return status_response
+            # unique_keys are different on project vs resource creation
+            unique_keys = status_response["entities"][0]["unique_keys"][0]
+            submission_status.submitter_id = unique_keys.get("submitter_id")
+            submission_status.project_id = unique_keys.get("project_id")
+            # TODO: augment sub status
+            return submission_status
+        except HTTPError as pcor_error:
+            logger.error("error in submission:%s" % pcor_error)
+            submission_status = PcorProcessResult()
+            submission_status.success = False
+            submission_status.program_name = program
+            submission_status.project_code = project
+            submission_status.request_content = pcor_error.request
+            submission_status.response_content = pcor_error.response
+            return submission_status

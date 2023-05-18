@@ -9,7 +9,7 @@ from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourcePa
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter
 from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
-from pcor_ingest.pcor_template_process_result import PcorTemplateProcessResult
+from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 logger = logging.getLogger(__name__)
@@ -103,7 +103,7 @@ class PcorSpreadsheeetReader:
 
         # if result=error -> send validation/error report
 
-        pcor_action_result = PcorTemplateProcessResult()
+        pcor_action_result = PcorProcessResult()
         return pcor_action_result
 
 
