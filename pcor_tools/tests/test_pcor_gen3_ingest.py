@@ -400,7 +400,7 @@ class TestPcorGen3Ingest(TestCase):
         resource.resource_id = "NFS-2-RESC-1"
         resource.name = "Fire and Smoke Map"
         resource.short_name = "short name"
-        resource.resource_type = "i_am_invalid"
+        resource.resource_type = "data_resource"
         resource.description = "description"
         resource.citation = "citation"
         resource.is_citizen_collected = "false"
@@ -424,14 +424,14 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.comments = "comment"
         geo_spatial_resource.intended_use = "intended use"  # TODO: do we need a second general comment field in discovery? mc
         geo_spatial_resource.resource_submitter_id = resource.submitter_id
-        geo_spatial_resource.update_frequency = "unknown"
+        geo_spatial_resource.update_frequency = "huh"
         geo_spatial_resource.includes_citizen_collected = "false"
         geo_spatial_resource.has_api = "false"
         geo_spatial_resource.has_visualization_tool = "false"
         geo_spatial_resource.measures = ["measure1", "measure2"]
         geo_spatial_resource.measurement_method = "method1"
         geo_spatial_resource.spatial_coverage = "national"
-        geo_spatial_resource.spatial_resolution = "10km"
+        geo_spatial_resource.spatial_resolution = "wrong"
         geo_spatial_resource.temporal_resolution = "unknown"
 
         # using result from resource creation status
