@@ -28,7 +28,7 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
         project.name = "name"
-        project.short_name = "short name"
+        project.long_name = "long name"
         project.project_type = "type"
         project.project_state = "state"
         project.code = "code"
@@ -129,7 +129,7 @@ class TestPcorGen3Ingest(TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
-        project.short_name = "NFS-2"
+        project.long_name = "NFS-2"
         project.code = "NFS-2"
         project.project_type = "Data Provider"
         project.project_url = "https://www.niehs.nih.gov"
@@ -149,7 +149,7 @@ class TestPcorGen3Ingest(TestCase):
         program = "NFS"
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
-        project.short_name = "NFS-2"
+        project.long_name = "NFS-2"
         project.code = "NFS-2"
         project.project_type = "Data Provider"
         project.project_url = "https://www.niehs.nih.gov"
@@ -237,7 +237,7 @@ class TestPcorGen3Ingest(TestCase):
 
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
-        project.short_name = "NFS-2"
+        project.long_name = "NFS-2"
         project.code = "NFS-2"
         project.project_state = "open"
         project.project_release_date = ""
@@ -297,7 +297,7 @@ class TestPcorGen3Ingest(TestCase):
 
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
-        project.short_name = "NFS-2"
+        project.long_name = "NFS-2"
         project.code = "NFS-2"
         project.project_state = "open"
         project.project_type = "Data Provider"
@@ -374,7 +374,7 @@ class TestPcorGen3Ingest(TestCase):
 
         project = PcorIntermediateProjectModel()
         project.name = "NOAA-1"
-        project.short_name = "NOAA-1"
+        project.long_name = "NOAA-1"
         project.code = "NOAA-1"
         project.project_state = "open"
         project.project_type = "Data Provider"

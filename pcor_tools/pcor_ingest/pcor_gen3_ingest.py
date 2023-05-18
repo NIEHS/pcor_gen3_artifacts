@@ -439,7 +439,7 @@ class PcorGen3Ingest:
                  program(name: "{}") {{
                    id
                    name
-                   short_name
+                   long_name
                    program_type
                    program_url
                    dbgap_accession_number
@@ -455,7 +455,7 @@ class PcorGen3Ingest:
         program = PcorIntermediateProgramModel()
         program.id = result["data"]["program"][0]["id"]
         program.program_name = result["data"]["program"][0]["name"]
-        program.short_name = result["data"]["program"][0]["short_name"]
+        program.long_name = result["data"]["program"][0]["long_name"]
         program.program_type = result["data"]["program"][0]["program_type"]
         program.program_url = result["data"]["program"][0]["program_url"]
         program.dbgap_accession_number = result["data"]["program"][0]["dbgap_accession_number"]
@@ -474,7 +474,7 @@ class PcorGen3Ingest:
            id
            code
            name
-           short_name
+           long_name
            investigator_affiliation
            investigator_name
            availability_mechanism
@@ -501,7 +501,7 @@ class PcorGen3Ingest:
         project.project_code = result["data"]["project"][0]["code"]
         project.investigator_name = result["data"]["project"][0]["investigator_name"]
         project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
-        project.short_name = result["data"]["project"][0]["short_name"]
+        project.long_name = result["data"]["project"][0]["long_name"]
         project.support_source = result["data"]["project"][0]["support_source"]
         project.support_id = result["data"]["project"][0]["support_id"]
         project.project_type = result["data"]["project"][0]["project_type"]
