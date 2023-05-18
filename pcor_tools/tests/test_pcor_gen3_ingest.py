@@ -186,7 +186,6 @@ class TestPcorGen3Ingest(TestCase):
         program.dbgap_accession_number = 'NFS'
         program_id = pcor_ingest.create_program(program)
 
-
         project = PcorIntermediateProjectModel()
         project.name = "NFS-2"
         project.short_name = "NFS-2"
@@ -226,6 +225,8 @@ class TestPcorGen3Ingest(TestCase):
         resource.resource_use_agreement = "false"
         actual = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
         self.assertIsNotNone(actual)
+        self.assertTrue(actual.success)
+
 
     def test_decorate_resource(self):
         """ Add a resource under a test project and decorate with discovery metadata """
@@ -357,6 +358,9 @@ class TestPcorGen3Ingest(TestCase):
                                                               project_name=project.name,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
+        self.assertTrue(actual.success)
+
+
         # now decorate with metadata
 
         discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
@@ -438,11 +442,7 @@ class TestPcorGen3Ingest(TestCase):
                                                               project_name=project.name,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
-        # now decorate with metadata
-
-        discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
-        discovery_data.comment = geo_spatial_resource.comments  # intended use?
-        pcor_ingest.decorate_resc_with_discovery(discovery_data)
+        self.assertFalse(actual.success)
 
     def test_create_geo_spatial_tool_resource(self):
         """ Add a geo_spatial_tool_resource """
@@ -514,6 +514,7 @@ class TestPcorGen3Ingest(TestCase):
                                                               project_name=project.name,
                                                               geo_spatial_tool_resource=geo_tool_resource)
 
+        self.assertTrue(actual.success)
         # now decorate with metadata
 
         discovery_data = pcor_ingest.create_discovery_from_resource(program.name, project, resource)
@@ -561,6 +562,8 @@ class TestPcorGen3Ingest(TestCase):
         resource.resource_use_agreement = "false"
         resource.resource_link = "https://landfire.gov/"
         resource_submit_status = pcor_ingest.create_resource(program.name, project.dbgap_accession_number, resource)
+        self.assertTrue(resource_submit_status.success)
+
 
         pop_data_resource = PcorPopDataResourceModel()
         pop_data_resource.submitter_id = "NFS-2-POP-1"
@@ -581,6 +584,8 @@ class TestPcorGen3Ingest(TestCase):
         actual = pcor_ingest.create_pop_data_resource(program_name=program.name,
                                                       project_name=project.name,
                                                       pop_data_resource=pop_data_resource)
+        self.assertTrue(actual.success)
+
 
         # now decorate with metadata
 
