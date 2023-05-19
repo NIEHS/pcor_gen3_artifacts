@@ -55,7 +55,7 @@ class PcorReporter():
 
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
-        email_message['From'] = 'no-reply-niehs-pcor@nih.gov'
+        email_message['From'] = self.pcor_ingest_configuration.mail_from
         email_message['To'] = pcor_processing_result.submitter_email
         email_message['Subject'] = 'PCOR Curation Report'
 
@@ -65,7 +65,7 @@ class PcorReporter():
         email_string = email_message.as_string()
 
         # Send the message via local SMTP server.
-        s = smtplib.SMTP('smtp.niehs.nih.gov')
+        s = smtplib.SMTP(self.pcor_ingest_configuration.smtp_server)
         s.starttls()
         # s.login(email_login,
         #        email_passwd)
