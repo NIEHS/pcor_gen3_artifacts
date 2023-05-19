@@ -44,6 +44,5 @@ class TestPcorReporter(unittest.TestCase):
         pcor_reporter.send_email_report(pcor_processing_result, report)
 
 
-
 if __name__ == '__main__':
     unittest.main()
