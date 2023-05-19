@@ -17,7 +17,7 @@ class TestPcorReporter(unittest.TestCase):
         pcor_processing_result = PcorProcessResult()
         pcor_reporter = PcorReporter()
         report = pcor_reporter.produce_html_error_report(pcor_processing_result)
-        pcor_reporter.send_email_report(report)
+        pcor_reporter.send_email_report(pcor_processing_result, report)
 
     def test_format_error(self):
         pcor_processing_result = PcorProcessResult()
@@ -29,7 +29,7 @@ class TestPcorReporter(unittest.TestCase):
         pcor_processing_result.response_content = data
 
         report = pcor_reporter.produce_html_error_report(pcor_processing_result)
-        pcor_reporter.send_email_report(report)
+        pcor_reporter.send_email_report(pcor_processing_result, report)
 
 
 if __name__ == '__main__':
