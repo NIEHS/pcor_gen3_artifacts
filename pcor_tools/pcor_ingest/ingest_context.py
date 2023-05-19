@@ -18,6 +18,8 @@ class PcorIngestConfiguration:
         self.pcor_props_dict = dict_from_props(self.pcor_config_file_name)
         self.gen3_creds_location = self.pcor_props_dict['gen3.creds.location']
         self.gen3_endpoint = self.pcor_props_dict['gen3.endpoint']
+        self.smtp_server = self.pcor_props_dict['smtp.server']
+        self.mail_from = self.pcor_props_dict['mail.from']
 
 
 def dict_from_props(filename):

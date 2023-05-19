@@ -19,8 +19,13 @@ class PcorReporter():
         Format PCOR curation status response/errors into HTML format
     """
 
-    def __init__(self):
+    def __init__(self, pcor_ingest_configuration):
+        """
+        sets up required components
+        :param pcor_ingest_configuration:
+        """
         self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
+        self.pcor_ingest_configuration = pcor_ingest_configuration
 
     def produce_html_error_report(self, pcor_processing_result):
 
