@@ -27,6 +27,20 @@ class PcorReporter():
         self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
 
+    def report(self, pcor_processing_result):
+        """
+        Main method will format report and send based on the processing result
+        :param pcor_processing_result: PcorProcessResult
+        :return: void
+        """
+
+        if pcor_processing_result.success:
+            msg = self.produce_html_success_report(pcor_processing_result)
+            self.send_email_report(pcor_processing_result, msg)
+        else:
+            msg = self.produce_html_error_report(pcor_processing_result)
+            self.send_email_report(pcor_processing_result, msg)
+
     def produce_html_error_report(self, pcor_processing_result):
 
         """
@@ -37,7 +51,6 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("error_report.html")
         rendered = template.render(data=pcor_processing_result)
-        logger.info("rendered: %s" % rendered)
         return rendered
 
     def produce_html_success_report(self, pcor_processing_result):
@@ -50,7 +63,6 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("success_report.html")
         rendered = template.render(data=pcor_processing_result)
-        logger.info("rendered: %s" % rendered)
         return rendered
 
     def send_email_report(self, pcor_processing_result, email_text):
