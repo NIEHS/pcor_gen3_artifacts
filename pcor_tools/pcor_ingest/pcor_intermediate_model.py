@@ -55,28 +55,28 @@ class PcorIntermediateResourceModel:
 
         self.project = None
         # resource
-        self.submitter_id = ""
-        self.created_datetime = ""
-        self.updated_datetime = ""
-        self.id = ""
+        self.submitter_id = None
+        self.created_datetime = None
+        self.updated_datetime = None
+        self.id = None
         self.name = ""
-        self.short_name = ""
+        self.short_name = None
         self.resource_id = ""
-        self.resource_type = ""
-        self.description = ""
-        self.citation = ""
-        self.payment_required = "false"
+        self.resource_type = None
+        self.description = None
+        self.citation = None
+        self.payment_required = False
         self.domain = []
         self.keywords = []
-        self.access_type = ""
-        self.license_type = ""
-        self.license_text = ""
-        self.verification_datetime = ""
-        self.resource_use_agreement = 'false'
-        self.resource_contact = ""
-        self.resource_link = ""
-        self.resource_reference = ""
-        self.publications = ""
+        self.access_type = None
+        self.license_type = None
+        self.license_text = None
+        self.verification_datetime = None
+        self.resource_use_agreement = False
+        self.resource_contact = None
+        self.resource_link = None
+        self.resource_reference = None
+        self.publications = None
         self.is_static = None
 
 
@@ -116,7 +116,7 @@ class PcorGeospatialDataResourceModel:
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
-        self.source_url = "="
+        self.source_url = ""
         self.update_frequency = ""
         self.includes_citizen_collected = "false"
         self.has_api = "false"

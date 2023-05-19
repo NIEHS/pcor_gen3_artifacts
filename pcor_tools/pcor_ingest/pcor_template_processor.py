@@ -56,9 +56,9 @@ class PcorTemplateProcessor:
                             project_name=project.name,
                             resource=resource)
 
-                        if 'geo_spatial_resource' in model_data.keys():
-                            logger.info('process:: adding geo_spatial_resource')
-                            geo_spatial_resource = model_data['geo_spatial_resource']
+                        if 'geospatial_data_resource' in model_data.keys():
+                            logger.info('process:: adding geospatial_data_resource')
+                            geo_spatial_resource = model_data['geospatial_data_resource']
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
                             self.pcor_ingest.create_geo_spatial_data_resource(

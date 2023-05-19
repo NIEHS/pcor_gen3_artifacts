@@ -1,7 +1,9 @@
 import logging
 import os
 import pandas as pd
+import re
 
+from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -34,7 +36,28 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         return parse_result
 
     @staticmethod
-    def extract_resource_details(template_df):
+    def formate_date_time(string):
+        # use dummy
+        date_string = '2023/01/01T12:00:00Z'
+        datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")
+        formatted_datetime = datetime_obj.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+        '''
+        # Regular expression pattern to match "yyyy"
+        pattern = r"\b(\d{4})\b"
+
+        # Find the year in the string
+        match = re.search(pattern, string)
+
+        if match:
+            year = int(match.group(1))
+            # Replace the matched year with a formatted datetime string
+            datetime_str = datetime(year, 1, 1).strftime("%Y-%m-%d %H:%M:%S")
+            modified_string = string[:match.start()] + datetime_str + string[match.end():]
+            return modified_string
+        '''
+        return formatted_datetime
+
+    def extract_resource_details(self, template_df):
         """
         Given a pandas dataframe with the template date, extract out the resource related data
         :param template_df: pandas df of the spreadsheet
@@ -51,6 +74,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             if template_df.iat[i, 0] == 'Data_Resource':
                 logging.debug("found Data_Resource/GeoExposure_Data_Resource ")
                 for j in range(i, ss_rows):
+                    logger.info('prop name: %s' % template_df.iat[j, 0])
                     # FixMe:  data_type is missing in schema!
                     if template_df.iat[j, 0] == 'data_type':
                         geo_resource.data_type = template_df.iat[j, 1]
@@ -64,11 +88,22 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.update_frequency = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         geo_resource.includes_citizen_collected = template_df.iat[j, 1]
+                        if geo_resource.includes_citizen_collected == 'no':
+                            geo_resource.includes_citizen_collected = False
+                        if geo_resource.includes_citizen_collected == 'yes':
+                            geo_resource.includes_citizen_collected = True
                     elif template_df.iat[j, 0] == 'has_api':
                         geo_resource.has_api = template_df.iat[j, 1]
+                        if geo_resource.has_api == 'no':
+                            geo_resource.has_api = False
+                        if geo_resource.has_api == 'yes':
+                            geo_resource.has_api = True
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
                         geo_resource.has_visualization_tool = template_df.iat[j, 1]
-
+                        if geo_resource.has_visualization_tool == 'no':
+                            geo_resource.has_visualization_tool = False
+                        if geo_resource.has_visualization_tool == 'yes':
+                            geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
                         geo_resource.measures = template_df.iat[j, 1].split(',')
@@ -76,8 +111,12 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.measurement_method = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = template_df.iat[j, 1]
+                        if geo_resource.time_extent_start is not None:
+                            geo_resource.time_extent_start = self.formate_date_time(geo_resource.time_extent_start)
                     elif template_df.iat[j, 0] == 'time_extent_end':
                         geo_resource.time_extent_end = template_df.iat[j, 1]
+                        if geo_resource.time_extent_end is not None:
+                            geo_resource.time_extent_end = self.formate_date_time(geo_resource.time_extent_end)
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'temporal_resolution':
@@ -97,7 +136,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'model_methods':
                         geo_resource.model_methods = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'exposure_media':
-                        geo_resource.exposure_media = template_df.iat[j, 1]
+                        geo_resource.exposure_media = template_df.iat[j, 1].split(',')
                     elif template_df.iat[j, 0] == 'geographic_feature':
                         geo_resource.geographic_feature = template_df.iat[j, 1]
 
