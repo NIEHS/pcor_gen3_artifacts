@@ -8,6 +8,7 @@ from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter
+from pcor_ingest.pcor_result_handler import PcorResultHandler
 from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
@@ -63,6 +64,7 @@ class PcorSpreadsheeetReader:
             logger.info("authenticated to Gen3")
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
+        self.result_handler = PcorResultHandler(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path):
         """
@@ -95,18 +97,10 @@ class PcorSpreadsheeetReader:
 
         # processer = processors[type] -> move to processing folder
         process_template = PcorTemplateProcessor()
-        process_template.process(parsed_data=result)
+        process_result = process_template.process(parsed_data=result)
 
-        # result = processer.process
-
-        # if result=success -> move to processed, notif, etc
-
-        # if result=error -> send validation/error report
-
-        pcor_action_result = PcorProcessResult()
-        return pcor_action_result
-
-
+        self.result_handler.handle_result(process_result)
+        return process_result
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):
