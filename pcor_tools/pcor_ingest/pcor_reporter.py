@@ -35,6 +35,19 @@ class PcorReporter():
         logger.info("rendered: %s" % rendered)
         return rendered
 
+    def produce_html_success_report(self, pcor_processing_result):
+
+        """
+        Produce the html report showing success in curating pcor data
+        :param pcor_processing_result: PcorProcessResult result data structure
+        :return: html error report
+        """
+        logger.info("produce_html_report()")
+        template = self.env.get_template("success_report.html")
+        rendered = template.render(data=pcor_processing_result)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = 'no-reply-niehs-pcor@nih.gov'
