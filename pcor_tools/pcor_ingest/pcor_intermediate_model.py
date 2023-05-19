@@ -13,7 +13,7 @@ class PcorIntermediateProgramModel:
     def __init__(self):
         self.id = None
         self.program_name = None
-        self.short_name = None
+        self.long_name = None
         self.program_type = None
         self.program_url = None
         self.program_description = None
@@ -25,24 +25,24 @@ class PcorIntermediateProjectModel:
     def __init__(self):
         self.program = None
         # project
-        self.availability_mechanism = ""
-        self.availability_type = ""
-        self.code = ""
-        self.complete = ""
-        self.date_collected = ""
-        self.dbgap_accession_number = ""
-        self.id = ""
-        self.investigator_affiliation = ""
-        self.investigator_name = ""
-        self.name = ""
-        self.short_name = ""
-        self.support_source = ""
-        self.support_id = ""
-        self.program_id = ""
-        self.submitter_id = "" # TODO: make sure sub id carried forward to update
-        self.project_type = ""
-        self.project_url = ""
-        self.description = ""
+        self.availability_mechanism = None
+        self.availability_type = None
+        self.code = None
+        self.complete = None
+        self.date_collected = None
+        self.dbgap_accession_number = None
+        self.id = None
+        self.investigator_affiliation = None
+        self.investigator_name = None
+        self.name = None
+        self.long_name = None
+        self.support_source = None
+        self.support_id = None
+        self.program_id = None
+        self.submitter_id = None # TODO: make sure sub id carried forward to update
+        self.project_type = None
+        self.project_url = None
+        self.description = None
 
 
 class PcorIntermediateResourceModel:
@@ -55,28 +55,28 @@ class PcorIntermediateResourceModel:
 
         self.project = None
         # resource
-        self.submitter_id = ""
-        self.created_datetime = ""
-        self.updated_datetime = ""
-        self.id = ""
+        self.submitter_id = None
+        self.created_datetime = None
+        self.updated_datetime = None
+        self.id = None
         self.name = ""
-        self.short_name = ""
+        self.short_name = None
         self.resource_id = ""
-        self.resource_type = ""
-        self.description = ""
-        self.citation = ""
-        self.payment_required = "false"
+        self.resource_type = None
+        self.description = None
+        self.citation = None
+        self.payment_required = False
         self.domain = []
         self.keywords = []
-        self.access_type = ""
-        self.license_type = ""
-        self.license_text = ""
-        self.verification_datetime = ""
-        self.resource_use_agreement = 'false'
-        self.resource_contact = ""
-        self.resource_link = ""
-        self.resource_reference = ""
-        self.publications = ""
+        self.access_type = None
+        self.license_type = None
+        self.license_text = None
+        self.verification_datetime = None
+        self.resource_use_agreement = False
+        self.resource_contact = None
+        self.resource_link = None
+        self.resource_reference = None
+        self.publications = None
         self.is_static = None
 
 
@@ -116,7 +116,7 @@ class PcorGeospatialDataResourceModel:
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
-        self.source_url = "="
+        self.source_url = ""
         self.update_frequency = ""
         self.includes_citizen_collected = "false"
         self.has_api = "false"

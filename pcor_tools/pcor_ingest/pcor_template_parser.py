@@ -14,7 +14,8 @@ class PcorTemplateParser:
     """
 
     def __init__(self):
-        pass
+        # Regular expression pattern to match "yyyy"
+        self.yyyy_pattern = r"\b(\d{4})\b"
 
     def parse(self, template_absolute_path):
 
@@ -77,18 +78,23 @@ class PcorTemplateParser:
                     # FixMe:  program id is missing in template!
                     if template_df.iat[j, 0] == 'program id':
                         program.dbgap_accession_number = template_df.iat[j, 1]
+
                     elif template_df.iat[j, 0] == 'program_name':
                         program.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_short_name':
-                        program.short_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'program_long_name':
+                        program.long_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'program_type':
                         program.program_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'program_url':
                         program.program_url = template_df.iat[j, 1]
-                    # FixMe:  code is missing in schema!
                     elif template_df.iat[j, 0] == 'program_description':
                         program.program_description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Project':
+
+                        # validate needed props
+                        # ToDo: what is assignment logic?
+                        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
+                            program.dbgap_accession_number = program.name
                         return program
 
         logger.warn("no program found, return null")
@@ -114,14 +120,15 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
-                    # FixMe:  code is missing in template!
-                    elif template_df.iat[j, 0] == 'code':
-                        project.project_code = template_df.iat[j, 1]
-
                     elif template_df.iat[j, 0] == 'project_name':
                         project.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'short_name':
-                        project.short_name = template_df.iat[j, 1]
+                    # FixMe:  code is missing in template!
+                    elif template_df.iat[j, 0] == 'code':
+                        project.code = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'dbgap_accession_number':
+                        project.dbgap_accession_number = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_long_name':
+                        project.long_names = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_type':
                         project.project_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_url':
@@ -137,13 +144,23 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'availability type':
                         project.availability_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Resource':
+
+                        # validate needed props
+                        # ToDo: what is assignment logic?
+                        if project.submitter_id is None:
+                            project.submitter_id = 'empty'
+                        if project.code == "" or project.code is None:
+                            project.code = project.name
+                        if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
+                            project.dbgap_accession_number = project.name
                         return project
 
         logger.warn("no program found, return null")
         return None
 
-    @staticmethod
-    def extract_resource_data(template_df):
+
+
+    def extract_resource_data(self, template_df):
         """
         Given a pandas dataframe with the template date, extract out the resource related data
         :param template_df: pandas df of the spreadsheet
@@ -164,7 +181,7 @@ class PcorTemplateParser:
                     if template_df.iat[j, 0] == 'submitter id':
                         resource.submitter_id = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_name':
-                        resource.source_name = template_df.iat[j, 1]
+                        resource.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_short_name':
                         resource.short_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_type':
@@ -174,10 +191,9 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = template_df.iat[j, 1]
+                        resource.domain = template_df.iat[j, 1].split(',')
                     elif template_df.iat[j, 0] == 'keywords':
-                        resource.keywords = template_df.iat[j, 1]
-
+                        resource.keywords = template_df.iat[j, 1].split(',')
                     # FixMe:  access_type is missing in schema!
                     elif template_df.iat[j, 0] == 'access_type':
                         resource.access_type = template_df.iat[j, 1]
@@ -189,21 +205,27 @@ class PcorTemplateParser:
                         resource.updated_datetime = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = template_df.iat[j, 1]
-
                     # FixMe:  resource_reference is missing in schema!
                     elif template_df.iat[j, 0] == 'resource_reference':
                         resource.resource_reference = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
-                        resource.resource_use_agreement = template_df.iat[j, 1]
-
+                        logger.info('Resource_use_agreement: %s' % template_df.iat[j, 1])
+                        if template_df.iat[j, 1] is None or str(template_df.iat[j, 1]) == 'None':
+                            resource.resource_use_agreement = False
+                        else:
+                            resource.resource_use_agreement = True
                     # FixMe:  publications is missing in schema!
                     elif template_df.iat[j, 0] == 'publications':
                         resource.publications = template_df.iat[j, 1]
-
                     # FixMe:  is_static is missing in schema!
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Data_Resource':
+
+                        # validate needed props
+                        # ToDo: what is assignment logic?
+                        if resource.submitter_id is None:
+                            resource.submitter_id = 'empty'
                         return resource
 
         logger.warn("no program found, return null")

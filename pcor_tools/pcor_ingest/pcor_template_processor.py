@@ -2,6 +2,7 @@ import logging
 import requests
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -17,7 +18,7 @@ class PcorTemplateProcessor:
     """
 
     def __init__(self):
-        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties.gen3'))
+        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
 
     def process(self, parsed_data):
 
@@ -27,7 +28,7 @@ class PcorTemplateProcessor:
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
-        :return: PcorTemplateProcessResult with the outcome
+        :return: PcorProcessResult with the outcome
         """
         logger.info('Parsed_data %s ' % str(parsed_data))
         logger.info('Process()')
@@ -55,9 +56,9 @@ class PcorTemplateProcessor:
                             project_name=project.name,
                             resource=resource)
 
-                        if 'geo_spatial_resource' in model_data.keys():
-                            logger.info('process:: adding geo_spatial_resource')
-                            geo_spatial_resource = model_data['geo_spatial_resource']
+                        if 'geospatial_data_resource' in model_data.keys():
+                            logger.info('process:: adding geospatial_data_resource')
+                            geo_spatial_resource = model_data['geospatial_data_resource']
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
                             self.pcor_ingest.create_geo_spatial_data_resource(
