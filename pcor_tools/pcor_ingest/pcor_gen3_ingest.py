@@ -287,7 +287,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program)
+        rendered = template.render(program=program).replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -311,7 +311,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
-        rendered = template.render(resource=resource)
+        rendered = template.render(resource=resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -334,7 +334,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource)
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
