@@ -28,7 +28,7 @@ class PcorTemplateProcessor:
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
-        :return: PcorTemplateProcessResult with the outcome
+        :return: PcorProcessResult with the outcome
         """
         logger.info('Parsed_data %s ' % str(parsed_data))
         logger.info('Process()')
