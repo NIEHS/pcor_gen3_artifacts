@@ -56,16 +56,19 @@ class PcorTemplateProcessor:
                             project_name=project.name,
                             resource=resource)
 
+                        # add a check if resource_submit_status.success == False
+                        # if it fails, return the status and bail
                         if 'geospatial_data_resource' in model_data.keys():
                             logger.info('process:: adding geospatial_data_resource')
                             geo_spatial_resource = model_data['geospatial_data_resource']
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
-                            self.pcor_ingest.create_geo_spatial_data_resource(
+                            resource_submit_status = self.pcor_ingest.create_geo_spatial_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
+                            # check status and bail if not success
 
                         if 'pop_data_resource' in model_data.keys():
                             logger.info('process:: adding pop_data_resource')
@@ -89,6 +92,9 @@ class PcorTemplateProcessor:
                                 geo_spatial_tool_resource=geo_tool_resource
                             )
 
+                        # return status which will be success
+
         except requests.HTTPError as exception:
             logger.error('Error occurred: %s' % str(exception))
 
+# python3 run_spreadsheet /here/is/the/sheet.xls
