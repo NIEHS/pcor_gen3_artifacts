@@ -69,6 +69,8 @@ class PcorTemplateProcessor:
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
                             # check status and bail if not success
+                            if not resource_submit_status.success:
+                                return resource_submit_status
 
                         if 'pop_data_resource' in model_data.keys():
                             logger.info('process:: adding pop_data_resource')
@@ -80,6 +82,8 @@ class PcorTemplateProcessor:
                                 project_name=project.name,
                                 pop_data_resource=pop_data_resource
                             )
+                            if not resource_submit_status.success:
+                                return resource_submit_status
 
                         if 'geo_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
@@ -91,8 +95,11 @@ class PcorTemplateProcessor:
                                 project_name=project.name,
                                 geo_spatial_tool_resource=geo_tool_resource
                             )
+                            if not resource_submit_status.success:
+                                return resource_submit_status
 
                         # return status which will be success
+                        return resource_submit_status
 
         except requests.HTTPError as exception:
             logger.error('Error occurred: %s' % str(exception))

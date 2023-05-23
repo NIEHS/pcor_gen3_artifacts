@@ -37,4 +37,4 @@ class PcorResultHandler:
         pcor_reporter = PcorReporter(self.pcor_ingest_configuration)
         pcor_reporter.report(pcor_process_result)
 
-        # move files around TODO: add file processing
+        # move files around TODO: add file processing to be handled in loader plugins

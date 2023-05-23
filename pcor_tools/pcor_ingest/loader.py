@@ -15,14 +15,15 @@ class Loader:
     """
     Represents the main PCOR metadata loader
     """
-    def __init__(self, loaders=None):
+    def __init__(self,pcor_ingest_configuration=None, loaders=None):
         """
         Main initialization method for PCOR loader
         """
         if loaders is None:
             loaders = {}
         self.loaders = loaders
-        self.loaders['spreadsheet'] = LoaderSpreadsheet()
+        self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.loaders['spreadsheet'] = LoaderSpreadsheet(pcor_ingest_configuration=self.pcor_ingest_configuration)
         self.loaders['cedar'] = LoaderCedar()
 
     def process_pcor_load(self, loader_type=None, work_dir=None):
@@ -31,7 +32,7 @@ class Loader:
         logger.info('Work dir: %s ' % work_dir)
         if loader_type is not None:
             loader_type = self.loaders[loader_type]
-            loader_type.process_load(work_dir=work_dir)
+            loader_type.process_load(self.pcor_ingest_configuration, work_dir=work_dir)
         else:
             logger.info('No loader found!')
             logger.info('loader_type is a required argument. Type can be ("spreadsheet" or "cedar")')

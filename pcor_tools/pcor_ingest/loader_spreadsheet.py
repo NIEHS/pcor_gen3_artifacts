@@ -6,6 +6,7 @@ import requests
 
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
+from pcor_ingest.pcor_result_handler import PcorResultHandler
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -16,12 +17,14 @@ logger = logging.getLogger(__name__)
 
 
 class LoaderSpreadsheet:
-    def __init__(self):
+    def __init__(self, pcor_ingest_configuration):
+        self.pcor_ingest_configuration = pcor_ingest_configuration
         self.workspace_folder_path = None
         self.workspace_new_folder_path = None
         self.workspace_processing_folder_path = None
         self.workspace_processed_folder_path = None
         self.workspace_failed_folder_path = None
+        self.result_handler = PcorResultHandler(pcor_ingest_configuration)
 
     def validate_sub_folders(self, work_dir=None):
         # new files folder
@@ -43,7 +46,7 @@ class LoaderSpreadsheet:
         if not os.path.exists(self.workspace_failed_folder_path):
             os.mkdir(self.workspace_failed_folder_path)
 
-    def process_load(self, work_dir=None):
+    def process_load(self, pcor_ingest_configuration=None, work_dir=None):
         """
         Load a spreadsheet template
         """
@@ -55,7 +58,7 @@ class LoaderSpreadsheet:
         if file_list:
             logger.info('Files found: %s' % str(file_list))
             for file in file_list:
-                if file.endswith('.xlsx'):
+                if file.endswith('.xlsm'):
                     logger.info('Spreadsheet found: %s' % file)
 
                     # new folder
@@ -69,9 +72,10 @@ class LoaderSpreadsheet:
                     result = 'failed'
                     log_file_path = None
                     file_path = os.path.join(self.workspace_processing_folder_path, file)
-                    ss_reader = PcorSpreadsheeetReader(PcorIngestConfiguration('test_resources/pcor.properties'))
+                    ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
                     try:
                         result = ss_reader.process_template_instance(file_path)
+
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
                         log_file_name = file.split('.')[0] + '.log'
@@ -81,10 +85,10 @@ class LoaderSpreadsheet:
                         file.close()
 
                         pass
-
-                    if result == 'success':
+                    self.result_handler.handle_result(result)
+                    if result.success:
                         # processed folder
-                        # result --> 'success'
+                        # result.success --> true
                         # result --> move file to processed folder
 
                         logger.info(
@@ -93,7 +97,7 @@ class LoaderSpreadsheet:
                         shutil.move(src=file_path, dst=self.workspace_processed_folder_path)
                     else:
                         # failed folder
-                        # result --> 'failed'
+                        # result.success --> false
                         # result --> move file to failed folder
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
