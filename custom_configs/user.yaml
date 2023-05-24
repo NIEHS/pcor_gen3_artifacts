@@ -121,6 +121,11 @@ authz:
         - name: projects
           subresources:
             - name: HRSA-1
+    - name: MTBS
+      subresources:
+        - name: projects
+          subresources:
+            - name: MTBS
     - name: NASA
       subresources:
       - name: projects
@@ -188,6 +193,7 @@ authz:
     - /programs/NOAA/projects/NOAA-2
     - /programs/NOAA/projects/NOAA-3
     - /programs/NOAA/projects/NOAA-4
+    - /programs/MTBS/projects/MTBS
     - /programs/EPA/projects/EPA-1
     - /programs/EPA/projects/EPA-2
     - /programs/HHS/projects/HHS-1
@@ -232,6 +238,7 @@ authz:
     - /programs/HHS/projects/HHS-2
     - /programs/HRSA/projects/HRSA-1
     - /programs/NASA/projects/NASA-1
+    - /programs/MTBS/projects/MTBS
     - /programs/NASA/projects/NASA-2
   - id: jnkns
     role_ids:
@@ -340,6 +347,16 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/NASA
+  - id: MTBS
+    role_ids:
+    - reader
+    - creator
+    - updater
+    - deleter
+    - storage_reader
+    - storage_writer
+    resource_paths:
+    - /programs/MTBS
   - id: Census
     role_ids:
     - reader
@@ -503,6 +520,7 @@ users:
     - Census
     - NFS
     - USGS
+    - MTBS
     - NOAA
     - EPA
     - HHS

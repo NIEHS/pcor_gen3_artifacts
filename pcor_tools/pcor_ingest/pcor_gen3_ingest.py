@@ -528,6 +528,9 @@ class PcorGen3Ingest:
             unique_keys = status_response["entities"][0]["unique_keys"][0]
             submission_status.submitter_id = unique_keys.get("submitter_id")
             submission_status.project_id = unique_keys.get("project_id")
+            submission_status.path_url = submission_status.request_content["path_url"]
+            submission_status.program_name = program
+            submission_status.project_name = project
             # TODO: augment sub status
             return submission_status
         except HTTPError as pcor_error:
@@ -538,4 +541,9 @@ class PcorGen3Ingest:
             submission_status.project_code = project
             submission_status.request_content = pcor_error.request
             submission_status.response_content = pcor_error.response
+            submission_status.path_url = submission_status.request_content["path_url"]
+            submission_status.program_name = program
+            submission_status.project_name = project
+            # program_name, program_submitter_id, project_id, project_name
+
             return submission_status

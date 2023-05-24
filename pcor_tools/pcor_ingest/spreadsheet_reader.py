@@ -100,7 +100,7 @@ class PcorSpreadsheeetReader:
         process_result = process_template.process(parsed_data=result)
 
         # handle result in loader plugins
-        # self.result_handler.handle_result(process_result)
+        #self.result_handler.handle_result(process_result)
 
         # add a file_mover that is picked based on the type of template
 
