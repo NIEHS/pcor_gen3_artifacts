@@ -10,6 +10,9 @@ class PcorProcessResult:
         self.type = ""
         self.submitter_id = ""
         self.resource_name = ""
+        # parsed model information
+        self.model_data = {}
+        self.errors = [] # errors in processing that are not validation errors from Gen3
         # general contextual information
         self.project_id = ""
         self.project_code = ""
