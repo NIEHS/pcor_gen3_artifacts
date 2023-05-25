@@ -86,7 +86,7 @@ class LoaderSpreadsheet:
                         file.close()
 
                         pass
-                    self.result_handler.handle_result(result)
+                    self.result_handler.handle_result(result) # here
                     if result.success:
                         # processed folder
                         # result.success --> true
