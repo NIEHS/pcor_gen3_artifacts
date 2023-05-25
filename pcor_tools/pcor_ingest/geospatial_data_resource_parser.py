@@ -33,6 +33,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             return parse_result
 
         logger.info("returning general parsed data: %s" % parse_result)
+        parse_result.template_source = template_absolute_path
         return parse_result
 
     @staticmethod
