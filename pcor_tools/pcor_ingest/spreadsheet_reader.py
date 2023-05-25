@@ -9,7 +9,6 @@ from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourcePa
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter
 from pcor_ingest.pcor_result_handler import PcorResultHandler
-from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
@@ -82,7 +81,7 @@ class PcorSpreadsheeetReader:
 
         if parser is None:
             logger.error("No parser found for type: %s" % type)
-            result = PcorTemplateParseResult()
+            result = PcorProcessResult()
             result.resource_type = type
             result.success = False
             result.source = template_absolute_path

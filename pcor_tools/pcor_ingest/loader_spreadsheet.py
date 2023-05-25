@@ -5,6 +5,7 @@ import shutil
 import requests
 
 from pcor_ingest.ingest_context import PcorIngestConfiguration
+from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
 from pcor_ingest.pcor_result_handler import PcorResultHandler
 
@@ -69,7 +70,7 @@ class LoaderSpreadsheet:
                     shutil.move(src=file_path, dst=self.workspace_processing_folder_path)
 
                     # processing folder
-                    result = 'failed'
+                    result = PcorProcessResult()
                     log_file_path = None
                     file_path = os.path.join(self.workspace_processing_folder_path, file)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)

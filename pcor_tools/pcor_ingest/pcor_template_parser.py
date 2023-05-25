@@ -230,21 +230,3 @@ class PcorTemplateParser:
 
         logger.warn("no program found, return null")
         return None
-
-
-class PcorTemplateParseResult:
-    """
-    Result of a parse action, indicates success or failure of parsing and any relevant error messages
-    """
-
-    def __init__(self):
-
-        """
-        Init method for parse result
-        """
-        self.errors = []
-        self.success = True
-        self.model_data = {}
-        self.resource_type = None
-        self.source = None
-

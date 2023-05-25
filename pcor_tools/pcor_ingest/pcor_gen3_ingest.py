@@ -53,6 +53,7 @@ class PcorGen3Ingest:
         logger.info('adding program:%s' % program)
         sub = Gen3Submission(self.gen3_auth)
         program_json = self.produce_program_json(program)
+
         response = sub.create_program(json.loads(program_json))
         program_id = response["id"]
         logger.info("program created with id:%s" % program_id)
@@ -81,8 +82,8 @@ class PcorGen3Ingest:
             logger.info('Creating project: %s', project)
             project_json = self.produce_project_json(pcor_intermediate_project_model)
             response = sub.create_project(quote(program), json.loads(project_json))
-            submit_response = self.parse_status(response)
-            project_id = submit_response.id
+            project_id = response["entities"][0]["id"]
+            logger.info("project_id: %s" % project_id)
             return project_id
 
     def delete_project(self, program, project_name):
@@ -528,7 +529,6 @@ class PcorGen3Ingest:
             unique_keys = status_response["entities"][0]["unique_keys"][0]
             submission_status.submitter_id = unique_keys.get("submitter_id")
             submission_status.project_id = unique_keys.get("project_id")
-            submission_status.path_url = submission_status.request_content["path_url"]
             submission_status.program_name = program
             submission_status.project_name = project
             # TODO: augment sub status
@@ -541,7 +541,7 @@ class PcorGen3Ingest:
             submission_status.project_code = project
             submission_status.request_content = pcor_error.request
             submission_status.response_content = pcor_error.response
-            submission_status.path_url = submission_status.request_content["path_url"]
+            submission_status.path_url = submission_status.request_content.path_url
             submission_status.program_name = program
             submission_status.project_name = project
             # program_name, program_submitter_id, project_id, project_name
