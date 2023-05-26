@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 from requests import HTTPError
@@ -52,7 +53,7 @@ class PcorTemplateProcessor:
                     submission_status.success = False
                     submission_status.program_name = program
                     submission_status.request_content = pcor_error.request
-                    submission_status.response_content = pcor_error.response
+                    submission_status.response_content = json.loads(pcor_error.response.text)
                     submission_status.path_url = submission_status.request_content.path_url
                     submission_status.program_name = program
                     logger.error("error in program create: %s" % submission_status)
@@ -77,7 +78,7 @@ class PcorTemplateProcessor:
                         submission_status.program_name = program
                         submission_status.project_id = project_id
                         submission_status.request_content = pcor_error.request
-                        submission_status.response_content = pcor_error.response
+                        submission_status.response_content = json.loads(pcor_error.response.text)
                         submission_status.path_url = submission_status.request_content.path_url
                         submission_status.program_name = program
                         logger.error("error in project create: %s" % submission_status)

@@ -14,7 +14,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
+from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
 logger = logging.getLogger(__name__)
 
@@ -121,7 +121,7 @@ class PcorGen3Ingest:
         logger.debug("json_string: %s" % json_string)
         resource_json = json.loads(json_string)
         logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
-        status = self.submit_record(program=program_name, project=project_name, json=resource_json)
+        status = self.submit_record(program=program_name, project=project_name, json_data=resource_json)
         logger.info(status)
         resource.id = status.id
         return status
@@ -229,7 +229,7 @@ class PcorGen3Ingest:
         json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_data_resource_json)
+        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_data_resource_json)
         logger.info(status)
         return status
 
@@ -243,7 +243,7 @@ class PcorGen3Ingest:
         json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_tool_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json=geo_spatial_tool_resource_json)
+        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_tool_resource_json)
         logger.info(status)
         return status
 
@@ -256,7 +256,7 @@ class PcorGen3Ingest:
         json_string = self.produce_pop_data_resource(pop_data_resource)
         logger.info("json_string: %s" % json_string)
         pop_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json=pop_data_resource_json)
+        status = self.submit_record(program=program_name, project=project_name, json_data=pop_data_resource_json)
         logger.info(status)
         return status
 
@@ -507,18 +507,18 @@ class PcorGen3Ingest:
         project.id = result["data"]["project"][0]["id"]
         return project
 
-    def submit_record(self, program, project, json):
+    def submit_record(self, program, project, json_data):
         """
         :param program: The program to submit to.
         :param project: The project to submit to.
-        :param json: The json defining the record(s) to submit. For multiple records, the json should be an
+        :param json_data: The json defining the record(s) to submit. For multiple records, the json should be an
         array of records.
         :return:
         """
         logger.info('submit_record()')
         sub = Gen3Submission(self.gen3_auth)
         try:
-            status_response = sub.submit_record(program, project, json)
+            status_response = sub.submit_record(program, project, json_data)
             logger.info("status_response: %s", str(status_response))
             submission_status = PcorProcessResult()
 
@@ -540,10 +540,25 @@ class PcorGen3Ingest:
             submission_status.program_name = program
             submission_status.project_code = project
             submission_status.request_content = pcor_error.request
-            submission_status.response_content = pcor_error.response
+            submission_status.response_content = json.loads(pcor_error.response.content)
+
+            for entity in submission_status.response_content["entities"]:
+                for error_entry in entity["errors"]:
+
+                    error = PcorError()
+
+                    if len(error_entry["keys"]) > 0:
+                        error.key = error_entry["keys"][0]
+
+                    error.message = error_entry["message"]
+                    error.type = error_entry["type"]
+                    submission_status.errors.append(error)
+
             submission_status.path_url = submission_status.request_content.path_url
             submission_status.program_name = program
             submission_status.project_name = project
+            submission_status.message = submission_status.response_content["message"]
+
             # program_name, program_submitter_id, project_id, project_name
 
             return submission_status

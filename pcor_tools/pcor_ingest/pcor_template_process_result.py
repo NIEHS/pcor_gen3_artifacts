@@ -12,6 +12,7 @@ class PcorProcessResult:
         self.resource_name = ""
         # parsed model information
         self.model_data = {}
+        self.message = ""
         self.errors = [] # errors in processing that are not validation errors from Gen3
         # general contextual information
         self.project_id = ""
@@ -26,6 +27,17 @@ class PcorProcessResult:
         self.submitter = "Mike Conway"
         self.submitter_email = "mike.conway@nih.gov"
         self.template_source = "/this/was/the/source/source.xslt"
+
+
+class PcorError:
+    """
+    Represents details of an error
+    """
+
+    def __init__(self):
+        self.type = ""
+        self.key = ""
+        self.message = ""
 
 
 

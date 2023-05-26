@@ -84,8 +84,10 @@ class LoaderSpreadsheet:
                         file = open(log_file_path, "w")
                         file.write('Error occurred \n %s' % str(e))
                         file.close()
+                        result.success = False
+                        result.template_source = file_path
+                        result.errors.append(str(e))
 
-                        pass
                     self.result_handler.handle_result(result) # here
                     if result.success:
                         # processed folder

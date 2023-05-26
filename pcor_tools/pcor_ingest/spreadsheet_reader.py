@@ -89,6 +89,9 @@ class PcorSpreadsheeetReader:
             return result
 
         result = parser.parse(template_absolute_path)
+        if not result.success:
+            logger.error("error parsing: %s" % result)
+            return result
 
         logger.info("result of parsing:%s" % result)
 
@@ -96,14 +99,14 @@ class PcorSpreadsheeetReader:
 
         # processer = processors[type] -> move to processing folder
         process_template = PcorTemplateProcessor()
-        process_result = process_template.process(parsed_data=result)
+        result = process_template.process(parsed_data=result)
 
         # handle result in loader plugins
         #self.result_handler.handle_result(process_result)
 
         # add a file_mover that is picked based on the type of template
 
-        return process_result
+        return result
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):

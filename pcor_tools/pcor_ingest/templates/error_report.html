@@ -1991,11 +1991,11 @@ tbody:hover > tr:hover td {
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Template Type</td>
-                    <td>{{ data.response_content["entities"][0]["type"] }}</td>
+                    <td>{{ data.type }}</td>
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Project</td>
-                    <td>{{ data.response_content["entities"][0]["unique_keys"][0]["project_id"] }}</td>
+                    <td>{{ data.project_code }}</td>
                 </tr>
 
                 </tbody>
@@ -2005,7 +2005,7 @@ tbody:hover > tr:hover td {
         <div class="w3-row ">
             <div class="w3-container">
                 <h1 style="">Error Message</h1>
-                <p>{{ data.response_content.message}}</p>
+                <p>{{ data.message}}</p>
             </div>
         </div>
 
@@ -2023,11 +2023,11 @@ tbody:hover > tr:hover td {
                 </thead>
 
                 <tbody>
-                  {% for entry in data.response_content["entities"][0]["errors"] %}
+                  {% for entry in data.errors %}
                    <tr>
-                        <td class="tbl-field-name">{{ entry["keys"][0] }}</td>
-                        <td class="tbl-field-name">{{ entry["message"] }}</td>
-                        <td class="tbl-field-name">{{ entry["type"] }}</td>
+                        <td class="tbl-field-name">{{ entry.key }}</td>
+                        <td class="tbl-field-name">{{ entry.message }}</td>
+                        <td class="tbl-field-name">{{ entry.type }}</td>
                    </tr>
                   {% endfor %}
 
