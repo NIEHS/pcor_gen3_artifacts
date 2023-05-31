@@ -23,9 +23,12 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         :return: PcorTemplateParseResult with parse result
         """
         parse_result = super(GeoSpatialDataResourceParser, self).parse(template_absolute_path)
+        parse_result.template_source = template_absolute_path
+        parse_result.type = "geospatial_data_resource"
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
             parse_result.model_data["geospatial_data_resource"] = self.extract_resource_details(df)
+
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             parse_result.success = False
@@ -33,7 +36,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             return parse_result
 
         logger.info("returning general parsed data: %s" % parse_result)
-        parse_result.template_source = template_absolute_path
+
         return parse_result
 
     @staticmethod

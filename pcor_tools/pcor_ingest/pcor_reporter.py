@@ -1,6 +1,7 @@
 import logging
 import json
 import os
+from datetime import datetime
 
 import requests
 import smtplib, ssl
@@ -50,6 +51,8 @@ class PcorReporter():
         """
         logger.info("produce_html_report()")
         template = self.env.get_template("error_report.html")
+        template.globals['now'] = datetime.utcnow
+
         rendered = template.render(data=pcor_processing_result)
         return rendered
 
@@ -62,6 +65,7 @@ class PcorReporter():
         """
         logger.info("produce_html_report()")
         template = self.env.get_template("success_report.html")
+        template.globals['now'] = datetime.utcnow
         rendered = template.render(data=pcor_processing_result)
         return rendered
 

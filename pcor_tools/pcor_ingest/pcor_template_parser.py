@@ -47,6 +47,9 @@ class PcorTemplateParser:
             parse_result.errors.append("error parsing project: %s" % err)
             return parse_result
 
+        parse_result.program_name = parse_result.model_data["program"].program_name
+        parse_result.project_name = parse_result.model_data["project"].name
+
         try:
             parse_result.model_data["resource"] = self.extract_resource_data(df)
         except Exception as err:

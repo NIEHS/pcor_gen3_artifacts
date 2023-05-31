@@ -88,6 +88,7 @@ class LoaderSpreadsheet:
                         result.template_source = file_path
                         result.errors.append(str(e))
 
+                    result.template_source = file_path
                     self.result_handler.handle_result(result) # here
                     if result.success:
                         # processed folder
