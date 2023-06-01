@@ -100,6 +100,7 @@ class PcorSpreadsheeetReader:
         # processer = processors[type] -> move to processing folder
         process_template = PcorTemplateProcessor()
         result = process_template.process(parsed_data=result)
+        result.type = type
 
         # handle result in loader plugins
         #self.result_handler.handle_result(process_result)
