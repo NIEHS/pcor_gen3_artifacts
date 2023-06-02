@@ -183,14 +183,14 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         resource.submitter_id = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'resource_name':
+                    elif template_df.iat[j, 0] == 'resource_long_name':
                         resource.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_short_name':
                         resource.short_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_url':
-                        resource.source_url = template_df.iat[j, 1]
+                        resource.resource_link = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'domain':
