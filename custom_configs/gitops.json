@@ -570,8 +570,6 @@
           "source_url",
           "measures",
           "exposure_media",
-          "domain",
-          "keywords",
           "time_extent_start",
           "time_extent_end",
           "resource_description",
@@ -684,17 +682,15 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "resource_intended_use",
+          "intended_use",
           "source_name",
           "source_url",
           "population",
           "vulnerable_population",
-          "exposures",
-          "outcomes",
           "model_methods",
           "resource_name",
           "resource_description",
-          "resource_intended_use"
+          "resource_link"
         ],
         "linkFields": [
           "resource_link",
@@ -806,15 +802,11 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "resource_intended_use",
+          "intended_use",
           "source_name",
           "source_url",
           "tool_type",
           "usage_type",
-          "operating_system",
-          "languages",
-          "input_formats",
-          "output_formats",
           "resource_link"
         ],
         "linkFields": [
