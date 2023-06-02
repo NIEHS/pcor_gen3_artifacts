@@ -72,7 +72,9 @@ class PcorReporter():
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = self.pcor_ingest_configuration.mail_from
-        email_message['To'] = pcor_processing_result.submitter_email
+        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov', 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov', pcor_processing_result.submitter_email]
+        email_message['To'] = ", ".join(recipients)
+
         email_message['Subject'] = 'PCOR Curation Report'
 
         # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message

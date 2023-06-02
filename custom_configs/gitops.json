@@ -565,7 +565,7 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "resource_intended_use",
+          "intended_use",
           "source_name",
           "source_url",
           "measures",
@@ -575,7 +575,6 @@
           "time_extent_start",
           "time_extent_end",
           "resource_description",
-          "resource_intended_use",
           "spatial_resolution",
           "spatial_coverage",
           "resource_link"
