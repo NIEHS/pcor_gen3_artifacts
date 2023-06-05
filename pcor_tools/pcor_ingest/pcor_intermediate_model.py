@@ -75,8 +75,7 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.resource_contact = ""
         self.resource_link = ""
-        self.resource_reference = ""
-        self.publications = ""
+        #self.publications = ""
         self.is_static = ""
 
 

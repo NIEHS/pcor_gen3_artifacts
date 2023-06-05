@@ -185,8 +185,9 @@ class PcorTemplateParser:
                         resource.submitter_id = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_long_name':
                         resource.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'resource_short_name':
+                    elif template_df.iat[j, 0] == 'resource_name':
                         resource.short_name = template_df.iat[j, 1]
+                        resource.submitter_id = resource.short_name # FIXME: this is a temp patch for submitter id
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_url':
@@ -208,19 +209,19 @@ class PcorTemplateParser:
                         resource.updated_datetime = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = template_df.iat[j, 1]
-                    # FixMe:  resource_reference is missing in schema!
+                    # FixMe:  resource_reference is missing in schema! NB we call this 'citation'
                     elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.resource_reference = template_df.iat[j, 1]
+                        resource.citation = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         logger.info('Resource_use_agreement: %s' % template_df.iat[j, 1])
                         if template_df.iat[j, 1] is None or str(template_df.iat[j, 1]) == 'None':
                             resource.resource_use_agreement = False
                         else:
                             resource.resource_use_agreement = True
-                    # FixMe:  publications is missing in schema!
-                    elif template_df.iat[j, 0] == 'publications':
-                        resource.publications = template_df.iat[j, 1]
-                    # FixMe:  is_static is missing in schema!
+                    # FixMe:  publications is missing in schema! (we will use the 'publication' model) add in 1.1.3
+                    #elif template_df.iat[j, 0] == 'publications':
+                    #    resource.publications = template_df.iat[j, 1]
+                    # FixMe:  is_static is missing in schema! FIXME: add to 1.1.3
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Data_Resource':
