@@ -1,9 +1,9 @@
 import logging
 import os
 import shutil
-
 import requests
 
+from datetime import datetime, date
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
@@ -95,20 +95,26 @@ class LoaderSpreadsheet:
                         # result.success --> true
                         # result --> move file to processed folder
 
+                        dest = os.path.join(self.workspace_processed_folder_path, os.path.basename(file_path))
+                        dest_with_timestamp = dest.replace('.xlsm', str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                                file, file_path, self.workspace_processed_folder_path))
-                        shutil.move(src=file_path, dst=self.workspace_processed_folder_path)
+                                file, file_path, dest_with_timestamp))
+                        shutil.move(src=file_path, dst=dest_with_timestamp)
                     else:
                         # failed folder
                         # result.success --> false
                         # result --> move file to failed folder
+                        dest = os.path.join(self.workspace_failed_folder_path, os.path.basename(file_path))
+                        dest_with_timestamp = dest.replace('.xlsm',
+                                                           str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                                file, file_path, self.workspace_failed_folder_path))
+                                file, file_path, dest_with_timestamp))
                         shutil.move(src=file_path, dst=self.workspace_failed_folder_path)
                         if os.path.exists(log_file_path):
-                            shutil.move(src=log_file_path, dst=self.workspace_failed_folder_path)
+                            shutil.move(src=log_file_path, dst=dest_with_timestamp)
 
                 else:
                     logger.info('Ignore non spreadsheet file: %s' % file)
