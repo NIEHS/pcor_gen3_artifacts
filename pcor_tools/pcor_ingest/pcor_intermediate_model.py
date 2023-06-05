@@ -53,31 +53,31 @@ class PcorIntermediateResourceModel:
 
     def __init__(self):
 
-        self.project = None
+        self.project = ""
         # resource
-        self.submitter_id = None
-        self.created_datetime = None
-        self.updated_datetime = None
-        self.id = None
+        self.submitter_id = ""
+        self.created_datetime = ""
+        self.updated_datetime = ""
+        self.id = ""
         self.name = ""
-        self.short_name = None
+        self.short_name = ""
         self.resource_id = ""
-        self.resource_type = None
-        self.description = None
-        self.citation = None
-        self.payment_required = False
+        self.resource_type = ""
+        self.description = ""
+        self.citation = ""
+        self.payment_required = ""
         self.domain = []
         self.keywords = []
-        self.access_type = None
-        self.license_type = None
-        self.license_text = None
-        self.verification_datetime = None
-        self.resource_use_agreement = False
-        self.resource_contact = None
-        self.resource_link = None
-        self.resource_reference = None
-        self.publications = None
-        self.is_static = None
+        self.access_type = ""
+        self.license_type = ""
+        self.license_text = ""
+        self.verification_datetime = ""
+        self.resource_use_agreement = ""
+        self.resource_contact = ""
+        self.resource_link = ""
+        self.resource_reference = ""
+        self.publications = ""
+        self.is_static = ""
 
 
 
