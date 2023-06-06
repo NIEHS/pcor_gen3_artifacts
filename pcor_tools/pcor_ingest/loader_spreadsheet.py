@@ -5,7 +5,7 @@ import requests
 
 from datetime import datetime, date
 from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
+from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
 from pcor_ingest.pcor_result_handler import PcorResultHandler
 
@@ -71,6 +71,7 @@ class LoaderSpreadsheet:
 
                     # processing folder
                     result = PcorProcessResult()
+                    result.template_source = file_path
                     log_file_path = None
                     file_path = os.path.join(self.workspace_processing_folder_path, file)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
@@ -86,10 +87,14 @@ class LoaderSpreadsheet:
                         file.close()
                         result.success = False
                         result.template_source = file_path
-                        result.errors.append(str(e))
+                        pcor_error = PcorError()
+                        pcor_error.type = ""
+                        pcor_error.key = ""
+                        pcor_error.message=str(e)
+                        result.errors.append(pcor_error)
 
-                    result.template_source = file_path
-                    self.result_handler.handle_result(result) # here
+                    self.result_handler.handle_result(result)
+
                     if result.success:
                         # processed folder
                         # result.success --> true

@@ -110,6 +110,12 @@ class PcorTemplateProcessor:
                                 logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
                                 return resource_submit_status
 
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+                            discovery.comment = geo_spatial_resource.comments  # intended use?
+                            logger.info("created discovery: %s" % discovery)
+                            discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
+                            logger.info("discovery_result: %s" % discovery_result)
+
                         if 'pop_data_resource' in model_data.keys():
                             logger.info('process:: adding pop_data_resource')
                             pop_data_resource = model_data['pop_data_resource']
