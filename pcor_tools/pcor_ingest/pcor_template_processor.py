@@ -99,6 +99,7 @@ class PcorTemplateProcessor:
                             geo_spatial_resource = model_data['geospatial_data_resource']
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
+                            geo_spatial_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
                             resource_submit_status = self.pcor_ingest.create_geo_spatial_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
@@ -114,6 +115,8 @@ class PcorTemplateProcessor:
                             pop_data_resource = model_data['pop_data_resource']
                             pop_data_resource.resource_id = resource_submit_status.id
                             pop_data_resource.resource_submitter_id = resource.submitter_id
+                            pop_data_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
+
                             self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
@@ -128,6 +131,8 @@ class PcorTemplateProcessor:
                             geo_tool_resource = model_data['geo_tool_resource']
                             geo_tool_resource.resource_id = resource_submit_status.id
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
+                            geo_tool_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
+
                             self.pcor_ingest.create_geo_spatial_tool_resource(
                                 program_name=program.name,
                                 project_name=project.name,

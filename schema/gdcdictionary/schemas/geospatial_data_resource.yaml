@@ -25,7 +25,7 @@ links:
     backref: geospatial_data_resources
     label: is_a_resource_of
     target_type: resource
-    multiplicity: many_to_one
+    multiplicity: one_to_one
     required: true
 
 required:

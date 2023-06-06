@@ -152,7 +152,7 @@ class PcorTemplateParser:
                         # validate needed props
                         # ToDo: what is assignment logic?
                         if project.submitter_id is None:
-                            project.submitter_id = 'empty'
+                            project.submitter_id = project.name # FIXME: establish name as submitter id?
                         if project.code == "" or project.code is None:
                             project.code = project.name
                         if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
