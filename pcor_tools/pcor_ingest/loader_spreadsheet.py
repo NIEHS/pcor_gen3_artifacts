@@ -71,10 +71,10 @@ class LoaderSpreadsheet:
 
                     # processing folder
                     result = PcorProcessResult()
-                    result.template_source = file_path
                     log_file_path = None
                     file_path = os.path.join(self.workspace_processing_folder_path, file)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
+
                     try:
                         result = ss_reader.process_template_instance(file_path)
 
@@ -93,6 +93,7 @@ class LoaderSpreadsheet:
                         pcor_error.message=str(e)
                         result.errors.append(pcor_error)
 
+                    result.template_source = file_path
                     self.result_handler.handle_result(result)
 
                     if result.success:

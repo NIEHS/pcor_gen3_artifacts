@@ -157,6 +157,7 @@ class PcorGen3Ingest:
         discovery.citation = resource.citation
         discovery.domain = resource.domain
         discovery.has_api = "false"
+        discovery.type = resource.resource_type
         discovery.has_visualization_tool = "false"
         discovery.is_citizen_collected = "false"
         discovery.license_type = resource.license_type
@@ -168,16 +169,18 @@ class PcorGen3Ingest:
 
         # migrate keywords that are available in resource
         for kw in resource.keywords:
-            tag = Tag()
-            tag.name = kw
-            tag.category = "Keyword"
-            discovery.tags.append(tag)
+            if kw:
+                tag = Tag()
+                tag.name = kw
+                tag.category = "Keyword"
+                discovery.tags.append(tag)
 
         for item in resource.domain:
-            tag = Tag()
-            tag.name = item
-            tag.category = "Domain"
-            discovery.tags.append(tag)
+            if item:
+                tag = Tag()
+                tag.name = item
+                tag.category = "Domain"
+                discovery.tags.append(tag)
 
         tag = Tag()
         tag.name = discovery.type

@@ -162,7 +162,6 @@ class PcorDiscoveryMetadata:
         self.investigator_name = ""
         self.investigator_affiliation = ""
         self.comment = "" # collapses intended_use and other descriptions
-        self.short_name = ""
         self.description = ""
         self.support_source = ""
         self.source_url = ""
