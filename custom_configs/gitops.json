@@ -264,8 +264,9 @@
                 ]
               },
               {
-                "header": "Program",
+                "header": "Program Name",
                 "fields": [
+                  
                   {
                     "type": "string",
                     "label": "Program Name",
@@ -371,14 +372,14 @@
 
                   },
                   {
-                    "type": "block",
+                    "type": "string",
                     "label": "License Text",
                     "sourceField": "license_text",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "block",
+                    "type": "string",
                     "label": "Citation",
                     "sourceField": "citation",
                     "default": "n/a"
