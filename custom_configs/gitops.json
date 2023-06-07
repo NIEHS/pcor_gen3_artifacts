@@ -245,62 +245,43 @@
                 "fields": [
                   {
                     "type": "block",
-                    "sourceField": "description",
-                    "default": "n/a"
-
+                    "sourceField": "description"
                   }
                 ]
               },
               {
                 "header": "Details",
                 "fields": [
-                 
                   {
                     "type": "block",
-                    "sourceField": "comment",
-                    "default": "n/a"
-
+                    "sourceField": "comment"
                   }
                 ]
               },
               {
                 "header": "Program Name",
                 "fields": [
-                  
                   {
                     "type": "string",
                     "label": "Program Name",
                     "sourceField": "program_name",
                     "default": "n/a"
 
-                  },
-                  {
-                    "type": "string",
-                    "label": "Program Type",
-                    "sourceField": "program_type",
-                    "default": "n/a"
-
-                  },
-                  {
-                    "type": "link",
-                    "label": "Program Link",
-                    "sourceField": "program_url",
-                    "default": "n/a"
-                  }
+                  } 
                 ]
                 },
                 {
                   "header": "Project",
                   "fields": [
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Project Name",
                       "sourceField": "project_name",
                       "default": "n/a"
 
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Project Type",
                       "sourceField": "project_type",
                       "default": "n/a"
@@ -313,7 +294,7 @@
                       "default": "n/a"
                     },
                     {
-                      "type": "block",
+                      "type": "text",
                       "sourceField": "project_description",
                       "default": "n/a"
   
@@ -324,28 +305,28 @@
                 "header": "Details",
                 "fields": [
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Domain",
                     "sourceField": "domain",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Has API",
                     "sourceField": "has_api",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Has Visualization Tool",
                     "sourceField": "has_visualization_tool",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Citizen Collected?",
                     "sourceField": "is_citizen_collected",
                     "default": "n/a"
@@ -365,35 +346,35 @@
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "License Type",
                     "sourceField": "license_type",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "License Text",
                     "sourceField": "license_text",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Citation",
                     "sourceField": "citation",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Subject to Data Usage Agreement",
                     "sourceField": "resource_use_agreement",
                     "default": "n/a"
 
                   },
                   {
-                    "type": "string",
+                    "type": "text",
                     "label": "Resource Contact",
                     "sourceField": "resource_contact",
                     "default": "n/a"
@@ -410,7 +391,7 @@
                   "header": "Source Information",
                   "fields": [
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Support Source",
                       "sourceField": "support_source",
                       "default": "n/a"
@@ -423,13 +404,13 @@
                       "default": "n/a"
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Investigator Name",
                       "sourceField": "investigator_name",
                       "default": "n/a"
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Investigator Affiliation",
                       "sourceField": "investigator_affiliation",
                       "default": "n/a"
@@ -446,7 +427,7 @@
                       "default": "n/a"
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "License Type",
                       "sourceField": "license_type",
                       "default": "n/a"
@@ -464,13 +445,13 @@
                       "default": "n/a"
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Resource Use Agreement?",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
                     },
                     {
-                      "type": "string",
+                      "type": "text",
                       "label": "Resource Contact",
                       "sourceField": "resource_contact",
                       "default": "n/a"
