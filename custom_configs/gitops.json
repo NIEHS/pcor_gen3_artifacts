@@ -154,7 +154,7 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "long_name", "description", "domain", "intended_use"]
+          "searchableTextFields": ["name", "long_name", "description", "domain", "intended_use", "program_name"]
 
         },
         "tagSearchDropdown": { 
@@ -176,6 +176,12 @@
           },
           {
             "key": "Domain"
+          },
+          {
+            "key": "Measures"
+          },
+          {
+            "key": "Exposure Media"
           }
 
         ]
@@ -206,13 +212,7 @@
         "field": "type",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
-     },
-     {
-      "name": "Source",
-      "field": "support_source",
-      "errorIfNotAvailable": false,
-      "valueIfNotAvailable": "n/a"
-     },
+     }, 
      {
         "name": "Resource Name",
         "field": "name",
@@ -220,10 +220,10 @@
         "valueIfNotAvailable": "n/a"
      },
      {
-        "name": "Domain",
-        "field": "domain",
-        "errorIfNotAvailable": false,
-        "valueIfNotAvailable": "n/a"
+      "name": "Program Name",
+      "field": "program_name",
+      "errorIfNotAvailable": false,
+      "valueIfNotAvailable": "n/a"
      }
     ],
     "studyPreviewField": {
@@ -232,7 +232,7 @@
       "contentType": "block",
       "includeName": false,
       "includeIfNotAvailable": true,
-      "valueIfNotAvailable": "No description has been provided for this resource."
+      "valueIfNotAvailable": ""
     },
     "detailView": {
       "headerField": "name",
@@ -246,7 +246,7 @@
                   {
                     "type": "block",
                     "sourceField": "description",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   }
                 ]
@@ -258,7 +258,7 @@
                   {
                     "type": "block",
                     "sourceField": "comment",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   }
                 ]
@@ -270,21 +270,21 @@
                     "type": "string",
                     "label": "Program Name",
                     "sourceField": "program_name",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Program Type",
                     "sourceField": "program_type",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "link",
                     "label": "Program Link",
                     "sourceField": "program_url",
-                    "default": "Not specified"
+                    "default": "n/a"
                   }
                 ]
                 },
@@ -295,26 +295,26 @@
                       "type": "string",
                       "label": "Project Name",
                       "sourceField": "project_name",
-                      "default": "Not specified"
+                      "default": "n/a"
 
                     },
                     {
                       "type": "string",
                       "label": "Project Type",
                       "sourceField": "project_type",
-                      "default": "Not specified"
+                      "default": "n/a"
 
                     },
                     {
                       "type": "link",
                       "label": "Project Link",
                       "sourceField": "project_url",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "block",
                       "sourceField": "project_description",
-                      "default": "Not specified"
+                      "default": "n/a"
   
                     }
                 ]
@@ -326,28 +326,28 @@
                     "type": "string",
                     "label": "Domain",
                     "sourceField": "domain",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Has API",
                     "sourceField": "has_api",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Has Visualization Tool",
                     "sourceField": "has_visualization_tool",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Citizen Collected?",
                     "sourceField": "is_citizen_collected",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   }
                 ]
@@ -360,42 +360,42 @@
                     "type": "link",
                     "label": "Resource URL",
                     "sourceField": "resource_url",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "License Type",
                     "sourceField": "license_type",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "block",
                     "label": "License Text",
                     "sourceField": "license_text",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "block",
                     "label": "Citation",
                     "sourceField": "citation",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Subject to Data Usage Agreement",
                     "sourceField": "resource_use_agreement",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   },
                   {
                     "type": "string",
                     "label": "Resource Contact",
                     "sourceField": "resource_contact",
-                    "default": "Not specified"
+                    "default": "n/a"
 
                   }
                 ]
@@ -412,26 +412,26 @@
                       "type": "string",
                       "label": "Support Source",
                       "sourceField": "support_source",
-                      "default": "Not specified"
+                      "default": "n/a"
                      
                     },
                     {
                       "type": "link",
                       "label": "Source URL",
                       "sourceField": "source_url",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "string",
                       "label": "Investigator Name",
                       "sourceField": "investigator_name",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "string",
                       "label": "Investigator Affiliation",
                       "sourceField": "investigator_affiliation",
-                      "default": "Not specified"
+                      "default": "n/a"
                     }
                   ]
                 },
@@ -442,37 +442,37 @@
                       "type": "link",
                       "label": "Resource URL",
                       "sourceField": "resource_url",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "string",
                       "label": "License Type",
                       "sourceField": "license_type",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "block",
                       "label": "License Text",
                       "sourceField": "license_text",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "block",
                       "label": "Citation",
                       "sourceField": "citation",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "string",
                       "label": "Resource Use Agreement?",
                       "sourceField": "resource_use_agreement",
-                      "default": "Not specified"
+                      "default": "n/a"
                     },
                     {
                       "type": "string",
                       "label": "Resource Contact",
                       "sourceField": "resource_contact",
-                      "default": "Not specified"
+                      "default": "n/a"
                     }
                   ]
                 }
