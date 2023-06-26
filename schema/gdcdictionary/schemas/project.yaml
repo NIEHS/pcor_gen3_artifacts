@@ -93,7 +93,7 @@ properties:
     type: string
     description: Short display name/brief description for the project.
 
-  long_name:
+  short_name:
     type: string
     description: Display name/brief description for the project. # TOREVIEW
 
@@ -158,15 +158,27 @@ properties:
         #   - release (project.released -> true)
         - closed
 
-  project_type:
+  project_sponsor:
+    description: the name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department or consortium name.
+    enum:
+      - CDC
+      - EPA
+      - NASA
+      - NIH
+      - NOAA
+      - US CENSUS
+
+  project_sponsor_other:
+    description: if does not appear in the CV above
+    type: string
+
+  project_sponsor_type:
     description: Type of project. If multiple use Multiple
     enum:
-      - Data Provider
-      - Software Provider
-      - Training Material
-      - Cohort Study
-      - Multiple
-      - Other
+      - Federal Agency
+      - State Agency
+      - Academic Institution
+      - Non-profit Organization
 
   project_url:
     description: URL for the project
