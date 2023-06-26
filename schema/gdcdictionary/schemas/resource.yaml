@@ -42,8 +42,7 @@ uniqueKeys:
   - [project_id, submitter_id]
 
 properties:
- 
-  #system properties, do not change or remove:
+  # system properties, do not change or remove:
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
   id:
@@ -62,7 +61,7 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
 
-  # additional properties to describe the dataset
+  # additional properties to describe the resource
   resource_id:
     description: Internal identifier.
     type: string
@@ -75,44 +74,74 @@ properties:
   resource_type:
     description: Type of resource
     enum:
-      - data_resource
-      - tool_resource
-      - training_resource
+      - Data Resource
+      - Tool Resources
+      - Training Resource
+  resource_url:
+    description: resource website
+    type: string
   description:
     description: A text description of the resource.
     type: string
-  citation:
-    description: Citation to use for this resource
-    type: string
-  payment_required:
-    description: Indicate whether resource is free or fee based
-    type: boolean
   domain:
-    description: Domain of the resource. # make a set of terms?
-    type: array
-    items: 
-      type: string
-  keywords: 
+    description: Domain of the resource
+    enum:
+      - Social Determinants of Health
+      - Electronic Health Records
+      - Population Health Records
+      - Clinical Research
+      - General Exposure
+      - Air Quality
+      - Water Quality
+      - Water Security
+      - Greenness
+      - Neighborhood
+      - Weather
+      - Extreme Weather
+      - Climate Change
+  keywords:
     description: Comma delim keywords.
     type: array
     items:
       type: string
+  access_type:
+     description: type of resource access
+     enum:
+       - open
+       - registered
+       - controlled
+  payment_required:
+    description: Indicate whether resource is free or fee based
+    type: boolean
+  verification_datetime:
+    description: Date that the resource was last verified.
+    $ref: "_definitions.yaml#/datetime"
+  resource_reference:
+    description: how to cite this resource, DOI preferred
+    type: string
+  resource_use_agreement:
+    description: agreement for use of the resource, include a link or full text or both, don't paraphrase
+    type: string
+  publications:
+    description: list of publications describing the resources
+    type: array
+    items:
+      type: string
+  is_static:
+    description: yes if the resource is static, no if the resource is expected to be updated in the future
+    type: boolean
+
+  # props not in template
+  citation:
+    description: Citation to use for this resource
+    type: string
   license_type:
     description: Type of license.
     type: string
   license_text:
     description: Text of license terms.
-  verification_datetime:
-    description: Date that the resource was last verified.
-    $ref: "_definitions.yaml#/datetime"
-  resource_use_agreement:
-    description: Is a resource use agreement in place?
-    type: boolean
   resource_contact: 
     description: Contact information for the resource.
-    type: string
-  resource_link:
-    description: Link to an external resource
     type: string
   projects:
     description: The code of the project that this dataset belongs to, i.e., a link to the parent node.

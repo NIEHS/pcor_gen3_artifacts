@@ -26,11 +26,13 @@ links: []
 # Program is the root entity and so it is the only entity
 # without a project or parents.
 properties:
+  # system properties, do not change or remove:
   type:
     type: string
   id:
     $ref: "_definitions.yaml#/UUID"
     systemAlias: node_id
+   # additional properties to describe the program
   name:
     type: string
     description: The program name abbreviation or short name
