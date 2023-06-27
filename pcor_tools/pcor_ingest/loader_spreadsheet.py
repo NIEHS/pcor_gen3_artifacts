@@ -71,11 +71,12 @@ class LoaderSpreadsheet:
 
                     # processing folder
                     result = PcorProcessResult()
-                    result.template_source = file_path
 
                     log_file_path = None
                     file_path = os.path.join(self.workspace_processing_folder_path, file)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
+                    result.template_source = file_path
+
 
                     try:
                         ss_reader.process_template_instance(file_path, result) # took result out and made a param
