@@ -65,11 +65,11 @@ class PcorSpreadsheeetReader:
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
         self.result_handler = PcorResultHandler(pcor_ingest_configuration)
 
-    def process_template_instance(self, template_absolute_path):
+    def process_template_instance(self, template_absolute_path, result):
         """
         Process a single template instance, given the path to the spreadsheet file
         :param template_absolute_path: absolute path to the spreadsheet file
-        :return: PcorActionResult object that indicates the success/failure and validation
+        :param result: PcorActionResult object that indicates the success/failure and validation
         results
         """
 
@@ -81,17 +81,16 @@ class PcorSpreadsheeetReader:
 
         if parser is None:
             logger.error("No parser found for type: %s" % type)
-            result = PcorProcessResult()
             result.resource_type = type
             result.success = False
             result.source = template_absolute_path
             result.errors.append("no template parser found for type %s" % type)
-            return result
+            return
 
-        result = parser.parse(template_absolute_path)
+        parser.parse(template_absolute_path, result)
         if not result.success:
             logger.error("error parsing: %s" % result)
-            return result
+            return
 
         logger.info("result of parsing:%s" % result)
 
@@ -99,15 +98,8 @@ class PcorSpreadsheeetReader:
 
         # processer = processors[type] -> move to processing folder
         process_template = PcorTemplateProcessor()
-        result = process_template.process(parsed_data=result)
-        result.type = type
+        process_template.process(result)
 
-        # handle result in loader plugins
-        #self.result_handler.handle_result(process_result)
-
-        # add a file_mover that is picked based on the type of template
-
-        return result
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):

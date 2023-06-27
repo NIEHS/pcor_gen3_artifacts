@@ -18,7 +18,7 @@ class PcorTemplateParser:
         # Regular expression pattern to match "yyyy"
         self.yyyy_pattern = r"\b(\d{4})\b"
 
-    def parse(self, template_absolute_path):
+    def parse(self, template_absolute_path, result):
 
         # example path /deep/documents/foo.xls
         logger.info("parse()")
@@ -26,40 +26,36 @@ class PcorTemplateParser:
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
-        :return: PcorTemplateParseResult with the outcome
+        :param result: PcorTemplateParseResult with the outcome
         """
-        parse_result = PcorProcessResult()
         df = pd.read_excel(template_absolute_path, sheet_name=0)
 
         try:
-            parse_result.model_data["program"] = self.extract_program_data(df)
+            result.model_data["program"] = self.extract_program_data(df)
         except Exception as err:
             logger.error("exception parsing program: %s" % err)
-            parse_result.success = False
-            parse_result.errors.append("error parsing program: %s" % err)
-            return parse_result
+            result.success = False
+            result.errors.append("error parsing program: %s" % err)
+            return
 
         try:
-            parse_result.model_data["project"] = self.extract_project_data(df)
+            result.model_data["project"] = self.extract_project_data(df)
         except Exception as err:
             logger.error("exception parsing project: %s" % err)
-            parse_result.success = False
-            parse_result.errors.append("error parsing project: %s" % err)
-            return parse_result
+            result.success = False
+            result.errors.append("error parsing project: %s" % err)
+            return
 
-        parse_result.program_name = parse_result.model_data["program"].program_name
-        parse_result.project_name = parse_result.model_data["project"].name
+        result.program_name = result.model_data["program"].program_name
+        result.project_name = result.model_data["project"].name
 
         try:
-            parse_result.model_data["resource"] = self.extract_resource_data(df)
+            result.model_data["resource"] = self.extract_resource_data(df)
         except Exception as err:
             logger.error("exception parsing resource: %s" % err)
-            parse_result.success = False
-            parse_result.errors.append("error parsing resource: %s" % err)
-            return parse_result
+            result.success = False
+            result.errors.append("error parsing resource: %s" % err)
 
-        logger.info("returning general parsed data: %s" % parse_result)
-        return parse_result
 
 
     @staticmethod

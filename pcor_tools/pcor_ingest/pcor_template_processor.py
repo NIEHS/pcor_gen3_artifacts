@@ -6,7 +6,7 @@ from requests import HTTPError
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
+from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -31,8 +31,7 @@ class PcorTemplateProcessor:
 
         """
         Parse a spreadsheet template for a file at a given absolute path
-        :param template_absolute_path: absolute path to the template file
-        :return: PcorProcessResult with the outcome
+        :param parsed_data: PcorProcessResult with the parsed data included
         """
         logger.info('Parsed_data %s ' % str(parsed_data))
         logger.info('Process()')
@@ -45,19 +44,17 @@ class PcorTemplateProcessor:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
                 program = model_data['program']
+                parsed_data.program_name = program
                 try:
                     program_id = self.pcor_ingest.create_program(program=program)
                 except HTTPError as pcor_error:
                     logger.error("error in submission:%s" % pcor_error)
-                    submission_status = PcorProcessResult()
-                    submission_status.success = False
-                    submission_status.program_name = program
-                    submission_status.request_content = pcor_error.request
-                    submission_status.response_content = json.loads(pcor_error.response.text)
-                    submission_status.path_url = submission_status.request_content.path_url
-                    submission_status.program_name = program
-                    logger.error("error in program create: %s" % submission_status)
-                    return submission_status
+                    parsed_data.success = False
+                    parsed_data.request_content = pcor_error.request
+                    parsed_data.response_content = json.loads(pcor_error.response.text)
+                    parsed_data.path_url = parsed_data.request_content.path_url
+                    logger.error("error in program create: %s" % parsed_data)
+                    return
 
                 logger.info("program_id is: %s" % program_id)
 
@@ -71,18 +68,16 @@ class PcorTemplateProcessor:
                     try:
                         project_id = self.pcor_ingest.create_project(program=program.name,
                                                         pcor_intermediate_project_model=project)
+                        parsed_data.project_id = project_id
+
                     except HTTPError as pcor_error:
                         logger.error("error in submission:%s" % pcor_error)
-                        submission_status = PcorProcessResult()
-                        submission_status.success = False
-                        submission_status.program_name = program
-                        submission_status.project_id = project_id
-                        submission_status.request_content = pcor_error.request
-                        submission_status.response_content = json.loads(pcor_error.response.text)
-                        submission_status.path_url = submission_status.request_content.path_url
-                        submission_status.program_name = program
-                        logger.error("error in project create: %s" % submission_status)
-                        return submission_status
+                        parsed_data.success = False
+                        parsed_data.request_content = pcor_error.request
+                        parsed_data.response_content = json.loads(pcor_error.response.text)
+                        parsed_data.path_url = parsed_data.request_content.path_url
+                        logger.error("error in project create: %s" % parsed_data)
+                        return
 
                     if 'resource' in model_data.keys():
                         logger.info('process:: adding resource')
@@ -107,8 +102,14 @@ class PcorTemplateProcessor:
                             )
                             # check status and bail if not success
                             if not resource_submit_status.success:
-                                logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
-                                return resource_submit_status
+                                logger.error(
+                                    "creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
+                                parsed_data.success = False
+                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.path_url = resource_submit_status.path_url
+                                parsed_data.response_content = resource_submit_status.response_content
+                                parsed_data.request_content = resource_submit_status.request_content
+                                return
 
                             resource.resource_type = parsed_data.type
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource)
@@ -131,7 +132,12 @@ class PcorTemplateProcessor:
                             )
                             if not resource_submit_status.success:
                                 logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
-                                return resource_submit_status
+                                parsed_data.success = False
+                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.path_url = resource_submit_status.path_url
+                                parsed_data.response_content = resource_submit_status.response_content
+                                parsed_data.request_content = resource_submit_status.request_content
+                                return
 
                         if 'geo_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
@@ -147,12 +153,21 @@ class PcorTemplateProcessor:
                             )
                             if not resource_submit_status.success:
                                 logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
-                                return resource_submit_status
-
-                        # return status which will be success
-                        return resource_submit_status
+                                parsed_data.success = False
+                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.path_url = resource_submit_status.path_url
+                                parsed_data.response_content = resource_submit_status.response_content
+                                parsed_data.request_content = resource_submit_status.request_content
+                                return
 
         except requests.HTTPError as exception:
-            logger.error('Error occurred: %s' % str(exception))
+            logger.error('unexpected Error occurred: %s' % str(exception))
+            parsed_data.success = False
+            pcor_error = PcorError()
+            pcor_error.type = ""
+            pcor_error.key = ""
+            pcor_error.message = str(exception)
+            parsed_data.errors.append(pcor_error)
+
 
 # python3 run_spreadsheet /here/is/the/sheet.xls
