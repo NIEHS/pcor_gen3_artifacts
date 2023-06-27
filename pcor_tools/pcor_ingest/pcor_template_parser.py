@@ -46,13 +46,8 @@ class PcorTemplateParser:
             result.errors.append("error parsing project: %s" % err)
             return
 
-<<<<<<< HEAD
         result.program_name = result.model_data["program"].program_name
         result.project_name = result.model_data["project"].name
-=======
-        parse_result.program_name = parse_result.model_data["program"].name
-        parse_result.project_name = parse_result.model_data["project"].name
->>>>>>> 776dcc0 (#16 add dbgap_accession_number prop to program)
 
         try:
             result.model_data["resource"] = self.extract_resource_data(df)

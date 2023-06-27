@@ -74,12 +74,15 @@ class LoaderSpreadsheet:
                     # processing folder
                     result = PcorProcessResult()
 
+                    result.template_source = file_path
+
                     log_file_path = None
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
                     result.template_source = file_path
 
                     try:
                         ss_reader.process_template_instance(processing_file_path, result) # took result out and made a param
+
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
                         log_file_name = new_file_name.split('.')[0] + '.log'
