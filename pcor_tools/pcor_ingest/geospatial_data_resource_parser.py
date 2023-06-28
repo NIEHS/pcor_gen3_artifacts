@@ -16,28 +16,25 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         Parser subclass for geospatial data resource templates
     """
 
-    def parse(self, template_absolute_path):
+    def parse(self, template_absolute_path, result):
         """
         Parse a geospatial data resource
         :param template_absolute_path: absolute path to the template
-        :return: PcorTemplateParseResult with parse result
+        :param result: PcorTemplateParseResult with parse result
         """
-        parse_result = super(GeoSpatialDataResourceParser, self).parse(template_absolute_path)
-        parse_result.template_source = template_absolute_path
-        parse_result.type = "geospatial_data_resource"
+        super(GeoSpatialDataResourceParser, self).parse(template_absolute_path, result)
+        result.type = "geospatial_data_resource"
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
-            parse_result.model_data["geospatial_data_resource"] = self.extract_resource_details(df)
+            result.model_data["geospatial_data_resource"] = self.extract_resource_details(df)
 
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
-            parse_result.success = False
-            parse_result.errors.append("error parsing resource details: %s" % err)
-            return parse_result
+            result.success = False
+            result.errors.append("error parsing resource details: %s" % err)
 
-        logger.info("returning general parsed data: %s" % parse_result)
+        logger.info("returning general parsed data: %s" % result)
 
-        return parse_result
 
     @staticmethod
     def formate_date_time(string):

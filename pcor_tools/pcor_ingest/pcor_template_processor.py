@@ -5,7 +5,7 @@ from requests import HTTPError
 
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, AdvSearchFilter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
 logging.basicConfig(
@@ -85,7 +85,7 @@ class PcorTemplateProcessor:
                         resource_submit_status = self.pcor_ingest.create_resource(
                             program_name=program.name,
                             project_name=project.name,
-                            resource=resource)
+                            resource=resource) # FIXME: need to handle error here, check status...
 
                         # add a check if resource_submit_status.success == False
                         # if it fails, return the status and bail
@@ -113,6 +113,19 @@ class PcorTemplateProcessor:
 
                             resource.resource_type = parsed_data.type
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+
+                            for item in geo_spatial_resource.measures:
+                                filter = AdvSearchFilter()
+                                filter.key = "Measures"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_spatial_resource.exposure_media:
+                                filter = AdvSearchFilter()
+                                filter.key = "Exposure Media"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
                             discovery.comment = geo_spatial_resource.comments  # intended use?
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

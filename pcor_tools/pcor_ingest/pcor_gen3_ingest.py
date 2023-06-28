@@ -198,17 +198,6 @@ class PcorGen3Ingest:
             filter.value = item
             discovery.adv_search_filters.append(filter)
 
-        for item in resource.measures:
-            filter = AdvSearchFilter()
-            filter.key = "Measures"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
-
-        for item in resource.exposure_media:
-            filter = AdvSearchFilter()
-            filter.key = "Exposure Media"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
 
         filter = AdvSearchFilter()
         filter.key = "Resource Type"
