@@ -63,7 +63,7 @@ properties:
 
   # additional properties to describe the resource
   resource_id:
-    description: Internal identifier.
+    description: Internal identifier. # should we just use id?
     type: string
   name:
     description: Name of resource.
