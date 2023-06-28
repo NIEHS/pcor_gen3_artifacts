@@ -80,28 +80,11 @@ class PcorTemplateParser:
                 logging.debug("found Program")
                 for j in range(i, ss_rows):
                     # FixMe:  program id is missing in template!
-                    if template_df.iat[j, 0] == 'program id':
-                        program.dbgap_accession_number = template_df.iat[j, 1]
-
-                    elif template_df.iat[j, 0] == 'program_name':
+                    if template_df.iat[j, 0] == 'program_name':
                         program.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_long_name':
-                        program.long_name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_type':
-                        program.program_type = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_url':
-                        program.program_url = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_description':
-                        program.program_description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Project':
-
-                        # validate needed props
-                        # ToDo: what is assignment logic?
-                        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
-                            program.dbgap_accession_number = program.name
                         return program
-
-        logger.warn("no program found, return null")
+        logger.warning("no program found, return null")
         return None
 
     @staticmethod
