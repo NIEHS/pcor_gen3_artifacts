@@ -115,20 +115,27 @@ class PcorTemplateParser:
                     if template_df.iat[j, 0] == 'submitter id':
                         project.submitter_id = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_name':
+                        project.long_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_short_name':
                         project.name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_sponsor':
+                        project.project_sponsor = template_df.iat[j, 1].split(',')
+                    elif template_df.iat[j, 0] == 'project_sponsor_other':
+                        project.project_sponsor_other = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_sponsor_type':
+                        project.project_sponsor_type = template_df.iat[j, 1].split(',')
+                    elif template_df.iat[j, 0] == 'project_url':
+                        project.project_url = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'project_description':
+                        project.description = template_df.iat[j, 1]
+
                     # FixMe:  code is missing in template!
                     elif template_df.iat[j, 0] == 'code':
                         project.code = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'dbgap_accession_number':
                         project.dbgap_accession_number = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'project_long_name':
-                        project.long_names = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'project_type':
-                        project.project_type = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'project_url':
-                        project.project_url = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'project_description':
-                        project.description = template_df.iat[j, 1]
+                    #elif template_df.iat[j, 0] == 'project_type':
+                    #    project.project_type = template_df.iat[j, 1]
 
                     # FixMe:  following things are missing in template!
                     elif template_df.iat[j, 0] == 'date collected':
@@ -149,7 +156,7 @@ class PcorTemplateParser:
                             project.dbgap_accession_number = project.name
                         return project
 
-        logger.warn("no program found, return null")
+        logger.warning("no program found, return null")
         return None
 
     @staticmethod
