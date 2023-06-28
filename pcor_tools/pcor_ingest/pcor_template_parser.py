@@ -47,7 +47,7 @@ class PcorTemplateParser:
             parse_result.errors.append("error parsing project: %s" % err)
             return parse_result
 
-        parse_result.program_name = parse_result.model_data["program"].program_name
+        parse_result.program_name = parse_result.model_data["program"].name
         parse_result.project_name = parse_result.model_data["project"].name
 
         try:
@@ -80,10 +80,17 @@ class PcorTemplateParser:
                 logging.debug("found Program")
                 for j in range(i, ss_rows):
                     # FixMe:  program id is missing in template!
-                    if template_df.iat[j, 0] == 'program_name':
+                    if template_df.iat[j, 0] == 'program id':
+                        program.dbgap_accession_number = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'program_name':
                         program.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Project':
+                        # validate needed props
+                        # ToDo: what is assignment logic?
+                        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
+                            program.dbgap_accession_number = program.name
                         return program
+
         logger.warning("no program found, return null")
         return None
 
