@@ -73,7 +73,6 @@ class LoaderSpreadsheet:
 
                     # processing folder
                     result = PcorProcessResult()
-
                     result.template_source = file_path
 
                     log_file_path = None
