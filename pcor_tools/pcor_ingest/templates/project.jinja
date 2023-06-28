@@ -1,19 +1,24 @@
 {
-  "availability_mechanism": "{{ model.availability_mechanism }}",
   "type": "project",
-  "dbgap_accession_number": "{{ model.dbgap_accession_number }}",
-  "date_collected": "{{ model.date_collected }}",
   "code": "{{ model.code }}",
-  "investigator_name": "{{ model.investigator_name }}",
-  "complete": "{{ model.complete }}",
-  "availability_type": "{{ model.availability_type }}",
-  "investigator_affiliation": "{{ model.investigator_affiliation }}",
-  "investigator_name": "{{ model.investigator_name }}",
-  "name": "{{model.name}}",
+   "name": "{{model.name}}",
   "long_name": "{{model.long_name}}",
-  "support_source": "{{model.support_source}}",
-  "support_id": "{{ model.support_id }}",
-  "project_type": "{{ model.project_type }}",
+  "project_sponsor": [
+   {% for entry in model.project_sponsor %}
+
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "project_sponsor_other": "{{ model.project_sponsor_other }}",
+  "project_sponsor_type": [
+   {% for entry in model.project_sponsor_type %}
+
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "project_url": "{{ model.project_url }}",
   "description": "{{ model.description }}"
+  "dbgap_accession_number": "{{ model.dbgap_accession_number }}"
 }

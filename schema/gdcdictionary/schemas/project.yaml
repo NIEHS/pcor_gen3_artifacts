@@ -141,7 +141,7 @@ properties:
   name:
     type: string
     description: Short display name/brief description for the project.
-  short_name:
+  long_name:
     type: string
     description: Display name/brief description for the project. # TOREVIEW
   project_sponsor:
