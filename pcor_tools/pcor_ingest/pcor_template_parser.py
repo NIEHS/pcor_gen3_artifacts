@@ -120,11 +120,11 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_sponsor':
-                        project.project_sponsor = template_df.iat[j, 1].split(',')
+                        project.project_sponsor = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
                         project.project_sponsor_other = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
-                        project.project_sponsor_type = template_df.iat[j, 1].split(',')
+                        project.project_sponsor_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_description':
@@ -230,5 +230,5 @@ class PcorTemplateParser:
                             resource.submitter_id = 'empty'
                         return resource
 
-        logger.warn("no program found, return null")
+        logger.warning("no program found, return null")
         return None
