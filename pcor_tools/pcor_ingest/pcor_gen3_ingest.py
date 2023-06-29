@@ -496,7 +496,6 @@ class PcorGen3Ingest:
            dbgap_accession_number
            submitter_id
            complete
-           project_type
            project_url
            description
          }}
@@ -516,7 +515,6 @@ class PcorGen3Ingest:
         project.long_name = result["data"]["project"][0]["long_name"]
         project.support_source = result["data"]["project"][0]["support_source"]
         project.support_id = result["data"]["project"][0]["support_id"]
-        project.project_type = result["data"]["project"][0]["project_type"]
         project.project_url = result["data"]["project"][0]["project_url"]
         project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
         project.id = result["data"]["project"][0]["id"]

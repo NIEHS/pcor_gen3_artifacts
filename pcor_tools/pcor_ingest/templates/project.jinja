@@ -1,24 +1,12 @@
 {
   "type": "project",
   "code": "{{ model.code }}",
-   "name": "{{model.name}}",
+   "name": "{{ model.name }}",
   "long_name": "{{model.long_name}}",
-  "project_sponsor": [
-   {% for entry in model.project_sponsor %}
-
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "project_sponsor": "{{ model.project_sponsor }}",
   "project_sponsor_other": "{{ model.project_sponsor_other }}",
-  "project_sponsor_type": [
-   {% for entry in model.project_sponsor_type %}
-
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "project_sponsor_type": "{{ model.project_sponsor_type }}",
   "project_url": "{{ model.project_url }}",
-  "description": "{{ model.description }}"
+  "description": "{{ model.description }}",
   "dbgap_accession_number": "{{ model.dbgap_accession_number }}"
 }
