@@ -30,7 +30,6 @@ links:
 
 required:
   - submitter_id
-  - resource_id
   - name
   - resource_type
   - type
