@@ -68,7 +68,7 @@ properties:
   name:
     description: Name of resource.
     type: string
-  short_name:
+  long_name:
     description: Secondary name of resource.
     type: string
   resource_type:

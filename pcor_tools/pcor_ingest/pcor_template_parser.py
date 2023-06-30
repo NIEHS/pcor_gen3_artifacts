@@ -181,11 +181,11 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'submitter id':
                         resource.submitter_id = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'resource_long_name':
-                        resource.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_name':
-                        resource.short_name = template_df.iat[j, 1]
-                        resource.submitter_id = resource.short_name # FIXME: this is a temp patch for submitter id
+                        resource.long_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'resource_short_name':
+                        resource.name = template_df.iat[j, 1]
+                        resource.submitter_id = resource.name  # FIXME: this is a temp patch for submitter id
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_url':
@@ -193,10 +193,9 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = template_df.iat[j, 1].split(',')
+                        resource.domain = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'keywords':
                         resource.keywords = template_df.iat[j, 1].split(',')
-                    # FixMe:  access_type is missing in schema!
                     elif template_df.iat[j, 0] == 'access_type':
                         resource.access_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'payment_required':
@@ -207,23 +206,19 @@ class PcorTemplateParser:
                         resource.updated_datetime = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = template_df.iat[j, 1]
-                    # FixMe:  resource_reference is missing in schema! NB we call this 'citation'
                     elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.citation = template_df.iat[j, 1]
+                        resource.resource_reference = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
-                        logger.info('Resource_use_agreement: %s' % template_df.iat[j, 1])
-                        if template_df.iat[j, 1] is None or str(template_df.iat[j, 1]) == 'None':
-                            resource.resource_use_agreement = False
-                        else:
-                            resource.resource_use_agreement = True
-                    # FixMe:  publications is missing in schema! (we will use the 'publication' model) add in 1.1.3
-                    #elif template_df.iat[j, 0] == 'publications':
-                    #    resource.publications = template_df.iat[j, 1]
-                    # FixMe:  is_static is missing in schema! FIXME: add to 1.1.3
+                        resource.resource_use_agreement = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'publications':
+                        resource.publications = template_df.iat[j, 1].split(',')
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = template_df.iat[j, 1]
+                        if str(resource.is_static).lower() == 'no':
+                            resource.is_static = False
+                        elif str(resource.is_static).lower() == 'yes':
+                            resource.is_static = True
                     elif template_df.iat[j, 0] == 'Data_Resource':
-
                         # validate needed props
                         # ToDo: what is assignment logic?
                         if resource.submitter_id is None:

@@ -52,29 +52,28 @@ class PcorIntermediateResourceModel:
 
         self.project = ""
         # resource
-        self.submitter_id = ""
-        self.created_datetime = ""
-        self.updated_datetime = ""
         self.id = ""
+        self.submitter_id = ""
         self.name = ""
-        self.short_name = ""
-        self.resource_id = ""
+        self.long_name = ""
         self.resource_type = ""
+        self.resource_url = ""
         self.description = ""
-        self.citation = ""
-        self.payment_required = ""
-        self.domain = []
+        self.domain = ""
         self.keywords = []
         self.access_type = ""
-        self.license_type = ""
-        self.license_text = ""
+        self.payment_required = ""
+        self.created_datetime = ""
+        self.updated_datetime = ""
         self.verification_datetime = ""
+        self.resource_reference = ""
         self.resource_use_agreement = ""
-        self.resource_contact = ""
-        self.resource_link = ""
-        #self.publications = ""
+        self.publications = []
         self.is_static = ""
 
+        #self.license_type = ""
+        #self.license_text = ""
+        #self.resource_contact = ""
 
 
 class SubmitResponse:
