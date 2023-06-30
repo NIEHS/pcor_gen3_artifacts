@@ -167,7 +167,7 @@ class PcorDiscoveryMetadata:
         self.source_url = ""
         self.citation = ""
         self.domain = ""
-        self.has_api = ""
+        self.has_api = None
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
         self.license_type = ""

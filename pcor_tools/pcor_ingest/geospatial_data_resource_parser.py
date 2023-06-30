@@ -98,13 +98,13 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                             geo_resource.has_api = True
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
                         geo_resource.has_visualization_tool = template_df.iat[j, 1]
-                        if str(geo_resource.has_visualization_tool).lower == 'no':
+                        if str(geo_resource.has_visualization_tool).lower() == 'no':
                             geo_resource.has_visualization_tool = False
-                        if str(geo_resource.has_visualization_tool).lower == 'yes':
+                        if str(geo_resource.has_visualization_tool).lower() == 'yes':
                             geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        geo_resource.measures = str(template_df.iat[j, 1]).splitlines() #ToDo: cgeck what other ways are needed to clean up data
+                        geo_resource.measures = str(template_df.iat[j, 1]).splitlines() #ToDo: check what other ways are needed to clean up data
                     elif template_df.iat[j, 0] == 'measurement_method':
                         geo_resource.measurement_method = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'time_extent_start':
