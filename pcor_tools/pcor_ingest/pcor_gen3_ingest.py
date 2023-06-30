@@ -1,5 +1,6 @@
 import logging
 import json
+import re
 import os
 
 import requests
@@ -346,7 +347,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '').replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
 
