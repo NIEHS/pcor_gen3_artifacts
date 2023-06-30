@@ -76,10 +76,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                 logging.debug("found Data_Resource/GeoExposure_Data_Resource ")
                 for j in range(i, ss_rows):
                     logger.info('prop name: %s' % template_df.iat[j, 0])
-                    # FixMe:  data_type is missing in schema!
-                    if template_df.iat[j, 0] == 'data_type':
-                        geo_resource.data_type = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'comments':
+                    if template_df.iat[j, 0] == 'comments':
                         geo_resource.comments = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'intended_use':
                         geo_resource.intended_use = template_df.iat[j, 1]
@@ -101,13 +98,13 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                             geo_resource.has_api = True
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
                         geo_resource.has_visualization_tool = template_df.iat[j, 1]
-                        if geo_resource.has_visualization_tool == 'no':
+                        if str(geo_resource.has_visualization_tool).lower == 'no':
                             geo_resource.has_visualization_tool = False
-                        if geo_resource.has_visualization_tool == 'yes':
+                        if str(geo_resource.has_visualization_tool).lower == 'yes':
                             geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        geo_resource.measures = template_df.iat[j, 1].split(',')
+                        geo_resource.measures = str(template_df.iat[j, 1]).splitlines() #ToDo: cgeck what other ways are needed to clean up data
                     elif template_df.iat[j, 0] == 'measurement_method':
                         geo_resource.measurement_method = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'time_extent_start':
@@ -123,6 +120,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'temporal_resolution':
                         geo_resource.temporal_resolution = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'spatial_resolution':
+                        geo_resource.spatial_resolution = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'spatial_resolution_other':
                         geo_resource.spatial_resolution = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         geo_resource.spatial_coverage = template_df.iat[j, 1]

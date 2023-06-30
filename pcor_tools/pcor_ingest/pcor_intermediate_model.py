@@ -105,36 +105,40 @@ class PcorGeospatialDataResourceModel:
     """
 
     def __init__(self):
-        self.data_type = ""
-        self.pcor_intermediate_resource_model = None
-        self.submitter_id = ""
+        # data resc props are common
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
-        self.source_url = ""
         self.update_frequency = ""
-        self.includes_citizen_collected = "false"
-        self.has_api = "false"
-        self.has_visualization_tool = "false"
+        self.includes_citizen_collected = ""
+        self.has_api = ""
+        self.has_visualization_tool = ""
+
+        # additional properties to describe the dataset
         self.measures = []
         self.measurement_method = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
         self.temporal_resolution = ""
-        self.spatial_coverage = ""
         self.spatial_resolution = ""
+        self.spatial_resolution_other = ""
+        self.spatial_coverage = ""
+        self.spatial_coverage_specific_regions = ""
         self.spatial_bounding_box = ""
-        self.geo_ref_system = ""
         self.geometry_type = ""
         self.geometry_source = ""
-        self.geographic_feature = ""
         self.model_methods = ""
         self.exposure_media = []
+        self.geographic_feature = ""
+
         self.project_id = ""
         self.project_submitter_id = ""
-        self.resource_id = ""
         self.resource_submitter_id = ""
+
+        #self.pcor_intermediate_resource_model = None
+
+
 
 
 class PcorDiscoveryMetadata:

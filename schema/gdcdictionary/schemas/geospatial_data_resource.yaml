@@ -139,9 +139,7 @@ properties:
       type: string
   geographic_feature:
     description: The type of geographic feature associated with the data
-    type: array
-    items:
-      type: string
+    type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
