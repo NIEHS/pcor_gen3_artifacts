@@ -287,7 +287,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program)
+        rendered = template.render(program=program).replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -312,7 +312,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project).replace('"None"', 'null')
+        rendered = template.render(model=project).replace('"None"', 'null').replace('"nan"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 

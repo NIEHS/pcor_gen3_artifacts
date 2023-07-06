@@ -120,6 +120,8 @@ class PcorTemplateParser:
                         project.name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = template_df.iat[j, 1]
+                        logger.info(project.project_sponsor)
+
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
                         project.project_sponsor_other = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
