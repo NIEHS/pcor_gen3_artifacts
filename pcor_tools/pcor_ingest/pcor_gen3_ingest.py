@@ -1,5 +1,6 @@
 import logging
 import json
+import re
 import os
 
 import requests
@@ -286,7 +287,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program)
+        rendered = template.render(program=program).replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -311,7 +312,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project).replace('"None"', 'null')
+        rendered = template.render(model=project).replace('"None"', 'null').replace('"nan"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -346,7 +347,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '').replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -496,7 +497,6 @@ class PcorGen3Ingest:
            dbgap_accession_number
            submitter_id
            complete
-           project_type
            project_url
            description
          }}
@@ -516,7 +516,6 @@ class PcorGen3Ingest:
         project.long_name = result["data"]["project"][0]["long_name"]
         project.support_source = result["data"]["project"][0]["support_source"]
         project.support_id = result["data"]["project"][0]["support_id"]
-        project.project_type = result["data"]["project"][0]["project_type"]
         project.project_url = result["data"]["project"][0]["project_url"]
         project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
         project.id = result["data"]["project"][0]["id"]

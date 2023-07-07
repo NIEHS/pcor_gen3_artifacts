@@ -38,7 +38,6 @@ uniqueKeys:
   - [project_id, submitter_id]
 
 properties:
- 
   #system properties, do not change or remove:
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
@@ -58,8 +57,7 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
 
-    # data resc props are common
-
+  # data resc props are common
   comments:
     description: Notes on usage of the data, including warnings.
     type: string
@@ -69,18 +67,16 @@ properties:
   source_name:
     description: Name of source.
     type: string
-  source_url:
-    description: URL of source.
-    type: string
   update_frequency:
     description: Frequency of update of the resource.
     enum:
-      - fixed
-      - continuous
-      - hourly
-      - monthly
-      - quarterly
-      - annually
+      - Continuous
+      - Hourly
+      - Daily
+      - Monthly
+      - Quarterly
+      - Annually
+      - BiAnnual
       - unknown
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.
@@ -91,8 +87,8 @@ properties:
   has_visualization_tool:
     description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
     type: boolean
+    
   # additional properties to describe the dataset
-
   measures:
     description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
     type: array
@@ -116,8 +112,14 @@ properties:
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
+  spatial_resolution_other:
+    description: the highest spatial resolution of the data if not on the list above. May be a specific distance measure using SI units for distance (e.g., 5km).
+    type: string
   spatial_coverage: 
     description: Maximum spatial coverage of the data.
+    type: string
+  spatial_coverage_specific_regions:
+    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
     type: string
   spatial_bounding_box:
     description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
@@ -128,8 +130,6 @@ properties:
   geometry_source:
     description: Source or provider of the geometry data.
     type: string
-  geographic_feature:
-    description: The type of geographic feature associated with the data
   model_methods:
     description: If modeled, type of approach used.
     type: string
@@ -138,6 +138,9 @@ properties:
     type: array
     items:
       type: string
+  geographic_feature:
+    description: The type of geographic feature associated with the data
+    type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"

@@ -12,11 +12,7 @@ class PcorIntermediateProgramModel:
     """
     def __init__(self):
         self.id = None
-        self.program_name = None
-        self.long_name = None
-        self.program_type = None
-        self.program_url = None
-        self.program_description = None
+        self.name = None
         self.dbgap_accession_number = None
 
 
@@ -24,25 +20,26 @@ class PcorIntermediateProjectModel:
 
     def __init__(self):
         self.program = None
+        self.program_id = None
+
         # project
+        self.id = None
+        self.name = None
+        self.long_name = None
+        self.project_sponsor = None
+        self.project_sponsor_other = None
+        self.project_sponsor_type = None
+        self.project_url = None
+        self.description = None
+        self.code = None
+        self.submitter_id = None  # TODO: make sure sub id carried forward to update
         self.availability_mechanism = None
         self.availability_type = None
-        self.code = None
         self.complete = None
         self.date_collected = None
         self.dbgap_accession_number = None
-        self.id = None
-        self.investigator_affiliation = None
-        self.investigator_name = None
-        self.name = None
-        self.long_name = None
-        self.support_source = None
-        self.support_id = None
-        self.program_id = None
-        self.submitter_id = None # TODO: make sure sub id carried forward to update
-        self.project_type = None
-        self.project_url = None
-        self.description = None
+
+
 
 
 class PcorIntermediateResourceModel:
@@ -55,29 +52,28 @@ class PcorIntermediateResourceModel:
 
         self.project = ""
         # resource
-        self.submitter_id = ""
-        self.created_datetime = ""
-        self.updated_datetime = ""
         self.id = ""
+        self.submitter_id = ""
         self.name = ""
-        self.short_name = ""
-        self.resource_id = ""
+        self.long_name = ""
         self.resource_type = ""
+        self.resource_url = ""
         self.description = ""
-        self.citation = ""
-        self.payment_required = ""
-        self.domain = []
+        self.domain = ""
         self.keywords = []
         self.access_type = ""
-        self.license_type = ""
-        self.license_text = ""
+        self.payment_required = ""
+        self.created_datetime = ""
+        self.updated_datetime = ""
         self.verification_datetime = ""
+        self.resource_reference = ""
         self.resource_use_agreement = ""
-        self.resource_contact = ""
-        self.resource_link = ""
-        #self.publications = ""
+        self.publications = []
         self.is_static = ""
 
+        #self.license_type = ""
+        #self.license_text = ""
+        #self.resource_contact = ""
 
 
 class SubmitResponse:
@@ -109,36 +105,40 @@ class PcorGeospatialDataResourceModel:
     """
 
     def __init__(self):
-        self.data_type = ""
-        self.pcor_intermediate_resource_model = None
-        self.submitter_id = ""
+        # data resc props are common
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
-        self.source_url = ""
         self.update_frequency = ""
-        self.includes_citizen_collected = "false"
-        self.has_api = "false"
-        self.has_visualization_tool = "false"
+        self.includes_citizen_collected = ""
+        self.has_api = ""
+        self.has_visualization_tool = ""
+
+        # additional properties to describe the dataset
         self.measures = []
         self.measurement_method = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
         self.temporal_resolution = ""
-        self.spatial_coverage = ""
         self.spatial_resolution = ""
+        self.spatial_resolution_other = ""
+        self.spatial_coverage = ""
+        self.spatial_coverage_specific_regions = ""
         self.spatial_bounding_box = ""
-        self.geo_ref_system = ""
         self.geometry_type = ""
         self.geometry_source = ""
-        self.geographic_feature = ""
         self.model_methods = ""
         self.exposure_media = []
+        self.geographic_feature = ""
+
         self.project_id = ""
         self.project_submitter_id = ""
-        self.resource_id = ""
         self.resource_submitter_id = ""
+
+        #self.pcor_intermediate_resource_model = None
+
+
 
 
 class PcorDiscoveryMetadata:
@@ -167,7 +167,7 @@ class PcorDiscoveryMetadata:
         self.source_url = ""
         self.citation = ""
         self.domain = ""
-        self.has_api = ""
+        self.has_api = None
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
         self.license_type = ""

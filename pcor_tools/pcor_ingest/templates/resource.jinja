@@ -1,32 +1,30 @@
 {
-"resource_contact": "{{ resource.contact }}",
-  "resource_type": "{{ resource.resource_type }}",
   "type": "resource",
-  "description": "{{ resource.description }}",
-  "name": "{{ resource.name }}",
-  "license_type": "{{ resource.license_type }}",
   "submitter_id": "{{ resource.submitter_id }}",
-  "short_name": "{{ resource.short_name }}",
-  "resource_id": "{{ resource.resource_id }}",
-  "citation": "{{ resource.citation }}",
-  "domain": [
-   {% for entry in resource.domain %}
+  "name": "{{ resource.name }}",
+  "long_name": "{{ resource.long_name }}",
+  "resource_type": "{{ resource.resource_type }}",
+  "resource_url": "{{ resource.resource_url }}",
+  "description": "{{ resource.description }}",
+  "domain": "{{ resource.domain }}",
+  "keywords":  [
+    {% for entry in resource.keywords %}
 
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "keywords":  [
-    {% for keyword in resource.keywords %}
+  "access_type": "{{ resource.access_type }}",
+  "resource_reference": "{{ resource.resource_reference }}",
+  "resource_use_agreement": "{{ resource.resource_use_agreement }}",
+  "publications":  [
+    {% for entry in resource.publications %}
 
-        "{{ keyword }}"
+        "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "license_text": "{{ resource.license_text }}",
-  "resource_use_agreement": {{ resource.resource_use_agreement }},
-  "resource_contact": "{{ resource.contact }}",
-  "resource_link": "{{ resource.resource_link }}",
+  "is_static": {{ resource.is_static }},
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.dbgap_accession_number }}"
