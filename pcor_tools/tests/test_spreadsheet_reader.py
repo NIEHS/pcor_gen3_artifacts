@@ -28,7 +28,7 @@ class TestSpreadsheetReader(unittest.TestCase):
 
     def test_process_template_instance(self):
         ss_reader = PcorSpreadsheeetReader(pcor_testing_utilities.get_pcor_ingest_configuration())
-        test_ss_path = 'test_resources/GeoExposure _1.3.0_NASA_MODIS.xlsm'
+        test_ss_path = 'test_resources/GeoExposure_1.3.0_NASA_MODIS.xlsm'
         actual = ss_reader.process_template_instance(test_ss_path)
 
 

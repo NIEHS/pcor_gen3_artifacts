@@ -212,7 +212,7 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         resource.resource_use_agreement = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'publications':
-                        resource.publications = template_df.iat[j, 1].split(',')
+                        resource.publications = str(template_df.iat[j, 1]).split(',')
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = template_df.iat[j, 1]
                         if str(resource.is_static).lower() == 'no':
