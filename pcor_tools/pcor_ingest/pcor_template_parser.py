@@ -46,7 +46,7 @@ class PcorTemplateParser:
             result.errors.append("error parsing project: %s" % err)
             return
 
-        result.program_name = result.model_data["program"].program_name
+        result.program_name = result.model_data["program"].name
         result.project_name = result.model_data["project"].name
 
         try:
