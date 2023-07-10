@@ -111,7 +111,7 @@ class PcorTemplateProcessor:
                                 return resource_submit_status
 
                             resource.resource_type = parsed_data.type
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource)
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments  # intended use?
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

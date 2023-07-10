@@ -1,3 +1,5 @@
 *.json
 *.properties
 credentials.json
+~$pcor_*
+~$GeoExposure_*

@@ -127,7 +127,7 @@ class PcorGen3Ingest:
         resource.id = status.id
         return status
 
-    def create_discovery_from_resource(self, program_name, project, resource):
+    def create_discovery_from_resource(self, program_name, project, resource, geo_spatial_resource):
         """
         Given a project and resource derive the discovery
          model data (to be augmented based on the subtype)
@@ -146,25 +146,16 @@ class PcorGen3Ingest:
 
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program_name
-        discovery.program_type = program.program_type
-        discovery.program_url = program.program_url
-        discovery.project_type = project.project_type
         discovery.project_description = project.description
         discovery.name = resource.name
-        discovery.investigator_name = project.investigator_name
-        discovery.investigator_affiliation = project.investigator_affiliation
-        discovery.short_name = resource.short_name
         discovery.description = resource.description
-        discovery.citation = resource.citation
+        discovery.publications = resource.publications
         discovery.domain = resource.domain
         discovery.has_api = "false"
         discovery.type = resource.resource_type
         discovery.has_visualization_tool = "false"
         discovery.is_citizen_collected = "false"
-        discovery.license_type = resource.license_type
-        discovery.license_text = resource.license_text
         discovery.resource_use_agreement = resource.resource_use_agreement
-        discovery.resource_contact = resource.resource_contact
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_link
 
@@ -176,12 +167,14 @@ class PcorGen3Ingest:
                 tag.category = "Keyword"
                 discovery.tags.append(tag)
 
+        '''
         for item in resource.domain:
             if item:
                 tag = Tag()
                 tag.name = item
                 tag.category = "Domain"
                 discovery.tags.append(tag)
+        '''
 
         tag = Tag()
         tag.name = discovery.type
@@ -193,19 +186,25 @@ class PcorGen3Ingest:
         filter.value = program_name
         discovery.adv_search_filters.append(filter)
 
+        filter = AdvSearchFilter()
+        filter.key = "Domain"
+        filter.value = resource.domain
+        discovery.adv_search_filters.append(filter)
+
+        '''
         for item in resource.domain:
             filter = AdvSearchFilter()
             filter.key = "Domain"
             filter.value = item
             discovery.adv_search_filters.append(filter)
-
-        for item in resource.measures:
+        '''
+        for item in geo_spatial_resource.measures:
             filter = AdvSearchFilter()
             filter.key = "Measures"
             filter.value = item
             discovery.adv_search_filters.append(filter)
 
-        for item in resource.exposure_media:
+        for item in geo_spatial_resource.exposure_media:
             filter = AdvSearchFilter()
             filter.key = "Exposure Media"
             filter.value = item
@@ -452,9 +451,6 @@ class PcorGen3Ingest:
                  program(name: "{}") {{
                    id
                    name
-                   long_name
-                   program_type
-                   program_url
                    dbgap_accession_number
                  }}
                }}
@@ -468,9 +464,6 @@ class PcorGen3Ingest:
         program = PcorIntermediateProgramModel()
         program.id = result["data"]["program"][0]["id"]
         program.program_name = result["data"]["program"][0]["name"]
-        program.long_name = result["data"]["program"][0]["long_name"]
-        program.program_type = result["data"]["program"][0]["program_type"]
-        program.program_url = result["data"]["program"][0]["program_url"]
         program.dbgap_accession_number = result["data"]["program"][0]["dbgap_accession_number"]
 
         return program
