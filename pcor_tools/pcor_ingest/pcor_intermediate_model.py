@@ -40,8 +40,6 @@ class PcorIntermediateProjectModel:
         self.dbgap_accession_number = None
 
 
-
-
 class PcorIntermediateResourceModel:
     """
     Represents an intermediate data model from some source (e.g. spreadsheet or CEDAR) that is to be ingested into Gen3
@@ -70,10 +68,6 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
-
-        #self.license_type = ""
-        #self.license_text = ""
-        #self.resource_contact = ""
 
 
 class SubmitResponse:
@@ -135,10 +129,6 @@ class PcorGeospatialDataResourceModel:
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_submitter_id = ""
-
-        #self.pcor_intermediate_resource_model = None
-
-
 
 
 class PcorDiscoveryMetadata:
@@ -262,11 +252,4 @@ class PcorGeoToolModel:
         self.geometry_type = ""
         self.geometry_source = ""
         self.model_methods = ""
-
-
-
-
-
-
-
 
