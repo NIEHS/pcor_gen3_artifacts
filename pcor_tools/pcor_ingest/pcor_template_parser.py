@@ -56,8 +56,6 @@ class PcorTemplateParser:
             result.success = False
             result.errors.append("error parsing resource: %s" % err)
 
-
-
     @staticmethod
     def extract_program_data(template_df):
         """
