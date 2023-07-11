@@ -64,66 +64,81 @@ class LoaderSpreadsheet:
 
                     # new folder
                     file_path = os.path.join(self.workspace_new_folder_path, file)
+                    new_file_name = LoaderSpreadsheet.add_timestamp_to_file(file)
+                    processing_file_path = self.workspace_processing_folder_path + '/' + new_file_name
                     logger.info(
                         '\nMoving file: %s \nsrc: %s\ndst: %s' % (
                         file, file_path, self.workspace_processing_folder_path))
-                    shutil.move(src=file_path, dst=self.workspace_processing_folder_path)
+                    shutil.move(src=file_path, dst=processing_file_path)
 
                     # processing folder
                     result = PcorProcessResult()
+                    result.template_source = file_path
+
                     log_file_path = None
-                    file_path = os.path.join(self.workspace_processing_folder_path, file)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
+                    result.template_source = file_path
 
                     try:
-                        result = ss_reader.process_template_instance(file_path)
+                        ss_reader.process_template_instance(processing_file_path, result) # took result out and made a param
 
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
-                        log_file_name = file.split('.')[0] + '.log'
+                        log_file_name = new_file_name.split('.')[0] + '.log'
                         log_file_path = os.path.join(self.workspace_processing_folder_path, log_file_name)
                         file = open(log_file_path, "w")
                         file.write('Error occurred \n %s' % str(e))
                         file.close()
                         result.success = False
-                        result.template_source = file_path
                         pcor_error = PcorError()
                         pcor_error.type = ""
                         pcor_error.key = ""
                         pcor_error.message=str(e)
                         result.errors.append(pcor_error)
 
-                    result.template_source = file_path
-                    self.result_handler.handle_result(result)
-
                     if result.success:
                         # processed folder
                         # result.success --> true
                         # result --> move file to processed folder
 
-                        dest = os.path.join(self.workspace_processed_folder_path, os.path.basename(file_path))
-                        dest_with_timestamp = dest.replace('.xlsm', str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+                        success_path = os.path.join(self.workspace_processed_folder_path, os.path.basename(processing_file_path))
+                        result.template_current_location = success_path
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                                file, file_path, dest_with_timestamp))
-                        shutil.move(src=file_path, dst=dest_with_timestamp)
+                                new_file_name, processing_file_path, success_path))
+                        shutil.move(src=processing_file_path, dst=success_path)
                     else:
                         # failed folder
                         # result.success --> false
                         # result --> move file to failed folder
-                        dest = os.path.join(self.workspace_failed_folder_path, os.path.basename(file_path))
-                        dest_with_timestamp = dest.replace('.xlsm',
-                                                           str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+                        failed_path = os.path.join(self.workspace_failed_folder_path, os.path.basename(processing_file_path))
 
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                                file, file_path, dest_with_timestamp))
-                        shutil.move(src=file_path, dst=self.workspace_failed_folder_path)
+                                new_file_name, processing_file_path, failed_path))
+                        shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
+                        result.template_current_location = failed_path
                         if os.path.exists(log_file_path):
-                            shutil.move(src=log_file_path, dst=dest_with_timestamp)
+                            shutil.move(src=log_file_path, dst=failed_path)
+
+                    self.result_handler.handle_result(result)
 
                 else:
                     logger.info('Ignore non spreadsheet file: %s' % file)
 
         else:
             logger.info('No files found!')
+
+    @staticmethod
+    def add_timestamp_to_file(file_name):
+        # test1~pcor~_23_06_29_124427.xlsm
+        try:
+            idx = file_name.index('~pcor~')
+            file_part = file_name[0:idx]
+            new_file_name = file_part + '~pcor~' + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm'
+            return new_file_name
+        except ValueError:
+            new_file_name = file_name.replace('.xlsm', '~pcor~'
+                                          + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+            logger.info("new file name:%s" % new_file_name)
+            return new_file_name

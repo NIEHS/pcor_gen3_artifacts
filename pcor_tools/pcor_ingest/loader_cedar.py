@@ -12,5 +12,5 @@ class LoaderCedar:
     def __init__(self):
         pass
 
-    def process_load(self):
+    def process_load(self, result):
         pass

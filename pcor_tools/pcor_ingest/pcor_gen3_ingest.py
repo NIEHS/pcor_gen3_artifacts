@@ -194,9 +194,10 @@ class PcorGen3Ingest:
         '''
         for item in resource.domain:
             filter = AdvSearchFilter()
-            filter.key = "Domain"
+            filter.key = "Measures"
             filter.value = item
             discovery.adv_search_filters.append(filter)
+
         '''
         for item in geo_spatial_resource.measures:
             filter = AdvSearchFilter()

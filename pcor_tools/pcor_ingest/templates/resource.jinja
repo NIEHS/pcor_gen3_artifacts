@@ -19,7 +19,6 @@
   "resource_use_agreement": "{{ resource.resource_use_agreement }}",
   "publications":  [
     {% for entry in resource.publications %}
-
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

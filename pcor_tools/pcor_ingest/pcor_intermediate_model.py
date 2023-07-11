@@ -15,7 +15,6 @@ class PcorIntermediateProgramModel:
         self.name = None
         self.dbgap_accession_number = None
 
-
 class PcorIntermediateProjectModel:
 
     def __init__(self):
