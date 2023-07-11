@@ -118,7 +118,7 @@ class LoaderSpreadsheet:
                         shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                         result.template_current_location = failed_path
                         if os.path.exists(log_file_path):
-                            shutil.move(src=log_file_path, dst=failed_path)
+                            shutil.move(src=log_file_path, dst=self.workspace_failed_folder_path)
 
                     self.result_handler.handle_result(result)
 
