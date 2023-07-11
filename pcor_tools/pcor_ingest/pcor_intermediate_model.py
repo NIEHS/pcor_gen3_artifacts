@@ -40,8 +40,6 @@ class PcorIntermediateProjectModel:
         self.dbgap_accession_number = None
 
 
-
-
 class PcorIntermediateResourceModel:
     """
     Represents an intermediate data model from some source (e.g. spreadsheet or CEDAR) that is to be ingested into Gen3
@@ -70,10 +68,6 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
-
-        #self.license_type = ""
-        #self.license_text = ""
-        #self.resource_contact = ""
 
 
 class SubmitResponse:
@@ -136,10 +130,6 @@ class PcorGeospatialDataResourceModel:
         self.project_submitter_id = ""
         self.resource_submitter_id = ""
 
-        #self.pcor_intermediate_resource_model = None
-
-
-
 
 class PcorDiscoveryMetadata:
     """
@@ -150,30 +140,21 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.program_name = ""
-        self.program_type = ""
-        self.program_url = ""
-        self.project_type = ""
         self.project_url = ""
         self.project_description = ""
         self.name = ""
-        self.short_name = ""
         self.payment_required = ""
         self.verification_datetime = ""
-        self.investigator_name = ""
-        self.investigator_affiliation = ""
         self.comment = "" # collapses intended_use and other descriptions
         self.description = ""
         self.support_source = ""
         self.source_url = ""
-        self.citation = ""
+        self.publications = ""
         self.domain = ""
         self.has_api = None
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
-        self.license_type = ""
-        self.license_text = ""
         self.resource_use_agreement = ""
-        self.resource_contact = ""
         self.resource_id = ""
         self.resource_url = ""
         self.measures = [] # convert to tags/filters
@@ -271,11 +252,4 @@ class PcorGeoToolModel:
         self.geometry_type = ""
         self.geometry_source = ""
         self.model_methods = ""
-
-
-
-
-
-
-
 

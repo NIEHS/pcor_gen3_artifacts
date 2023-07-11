@@ -113,20 +113,8 @@ class PcorTemplateProcessor:
                                 return
 
                             resource.resource_type = parsed_data.type
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource)
 
-                            for item in geo_spatial_resource.measures:
-                                filter = AdvSearchFilter()
-                                filter.key = "Measures"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
-                            for item in geo_spatial_resource.exposure_media:
-                                filter = AdvSearchFilter()
-                                filter.key = "Exposure Media"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments  # intended use?
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
