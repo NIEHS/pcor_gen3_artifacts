@@ -153,6 +153,7 @@ class PcorTemplateProcessor:
                                 project_name=project.name,
                                 geo_spatial_tool_resource=geo_tool_resource
                             )
+
                             if not resource_submit_status.success:
                                 logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
                                 parsed_data.success = False
