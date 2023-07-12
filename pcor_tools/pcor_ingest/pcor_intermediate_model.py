@@ -149,7 +149,7 @@ class PcorDiscoveryMetadata:
         self.support_source = ""
         self.source_url = ""
         self.publications = ""
-        self.domain = ""
+        self.domain = []
         self.has_api = None
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
