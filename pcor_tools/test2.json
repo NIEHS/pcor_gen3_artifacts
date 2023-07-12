@@ -1,0 +1,20 @@
+{
+  "tags": [
+    {
+      "name": "resource",
+      "category": "Resource"
+    },
+    {
+      "name": "md_foo",
+      "category": "Fubar Metadata"
+    },
+    {
+      "name": "md_bar",
+      "category": "Fubar Location"
+    }
+  ],
+  "name": "Wildfire",
+  "full_name": "wildfire stuff",
+  "description": "its a wildfire, I mean, look out",
+  "resource_id": "75964cb1-9d8e-45bd-a7db-14f529aca591"
+}

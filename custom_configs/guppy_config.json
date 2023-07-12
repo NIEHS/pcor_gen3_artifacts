@@ -1,0 +1,18 @@
+{
+    "indices": [
+        {
+            "index": "geospatial_data_resource",
+            "type": "geospatial_data_resource"
+        },
+        {
+            "index": "population_data_resource",
+            "type": "population_data_resource"
+        },
+        {
+            "index": "geospatial_tool_resource",
+            "type": "geospatial_tool_resource"
+        }
+    ],
+    "config_index": "geospatial_data_resource-array-config",
+    "auth_filter_field": "auth_resource_path"
+}

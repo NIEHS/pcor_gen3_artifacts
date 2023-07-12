@@ -1,0 +1,148 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "resource"
+title: Resource
+type: object
+nodeTerms: null
+namespace: http://gen3.niehs.nih.gov/
+category: administrative
+program: '*'
+project: '*'
+description: A collection of data or resources, can have files attached or may point to an external reference 
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: projects
+    backref: resources
+    label: performed_for
+    target_type: project
+    multiplicity: many_to_one
+    required: true
+
+required:
+  - submitter_id
+  - name
+  - resource_type
+  - type
+  - projects
+  
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+properties:
+  # system properties, do not change or remove:
+  created_datetime:
+    $ref: "_definitions.yaml#/datetime"
+  id:
+    $ref: "_definitions.yaml#/UUID"
+  project_id:
+    $ref: "_definitions.yaml#/project_id"
+  state:
+    $ref: "_definitions.yaml#/state"
+  submitter_id:
+    description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
+    type: string
+  type:
+    description: The name of the node in the database to be used in queries. 
+    enum:
+      - resource
+  updated_datetime:
+    $ref: "_definitions.yaml#/datetime"
+
+  # additional properties to describe the resource
+  resource_id:
+    description: Internal identifier. # should we just use id?
+    type: string
+  name:
+    description: Name of resource.
+    type: string
+  long_name:
+    description: Secondary name of resource.
+    type: string
+  resource_type:
+    description: Type of resource
+    enum:
+      - Data Resource
+      - Tool Resources
+      - Training Resource
+  resource_url:
+    description: resource website
+    type: string
+  description:
+    description: A text description of the resource.
+    type: string
+  domain:
+    description: Domain of the resource
+    enum:
+      - Social Determinants of Health
+      - Electronic Health Records
+      - Population Health Records
+      - Clinical Research
+      - General Exposure
+      - Air Quality
+      - Water Quality
+      - Water Security
+      - Greenness
+      - Neighborhood
+      - Weather
+      - Extreme Weather
+      - Climate Change
+  keywords:
+    description: Comma delim keywords.
+    type: array
+    items:
+      type: string
+  access_type:
+     description: type of resource access
+     enum:
+       - open
+       - registered
+       - controlled
+  payment_required:
+    description: Indicate whether resource is free or fee based
+    type: boolean
+  verification_datetime:
+    description: Date that the resource was last verified.
+    $ref: "_definitions.yaml#/datetime"
+  resource_reference:
+    description: how to cite this resource, DOI preferred
+    type: string
+  resource_use_agreement:
+    description: agreement for use of the resource, include a link or full text or both, don't paraphrase
+    type: string
+  publications:
+    description: list of publications describing the resources
+    type: array
+    items:
+      type: string
+  is_static:
+    description: yes if the resource is static, no if the resource is expected to be updated in the future
+    type: boolean
+
+  # props not in template
+  citation:
+    description: Citation to use for this resource
+    type: string
+  license_type:
+    description: Type of license.
+    type: string
+  license_text:
+    description: Text of license terms.
+  resource_contact: 
+    description: Contact information for the resource.
+    type: string
+  projects:
+    description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
+    $ref: "_definitions.yaml#/to_one_project"
+  

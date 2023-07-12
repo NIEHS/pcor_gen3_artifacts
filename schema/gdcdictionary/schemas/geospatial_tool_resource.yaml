@@ -1,0 +1,140 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "geospatial_tool_resource"
+title: GeospatialToolResource
+type: object
+nodeTerms: null
+namespace: http://gen3.niehs.nih.gov/
+category: administrative
+program: '*'
+project: '*'
+description: A tool for dealing with geospatial data 
+additionalProperties: false
+submittable: true
+validators: null
+
+# GeoExposure_Tool_Resource
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: resources
+    backref: geospatial_tool_resources
+    label: is_a_resource_of
+    target_type: resource
+    multiplicity: many_to_one
+    required: true
+
+required:
+  - submitter_id
+  - type
+  - resources
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+properties:
+ 
+  #system properties, do not change or remove:
+  created_datetime:
+    $ref: "_definitions.yaml#/datetime"
+  id:
+    $ref: "_definitions.yaml#/UUID"
+  project_id:
+    $ref: "_definitions.yaml#/project_id"
+  state:
+    $ref: "_definitions.yaml#/state"
+  submitter_id:
+    description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
+    type: string
+  type:
+    description: The name of the node in the database to be used in queries. 
+    enum:
+      - geospatial_tool_resource
+  updated_datetime:
+    $ref: "_definitions.yaml#/datetime"
+  # common properties for tool resources
+  tool_type:
+    description: The type of tool
+    type: array
+    items:
+      type: string
+  usage_type:
+    description: Is the tool open source, paid, or a combination.
+    enum:
+      - Open-source
+      - Paid
+      - Combination
+  operating_system:
+    description: The operating system the tool runs on
+    type: array
+    items:
+      enum:
+      - Windows
+      - Linux
+      - Mac
+      - cross-platform
+  languages:
+    description: Programming language 
+    type: array
+    items:
+      enum:
+        - Python
+        - R
+        - Java
+        - C/C++
+        - C#/.Net
+        - Javascript
+        - Fortran
+        - Go
+        - Other
+  input_formats:
+    description: Type of data/data format used as input (e.g. NetCDF)
+    type: array
+    items:
+      type: string
+  output_formats:
+    description: Type of data/data format output from the tool
+    type: array
+    items:
+      type: string  # specific properties
+  time_extent_start:
+    description: Earliest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_end:
+    description: Latest time for the data.
+    $ref: "_definitions.yaml#/datetime"
+  time_available_comment:
+    description: Narrative to describe time extent details if multiple exist in the resource.
+    type: string
+  temporal_resolution:
+    description: Frequency of time points.
+    type: string
+  spatial_resolution:
+    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    type: string
+  spatial_coverage: 
+    description: Maximum spatial coverage of the data.
+    type: string
+  spatial_bounding_box:
+    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
+    type: string
+  geometry_type:
+    description: Type of geometric data, the file extension will be different for different types.
+    type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
+    type: string
+  model_methods:
+    description: If modeled, type of approach used.
+    type: string
+  resources:
+    description: The resource this dataset belongs to, i.e., a link to the parent node.
+    $ref: "_definitions.yaml#/to_many"
+  
