@@ -77,6 +77,7 @@ class PcorTemplateProcessor:
                         parsed_data.request_content = pcor_error.request
                         parsed_data.response_content = json.loads(pcor_error.response.text)
                         parsed_data.path_url = parsed_data.request_content.path_url
+                        parsed_data.message = pcor_error
                         logger.error("error in project create: %s" % parsed_data)
                         return
 
@@ -89,7 +90,19 @@ class PcorTemplateProcessor:
                             resource=resource) # FIXME: need to handle error here, check status...
 
                         # add a check if resource_submit_status.success == False
+
+                        if not resource_submit_status.success:
+                            logger.error(
+                                "creation of resource failed, bailing: %s" % resource_submit_status)
+                            parsed_data.success = False
+                            parsed_data.errors.append(resource_submit_status.errors)
+                            parsed_data.path_url = resource_submit_status.path_url
+                            parsed_data.response_content = resource_submit_status.response_content
+                            parsed_data.request_content = resource_submit_status.request_content
+                            return
+
                         # if it fails, return the status and bail
+
                         if 'geospatial_data_resource' in model_data.keys():
                             logger.info('process:: adding geospatial_data_resource')
                             geo_spatial_resource = model_data['geospatial_data_resource']
