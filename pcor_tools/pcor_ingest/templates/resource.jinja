@@ -6,7 +6,13 @@
   "resource_type": "{{ resource.resource_type }}",
   "resource_url": "{{ resource.resource_url }}",
   "description": "{{ resource.description }}",
-  "domain": "{{ resource.domain }}",
+  "domain": [
+    {% for entry in resource.domain %}
+
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "keywords":  [
     {% for entry in resource.keywords %}
 

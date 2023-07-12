@@ -86,19 +86,19 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.update_frequency = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         geo_resource.includes_citizen_collected = template_df.iat[j, 1]
-                        if geo_resource.includes_citizen_collected == 'no':
+                        if str(geo_resource.includes_citizen_collected).lower() == 'no' or str(geo_resource.includes_citizen_collected).lower() == 'none':
                             geo_resource.includes_citizen_collected = False
-                        if geo_resource.includes_citizen_collected == 'yes':
+                        if str(geo_resource.includes_citizen_collected).lower() == 'yes':
                             geo_resource.includes_citizen_collected = True
                     elif template_df.iat[j, 0] == 'has_api':
                         geo_resource.has_api = template_df.iat[j, 1]
-                        if geo_resource.has_api == 'no':
+                        if str(geo_resource.has_api).lower() == 'no' or str(geo_resource.has_api).lower() == 'none':
                             geo_resource.has_api = False
-                        if geo_resource.has_api == 'yes':
+                        if str(geo_resource.has_api).lower() == 'yes':
                             geo_resource.has_api = True
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
                         geo_resource.has_visualization_tool = template_df.iat[j, 1]
-                        if str(geo_resource.has_visualization_tool).lower() == 'no':
+                        if str(geo_resource.has_visualization_tool).lower() == 'no' or str(geo_resource.has_visualization_tool).lower() == 'none':
                             geo_resource.has_visualization_tool = False
                         if str(geo_resource.has_visualization_tool).lower() == 'yes':
                             geo_resource.has_visualization_tool = True
