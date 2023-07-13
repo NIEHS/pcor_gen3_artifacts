@@ -150,14 +150,14 @@ class PcorGen3Ingest:
         discovery.name = resource.name
         discovery.description = resource.description
         discovery.publications = resource.publications
-        #discovery.domain = resource.domain
+        discovery.domain = ','.join(resource.domain)
         discovery.has_api = "false"
         discovery.type = resource.resource_type
         discovery.has_visualization_tool = "false"
         discovery.is_citizen_collected = "false"
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
-        discovery.resource_url = resource.resource_link
+        discovery.resource_url = resource.resource_url
 
         # migrate keywords that are available in resource
         for kw in resource.keywords:

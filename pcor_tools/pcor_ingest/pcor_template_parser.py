@@ -181,7 +181,7 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_url':
-                        resource.resource_link = template_df.iat[j, 1]
+                        resource.resource_url = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'domain':

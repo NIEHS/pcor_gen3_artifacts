@@ -281,13 +281,6 @@
 
                     },
                     {
-                      "type": "text",
-                      "label": "Project Type",
-                      "sourceField": "project_type",
-                      "default": "n/a"
-
-                    },
-                    {
                       "type": "link",
                       "label": "Project Link",
                       "sourceField": "project_url",
@@ -396,12 +389,6 @@
                       "sourceField": "support_source",
                       "default": "n/a"
                      
-                    },
-                    {
-                      "type": "link",
-                      "label": "Source URL",
-                      "sourceField": "source_url",
-                      "default": "n/a"
                     },
                     {
                       "type": "text",
@@ -535,9 +522,7 @@
             "title": "Project/Program Details",
             "fields":[
               "program_name",
-              "project_name",
-              "project_type",
-              "program_type"
+              "project_name"
             ]
           }
         ]
@@ -549,7 +534,6 @@
           "resource_description",
           "intended_use",
           "source_name",
-          "source_url",
           "measures",
           "exposure_media",
           "time_extent_start",
@@ -557,11 +541,10 @@
           "resource_description",
           "spatial_resolution",
           "spatial_coverage",
-          "resource_link"
+          "resource_url"
         ],
         "linkFields": [
-          "resource_link",
-          "source_url"
+          "resource_url"
         ]
       },
       "dropdowns": {
@@ -652,9 +635,7 @@
             "title": "Project/Program Details",
             "fields":[
               "program_name",
-              "project_name",
-              "project_type",
-              "program_type"
+              "project_name"
             ]
           }
         ]
@@ -666,17 +647,15 @@
           "resource_description",
           "intended_use",
           "source_name",
-          "source_url",
           "population",
           "vulnerable_population",
           "model_methods",
           "resource_name",
           "resource_description",
-          "resource_link"
+          "resource_url"
         ],
         "linkFields": [
-          "resource_link",
-          "source_url"
+          "resource_url"
         ]
       },
       "dropdowns": {
@@ -772,9 +751,7 @@
             "title": "Project/Program Details",
             "fields":[
               "program_name",
-              "project_name",
-              "project_type",
-              "program_type"
+              "project_name"
             ]
           }
         ]
@@ -786,14 +763,12 @@
           "resource_description",
           "intended_use",
           "source_name",
-          "source_url",
           "tool_type",
           "usage_type",
-          "resource_link"
+          "resource_url"
         ],
         "linkFields": [
-          "resource_link",
-          "source_url"
+          "resource_url"
         ]
       },
       "dropdowns": {
