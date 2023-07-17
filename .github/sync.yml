@@ -1,0 +1,3 @@
+NIEHS/chords-health-dictionary:
+  - source: schema/gdcdictionary/schemas
+    dest: gdcdictionary/schemas
