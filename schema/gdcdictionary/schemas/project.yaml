@@ -161,7 +161,7 @@ properties:
       - US CENSUS
 
   project_sponsor_other:
-    description: if does not appear in the CV above
+    description: if does not appear in the CV above, use this value (mc)
     type: string
 
   project_sponsor_type:
