@@ -5,5 +5,7 @@ NIEHS/chords-health-dictionary:
 NIEHS/cdis-manifest:
   - source: custom_configs/gitops.json
     dest: staging.chords-health.org/portal/gitops.json
+  - source: custom_configs/gitops.css
+    dest: staging.chords-health.org/portal/gitops.css
   - source: custom_configs/etlMapping.yaml
     dest: staging.chords-health.org/etlMapping.yaml
