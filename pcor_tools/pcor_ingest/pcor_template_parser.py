@@ -1,5 +1,5 @@
 import logging
-import os
+import uuid
 import pandas as pd
 
 from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
@@ -111,7 +111,7 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'project_name':
                         project.long_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'project_short_name':
-                        project.name = template_df.iat[j, 1]
+                        project.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = template_df.iat[j, 1]
                         logger.info(project.project_sponsor)
@@ -130,8 +130,6 @@ class PcorTemplateParser:
                         project.code = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'dbgap_accession_number':
                         project.dbgap_accession_number = template_df.iat[j, 1]
-                    #elif template_df.iat[j, 0] == 'project_type':
-                    #    project.project_type = template_df.iat[j, 1]
 
                     # FixMe:  following things are missing in template!
                     elif template_df.iat[j, 0] == 'date collected':
@@ -142,14 +140,13 @@ class PcorTemplateParser:
                         project.availability_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'Resource':
 
-                        # validate needed props
-                        # ToDo: what is assignment logic?
-                        if project.submitter_id is None:
-                            project.submitter_id = project.name # FIXME: establish name as submitter id?
+                        # validate needed props and guid assignment
+                        if project.submitter_id == "" or project.submitter_id is None:
+                            project.submitter_id = str(uuid.uuid4())
                         if project.code == "" or project.code is None:
-                            project.code = project.name
+                            project.code = str(uuid.uuid4())
                         if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
-                            project.dbgap_accession_number = project.name
+                            project.dbgap_accession_number = project.name   # FIXME: should we use guid?
                         return project
 
         logger.warning("no program found, return null")
@@ -179,16 +176,16 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_name':
                         resource.long_name = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_short_name':
-                        resource.name = template_df.iat[j, 1]
+                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
                         resource.submitter_id = resource.name  # FIXME: this is a temp patch for submitter id
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_url':
-                        resource.resource_link = template_df.iat[j, 1]
+                        resource.resource_url = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = template_df.iat[j, 1]
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = template_df.iat[j, 1]
+                        resource.domain = template_df.iat[j, 1].split(',')
                     elif template_df.iat[j, 0] == 'keywords':
                         resource.keywords = template_df.iat[j, 1].split(',')
                     elif template_df.iat[j, 0] == 'access_type':
@@ -214,10 +211,10 @@ class PcorTemplateParser:
                         elif str(resource.is_static).lower() == 'yes':
                             resource.is_static = True
                     elif template_df.iat[j, 0] == 'Data_Resource':
-                        # validate needed props
-                        # ToDo: what is assignment logic?
+
+                        # validate needed props and guid assignment
                         if resource.submitter_id is None:
-                            resource.submitter_id = 'empty'
+                            resource.submitter_id = str(uuid.uuid4())
                         return resource
 
         logger.warning("no program found, return null")

@@ -75,7 +75,8 @@ class LoaderSpreadsheet:
                     result = PcorProcessResult()
                     result.template_source = file_path
 
-                    log_file_path = None
+                    log_file_name = new_file_name.split('.')[0] + '.log'
+                    log_file_path = os.path.join(self.workspace_processing_folder_path, log_file_name)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
                     result.template_source = file_path
 
@@ -84,8 +85,6 @@ class LoaderSpreadsheet:
 
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
-                        log_file_name = new_file_name.split('.')[0] + '.log'
-                        log_file_path = os.path.join(self.workspace_processing_folder_path, log_file_name)
                         file = open(log_file_path, "w")
                         file.write('Error occurred \n %s' % str(e))
                         file.close()
@@ -119,7 +118,7 @@ class LoaderSpreadsheet:
                         shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                         result.template_current_location = failed_path
                         if os.path.exists(log_file_path):
-                            shutil.move(src=log_file_path, dst=failed_path)
+                            shutil.move(src=log_file_path, dst=self.workspace_failed_folder_path)
 
                     self.result_handler.handle_result(result)
 

@@ -150,14 +150,14 @@ class PcorGen3Ingest:
         discovery.name = resource.name
         discovery.description = resource.description
         discovery.publications = resource.publications
-        discovery.domain = resource.domain
+        discovery.domain = ','.join(resource.domain)
         discovery.has_api = "false"
         discovery.type = resource.resource_type
         discovery.has_visualization_tool = "false"
         discovery.is_citizen_collected = "false"
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
-        discovery.resource_url = resource.resource_link
+        discovery.resource_url = resource.resource_url
 
         # migrate keywords that are available in resource
         for kw in resource.keywords:
@@ -167,14 +167,13 @@ class PcorGen3Ingest:
                 tag.category = "Keyword"
                 discovery.tags.append(tag)
 
-        '''
         for item in resource.domain:
             if item:
                 tag = Tag()
                 tag.name = item
                 tag.category = "Domain"
                 discovery.tags.append(tag)
-        '''
+
 
         tag = Tag()
         tag.name = discovery.type
@@ -287,7 +286,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program).replace('"None"', 'null')
+        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -300,7 +299,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program).replace('"None"', 'null')
+        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -312,7 +311,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project).replace('"None"', 'null').replace('"nan"', 'null')
+        rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"', 'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -324,7 +323,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
-        rendered = template.render(resource=resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -345,9 +344,12 @@ class PcorGen3Ingest:
         :param geo_spatial_data_resource: PcorGeospatialDataResourceModel representing the geo-spatial data
         :return: string with resource JSON for loading into Gen3
         """
+
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '').replace('\'', '')
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null')\
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '')\
+            .replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
 

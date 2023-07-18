@@ -16,6 +16,12 @@ This space is for development and encoding of a data model for PCOR to support t
 * The [workflows section](./.github/workflows/) supports GitHub CI/CD actions and automation for model development
 * The [custom configs](./custom_configs/) section holds the gitops, manifest, and other deployment artifacts that customize the catalog
 
+## Notes
+
+The github actions here synch with the chords-health-dictionary and the cdis-manifest
+
+
+
 
 
 

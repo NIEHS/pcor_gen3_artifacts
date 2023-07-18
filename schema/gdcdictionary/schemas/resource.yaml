@@ -84,22 +84,11 @@ properties:
     type: string
   domain:
     description: Domain of the resource
-    enum:
-      - Social Determinants of Health
-      - Electronic Health Records
-      - Population Health Records
-      - Clinical Research
-      - General Exposure
-      - Air Quality
-      - Water Quality
-      - Water Security
-      - Greenness
-      - Neighborhood
-      - Weather
-      - Extreme Weather
-      - Climate Change
+    type: array
+    items:
+      type: string
   keywords:
-    description: Comma delim keywords.
+    description: Comma delimiter keywords.
     type: array
     items:
       type: string
