@@ -1979,11 +1979,15 @@ tbody:hover > tr:hover td {
                 <tbody>
                 <tr>
                     <td class="tbl-field-name">Submitter</td>
-                    <td>{{ data.submitter }}</td>
+                    <td>{{ submission.curator_name }}</td>
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Submitter Email</td>
-                    <td>{{ data.submitter_email }}</td>
+                    <td>{{ submission.curator_email }}</td>
+                </tr>
+                 <tr>
+                    <td class="tbl-field-name">Submitter Comment</td>
+                    <td>{{ submission.curation_comment }}</td>
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Template Source</td>
