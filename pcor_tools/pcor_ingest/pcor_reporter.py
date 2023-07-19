@@ -10,7 +10,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorSubmissionInfoModel
+
 logger = logging.getLogger(__name__)
 
 
@@ -52,8 +53,12 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("error_report.html")
         template.globals['now'] = datetime.utcnow
+        submission = pcor_processing_result.model_data["submission"]
+        if not submission:
+            submission = PcorSubmissionInfoModel()
 
-        rendered = template.render(data=pcor_processing_result)
+        rendered = template.render(data=pcor_processing_result,
+                                   submission=submission)
         return rendered
 
     def produce_html_success_report(self, pcor_processing_result):
@@ -66,16 +71,26 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("success_report.html")
         template.globals['now'] = datetime.utcnow
-        rendered = template.render(data=pcor_processing_result)
+        submission = pcor_processing_result.model_data["submission"]
+
+        if not submission:
+            submission = PcorSubmissionInfoModel()
+
+        rendered = template.render(data=pcor_processing_result,
+                                   submission=submission)
         return rendered
 
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov', 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov', pcor_processing_result.submitter_email]
+        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov'] #, 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov']
+        submission = pcor_processing_result.model_data["submission"]
+        if submission.curator_email:
+            recipients.append(submission.curator_email)
+
         email_message['To'] = ", ".join(recipients)
 
-        email_message['Subject'] = 'PCOR Curation Report'
+        email_message['Subject'] = 'CHORDS Curation Report'
 
         # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
         email_message.attach(MIMEText(email_text, "html"))

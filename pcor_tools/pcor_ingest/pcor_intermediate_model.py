@@ -15,6 +15,22 @@ class PcorIntermediateProgramModel:
         self.name = None
         self.dbgap_accession_number = None
 
+
+class PcorSubmissionInfoModel:
+
+    """
+    Represents administrative information about a template (source, curator info and email)
+    """
+
+    def __init__(self):
+        self.curator_name = ""
+        self.curator_email = ""
+        self.curation_comment = ""
+        self.template_source = ""
+        self.submit_location = ""
+        self.submit_final_location = ""
+
+
 class PcorIntermediateProjectModel:
 
     def __init__(self):

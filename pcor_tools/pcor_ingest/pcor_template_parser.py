@@ -3,7 +3,8 @@ import uuid
 import pandas as pd
 
 from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel
+    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel, \
+    PcorSubmissionInfoModel
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 logger = logging.getLogger(__name__)
@@ -29,6 +30,14 @@ class PcorTemplateParser:
         :param result: PcorTemplateParseResult with the outcome
         """
         df = pd.read_excel(template_absolute_path, sheet_name=0)
+
+        try:
+            result.model_data["submission"] = self.extract_submission_data(df)
+        except Exception as err:
+            logger.error("exception parsing submission: %s" % err)
+            result.success = False
+            result.errors.append("error parsing submission: %s" % err)
+            return
 
         try:
             result.model_data["program"] = self.extract_program_data(df)
@@ -86,6 +95,37 @@ class PcorTemplateParser:
                         return program
 
         logger.warning("no program found, return null")
+        return None
+
+    @staticmethod
+    def extract_submission_data(template_df):
+        """
+        Given a pandas dataframe with the template date, extract out the submission related data
+        :param template_df: pandas df of the spreadsheet
+        :return: PcorProgramModel with program data from ss
+        """
+
+        # loop thru the template until the marker 'SUBMITTER' is found
+
+        ss_rows = template_df.shape[0]
+        logging.debug("iterate looking for the SUBMITTER stanza")
+        submission = PcorSubmissionInfoModel()
+        for i in range(ss_rows):
+            if template_df.iat[i, 0] == 'Submitter':
+                logging.debug("found Submitter")
+                for j in range(i, ss_rows):
+                    # FixMe:  program id is missing in template!
+                    if template_df.iat[j, 0] == 'submitter_name':
+                        submission.curator_name = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'submitter_email':
+                        submission.curator_email = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'comment':
+                        submission.curation_comment = template_df.iat[j, 1]
+                    elif template_df.iat[j, 0] == 'Program':
+                        # validate needed props
+                        return submission
+
+        logger.warning("no submission found, return null")
         return None
 
     @staticmethod
