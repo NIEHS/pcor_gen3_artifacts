@@ -24,6 +24,5 @@ class TestLoaderSpreadsheet(unittest.TestCase):
         self.assertEqual(len(actual), len(ss_orig))
 
 
-
 if __name__ == '__main__':
     unittest.main()

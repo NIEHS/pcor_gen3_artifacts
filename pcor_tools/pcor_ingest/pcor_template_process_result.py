@@ -24,8 +24,6 @@ class PcorProcessResult:
         self.path_url = ""
         self.response_content = ""
         self.request_content = ""
-        self.submitter = "Mike Conway"
-        self.submitter_email = "mike.conway@nih.gov"
         self.template_source = ""
         self.template_current_location = ""
 
