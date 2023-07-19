@@ -26,6 +26,12 @@ class PcorProcessResult:
         self.request_content = ""
         self.template_source = ""
         self.template_current_location = ""
+        # guids - these should be recorded when being added or looked up as part of processing
+        # TODO add these back to the spreadsheet when created?
+        self.program_guid = ""
+        self.project_guid = ""
+        self.resource_guid = ""
+        self.resource_detail_guid = ""
 
 
 class PcorError:
