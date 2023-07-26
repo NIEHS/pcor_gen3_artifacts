@@ -20,6 +20,7 @@ class PcorProcessResult:
         self.project_name = ""
         self.program_submitter_id = ""
         self.program_name = ""
+        self.resource_name = ""
         # error information
         self.path_url = ""
         self.response_content = ""
