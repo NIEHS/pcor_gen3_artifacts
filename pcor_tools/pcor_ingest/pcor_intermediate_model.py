@@ -46,7 +46,6 @@ class PcorIntermediateProjectModel:
         self.project_url = ""
         self.description = ""
         self.code = ""
-        self.submitter_id = ""
         self.availability_mechanism = ""
         self.availability_type = ""
         self.complete = ""
