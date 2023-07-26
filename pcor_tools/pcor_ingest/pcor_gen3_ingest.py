@@ -101,11 +101,11 @@ class PcorGen3Ingest:
         except requests.exceptions.HTTPError:
             logger.warn("error, project not found")
 
-    def create_resource(self, program_name, project_name, resource):
+    def create_resource(self, program_name, project_code, resource):
         """
         Add (or update) a resource
         :param program_name:  name of program (e.g. NFS)
-        :param project_name: name of project (code)
+        :param project_code: name of project (code)
         :param resource: PcorIntermediateResourceModel representing the resource
         :return:on success returns resource id or None in failure
         """
@@ -115,14 +115,14 @@ class PcorGen3Ingest:
 
         # add project info
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_resource_json(resource)
         logger.debug("json_string: %s" % json_string)
         resource_json = json.loads(json_string)
-        logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
-        status = self.submit_record(program=program_name, project=project_name, json_data=resource_json)
+        logger.info('adding resource to program: {}, project: {}'.format(program_name, project_code))
+        status = self.submit_record(program=program_name, project=project_code, json_data=resource_json)
         logger.info(status)
         resource.id = status.id
         return status
@@ -238,7 +238,7 @@ class PcorGen3Ingest:
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         geo_spatial_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
@@ -252,7 +252,7 @@ class PcorGen3Ingest:
         logger.info("create_geo_spatial_tool_resource()")
         self.get_individual_project_info(project_name)
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         geo_spatial_tool_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
@@ -265,7 +265,7 @@ class PcorGen3Ingest:
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
         logger.info("create_pop_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         pop_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_pop_data_resource(pop_data_resource)
@@ -436,7 +436,7 @@ class PcorGen3Ingest:
         projects = sub.get_projects(program)
         return projects
 
-    def pcor_project_model_from_id(self, project_submitter_id):
+    def pcor_project_model_from_code(self, project_submitter_id):
         """
         Given a project submitter id, build a skeleton project model with id and other info
         :param project_submitter_id: code for project
@@ -506,7 +506,7 @@ class PcorGen3Ingest:
 
         project = PcorIntermediateProjectModel()
         project.name = result["data"]["project"][0]["name"]
-        project.project_code = result["data"]["project"][0]["code"]
+        project.code = result["data"]["project"][0]["code"]
         project.investigator_name = result["data"]["project"][0]["investigator_name"]
         project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
         project.long_name = result["data"]["project"][0]["long_name"]
@@ -569,6 +569,6 @@ class PcorGen3Ingest:
             submission_status.project_name = project
             submission_status.message = submission_status.response_content["message"]
 
-            # program_name, program_submitter_id, project_id, project_name
+            # program_name, program_submitter_id, project_id, project_code
 
             return submission_status
