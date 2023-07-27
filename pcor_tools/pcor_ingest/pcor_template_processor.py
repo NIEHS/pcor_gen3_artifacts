@@ -96,7 +96,7 @@ class PcorTemplateProcessor:
                                 "creation of resource failed, bailing: %s" % resource_submit_status)
                             parsed_data.success = False
                             parsed_data.message = resource_submit_status.response_content["text"]
-                            parsed_data.errors.append(resource_submit_status.errors)
+                            parsed_data.errors  +=  resource_submit_status.errors
                             parsed_data.path_url = resource_submit_status.path_url
                             parsed_data.response_content = resource_submit_status.response_content
                             parsed_data.request_content = resource_submit_status.request_content
@@ -118,13 +118,14 @@ class PcorTemplateProcessor:
                                 project_name=project.name,
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
+
                             # check status and bail if not success
                             if not resource_submit_status.success:
                                 logger.error(
-                                    "creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
+                                    "creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status.message)
                                 parsed_data.success = False
-                                parsed_data.errors.append(resource_submit_status.errors)
-                                parsed_data.message = resource_submit_status.response.text
+                                parsed_data.errors += resource_submit_status.errors
+                                parsed_data.message = resource_submit_status.message
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
@@ -154,7 +155,7 @@ class PcorTemplateProcessor:
                                 logger.error("creation of population_data_resource failed, bailing: %s" %
                                              resource_submit_status)
                                 parsed_data.success = False
-                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.errors += resource_submit_status.errors
                                 parsed_data.message = resource_submit_status.response.text
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
@@ -179,7 +180,7 @@ class PcorTemplateProcessor:
                                              % resource_submit_status)
                                 parsed_data.success = False
                                 parsed_data.message = resource_submit_status.response.text
-                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.errors += resource_submit_status.errors
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content

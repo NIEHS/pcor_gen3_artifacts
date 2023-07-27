@@ -100,7 +100,8 @@ class LoaderSpreadsheet:
                         # result.success --> true
                         # result --> move file to processed folder
 
-                        success_path = os.path.join(self.workspace_processed_folder_path, os.path.basename(processing_file_path))
+                        success_path = os.path.join(self.workspace_processed_folder_path,
+                                                    os.path.basename(processing_file_path))
                         result.template_current_location = success_path
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
@@ -110,7 +111,8 @@ class LoaderSpreadsheet:
                         # failed folder
                         # result.success --> false
                         # result --> move file to failed folder
-                        failed_path = os.path.join(self.workspace_failed_folder_path, os.path.basename(processing_file_path))
+                        failed_path = os.path.join(self.workspace_failed_folder_path,
+                                                   os.path.basename(processing_file_path))
 
                         logger.info(
                             '\nMoving file: %s \nsrc: %s\ndst: %s' % (
