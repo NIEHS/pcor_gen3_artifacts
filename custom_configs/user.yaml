@@ -64,7 +64,7 @@ authz:
       subresources:
       - name: projects
         subresources:
-          - name: CHORDS
+          - name: MTBS
     - name: MTBS
       subresources:
       - name: projects
@@ -148,7 +148,7 @@ authz:
       - storage_reader
     resource_paths:
     - /open
-    - /programs/CHORDS/projects/CHORDS
+    - /programs/CHORDS/projects/MTBS
     - /programs/MTBS/projects/MTBS
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2
@@ -176,7 +176,7 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/CHORDS/projects/CHORDS
+    - /programs/CHORDS/projects/MTBS
     - /programs/MTBS/projects/MTBS
     - /programs/NFS/projects/NFS-1
     - /programs/NFS/projects/NFS-2

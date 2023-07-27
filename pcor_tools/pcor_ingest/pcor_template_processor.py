@@ -77,7 +77,7 @@ class PcorTemplateProcessor:
                         parsed_data.request_content = pcor_error.request
                         parsed_data.response_content = json.loads(pcor_error.response.text)
                         parsed_data.path_url = parsed_data.request_content.path_url
-                        parsed_data.message = pcor_error
+                        parsed_data.message = pcor_error.response.text
                         logger.error("error in project create: %s" % parsed_data)
                         return
 
@@ -86,8 +86,8 @@ class PcorTemplateProcessor:
                         resource = model_data['resource']
                         resource_submit_status = self.pcor_ingest.create_resource(
                             program_name=program.name,
-                            project_name=project.name,
-                            resource=resource) # FIXME: need to handle error here, check status...
+                            project_code=project.name,
+                            resource=resource)
 
                         # add a check if resource_submit_status.success == False
 
@@ -95,7 +95,8 @@ class PcorTemplateProcessor:
                             logger.error(
                                 "creation of resource failed, bailing: %s" % resource_submit_status)
                             parsed_data.success = False
-                            parsed_data.errors.append(resource_submit_status.errors)
+                            parsed_data.message = resource_submit_status.response_content["text"]
+                            parsed_data.errors  +=  resource_submit_status.errors
                             parsed_data.path_url = resource_submit_status.path_url
                             parsed_data.response_content = resource_submit_status.response_content
                             parsed_data.request_content = resource_submit_status.request_content
@@ -108,18 +109,23 @@ class PcorTemplateProcessor:
                             geo_spatial_resource = model_data['geospatial_data_resource']
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
-                            geo_spatial_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
+                            geo_spatial_resource.submitter_id = resource.submitter_id
+                            # parsed template field?
+                            parsed_data.resource_detail_guid = geo_spatial_resource.submitter_id
+
                             resource_submit_status = self.pcor_ingest.create_geo_spatial_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
+
                             # check status and bail if not success
                             if not resource_submit_status.success:
                                 logger.error(
-                                    "creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
+                                    "creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status.message)
                                 parsed_data.success = False
-                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.errors += resource_submit_status.errors
+                                parsed_data.message = resource_submit_status.message
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
@@ -138,7 +144,7 @@ class PcorTemplateProcessor:
                             pop_data_resource = model_data['pop_data_resource']
                             pop_data_resource.resource_id = resource_submit_status.id
                             pop_data_resource.resource_submitter_id = resource.submitter_id
-                            pop_data_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
+                            pop_data_resource.submitter_id = resource.submitter_id
 
                             self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
@@ -146,9 +152,11 @@ class PcorTemplateProcessor:
                                 pop_data_resource=pop_data_resource
                             )
                             if not resource_submit_status.success:
-                                logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
+                                logger.error("creation of population_data_resource failed, bailing: %s" %
+                                             resource_submit_status)
                                 parsed_data.success = False
-                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.errors += resource_submit_status.errors
+                                parsed_data.message = resource_submit_status.response.text
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
@@ -159,7 +167,7 @@ class PcorTemplateProcessor:
                             geo_tool_resource = model_data['geo_tool_resource']
                             geo_tool_resource.resource_id = resource_submit_status.id
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
-                            geo_tool_resource.submitter_id = resource.submitter_id # FIXME: make submitter id a template field
+                            geo_tool_resource.submitter_id = resource.submitter_id
 
                             self.pcor_ingest.create_geo_spatial_tool_resource(
                                 program_name=program.name,
@@ -168,9 +176,11 @@ class PcorTemplateProcessor:
                             )
 
                             if not resource_submit_status.success:
-                                logger.error("creation of geospatial_data_resource failed, bailing: %s" % resource_submit_status)
+                                logger.error("creation of geospatial_data_resource failed, bailing: %s"
+                                             % resource_submit_status)
                                 parsed_data.success = False
-                                parsed_data.errors.append(resource_submit_status.errors)
+                                parsed_data.message = resource_submit_status.response.text
+                                parsed_data.errors += resource_submit_status.errors
                                 parsed_data.path_url = resource_submit_status.path_url
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
@@ -184,6 +194,3 @@ class PcorTemplateProcessor:
             pcor_error.key = ""
             pcor_error.message = str(exception)
             parsed_data.errors.append(pcor_error)
-
-
-# python3 run_spreadsheet /here/is/the/sheet.xls
