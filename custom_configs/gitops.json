@@ -154,7 +154,7 @@
           "enabled": true,
           "inputSubtitle": "PCOR Resource Search",
           "placeholder": "Search climate and health resources by keyword",
-          "searchableTextFields": ["name", "long_name", "description", "domain", "intended_use", "program_name"]
+          "searchableTextFields": ["name", "long_name", "description", "domain", "program_name"]
 
         },
         "tagSearchDropdown": { 
@@ -532,8 +532,6 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "intended_use",
-          "source_name",
           "measures",
           "exposure_media",
           "time_extent_start",
@@ -645,8 +643,6 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "intended_use",
-          "source_name",
           "population",
           "vulnerable_population",
           "model_methods",
@@ -761,8 +757,6 @@
         "fields": [
           "resource_name",
           "resource_description",
-          "intended_use",
-          "source_name",
           "tool_type",
           "usage_type",
           "resource_url"
