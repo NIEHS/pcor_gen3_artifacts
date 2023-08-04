@@ -92,7 +92,7 @@
 
     "systemUse" : { 
     "systemUseTitle" : "CHORDS Catalog Policy", 
-    "systemUseText" : ["These are the words"], 
+    "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."], 
     "expireUseMsgDays" : 0
   },
 
