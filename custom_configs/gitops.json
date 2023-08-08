@@ -30,7 +30,7 @@
   },
   "components": {
     "appName": "CHORDS Resource Catalog",
-    "homepageHref": "https://localhost/",
+    "homepageHref": "https://staging.chords-health.org/",
     "index": {
       "introduction": {
         "heading": "CHORDS Resource Catalog",
