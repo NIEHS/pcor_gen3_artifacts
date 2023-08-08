@@ -69,12 +69,6 @@
           "tooltip": "Query the databases using GraphQL."
         },
         {
-          "name": "Workspace",
-          "link": "/workspace",
-          "icon": "workspace",
-          "tooltip": "The Workspace provides a secure cloud environment featuring Jupyter Notebooks and RStudio."
-        },
-        {
           "icon": "profile",
           "link": "/identity",
           "color": "#a2a2a2",
@@ -95,16 +89,6 @@
     "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."], 
     "expireUseMsgDays" : 0
   },
-
-    "footer": {
-      "externalURL": "/external/footer.html",
-      "links": [
-        {
-          "text": "CHORDS Home Page",
-          "href": "https://www.niehs.nih.gov"
-        }
-      ]
-    },
 
     "categorical9Colors": ["#B02F34", "#421C52", "#AEEBF2", "#E0DD10", "#40476D", "#FFA630", "#AE8799", "#035C94", "#462255"],
     "footerLogos": [
