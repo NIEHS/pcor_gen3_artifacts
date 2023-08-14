@@ -272,6 +272,23 @@ class PcorTemplateParser:
         return None
 
     @staticmethod
+    def make_array(value):
+        """
+        Just avoiding 'None' when parsing spreadsheet
+        Parameters
+        ----------
+        value string to split into array
+
+        Returns
+        -------
+
+        """
+        result = []
+        if value:
+            result = value.split(",")
+        return result
+
+    @staticmethod
     def sanitize_column(value):
 
         if isinstance(value, str):

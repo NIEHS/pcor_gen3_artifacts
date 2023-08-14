@@ -107,7 +107,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                             geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        geo_resource.measures = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines() #ToDo: check what other ways are needed to clean up data
+                        geo_resource.measures = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(',')
                     elif template_df.iat[j, 0] == 'measurement_method':
                         geo_resource.measurement_method = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_extent_start':

@@ -2,6 +2,7 @@ authz:
   # policies automatically given to anyone, even if they are not authenticated
   anonymous_policies:
   - open_data_reader
+  - all_programs_reader
 
   # policies automatically given to authenticated users (in addition to their other policies)
   all_users_policies: []
@@ -12,42 +13,19 @@ authz:
     policies:
     - services.sheepdog-admin
     - data_upload
-    - project_submitter
+    - CHORDS_submitter
     users:
-    - deeppatel.cs@gmail.com
-    - michael.c.conway@gmail.com
-    - sznolte@gmail.com
-    - schmittcp@yahoo.com
     - test@example.com
-    - test
-    # can do workspace operations
-  - name: workspace_users
-    policies:
-      - workspace
-      - sower
-    users:
-      - deeppatel.cs@gmail.com
-      - michael.c.conway@gmail.com
-      - test@example.com
-      - sznolte@gmail.com
-      - schmittcp@yahoo.com
-      - test
-    # can create/update/delete indexd records
+
+  # can create/update/delete indexd records
   - name: indexd_admins
     policies:
     - indexd_admin
     users:
-    - deeppatel.cs@gmail.com
-    - michael.c.conway@gmail.com
     - test@example.com
-    - sznolte@gmail.com
-    - schmittcp@yahoo.com
-    - test
+
   resources:
-  - name: 'mds_gateway'
-    description: 'commons /mds-admin'
   - name: workspace
-  - name: sower
   - name: data_file
   - name: services
     subresources:
@@ -57,6 +35,13 @@ authz:
         subresources:
         - name: program
         - name: project
+    - name: 'indexd'
+      subresources:
+        - name: 'admin'
+    - name: audit
+      subresources:
+        - name: presigned_url
+        - name: login
   - name: open
   - name: programs
     subresources:
@@ -64,58 +49,9 @@ authz:
       subresources:
       - name: projects
         subresources:
-          - name: MTBS
-    - name: MTBS
-      subresources:
-      - name: projects
-        subresources:
-          - name: MTBS
-    - name: NFS
-      subresources:
-      - name: projects
-        subresources:
-          - name: NFS-1
-          - name: NFS-2
-    - name: USGS
-      subresources:
-      - name: projects
-        subresources:
-          - name: USGS-1
-          - name: USGS-2
-    - name: NOAA
-      subresources:
-      - name: projects
-        subresources:
-          - name: NOAA-1
-          - name: NOAA-2
-    - name: EPA
-      subresources:
-      - name: projects
-        subresources:
-          - name: EPA-1
-          - name: EPA-2
-    - name: NASA
-      subresources:
-      - name: projects
-        subresources:
-          - name: NASA-1
-          - name: NASA-2
-    - name: jnkns
-      subresources:
-        - name: projects
-          subresources:
-            - name: jenkins
-    #- name: program1
-    #  subresources:
-    #  - name: projects
-    #    subresources:
-    #    - name: P1
+        - name: HMS
 
   policies:
-  - id: 'mds_admin'
-    description: 'be able to use metadata service'
-    resource_paths: ['/mds_gateway']
-    role_ids: ['mds_user']
   - id: workspace
     description: be able to use workspace
     resource_paths:
@@ -141,33 +77,20 @@ authz:
       - indexd_admin
     resource_paths:
       - /programs
-      - /data_file
   - id: open_data_reader
     role_ids:
       - reader
       - storage_reader
     resource_paths:
     - /open
-    - /programs/CHORDS/projects/MTBS
-    - /programs/MTBS/projects/MTBS
-    - /programs/NFS/projects/NFS-1
-    - /programs/NFS/projects/NFS-2
-    - /programs/USGS/projects/USGS-1
-    - /programs/USGS/projects/USGS-2
-    - /programs/NOAA/projects/NOAA-1
-    - /programs/NOAA/projects/NOAA-2
-    - /programs/EPA/projects/EPA-1
-    - /programs/EPA/projects/EPA-2
-    - /programs/NASA/projects/NASA-1
-    - /programs/NASA/projects/NASA-2
-
+    - /programs/CHORDS/projects/HMS
   - id: all_programs_reader
     role_ids:
     - reader
     - storage_reader
     resource_paths:
     - /programs
-  - id: project_submitter
+  - id: CHORDS_submitter
     role_ids:
     - reader
     - creator
@@ -176,112 +99,9 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/CHORDS/projects/MTBS
-    - /programs/MTBS/projects/MTBS
-    - /programs/NFS/projects/NFS-1
-    - /programs/NFS/projects/NFS-2
-    - /programs/USGS/projects/USGS-1
-    - /programs/USGS/projects/USGS-2
-    - /programs/NOAA/projects/NOAA-1
-    - /programs/NOAA/projects/NOAA-2
-    - /programs/EPA/projects/EPA-1
-    - /programs/EPA/projects/EPA-2
-    - /programs/NASA/projects/NASA-1
-    - /programs/NASA/projects/NASA-2
-  - id: jnkns
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/jnkns
-    - /programs/jnkns/projects/jenkins
-  - id: sower
-    description: be able to user sower
-    resource_paths:
-    - /sower
-    role_ids:
-    - sower_user
-  - id: CHORDS
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/CHORDS
-  - id: MTBS
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/MTBS
-  - id: NFS
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/NFS
-  - id: USGS
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/USGS
-  - id: NOAA
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/NOAA
-  - id: EPA
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/EPA
-  - id: NASA
-    role_ids:
-    - reader
-    - creator
-    - updater
-    - deleter
-    - storage_reader
-    - storage_writer
-    resource_paths:
-    - /programs/NASA
+    - /programs/CHORDS/projects/HMS
+
   roles:
-  - id: 'mds_user'
-    permissions:
-    - id: 'mds_access'
-      action:
-        service: 'mds_gateway'
-        method: 'access'
   - id: file_uploader
     permissions:
     - id: file_upload
@@ -350,12 +170,7 @@ authz:
         action:
           service: '*'
           method: read-storage
-  - id: sower_user
-    permissions:
-      - id: sower_access
-        action:
-          method: access
-          service: job
+
 clients:
   wts:
     policies:
@@ -363,110 +178,11 @@ clients:
     - open_data_reader
 
 users:
-  deeppatel.cs@gmail.com:
-    tags:
-      name: Deep Patel
-#      email: mustbe@differentemail.com
-    policies:
-    - mds_admin
-    - workspace
-    - data_upload
-    - project_submitter
-    - jnkns
-    - NFS
-    - CHORDS
-    - MTBS
-    - USGS
-    - NOAA
-    - EPA
-    - NASA
-    - services.sheepdog-admin
-  michael.c.conway@gmail.com:
-    tags:
-      name: Mike Conway
-#      email: johndoe@gmail.com
-    policies:
-    - workspace
-    - mds_admin
-    - data_upload
-    - project_submitter
-    - jnkns
-    - NFS
-    - CHORDS
-    - MTBS
-    - USGS
-    - NOAA
-    - EPA
-    - NASA
-    - services.sheepdog-admin
   test@example.com:
     tags:
-      name: Mike Conway
+      name: Test User
 #      email: johndoe@gmail.com
-    policies:
-    - workspace
-    - data_upload
-    - project_submitter
-    - mds_admin
-    - jnkns
-    - NFS
-    - CHORDS
-    - MTBS
-    - USGS
-    - NOAA
-    - EPA
-    - NASA
-    - services.sheepdog-admin
-  sznolte@gmail.com:
-    tags:
-      name: Mike Conway
-    #      email: johndoe@gmail.com
-    policies:
-      - workspace
-      - data_upload
-      - project_submitter
-      - jnkns
-      - NFS
-      - CHORDS
-      - MTBS
-      - USGS
-      - NOAA
-      - EPA
-      - NASA
-      - services.sheepdog-admin
-  schmittcp@yahoo.com:
-    tags:
-      name: Charles Schmitt
-    policies:
-      - workspace
-      - data_upload
-      - project_submitter
-      - jnkns
-      - NFS
-      - CHORDS
-      - MTBS
-      - USGS
-      - NOAA
-      - EPA
-      - NASA
-      - services.sheepdog-admin
-  test:
-    tags:
-      name: test
-    #      email: johndoe@gmail.com
-    policies:
-      - workspace
-      - data_upload
-      - project_submitter
-      - mds_admin
-      - jnkns
-      - NFS
-      - CHORDS
-      - MTBS
-      - USGS
-      - NOAA
-      - EPA
-      - NASA
-      - services.sheepdog-admin
+    policies: []
+    #- CHORDS_submitter
+
 cloud_providers: {}
-groups: {}
