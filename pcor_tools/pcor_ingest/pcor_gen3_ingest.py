@@ -552,22 +552,25 @@ class PcorGen3Ingest:
             submission_status.request_content = pcor_error.request
             submission_status.response_content = json.loads(pcor_error.response.content)
 
-            for entity in submission_status.response_content["entities"]:
-                for error_entry in entity["errors"]:
+            if submission_status.response_content.get("entities"):
+                for entity in submission_status.response_content.get("entities"):
+                    for error_entry in entity["errors"]:
 
-                    error = PcorError()
+                        error = PcorError()
 
-                    if len(error_entry["keys"]) > 0:
-                        error.key = error_entry["keys"][0]
+                        if len(error_entry["keys"]) > 0:
+                            error.key = error_entry["keys"][0]
 
-                    error.message = error_entry["message"]
-                    error.type = error_entry["type"]
-                    submission_status.errors.append(error)
+                        error.message = error_entry["message"]
+                        error.type = error_entry["type"]
+                        submission_status.errors.append(error)
+
+            if submission_status.response_content.get("message"):
+                submission_status.message = submission_status.response_content.get("message")
 
             submission_status.path_url = submission_status.request_content.path_url
             submission_status.program_name = program
             submission_status.project_name = project
-            submission_status.message = submission_status.response_content["message"]
 
             # program_name, program_submitter_id, project_id, project_code
 

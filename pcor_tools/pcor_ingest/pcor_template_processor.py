@@ -95,7 +95,7 @@ class PcorTemplateProcessor:
                             logger.error(
                                 "creation of resource failed, bailing: %s" % resource_submit_status)
                             parsed_data.success = False
-                            parsed_data.message = resource_submit_status.response_content["text"]
+                            parsed_data.message = resource_submit_status.message
                             parsed_data.errors  +=  resource_submit_status.errors
                             parsed_data.path_url = resource_submit_status.path_url
                             parsed_data.response_content = resource_submit_status.response_content
