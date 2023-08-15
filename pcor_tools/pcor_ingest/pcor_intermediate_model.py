@@ -16,11 +16,7 @@ class PcorIntermediateProgramModel:
         self.dbgap_accession_number = None
 
 
-<<<<<<< HEAD
-class PcorCurationInfoModel:
-=======
 class PcorSubmissionInfoModel:
->>>>>>> e1248ce (add email and other submission data)
 
     """
     Represents administrative information about a template (source, curator info and email)
