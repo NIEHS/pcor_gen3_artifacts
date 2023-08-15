@@ -41,14 +41,11 @@ class PcorTemplateParser:
             return
 
         try:
-<<<<<<< HEAD
+
             program = self.extract_program_data(df)
             result.model_data["program"] = program
             result.program_name = program.name
 
-=======
-            result.model_data["program"] = self.extract_program_data(df)
->>>>>>> e1248ce (add email and other submission data)
         except Exception as err:
             logger.error("exception parsing program: %s" % err)
             result.success = False
@@ -127,21 +124,12 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Submitter':
                 logging.debug("found Submitter")
                 for j in range(i, ss_rows):
-                    # FixMe:  program id is missing in template!
                     if template_df.iat[j, 0] == 'submitter_name':
-<<<<<<< HEAD
                         submission.curator_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'submitter_email':
                         submission.curator_email = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'comment':
                         submission.curation_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-=======
-                        submission.curator_name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'submitter_email':
-                        submission.curator_email = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'comment':
-                        submission.curation_comment = template_df.iat[j, 1]
->>>>>>> e1248ce (add email and other submission data)
                     elif template_df.iat[j, 0] == 'Program':
                         # validate needed props
                         return submission
@@ -169,7 +157,7 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'project_code':
+                    elif template_df.iat[j, 0] == 'project_name':
                         project.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.name = str(template_df.iat[j, 1]).replace(' ', '').strip()

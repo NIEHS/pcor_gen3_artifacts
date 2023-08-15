@@ -110,6 +110,7 @@ class PcorTemplateProcessor:
                             geo_spatial_resource.resource_id = resource_submit_status.id
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
                             geo_spatial_resource.submitter_id = resource.submitter_id
+
                             # parsed template field?
                             parsed_data.resource_detail_guid = geo_spatial_resource.submitter_id
 
