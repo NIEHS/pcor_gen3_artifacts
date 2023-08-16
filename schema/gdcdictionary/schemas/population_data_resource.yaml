@@ -123,16 +123,6 @@ properties:
   geometry_source:
     description: Source or provider of the geometry data.
     type: string
-  population:
-    description: Type of population
-    type: array
-    items:
-      type: string
-  vulnerable_population:
-    description: Type of vulnerable population
-    type: array
-    items:
-      type: string
   exposures:
     description: Substance the population was exposed to (may be missing for non-specific exposure).
     type: array
