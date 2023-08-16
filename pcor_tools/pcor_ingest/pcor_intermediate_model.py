@@ -224,14 +224,18 @@ class PcorPopDataResourceModel:
         self.times_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
-        self.spatial_bounding_box = ""
+        self.spatial_coverage_specific_regions = []
         self.geometry_type = ""
         self.geometry_source = ""
         self.population = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
-        self.model_methods = ""
+        self.outcomes_other = []
+        self.model_methods = []
+        self.population_studied = []
+        self.population_studied_other = []
+
 
 
 class PcorGeoToolModel:

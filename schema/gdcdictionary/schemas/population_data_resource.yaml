@@ -106,12 +106,17 @@ properties:
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
+  spatial_resolution_other:
+    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    type: string
   spatial_coverage: 
     description: Maximum spatial coverage of the data.
     type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
+  spatial_coverage_specific_regions:
+    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
+    type: array
+    items:
+      type: string
   geometry_type:
     description: Type of geometric data, the file extension will be different for different types.
     type: string
@@ -134,13 +139,33 @@ properties:
     items:
       type: string
   outcomes:
-    description: Health outcome being assessed specific measures will contribute to the outcome.
+    description: Health outcome being assessed (may be missing for non-specific exposures).  Note this is the high level outcome, the specific measures will contribute to the outcome.
     type: array
     items:
       type: string
+  outcomes_other:
+    description: if outcome of interest is missing in the list above.
+    type: array
+    items:
+      type: string
+  exposure_media:
+    description: media that the phenomena is related to
+    type: string
   model_methods:
     description: If modeled, description of modeling approaches used to generate the data.
-    type: string
+    type: array
+    items:
+      type: string
+  population_studied:
+    description: type of population in the study.
+    type: array
+    items:
+      type: string
+  population_studied_other:
+    description: type of population in the study if not in the list above.
+    type: array
+    items:
+      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
