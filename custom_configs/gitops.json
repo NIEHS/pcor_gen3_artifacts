@@ -603,8 +603,7 @@
             "fields":[
               "program_name",
               "project_name",
-              "project_investigator_affiliation",
-
+              "project_investigator_affiliation"
             ]
           }
         ]

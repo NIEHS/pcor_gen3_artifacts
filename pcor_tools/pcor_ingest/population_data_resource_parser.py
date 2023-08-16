@@ -32,7 +32,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.errors.append("error parsing resource details: %s" % err)
+            result.message = err
 
         logger.info("returning general parsed data: %s" % result)
 

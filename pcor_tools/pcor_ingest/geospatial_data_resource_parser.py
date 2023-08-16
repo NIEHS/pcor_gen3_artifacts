@@ -7,7 +7,6 @@ from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -32,7 +31,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.errors.append("error parsing resource details: %s" % err)
+            result.message = err
 
         logger.info("returning general parsed data: %s" % result)
 

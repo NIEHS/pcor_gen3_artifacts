@@ -1,8 +1,9 @@
-import datetime
 import logging
 import math
 import uuid
 import pandas as pd
+from datetime import datetime
+
 
 from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel, \
