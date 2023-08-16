@@ -227,7 +227,6 @@ class PcorPopDataResourceModel:
         self.spatial_coverage_specific_regions = []
         self.geometry_type = ""
         self.geometry_source = ""
-        self.population = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
