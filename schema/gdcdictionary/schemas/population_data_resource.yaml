@@ -31,7 +31,6 @@ links:
 required:
   - submitter_id
   - type
-  - population
 uniqueKeys:
   - [id]
   - [project_id, submitter_id]
@@ -74,12 +73,13 @@ properties:
   update_frequency:
     description: Frequency of update of the resource.
     enum:
-      - fixed
-      - continuous
-      - hourly
-      - monthly
-      - quarterly
-      - annually
+      - Continuous
+      - Hourly
+      - Daily
+      - Monthly
+      - Quarterly
+      - Annually
+      - BiAnnual
       - unknown
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.

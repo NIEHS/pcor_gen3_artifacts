@@ -146,7 +146,10 @@
             "key": "Measures"
           },
           {
-            "key": "Exposure Media"
+            "key": "Exposures"
+          },
+          {
+            "key": "Population"
           }
 
         ]

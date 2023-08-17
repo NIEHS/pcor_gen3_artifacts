@@ -25,7 +25,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
         :param result: PcorTemplateParseResult with parse result
         """
         super(PopulationDataResourceParser, self).parse(template_absolute_path, result)
-        result.type = "geospatial_data_resource"
+        result.type = "population_data_resource"
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
             detail_model = self.extract_resource_details(df)

@@ -139,22 +139,36 @@ class PcorTemplateProcessor:
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments  # intended use?
+
+                            for item in geo_spatial_resource.measures:
+                                filter = AdvSearchFilter()
+                                filter.key = "Measures"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_spatial_resource.exposure_media:
+                                filter = AdvSearchFilter()
+                                filter.key = "Exposures"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 
-                        if 'pop_data_resource' in model_data.keys():
+                        if 'population_data_resource' in model_data.keys():
                             logger.info('process:: adding pop_data_resource')
-                            pop_data_resource = model_data['pop_data_resource']
+                            pop_data_resource = model_data['population_data_resource']
                             pop_data_resource.resource_id = resource_submit_status.id
                             pop_data_resource.resource_submitter_id = resource.submitter_id
                             pop_data_resource.submitter_id = resource.submitter_id
 
-                            self.pcor_ingest.create_pop_data_resource(
+                            resource_submit_status =  self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
                                 pop_data_resource=pop_data_resource
                             )
+
                             if not resource_submit_status.success:
                                 logger.error("creation of population_data_resource failed, bailing: %s" %
                                              resource_submit_status)
@@ -165,6 +179,34 @@ class PcorTemplateProcessor:
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
+
+                            resource.resource_type = parsed_data.type
+
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
+                                                                                        pop_data_resource)
+                            discovery.comment = pop_data_resource.comments  # intended use?
+
+                            for item in pop_data_resource.exposures:
+                                filter = AdvSearchFilter()
+                                filter.key = "Exposures"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in pop_data_resource.population_studied:
+                                filter = AdvSearchFilter()
+                                filter.key = "Population"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in pop_data_resource.population_studied_other:
+                                filter = AdvSearchFilter()
+                                filter.key = "Population"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            logger.info("created discovery: %s" % discovery)
+                            discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
+                            logger.info("discovery_result: %s" % discovery_result)
 
                         if 'geo_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')

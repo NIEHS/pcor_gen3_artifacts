@@ -199,17 +199,6 @@ class PcorGen3Ingest:
             discovery.adv_search_filters.append(filter)
 
         '''
-        for item in geo_spatial_resource.measures:
-            filter = AdvSearchFilter()
-            filter.key = "Measures"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
-
-        for item in geo_spatial_resource.exposure_media:
-            filter = AdvSearchFilter()
-            filter.key = "Exposure Media"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
 
         filter = AdvSearchFilter()
         filter.key = "Resource Type"
