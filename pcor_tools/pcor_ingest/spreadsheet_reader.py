@@ -11,6 +11,7 @@ from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, Su
 from pcor_ingest.pcor_result_handler import PcorResultHandler
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
+from pcor_ingest.population_data_resource_parser import PopulationDataResourceParser
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +64,7 @@ class PcorSpreadsheeetReader:
             logger.info("authenticated to Gen3")
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
+        self.parsers["population_data_resource"] = PopulationDataResourceParser()
         self.result_handler = PcorResultHandler(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):

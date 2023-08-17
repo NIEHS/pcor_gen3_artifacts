@@ -1,5 +1,6 @@
 import logging
 import math
+import traceback
 import uuid
 import pandas as pd
 from datetime import datetime
@@ -40,6 +41,7 @@ class PcorTemplateParser:
             logger.error("exception parsing submission: %s" % err)
             result.success = False
             result.errors.append("error parsing submission: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         try:
@@ -52,6 +54,7 @@ class PcorTemplateParser:
             logger.error("exception parsing program: %s" % err)
             result.success = False
             result.errors.append("error parsing program: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         try:
@@ -63,6 +66,7 @@ class PcorTemplateParser:
             logger.error("exception parsing project: %s" % err)
             result.success = False
             result.errors.append("error parsing project: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         result.project_name = result.model_data["project"].name
@@ -76,6 +80,7 @@ class PcorTemplateParser:
             logger.error("exception parsing resource: %s" % err)
             result.success = False
             result.errors.append("error parsing resource: %s" % err)
+            result.traceback = traceback.format_exc(err)
 
     @staticmethod
     def extract_program_data(template_df):

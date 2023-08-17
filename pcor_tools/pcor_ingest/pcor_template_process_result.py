@@ -13,6 +13,7 @@ class PcorProcessResult:
         # parsed model information
         self.model_data = {}
         self.message = ""
+        self.traceback = ""
         self.errors = [] # errors in processing that are not validation errors from Gen3
         # general contextual information
         self.project_id = ""

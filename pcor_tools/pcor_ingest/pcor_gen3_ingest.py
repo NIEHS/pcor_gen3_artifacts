@@ -2,6 +2,7 @@ import logging
 import json
 import re
 import os
+import traceback
 
 import requests
 from requests import HTTPError
@@ -543,6 +544,7 @@ class PcorGen3Ingest:
             submission_status.project_name = project
             # TODO: augment sub status
             return submission_status
+
         except HTTPError as pcor_error:
             logger.error("error in submission:%s" % pcor_error)
             submission_status = PcorProcessResult()
@@ -567,11 +569,16 @@ class PcorGen3Ingest:
 
             if submission_status.response_content.get("message"):
                 submission_status.message = submission_status.response_content.get("message")
-
-            submission_status.path_url = submission_status.request_content.path_url
-            submission_status.program_name = program
-            submission_status.project_name = project
-
-            # program_name, program_submitter_id, project_id, project_code
-
             return submission_status
+
+        except Exception as pcor_error:
+            logger.error("error in submission:%s" % pcor_error)
+            submission_status = PcorProcessResult()
+            submission_status.success = False
+            submission_status.program_name = program
+            submission_status.project_code = project
+            submission_status.request_content = pcor_error.request
+            submission_status.response_content = json.loads(pcor_error.response.content)
+            submission_status.traceback = traceback.format_exc(pcor_error)
+            return submission_status
+

@@ -1,5 +1,7 @@
 import json
 import logging
+import traceback
+
 import requests
 from requests import HTTPError
 
@@ -78,7 +80,8 @@ class PcorTemplateProcessor:
                         parsed_data.response_content = json.loads(pcor_error.response.text)
                         parsed_data.path_url = parsed_data.request_content.path_url
                         parsed_data.message = pcor_error.response.text
-                        logger.error("error in project create: %s" % parsed_data)
+                        parsed_data.traceback = traceback.format_exc(pcor_error)
+                        logger.error("error in project create: %s" % pcor_error)
                         return
 
                     if 'resource' in model_data.keys():
@@ -194,4 +197,5 @@ class PcorTemplateProcessor:
             pcor_error.type = ""
             pcor_error.key = ""
             pcor_error.message = str(exception)
+            pcor_error.traceback = traceback.format_exc(exception)
             parsed_data.errors.append(pcor_error)

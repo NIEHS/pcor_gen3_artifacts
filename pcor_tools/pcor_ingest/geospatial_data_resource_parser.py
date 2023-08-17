@@ -1,5 +1,7 @@
 import logging
 import os
+import traceback
+
 import pandas as pd
 import re
 
@@ -28,11 +30,15 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             detail_model = self.extract_resource_details(df)
             result.model_data["geospatial_data_resource"] = detail_model
             result.resource_detail_guid = detail_model.resource_submitter_id
-        except Exception as err:
+        except AttributeError as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
             result.message = err
-
+        except Exception as err:
+            logger.error("exception parsing resource details: %s" % err)
+            result.success = False
+            result.traceback = traceback.format_exc(err)
+            result.message = err
         logger.info("returning general parsed data: %s" % result)
 
     def extract_resource_details(self, template_df):
