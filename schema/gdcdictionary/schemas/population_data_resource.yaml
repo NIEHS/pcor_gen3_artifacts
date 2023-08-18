@@ -4,7 +4,7 @@ id: "population_data_resource"
 title: PopulationDataResource
 type: object
 nodeTerms: null
-namespace: http://gen3.niehs.nih.gov/
+namespace: http://chords-health.org/
 category: administrative
 program: '*'
 project: '*'
