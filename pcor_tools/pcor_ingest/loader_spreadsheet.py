@@ -1,6 +1,8 @@
 import logging
 import os
 import shutil
+import traceback
+
 import requests
 
 from datetime import datetime, date

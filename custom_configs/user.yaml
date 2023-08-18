@@ -50,6 +50,7 @@ authz:
       - name: projects
         subresources:
         - name: HMS
+        - name: CRE
 
   policies:
   - id: workspace
@@ -84,6 +85,8 @@ authz:
     resource_paths:
     - /open
     - /programs/CHORDS/projects/HMS
+    - /programs/CHORDS/projects/CRE
+
   - id: all_programs_reader
     role_ids:
     - reader
@@ -100,6 +103,7 @@ authz:
     - storage_writer
     resource_paths:
     - /programs/CHORDS/projects/HMS
+    - /programs/CHORDS/projects/CRE
 
   roles:
   - id: file_uploader

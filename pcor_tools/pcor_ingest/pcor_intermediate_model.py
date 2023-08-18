@@ -117,9 +117,9 @@ class PcorGeospatialDataResourceModel:
         self.intended_use = ""
         self.source_name = ""
         self.update_frequency = ""
-        self.includes_citizen_collected = ""
-        self.has_api = ""
-        self.has_visualization_tool = ""
+        self.includes_citizen_collected = False
+        self.has_api = False
+        self.has_visualization_tool = False
 
         # additional properties to describe the dataset
         self.measures = []
@@ -164,7 +164,7 @@ class PcorDiscoveryMetadata:
         self.source_url = ""
         self.publications = ""
         self.domain = []
-        self.has_api = None
+        self.has_api = ""
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
         self.resource_use_agreement = ""
@@ -216,22 +216,25 @@ class PcorPopDataResourceModel:
         self.source_name = ""
         self.source_url = ""
         self.update_frequency = ""
-        self.includes_citizen_collected = ""
-        self.has_api = "false"
-        self.has_visualization_tool = "false"
+        self.includes_citizen_collected = False
+        self.has_api = False
+        self.has_visualization_tool = False
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.times_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
-        self.spatial_bounding_box = ""
+        self.spatial_coverage_specific_regions = []
         self.geometry_type = ""
         self.geometry_source = ""
-        self.population = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
-        self.model_methods = ""
+        self.outcomes_other = []
+        self.model_methods = []
+        self.population_studied = []
+        self.population_studied_other = []
+
 
 
 class PcorGeoToolModel:

@@ -1,12 +1,13 @@
 import logging
 import os
+import traceback
+
 import pandas as pd
 import re
 
 from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
-
 
 logger = logging.getLogger(__name__)
 
@@ -29,35 +30,16 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
             detail_model = self.extract_resource_details(df)
             result.model_data["geospatial_data_resource"] = detail_model
             result.resource_detail_guid = detail_model.resource_submitter_id
+        except AttributeError as err:
+            logger.error("exception parsing resource details: %s" % err)
+            result.success = False
+            result.message = err
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.errors.append("error parsing resource details: %s" % err)
-
+            result.traceback = traceback.format_exc(err)
+            result.message = err
         logger.info("returning general parsed data: %s" % result)
-
-
-    @staticmethod
-    def formate_date_time(string):
-        # use dummy
-        date_string = '2023/01/01T12:00:00Z'
-        datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")
-        formatted_datetime = datetime_obj.strftime('%Y-%m-%dT%H:%M:%S+00:00')
-        '''
-        # Regular expression pattern to match "yyyy"
-        pattern = r"\b(\d{4})\b"
-
-        # Find the year in the string
-        match = re.search(pattern, string)
-
-        if match:
-            year = int(match.group(1))
-            # Replace the matched year with a formatted datetime string
-            datetime_str = datetime(year, 1, 1).strftime("%Y-%m-%d %H:%M:%S")
-            modified_string = string[:match.start()] + datetime_str + string[match.end():]
-            return modified_string
-        '''
-        return formatted_datetime
 
     def extract_resource_details(self, template_df):
         """

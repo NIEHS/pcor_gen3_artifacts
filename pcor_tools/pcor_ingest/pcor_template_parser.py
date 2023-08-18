@@ -1,7 +1,10 @@
 import logging
 import math
+import traceback
 import uuid
 import pandas as pd
+from datetime import datetime
+
 
 from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel, \
@@ -38,6 +41,7 @@ class PcorTemplateParser:
             logger.error("exception parsing submission: %s" % err)
             result.success = False
             result.errors.append("error parsing submission: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         try:
@@ -50,6 +54,7 @@ class PcorTemplateParser:
             logger.error("exception parsing program: %s" % err)
             result.success = False
             result.errors.append("error parsing program: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         try:
@@ -61,6 +66,7 @@ class PcorTemplateParser:
             logger.error("exception parsing project: %s" % err)
             result.success = False
             result.errors.append("error parsing project: %s" % err)
+            result.traceback = traceback.format_exc(err)
             return
 
         result.project_name = result.model_data["project"].name
@@ -74,6 +80,7 @@ class PcorTemplateParser:
             logger.error("exception parsing resource: %s" % err)
             result.success = False
             result.errors.append("error parsing resource: %s" % err)
+            result.traceback = traceback.format_exc(err)
 
     @staticmethod
     def extract_program_data(template_df):
@@ -302,4 +309,26 @@ class PcorTemplateParser:
                 return str(value)
 
         return value
+
+    @staticmethod
+    def formate_date_time(string):
+        # use dummy
+        date_string = '2023/01/01T12:00:00Z'
+        datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")
+        formatted_datetime = datetime_obj.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+        '''
+        # Regular expression pattern to match "yyyy"
+        pattern = r"\b(\d{4})\b"
+
+        # Find the year in the string
+        match = re.search(pattern, string)
+
+        if match:
+            year = int(match.group(1))
+            # Replace the matched year with a formatted datetime string
+            datetime_str = datetime(year, 1, 1).strftime("%Y-%m-%d %H:%M:%S")
+            modified_string = string[:match.start()] + datetime_str + string[match.end():]
+            return modified_string
+        '''
+        return formatted_datetime
 
