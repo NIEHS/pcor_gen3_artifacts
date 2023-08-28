@@ -53,9 +53,11 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("error_report.html")
         template.globals['now'] = datetime.utcnow
-        submission = pcor_processing_result.model_data["submission"]
+        submission = pcor_processing_result.model_data.get("submission")
+
         if not submission:
             submission = PcorSubmissionInfoModel()
+            pcor_processing_result.model_data["submission"] = submission
 
         rendered = template.render(data=pcor_processing_result,
                                    submission=submission)
