@@ -104,7 +104,7 @@ class PcorReporter():
         s.starttls()
         # s.login(email_login,
         #        email_passwd)
-        s.sendmail(email_message['From'], [email_message['To']], email_string)
+        s.send_message(email_message)
         s.quit()
 
 
