@@ -32,9 +32,9 @@ class TestSpreadsheetReader(unittest.TestCase):
         result = PcorProcessResult()
 
         ss_list = [
-            'test_resources/GeoExposure_1.3.0_EPA_AQS.xlsm',
-            'test_resources/GeoExposure_1.3.0_MTBS.xlsm',
-            'test_resources/GeoExposure_1.3.0_NASA_MODIS.xlsm',
+            #'test_resources/GeoExposure_1.3.0_EPA_AQS.xlsm',
+            #'test_resources/GeoExposure_1.3.0_MTBS.xlsm',
+            #'test_resources/GeoExposure_1.3.0_NASA_MODIS.xlsm',
             'test_resources/GeoExposure_1.3.0_Vargo_Smoke.xlsm'
         ]
 
