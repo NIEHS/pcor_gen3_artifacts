@@ -4,7 +4,7 @@ id: "geospatial_data_resource"
 title: GeospatialDataResource
 type: object
 nodeTerms: null
-namespace: http://chords-health.org/
+namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'

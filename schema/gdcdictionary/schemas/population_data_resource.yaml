@@ -4,7 +4,7 @@ id: "population_data_resource"
 title: PopulationDataResource
 type: object
 nodeTerms: null
-namespace: http://chords-health.org/
+namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
