@@ -13,7 +13,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class PcorResultHandler:
+class PcorResultHandler: # FIXME: why does this class exist just to call pcor_reporter
     """
     Handler results of pcor template ingest processing
     """
@@ -34,7 +34,6 @@ class PcorResultHandler:
         """
 
         logger.info("handle_result()")
-        pcor_reporter = PcorReporter(self.pcor_ingest_configuration)
-        pcor_reporter.report(pcor_process_result)
+        self.pcor_reporter.report(pcor_process_result)
 
         # move files around TODO: add file processing to be handled in loader plugins

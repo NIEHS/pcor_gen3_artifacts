@@ -29,7 +29,7 @@ class PcorReporter():
         self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
 
-    def report(self, pcor_processing_result):
+    def report(self, pcor_processing_result): # TODO: how would we respond back (JSON?) to an endpoint 
         """
         Main method will format report and send based on the processing result
         :param pcor_processing_result: PcorProcessResult

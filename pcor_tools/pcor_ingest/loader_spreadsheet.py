@@ -80,10 +80,15 @@ class LoaderSpreadsheet:
                     #log_file_name = new_file_name.split('.')[0] + '.log'
                     #log_file_path = os.path.join(self.workspace_processing_folder_path, log_file_name)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
-                    result.template_source = file_path
 
                     try:
                         ss_reader.process_template_instance(processing_file_path, result) # took result out and made a param
+
+                        # FIXME: right here it picks the parser based on the ss type, but currently the parser is calling processor
+                        # 'fix'
+                        # remove the call to process template from the parser
+                        # add a new block of code after successful parsing that picks the processer based on the template type
+                        # add a parent/child structure to the processor and refactor out the current processor into child types
 
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
