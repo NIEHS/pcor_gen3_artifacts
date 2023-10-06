@@ -8,7 +8,7 @@ import requests
 from requests import HTTPError
 
 from urllib.parse import quote
-
+from gen3.expansion.expansion import Gen3Expansion
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
@@ -44,6 +44,7 @@ class PcorGen3Ingest:
             logger.info('doing auth')
             pcor_gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
+
             logger.info("authenticated to Gen3")
 
     def create_program(self, program):
@@ -221,8 +222,15 @@ class PcorGen3Ingest:
         discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
 
         logger.info('adding discovery data')
-        metadata = Gen3Metadata(self.gen3_auth)
-        response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
+
+        metadata = Gen3Expansion(auth_provider=self.gen3_auth,
+                                 submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
+                                 endpoint='https://staging.chordshealth.org/')
+        mds = Gen3Metadata(auth_provider=self.gen3_auth)
+
+        discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
+
+        response = metadata.submit_mds(mds=discovery_mds)
         return response
 
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
