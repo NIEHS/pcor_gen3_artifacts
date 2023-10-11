@@ -8,7 +8,7 @@ namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
-description: A collection of data or resources, can have files attached or may point to an external reference 
+description: A collection of data or resources, can have files attached or may point to an external reference
 additionalProperties: false
 submittable: true
 validators: null
@@ -34,7 +34,7 @@ required:
   - resource_type
   - type
   - projects
-  
+
 
 uniqueKeys:
   - [id]
@@ -54,7 +54,7 @@ properties:
     description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
     type: string
   type:
-    description: The name of the node in the database to be used in queries. 
+    description: The name of the node in the database to be used in queries.
     enum:
       - resource
   updated_datetime:
@@ -84,9 +84,20 @@ properties:
     type: string
   domain:
     description: Domain of the resource
-    type: array
-    items:
-      type: string
+    enum:
+      - Social Determinants of Health
+      - Electronic Health Records
+      - Population Health Records
+      - Clinical Research
+      - General Exposure
+      - Air Quality
+      - Water Quality
+      - Water Security
+      - Greenness
+      - Neighborhood
+      - Weather
+      - Extreme Weather
+      - Climate Change
   keywords:
     description: Comma delimiter keywords.
     type: array
@@ -128,10 +139,10 @@ properties:
     type: string
   license_text:
     description: Text of license terms.
-  resource_contact: 
+    type: string
+  resource_contact:
     description: Contact information for the resource.
     type: string
   projects:
     description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_one_project"
-  
