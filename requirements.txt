@@ -2,7 +2,7 @@ attrs==21.4.0
 cdislogging==1.1.1
 certifi==2021.10.8
 charset-normalizer==2.0.12
-dictionaryutils==3.4.2
+dictionaryutils==3.4.8
 idna==3.3
 jsonschema==2.5.1
 pyrsistent==0.18.1
