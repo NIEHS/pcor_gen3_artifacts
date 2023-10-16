@@ -1,14 +1,11 @@
 import logging
-import os
 import traceback
+import warnings
 
 import pandas as pd
-import re
 
-from datetime import datetime
-from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel, PcorPopDataResourceModel
+from pcor_ingest.pcor_intermediate_model import PcorPopDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
-
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +23,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
         """
         super(PopulationDataResourceParser, self).parse(template_absolute_path, result)
         result.type = "population_data_resource"
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
             detail_model = self.extract_resource_details(df)

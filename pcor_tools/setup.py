@@ -38,9 +38,9 @@ setup(
     long_description_content_type="text/markdown",
     author="Mike Conway, Deep Patel",
     packages=find_packages(exclude=["tests", ".github"]),
-    install_requires=read_requirements("requirements.txt"),
+    install_requires=read_requirements("../requirements.txt"),
     entry_points={
         "console_scripts": ["project_code = project_code.__main__:main"]
     },
-    extras_require={"test": read_requirements("requirements-test.txt")},
+    extras_require={"test": read_requirements("../requirements-test.txt")},
 )

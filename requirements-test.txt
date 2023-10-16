@@ -1,0 +1,17 @@
+attrs==21.4.0
+cdislogging==1.1.1
+certifi==2021.10.8
+charset-normalizer==2.0.12
+dictionaryutils==3.4.8
+idna==3.3
+jsonschema==2.5.1
+pyrsistent==0.18.1
+PyYAML==5.4.1
+six==1.16.0
+urllib3==1.26.8
+gen3~=4.21.1
+pandas~=2.1.1
+setuptools~=68.0.0
+asyncio~=3.4.3
+jinja2~=3.1.2
+requests~=2.31.0

@@ -1,4 +1,5 @@
 import logging
+import warnings
 import math
 import traceback
 import uuid
@@ -33,6 +34,7 @@ class PcorTemplateParser:
         :param template_absolute_path: absolute path to the template file
         :param result: PcorTemplateParseResult with the outcome
         """
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
 
         try:

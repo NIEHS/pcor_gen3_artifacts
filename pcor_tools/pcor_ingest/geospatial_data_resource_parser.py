@@ -1,11 +1,9 @@
 import logging
-import os
 import traceback
+import warnings
 
 import pandas as pd
-import re
 
-from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -25,6 +23,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         """
         super(GeoSpatialDataResourceParser, self).parse(template_absolute_path, result)
         result.type = "geospatial_data_resource"
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
             detail_model = self.extract_resource_details(df)
