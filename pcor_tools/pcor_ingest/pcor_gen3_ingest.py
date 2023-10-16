@@ -1,20 +1,15 @@
-import logging
 import json
-import re
-import os
-import traceback
-
+import logging
 import requests
-from requests import HTTPError
-
-from urllib.parse import quote
-from gen3.expansion.expansion import Gen3Expansion
+import traceback
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
-from pcor_ingest.gen3auth import PcorGen3Auth
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, PackageLoader
+from requests import HTTPError
+from urllib.parse import quote
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
+from pcor_ingest.gen3auth import PcorGen3Auth
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -223,14 +218,29 @@ class PcorGen3Ingest:
 
         logger.info('adding discovery data')
 
+        metadata = Gen3Metadata(self.gen3_auth)
+        response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
+        ''' cgymeyer submit_mds()
         metadata = Gen3Expansion(auth_provider=self.gen3_auth,
                                  submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
                                  endpoint='https://staging.chordshealth.org/')
         mds = Gen3Metadata(auth_provider=self.gen3_auth)
-
         discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
-
         response = metadata.submit_mds(mds=discovery_mds)
+        '''
+        return response
+
+    def delete_discovery_metadata_with_guid(self, guid):
+        """
+        Delete discovery metadata for the given guid
+        :param guid: Metadata entry guid to be deleted
+        :return: Response (just the json for now)
+        """
+        logger.info("delete_discovery_metadata_with_guid()")
+        logger.info('guid: %s' % guid)
+        metadata = Gen3Metadata(self.gen3_auth)
+        response = metadata.delete(guid=guid)
+
         return response
 
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
