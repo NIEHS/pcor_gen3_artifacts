@@ -68,7 +68,7 @@ class PcorTemplateProcessor:
 
                     try:
                         project_id = self.pcor_ingest.create_project(program=program.name,
-                                                        pcor_intermediate_project_model=project)
+                                                                     pcor_intermediate_project_model=project)
                         parsed_data.project_id = project_id
 
                     except HTTPError as pcor_error:
@@ -97,7 +97,7 @@ class PcorTemplateProcessor:
                                 "creation of resource failed, bailing: %s" % resource_submit_status)
                             parsed_data.success = False
                             parsed_data.message = resource_submit_status.message
-                            parsed_data.errors  +=  resource_submit_status.errors
+                            parsed_data.errors += resource_submit_status.errors
                             parsed_data.path_url = resource_submit_status.path_url
                             parsed_data.response_content = resource_submit_status.response_content
                             parsed_data.request_content = resource_submit_status.request_content
@@ -135,7 +135,8 @@ class PcorTemplateProcessor:
 
                             resource.resource_type = parsed_data.type
 
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, geo_spatial_resource)
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
+                                                                                        geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments  # intended use?
 
                             for item in geo_spatial_resource.measures:
@@ -161,7 +162,7 @@ class PcorTemplateProcessor:
                             pop_data_resource.resource_submitter_id = resource.submitter_id
                             pop_data_resource.submitter_id = resource.submitter_id
 
-                            resource_submit_status =  self.pcor_ingest.create_pop_data_resource(
+                            resource_submit_status = self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
                                 project_name=project.name,
                                 pop_data_resource=pop_data_resource

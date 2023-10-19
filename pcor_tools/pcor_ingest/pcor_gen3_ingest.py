@@ -170,7 +170,6 @@ class PcorGen3Ingest:
                 tag.category = "Domain"
                 discovery.tags.append(tag)
 
-
         tag = Tag()
         tag.name = discovery.type
         tag.category = "Resource Type"
@@ -251,7 +250,8 @@ class PcorGen3Ingest:
         json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_data_resource_json)
+        status = self.submit_record(program=program_name, project=project_name,
+                                    json_data=geo_spatial_data_resource_json)
         logger.info(status)
         return status
 
@@ -265,7 +265,8 @@ class PcorGen3Ingest:
         json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_tool_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_tool_resource_json)
+        status = self.submit_record(program=program_name, project=project_name,
+                                    json_data=geo_spatial_tool_resource_json)
         logger.info(status)
         return status
 
@@ -318,7 +319,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"', 'null')
+        rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"',
+                                                                                                              'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -330,7 +332,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
-        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace(
+            'False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -354,8 +357,8 @@ class PcorGen3Ingest:
 
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null')\
-            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '')\
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '') \
             .replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
@@ -388,7 +391,7 @@ class PcorGen3Ingest:
     # supporting methods
     ###########################################
     @staticmethod
-    def check_program_exists( existing_programs, program):
+    def check_program_exists(existing_programs, program):
         """
         :param existing_programs:
         :param program:
@@ -587,4 +590,3 @@ class PcorGen3Ingest:
             submission_status.response_content = json.loads(pcor_error.response.content)
             submission_status.traceback = traceback.format_exc(pcor_error)
             return submission_status
-

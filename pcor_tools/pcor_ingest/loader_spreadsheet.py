@@ -66,7 +66,7 @@ class LoaderSpreadsheet:
                     processing_file_path = self.workspace_processing_folder_path + '/' + new_file_name
                     logger.info(
                         '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                        file, file_path, self.workspace_processing_folder_path))
+                            file, file_path, self.workspace_processing_folder_path))
                     shutil.move(src=file_path, dst=processing_file_path)
 
                     # processing folder
@@ -75,7 +75,8 @@ class LoaderSpreadsheet:
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
 
                     try:
-                        result = ss_reader.process_template_instance(processing_file_path, result) # took result out and made a param
+                        result = ss_reader.process_template_instance(processing_file_path,
+                                                                     result)  # took result out and made a param
 
                         # FIXME: right here it picks the parser based on the ss type, but currently the parser is calling processor
                         # do the processing stuff here for a template
@@ -88,7 +89,7 @@ class LoaderSpreadsheet:
                         pcor_error = PcorError()
                         pcor_error.type = ""
                         pcor_error.key = ""
-                        pcor_error.message=str(e)
+                        pcor_error.message = str(e)
                         result.errors.append(pcor_error)
 
                     if result.success:
@@ -115,7 +116,7 @@ class LoaderSpreadsheet:
                         shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                         result.template_current_location = failed_path
                     self.pcor_reporter.report(result)
-                    #self.result_handler.handle_result(result)
+                    # self.result_handler.handle_result(result)
                 else:
                     logger.info('Ignore non spreadsheet file: %s' % file)
         else:
@@ -131,6 +132,6 @@ class LoaderSpreadsheet:
             return new_file_name
         except ValueError:
             new_file_name = file_name.replace('.xlsm', '~pcor~'
-                                          + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+                                              + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
             logger.info("new file name:%s" % new_file_name)
             return new_file_name

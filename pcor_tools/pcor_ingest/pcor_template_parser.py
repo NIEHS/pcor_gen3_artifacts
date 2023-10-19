@@ -213,7 +213,6 @@ class PcorTemplateParser:
             return ""
         return value
 
-
     @staticmethod
     def extract_resource_data(template_df):
         """
@@ -335,4 +334,3 @@ class PcorTemplateParser:
             return modified_string
         '''
         return formatted_datetime
-

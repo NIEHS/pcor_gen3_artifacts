@@ -14,7 +14,7 @@ class PcorProcessResult:
         self.model_data = {}
         self.message = ""
         self.traceback = ""
-        self.errors = [] # errors in processing that are not validation errors from Gen3
+        self.errors = []  # errors in processing that are not validation errors from Gen3
         # general contextual information
         self.project_id = ""
         self.project_code = ""
@@ -45,7 +45,3 @@ class PcorError:
         self.type = ""
         self.key = ""
         self.message = ""
-
-
-
-

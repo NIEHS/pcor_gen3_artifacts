@@ -26,7 +26,6 @@ class TestSpreadsheetReader(unittest.TestCase):
         ss_reader = PcorSpreadsheeetReader(pcor_testing_utilities.get_pcor_ingest_configuration())
         result = PcorProcessResult()
 
-
         ss_list = [
             'test_resources/GeoExposure_1.3.0_EPA_AQS.xlsm',
             'test_resources/GeoExposure_1.3.0_MTBS.xlsm',

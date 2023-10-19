@@ -40,5 +40,3 @@ def dict_from_props(filename):
             my_props[k] = v
 
     return my_props
-
-

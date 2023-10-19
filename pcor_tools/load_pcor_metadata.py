@@ -1,6 +1,6 @@
-import sys
-import logging
 import asyncio
+import logging
+import sys
 
 from gen3.auth import Gen3Auth
 from gen3.tools import metadata
@@ -39,15 +39,16 @@ def main():
         Returns:
             str: guid
         """
-        return row.get("guid") # OR row.get("some_other_column")
+        return row.get("guid")  # OR row.get("some_other_column")
 
     # (optional) override default guid parsing behavior
     manifest_row_parsers["guid_for_row"] = _custom_get_guid_for_row
 
     loop.run_until_complete(
         metadata.async_ingest_metadata_manifest(
-            #auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
-            "http://localhost", manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth, metadata_type='discovery_metadata',
+            # auth.endpoint, manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth
+            "http://localhost", manifest_file=MANIFEST, metadata_source=metadata_source, auth=auth,
+            metadata_type='discovery_metadata',
 
         )
     )

@@ -14,7 +14,8 @@ class Loader:
     """
     Represents the main PCOR metadata loader
     """
-    def __init__(self,pcor_ingest_configuration=None, loaders=None):
+
+    def __init__(self, pcor_ingest_configuration=None, loaders=None):
         """
         Main initialization method for PCOR loader
         """
