@@ -1,5 +1,4 @@
 import logging
-
 from pcor_ingest.loader_cedar import LoaderCedar
 from pcor_ingest.loader_spreadsheet import LoaderSpreadsheet
 

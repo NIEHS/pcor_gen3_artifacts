@@ -1,17 +1,19 @@
 import logging
-import warnings
 import math
 import traceback
 import uuid
+import warnings
 import pandas as pd
 from datetime import datetime
-
-
-from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel, \
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
+    PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
 logger = logging.getLogger(__name__)
 
 

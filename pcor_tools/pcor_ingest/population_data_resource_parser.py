@@ -1,12 +1,15 @@
 import logging
 import traceback
 import warnings
-
 import pandas as pd
-
 from pcor_ingest.pcor_intermediate_model import PcorPopDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
 logger = logging.getLogger(__name__)
 
 

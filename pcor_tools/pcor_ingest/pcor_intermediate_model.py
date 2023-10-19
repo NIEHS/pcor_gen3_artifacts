@@ -1,4 +1,3 @@
-import os
 import logging
 
 ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'

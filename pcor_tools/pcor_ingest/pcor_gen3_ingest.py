@@ -7,7 +7,6 @@ from gen3.submission import Gen3Submission
 from jinja2 import Environment, PackageLoader
 from requests import HTTPError
 from urllib.parse import quote
-
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel

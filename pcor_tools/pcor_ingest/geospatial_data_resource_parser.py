@@ -1,9 +1,7 @@
 import logging
 import traceback
 import warnings
-
 import pandas as pd
-
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 

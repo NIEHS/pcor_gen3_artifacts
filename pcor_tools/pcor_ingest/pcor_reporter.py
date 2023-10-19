@@ -1,16 +1,10 @@
 import logging
-import json
-import os
+import smtplib
 from datetime import datetime
-
-import requests
-import smtplib, ssl
-## email.mime subclasses
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from jinja2 import Environment, PackageLoader, select_autoescape
-
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorSubmissionInfoModel
+from jinja2 import Environment, PackageLoader
+from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +79,7 @@ class PcorReporter():
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov'] #, 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov']
+        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
         submission = pcor_processing_result.model_data["submission"]
         if submission.curator_email:
             recipients.append(submission.curator_email)
