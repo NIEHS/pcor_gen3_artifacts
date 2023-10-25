@@ -8,7 +8,7 @@ namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
-description: A tool for dealing with geospatial data 
+description: A tool for dealing with geospatial data
 additionalProperties: false
 submittable: true
 validators: null
@@ -40,7 +40,7 @@ uniqueKeys:
   - [project_id, submitter_id]
 
 properties:
- 
+
   #system properties, do not change or remove:
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
@@ -54,7 +54,7 @@ properties:
     description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
     type: string
   type:
-    description: The name of the node in the database to be used in queries. 
+    description: The name of the node in the database to be used in queries.
     enum:
       - geospatial_tool_resource
   updated_datetime:
@@ -81,7 +81,7 @@ properties:
       - Mac
       - cross-platform
   languages:
-    description: Programming language 
+    description: Programming language
     type: array
     items:
       enum:
@@ -119,7 +119,7 @@ properties:
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
-  spatial_coverage: 
+  spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: string
   spatial_bounding_box:
@@ -137,4 +137,3 @@ properties:
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
-  

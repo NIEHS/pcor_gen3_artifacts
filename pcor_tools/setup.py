@@ -1,6 +1,7 @@
 """Python setup.py for pcor_ingest package"""
 import io
 import os
+
 from setuptools import find_packages, setup
 
 
@@ -14,8 +15,8 @@ def read(*paths, **kwargs):
 
     content = ""
     with io.open(
-        os.path.join(os.path.dirname(__file__), *paths),
-        encoding=kwargs.get("encoding", "utf8"),
+            os.path.join(os.path.dirname(__file__), *paths),
+            encoding=kwargs.get("encoding", "utf8"),
     ) as open_file:
         content = open_file.read().strip()
     return content
@@ -38,9 +39,9 @@ setup(
     long_description_content_type="text/markdown",
     author="Mike Conway, Deep Patel",
     packages=find_packages(exclude=["tests", ".github"]),
-    install_requires=read_requirements("requirements.txt"),
+    install_requires=read_requirements("../requirements.txt"),
     entry_points={
         "console_scripts": ["project_code = project_code.__main__:main"]
     },
-    extras_require={"test": read_requirements("requirements-test.txt")},
+    extras_require={"test": read_requirements("../requirements-test.txt")},
 )

@@ -2,15 +2,18 @@ import logging
 import math
 import traceback
 import uuid
+import warnings
 import pandas as pd
 from datetime import datetime
-
-
-from pcor_ingest.pcor_intermediate_model import PcorProgramModel, PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorGeospatialDataResourceModel, PcorIntermediateProgramModel, \
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
+    PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
 logger = logging.getLogger(__name__)
 
 
@@ -33,6 +36,7 @@ class PcorTemplateParser:
         :param template_absolute_path: absolute path to the template file
         :param result: PcorTemplateParseResult with the outcome
         """
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
 
         try:
@@ -201,16 +205,6 @@ class PcorTemplateParser:
         return None
 
     @staticmethod
-    def sanitize_column(value):
-
-        if not value:
-            return ""
-        if math.isnan(value):
-            return ""
-        return value
-
-
-    @staticmethod
     def extract_resource_data(template_df):
         """
         Given a pandas dataframe with the template date, extract out the resource related data
@@ -297,17 +291,15 @@ class PcorTemplateParser:
 
     @staticmethod
     def sanitize_column(value):
-
         if isinstance(value, str):
             if not value:
                 return ""
-            return value
+            return value.strip()
         if isinstance(value, float):
             if math.isnan(value):
                 return ""
             else:
                 return str(value)
-
         return value
 
     @staticmethod
@@ -331,4 +323,3 @@ class PcorTemplateParser:
             return modified_string
         '''
         return formatted_datetime
-

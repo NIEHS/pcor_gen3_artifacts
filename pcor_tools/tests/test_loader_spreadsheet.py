@@ -1,9 +1,7 @@
-import unittest
 import logging
+import unittest
 
-from pcor_ingest.loader import Loader
 from pcor_ingest.loader_spreadsheet import LoaderSpreadsheet
-from tests import pcor_testing_utilities
 
 logging.basicConfig(
     level=logging.DEBUG,

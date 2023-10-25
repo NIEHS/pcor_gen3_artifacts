@@ -1,22 +1,15 @@
 import logging
-import json
-import os
+import smtplib
 from datetime import datetime
-
-import requests
-import smtplib, ssl
-## email.mime subclasses
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from jinja2 import Environment, PackageLoader, select_autoescape
-
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorSubmissionInfoModel
+from jinja2 import Environment, PackageLoader
+from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
 
 logger = logging.getLogger(__name__)
 
 
 class PcorReporter():
-
     """
         Format PCOR curation status response/errors into HTML format
     """
@@ -29,7 +22,7 @@ class PcorReporter():
         self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
 
-    def report(self, pcor_processing_result): # TODO: how would we respond back (JSON?) to an endpoint 
+    def report(self, pcor_processing_result):  # TODO: how would we respond back (JSON?) to an endpoint
         """
         Main method will format report and send based on the processing result
         :param pcor_processing_result: PcorProcessResult
@@ -85,7 +78,7 @@ class PcorReporter():
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov'] #, 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov']
+        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
         submission = pcor_processing_result.model_data["submission"]
         if submission.curator_email:
             recipients.append(submission.curator_email)
@@ -106,6 +99,3 @@ class PcorReporter():
         #        email_passwd)
         s.send_message(email_message)
         s.quit()
-
-
-

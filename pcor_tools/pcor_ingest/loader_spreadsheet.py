@@ -1,15 +1,11 @@
 import logging
 import os
 import shutil
-import traceback
-
-import requests
-
-from datetime import datetime, date
-from pcor_ingest.ingest_context import PcorIngestConfiguration
+from datetime import datetime
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
+from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
-from pcor_ingest.pcor_result_handler import PcorResultHandler
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -27,7 +23,7 @@ class LoaderSpreadsheet:
         self.workspace_processing_folder_path = None
         self.workspace_processed_folder_path = None
         self.workspace_failed_folder_path = None
-        self.result_handler = PcorResultHandler(pcor_ingest_configuration)
+        self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
 
     def validate_sub_folders(self, work_dir=None):
         # new files folder
@@ -70,43 +66,36 @@ class LoaderSpreadsheet:
                     processing_file_path = self.workspace_processing_folder_path + '/' + new_file_name
                     logger.info(
                         '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                        file, file_path, self.workspace_processing_folder_path))
+                            file, file_path, self.workspace_processing_folder_path))
                     shutil.move(src=file_path, dst=processing_file_path)
 
                     # processing folder
                     result = PcorProcessResult()
                     result.template_source = file_path
-
-                    #log_file_name = new_file_name.split('.')[0] + '.log'
-                    #log_file_path = os.path.join(self.workspace_processing_folder_path, log_file_name)
                     ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
 
                     try:
-                        ss_reader.process_template_instance(processing_file_path, result) # took result out and made a param
+                        result = ss_reader.process_template_instance(processing_file_path,
+                                                                     result)  # took result out and made a param
 
                         # FIXME: right here it picks the parser based on the ss type, but currently the parser is calling processor
-                        # 'fix'
-                        # remove the call to process template from the parser
-                        # add a new block of code after successful parsing that picks the processer based on the template type
-                        # add a parent/child structure to the processor and refactor out the current processor into child types
+                        # do the processing stuff here for a template
+                        process_template = PcorTemplateProcessor()
+                        process_template.process(result)
 
                     except Exception as e:
                         logger.error('Error occurred: %s' % str(e))
-                     #   file = open(log_file_path, "w")
-                     #   file.write('Error occurred \n %s' % str(e))
-                     #   file.close()
                         result.success = False
                         pcor_error = PcorError()
                         pcor_error.type = ""
                         pcor_error.key = ""
-                        pcor_error.message=str(e)
+                        pcor_error.message = str(e)
                         result.errors.append(pcor_error)
 
                     if result.success:
                         # processed folder
                         # result.success --> true
                         # result --> move file to processed folder
-
                         success_path = os.path.join(self.workspace_processed_folder_path,
                                                     os.path.basename(processing_file_path))
                         result.template_current_location = success_path
@@ -126,14 +115,10 @@ class LoaderSpreadsheet:
                                 new_file_name, processing_file_path, failed_path))
                         shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                         result.template_current_location = failed_path
-                      #  if os.path.exists(log_file_path):
-                      #      shutil.move(src=log_file_path, dst=self.workspace_failed_folder_path)
-
-                    self.result_handler.handle_result(result)
-
+                    # self.pcor_reporter.report(result)
+                    # self.result_handler.handle_result(result)
                 else:
                     logger.info('Ignore non spreadsheet file: %s' % file)
-
         else:
             logger.info('No files found!')
 
@@ -147,6 +132,6 @@ class LoaderSpreadsheet:
             return new_file_name
         except ValueError:
             new_file_name = file_name.replace('.xlsm', '~pcor~'
-                                          + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+                                              + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
             logger.info("new file name:%s" % new_file_name)
             return new_file_name

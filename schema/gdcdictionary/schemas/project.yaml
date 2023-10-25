@@ -24,6 +24,7 @@ required:
   - code
   - name
   - programs
+  - dbgap_accession_number
 
 uniqueKeys:
   - [ id ]
@@ -40,6 +41,8 @@ links:
 constraints: null
 
 properties:
+  type:
+    type: string
   # system properties, do not change or remove:
   availability_mechanism:
     description: Mechanism by which the project will be made available.
@@ -142,11 +145,10 @@ properties:
 
 
   # additional properties to describe the project
-
   long_name:
     type: string
     description: Display name/brief description for the project. # TOREVIEW
-  
+
   project_sponsor:
     description: the name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department or consortium name.
     nullable: true

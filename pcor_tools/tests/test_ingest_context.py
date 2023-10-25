@@ -1,5 +1,6 @@
 import logging
 from unittest import TestCase
+
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 
 logger = logging.getLogger(__name__)
@@ -16,6 +17,3 @@ class Test(TestCase):
         self.assertIsNotNone(result)
         self.assertEqual('test_resources/credentials-local.json', result.gen3_creds_location)
         self.assertEqual('http://localhost:8080', result.gen3_endpoint)
-
-
-

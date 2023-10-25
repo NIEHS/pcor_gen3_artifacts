@@ -1,11 +1,7 @@
 import logging
-import os
 import traceback
-
+import warnings
 import pandas as pd
-import re
-
-from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -25,6 +21,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         """
         super(GeoSpatialDataResourceParser, self).parse(template_absolute_path, result)
         result.type = "geospatial_data_resource"
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         try:
             detail_model = self.extract_resource_details(df)
@@ -70,7 +67,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         geo_resource.includes_citizen_collected = \
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(geo_resource.includes_citizen_collected).lower() == 'no' or str(geo_resource.includes_citizen_collected).lower() == 'none':
+                        if str(geo_resource.includes_citizen_collected).lower() == 'no' or str(
+                                geo_resource.includes_citizen_collected).lower() == 'none':
                             geo_resource.includes_citizen_collected = False
                         if str(geo_resource.includes_citizen_collected).lower() == 'yes':
                             geo_resource.includes_citizen_collected = True
@@ -127,7 +125,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.model_methods = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'exposure_media':
                         geo_resource.exposure_media = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
                     elif template_df.iat[j, 0] == 'geographic_feature':
                         geo_resource.geographic_feature = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
 
