@@ -1,5 +1,4 @@
 import logging
-
 from pcor_ingest.loader_cedar import LoaderCedar
 from pcor_ingest.loader_spreadsheet import LoaderSpreadsheet
 
@@ -15,7 +14,8 @@ class Loader:
     """
     Represents the main PCOR metadata loader
     """
-    def __init__(self,pcor_ingest_configuration=None, loaders=None):
+
+    def __init__(self, pcor_ingest_configuration=None, loaders=None):
         """
         Main initialization method for PCOR loader
         """

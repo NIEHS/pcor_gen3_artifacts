@@ -1,17 +1,11 @@
-import json
-import os
 import logging
-
 from unittest import TestCase
-import requests
-
-from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
-from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
-from tests import pcor_testing_utilities
 
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
-    PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
+    PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
     PcorProgramModel, PcorGeoToolModel
+from pcor_ingest.pcor_template_parser import PcorTemplateParseResult
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 logging.basicConfig(
     level=logging.DEBUG,

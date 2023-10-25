@@ -1,24 +1,17 @@
-Proposed additional keywords
-============================
+### New Features
 
-The schemas defined here follow jsonschema as closely as possbile,
-introducing new keywords as needed.
+- Initial NIEHS Chords Staging dictionary (v1.3.0)
 
-systemAlias
------------
+### Breaking Changes
 
-For implementation. Allows properties to be stored as different
-keywords.  The property listed in the properties section is what the
-user will refer to it, and the systemAlias value is what it will be
-stored in the database as.
 
-systemProperties
----------------
+### Bug Fixes
 
-The property keys listed under systemProperties are properties that
-the submitter is not allowed to update.
 
-parentType
----------------
+### Improvements
 
-The type of object that the parent relationship points to.
+
+### Dependency updates
+
+
+### Deployment changes

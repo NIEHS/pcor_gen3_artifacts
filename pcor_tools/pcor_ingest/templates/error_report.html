@@ -1979,11 +1979,15 @@ tbody:hover > tr:hover td {
                 <tbody>
                 <tr>
                     <td class="tbl-field-name">Submitter</td>
-                    <td>{{ data.submitter }}</td>
+                    <td>{{ submission.curator_name }}</td>
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Submitter Email</td>
-                    <td>{{ data.submitter_email }}</td>
+                    <td>{{ submission.curator_email }}</td>
+                </tr>
+                 <tr>
+                    <td class="tbl-field-name">Submitter Comment</td>
+                    <td>{{ submission.curation_comment }}</td>
                 </tr>
                 <tr>
                     <td class="tbl-field-name">Template Source</td>
@@ -1998,10 +2002,29 @@ tbody:hover > tr:hover td {
                     <td>{{ data.type }}</td>
                 </tr>
                 <tr>
-                    <td class="tbl-field-name">Project</td>
+                    <td class="tbl-field-name">Project Code</td>
                     <td>{{ data.project_code }}</td>
                 </tr>
-
+                 <tr>
+                    <td class="tbl-field-name">Project</td>
+                    <td>{{ data.project_name }}</td>
+                </tr>
+                <tr>
+                    <td class="tbl-field-name">Project GUID</td>
+                    <td>{{ data.project_guid }}</td>
+                </tr>
+                <tr>
+                    <td class="tbl-field-name">Resource GUID</td>
+                    <td>{{ data.resource_guid }}</td>
+                </tr>
+                <tr>
+                    <td class="tbl-field-name">Resource Name</td>
+                    <td>{{ data.resource_name }}</td>
+                </tr>
+                <tr>
+                    <td class="tbl-field-name">Resource Detail GUID</td>
+                    <td>{{ data.resource_detail_guid }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -2010,6 +2033,13 @@ tbody:hover > tr:hover td {
             <div class="w3-container">
                 <h1 style="">Error Message</h1>
                 <p>{{ data.message}}</p>
+            </div>
+        </div>
+
+         <div class="w3-row ">
+            <div class="w3-container">
+                <h1 style="">Strack Trace</h1>
+                <p>{{ data.traceback }}</p>
             </div>
         </div>
 

@@ -1,20 +1,9 @@
-import unittest
-import json
-import os
 import logging
+import unittest
+
 import pandas as pd
 
-
-from unittest import TestCase
-import requests
-
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
-from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
-from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
-from tests import pcor_testing_utilities
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorIntermediateResourceModel, \
-    PcorDiscoveryMetadata, Tag, AdvSearchFilter, PcorGeospatialDataResourceModel, PcorPopDataResourceModel, \
-    PcorProgramModel, PcorGeoToolModel
 
 logging.basicConfig(
     level=logging.DEBUG,

@@ -13,21 +13,27 @@ class PcorProcessResult:
         # parsed model information
         self.model_data = {}
         self.message = ""
-        self.errors = [] # errors in processing that are not validation errors from Gen3
+        self.traceback = ""
+        self.errors = []  # errors in processing that are not validation errors from Gen3
         # general contextual information
         self.project_id = ""
         self.project_code = ""
         self.project_name = ""
         self.program_submitter_id = ""
         self.program_name = ""
+        self.resource_name = ""
         # error information
         self.path_url = ""
         self.response_content = ""
         self.request_content = ""
-        self.submitter = "Mike Conway"
-        self.submitter_email = "mike.conway@nih.gov"
         self.template_source = ""
         self.template_current_location = ""
+        # guids - these should be recorded when being added or looked up as part of processing
+        # TODO add these back to the spreadsheet when created?
+        self.program_guid = ""
+        self.project_guid = ""
+        self.resource_guid = ""
+        self.resource_detail_guid = ""
 
 
 class PcorError:
@@ -39,7 +45,3 @@ class PcorError:
         self.type = ""
         self.key = ""
         self.message = ""
-
-
-
-

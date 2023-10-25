@@ -1,0 +1,37 @@
+global:
+  hostname: localhost
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+
+fence:
+  FENCE_CONFIG:
+    MOCK_AUTH: true
+  # -- (string) USER YAML. Passed in as a multiline string.
+  USER_YAML: |
+    cloud_providers: {}
+    groups: {}
+    {{ user_yaml_content | indent(4) }}
+portal:
+  # -- (map) GitOps configuration for portal
+  gitops:
+    # -- (string) multiline string - gitops.json
+    json: |
+      {{ gitops_content | indent(4) }}
+etl:
+  etlMapping:
+    {{ etl_mapping_content | indent(4) }}
+guppy:
+  enabled: true
+  image:
+    tag: "feat_es7"
+  esEndpoint: ""
+  # -- (list) Elasticsearch index configurations
+  indices:
+  - index: geospatial_data_resource
+    type: geospatial_data_resource
+  - index: population_data_resource
+    type: population_data_resource
+  # -- (string) The Elasticsearch configuration index
+  configIndex: geospatial_data_resource-array-config
+
+hatchery:
+  enabled: false

@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from pcor_ingest.pcor_result_handler import PcorResultHandler
+from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from tests import pcor_testing_utilities
 
@@ -18,8 +18,8 @@ class TestResultHandler(unittest.TestCase):
         pcor_processing_result.success = False
         pcor_processing_result.response_content = data
 
-        pcor_result_handler = PcorResultHandler(pcor_ingest_configuration)
-        pcor_result_handler.handle_result(pcor_processing_result)
+        pcor_result_handler = PcorReporter(pcor_ingest_configuration)
+        pcor_result_handler.report(pcor_processing_result)
 
     def test_success(self):
         pcor_processing_result = PcorProcessResult()
@@ -31,8 +31,8 @@ class TestResultHandler(unittest.TestCase):
         pcor_processing_result.success = True
         pcor_processing_result.response_content = data
 
-        pcor_result_handler = PcorResultHandler(pcor_ingest_configuration)
-        pcor_result_handler.handle_result(pcor_processing_result)
+        pcor_result_handler = PcorReporter(pcor_ingest_configuration)
+        pcor_result_handler.report(pcor_processing_result)
 
 
 if __name__ == '__main__':

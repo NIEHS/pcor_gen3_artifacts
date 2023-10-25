@@ -4,7 +4,7 @@ id: "population_data_resource"
 title: PopulationDataResource
 type: object
 nodeTerms: null
-namespace: http://gen3.niehs.nih.gov/
+namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
@@ -31,13 +31,12 @@ links:
 required:
   - submitter_id
   - type
-  - population
 uniqueKeys:
   - [id]
   - [project_id, submitter_id]
 
 properties:
- 
+
   #system properties, do not change or remove:
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
@@ -51,7 +50,7 @@ properties:
     description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
     type: string
   type:
-    description: The name of the node in the database to be used in queries. 
+    description: The name of the node in the database to be used in queries.
     enum:
       - population_data_resource
   updated_datetime:
@@ -74,22 +73,23 @@ properties:
   update_frequency:
     description: Frequency of update of the resource.
     enum:
-      - fixed
-      - continuous
-      - hourly
-      - monthly
-      - quarterly
-      - annually
+      - Continuous
+      - Hourly
+      - Daily
+      - Monthly
+      - Quarterly
+      - Annually
+      - BiAnnual
       - unknown
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.
     type: boolean
   has_api:
     description: Flag if the resource has an API
+    type: boolean
   has_visualization_tool:
     description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
-
-
+    type: boolean
   # additional properties to describe the dataset
   time_extent_start:
     description: Earliest time for the data.
@@ -106,41 +106,56 @@ properties:
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
-  spatial_coverage: 
+  spatial_resolution_other:
+    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    type: string
+  spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
+  spatial_coverage_specific_regions:
+    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
+    type: array
+    items:
+      type: string
   geometry_type:
     description: Type of geometric data, the file extension will be different for different types.
     type: string
   geometry_source:
     description: Source or provider of the geometry data.
     type: string
-  population:
-    description: Type of population
-    type: array
-    items:
-      type: string
-  vulnerable_population:
-    description: Type of vulnerable population
-    type: array
-    items:
-      type: string
   exposures:
     description: Substance the population was exposed to (may be missing for non-specific exposure).
     type: array
     items:
       type: string
   outcomes:
-    description: Health outcome being assessed specific measures will contribute to the outcome.
+    description: Health outcome being assessed (may be missing for non-specific exposures).  Note this is the high level outcome, the specific measures will contribute to the outcome.
     type: array
     items:
       type: string
+  outcomes_other:
+    description: if outcome of interest is missing in the list above.
+    type: array
+    items:
+      type: string
+  exposure_media:
+    description: media that the phenomena is related to
+    type: string
   model_methods:
     description: If modeled, description of modeling approaches used to generate the data.
-    type: string
+    type: array
+    items:
+      type: string
+  population_studied:
+    description: type of population in the study.
+    type: array
+    items:
+      type: string
+  population_studied_other:
+    description: type of population in the study if not in the list above.
+    type: array
+    items:
+      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"

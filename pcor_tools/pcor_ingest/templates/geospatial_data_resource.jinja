@@ -1,13 +1,29 @@
 {
-   "type": "geospatial_data_resource",
+  "type": "geospatial_data_resource",
   "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "comments": "{{ geo_spatial_data_resource.comments }}",
   "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
   "source_name": "{{ geo_spatial_data_resource.source_name }}",
   "update_frequency": "{{ geo_spatial_data_resource.update_frequency }}",
-  "includes_citizen_collected": {{ geo_spatial_data_resource.includes_citizen_collected }},
-  "has_api": {{ geo_spatial_data_resource.has_api }},
-  "has_visualization_tool": {{ geo_spatial_data_resource.has_visualization_tool }},
+
+  {% if not geo_spatial_data_resource.includes_citizen_collected %}
+      "includes_citizen_collected": true,
+  {% else %}
+       "includes_citizen_collected": false,
+  {% endif %}
+
+  {% if not geo_spatial_data_resource.has_api %}
+      "has_api": true,
+  {% else %}
+       "has_api": false,
+  {% endif %}
+
+  {% if not geo_spatial_data_resource.has_visualization_tool %}
+      "has_visualization_tool": true,
+  {% else %}
+       "has_visualization_tool": false,
+  {% endif %}
+
   "measures":  [
     {% for entry in geo_spatial_data_resource.measures %}
         "{{ entry }}"

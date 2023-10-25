@@ -1,21 +1,15 @@
 import logging
-import json
-import os
+import smtplib
 from datetime import datetime
-
-import requests
-import smtplib, ssl
-## email.mime subclasses
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, PackageLoader
+from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
 
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
 logger = logging.getLogger(__name__)
 
 
 class PcorReporter():
-
     """
         Format PCOR curation status response/errors into HTML format
     """
@@ -28,7 +22,7 @@ class PcorReporter():
         self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
 
-    def report(self, pcor_processing_result):
+    def report(self, pcor_processing_result):  # TODO: how would we respond back (JSON?) to an endpoint
         """
         Main method will format report and send based on the processing result
         :param pcor_processing_result: PcorProcessResult
@@ -52,8 +46,14 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("error_report.html")
         template.globals['now'] = datetime.utcnow
+        submission = pcor_processing_result.model_data.get("submission")
 
-        rendered = template.render(data=pcor_processing_result)
+        if not submission:
+            submission = PcorSubmissionInfoModel()
+            pcor_processing_result.model_data["submission"] = submission
+
+        rendered = template.render(data=pcor_processing_result,
+                                   submission=submission)
         return rendered
 
     def produce_html_success_report(self, pcor_processing_result):
@@ -66,16 +66,26 @@ class PcorReporter():
         logger.info("produce_html_report()")
         template = self.env.get_template("success_report.html")
         template.globals['now'] = datetime.utcnow
-        rendered = template.render(data=pcor_processing_result)
+        submission = pcor_processing_result.model_data["submission"]
+
+        if not submission:
+            submission = PcorSubmissionInfoModel()
+
+        rendered = template.render(data=pcor_processing_result,
+                                   submission=submission)
         return rendered
 
     def send_email_report(self, pcor_processing_result, email_text):
         email_message = MIMEMultipart()
         email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov', 'maria.shatz@nih.gov', 'charles.schmitt@nih.gov', pcor_processing_result.submitter_email]
+        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
+        submission = pcor_processing_result.model_data["submission"]
+        if submission.curator_email:
+            recipients.append(submission.curator_email)
+
         email_message['To'] = ", ".join(recipients)
 
-        email_message['Subject'] = 'PCOR Curation Report'
+        email_message['Subject'] = 'CHORDS Curation Report'
 
         # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
         email_message.attach(MIMEText(email_text, "html"))
@@ -87,8 +97,5 @@ class PcorReporter():
         s.starttls()
         # s.login(email_login,
         #        email_passwd)
-        s.sendmail(email_message['From'], [email_message['To']], email_string)
+        s.send_message(email_message)
         s.quit()
-
-
-

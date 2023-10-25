@@ -1,7 +1,0 @@
-setuptools~=67.6.0
-asyncio~=3.4.3
-jsonschema==2.5.1
-gen3~=4.9.4
-jinja2
-xlrd
-openpyxl

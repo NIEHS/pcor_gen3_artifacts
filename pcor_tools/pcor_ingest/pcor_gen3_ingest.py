@@ -1,19 +1,14 @@
-import logging
 import json
-import re
-import os
-
+import logging
 import requests
-from requests import HTTPError
-
-from urllib.parse import quote
-
+import traceback
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
+from jinja2 import Environment, PackageLoader
+from requests import HTTPError
+from urllib.parse import quote
 from pcor_ingest.gen3auth import PcorGen3Auth
-from jinja2 import Environment, PackageLoader, select_autoescape
-
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -43,6 +38,7 @@ class PcorGen3Ingest:
             logger.info('doing auth')
             pcor_gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
+
             logger.info("authenticated to Gen3")
 
     def create_program(self, program):
@@ -101,11 +97,11 @@ class PcorGen3Ingest:
         except requests.exceptions.HTTPError:
             logger.warn("error, project not found")
 
-    def create_resource(self, program_name, project_name, resource):
+    def create_resource(self, program_name, project_code, resource):
         """
         Add (or update) a resource
         :param program_name:  name of program (e.g. NFS)
-        :param project_name: name of project (code)
+        :param project_code: name of project (code)
         :param resource: PcorIntermediateResourceModel representing the resource
         :return:on success returns resource id or None in failure
         """
@@ -115,14 +111,14 @@ class PcorGen3Ingest:
 
         # add project info
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_resource_json(resource)
         logger.debug("json_string: %s" % json_string)
         resource_json = json.loads(json_string)
-        logger.info('adding resource to program: {}, project: {}'.format(program_name, project_name))
-        status = self.submit_record(program=program_name, project=project_name, json_data=resource_json)
+        logger.info('adding resource to program: {}, project: {}'.format(program_name, project_code))
+        status = self.submit_record(program=program_name, project=project_code, json_data=resource_json)
         logger.info(status)
         resource.id = status.id
         return status
@@ -174,7 +170,6 @@ class PcorGen3Ingest:
                 tag.category = "Domain"
                 discovery.tags.append(tag)
 
-
         tag = Tag()
         tag.name = discovery.type
         tag.category = "Resource Type"
@@ -198,17 +193,6 @@ class PcorGen3Ingest:
             discovery.adv_search_filters.append(filter)
 
         '''
-        for item in geo_spatial_resource.measures:
-            filter = AdvSearchFilter()
-            filter.key = "Measures"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
-
-        for item in geo_spatial_resource.exposure_media:
-            filter = AdvSearchFilter()
-            filter.key = "Exposure Media"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
 
         filter = AdvSearchFilter()
         filter.key = "Resource Type"
@@ -231,20 +215,43 @@ class PcorGen3Ingest:
         discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
 
         logger.info('adding discovery data')
+
         metadata = Gen3Metadata(self.gen3_auth)
         response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
+        ''' cgymeyer submit_mds()
+        metadata = Gen3Expansion(auth_provider=self.gen3_auth,
+                                 submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
+                                 endpoint='https://staging.chordshealth.org/')
+        mds = Gen3Metadata(auth_provider=self.gen3_auth)
+        discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
+        response = metadata.submit_mds(mds=discovery_mds)
+        '''
+        return response
+
+    def delete_discovery_metadata_with_guid(self, guid):
+        """
+        Delete discovery metadata for the given guid
+        :param guid: Metadata entry guid to be deleted
+        :return: Response (just the json for now)
+        """
+        logger.info("delete_discovery_metadata_with_guid()")
+        logger.info('guid: %s' % guid)
+        metadata = Gen3Metadata(self.gen3_auth)
+        response = metadata.delete(guid=guid)
+
         return response
 
     def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         geo_spatial_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_data_resource_json)
+        status = self.submit_record(program=program_name, project=project_name,
+                                    json_data=geo_spatial_data_resource_json)
         logger.info(status)
         return status
 
@@ -252,20 +259,21 @@ class PcorGen3Ingest:
         logger.info("create_geo_spatial_tool_resource()")
         self.get_individual_project_info(project_name)
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         geo_spatial_tool_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_tool_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json_data=geo_spatial_tool_resource_json)
+        status = self.submit_record(program=program_name, project=project_name,
+                                    json_data=geo_spatial_tool_resource_json)
         logger.info(status)
         return status
 
     def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
         logger.info("create_pop_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_id(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
         pop_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_pop_data_resource(pop_data_resource)
@@ -311,7 +319,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
-        rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"', 'null')
+        rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"',
+                                                                                                              'null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -323,7 +332,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
-        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace(
+            'False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -347,8 +357,8 @@ class PcorGen3Ingest:
 
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
-        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null')\
-            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '')\
+        rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '') \
             .replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
@@ -361,7 +371,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_tool_resource()")
         template = self.env.get_template("geospatial_tool_resource.jinja")
-        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource)
+        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -373,7 +384,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_pop_data_resource()")
         template = self.env.get_template("population_data_resource.jinja")
-        rendered = template.render(pop_data_resource=pop_data_resource)
+        rendered = template.render(pop_data_resource=pop_data_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -381,7 +393,7 @@ class PcorGen3Ingest:
     # supporting methods
     ###########################################
     @staticmethod
-    def check_program_exists( existing_programs, program):
+    def check_program_exists(existing_programs, program):
         """
         :param existing_programs:
         :param program:
@@ -436,7 +448,7 @@ class PcorGen3Ingest:
         projects = sub.get_projects(program)
         return projects
 
-    def pcor_project_model_from_id(self, project_submitter_id):
+    def pcor_project_model_from_code(self, project_submitter_id):
         """
         Given a project submitter id, build a skeleton project model with id and other info
         :param project_submitter_id: code for project
@@ -506,7 +518,7 @@ class PcorGen3Ingest:
 
         project = PcorIntermediateProjectModel()
         project.name = result["data"]["project"][0]["name"]
-        project.project_code = result["data"]["project"][0]["code"]
+        project.code = result["data"]["project"][0]["code"]
         project.investigator_name = result["data"]["project"][0]["investigator_name"]
         project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
         project.long_name = result["data"]["project"][0]["long_name"]
@@ -543,6 +555,7 @@ class PcorGen3Ingest:
             submission_status.project_name = project
             # TODO: augment sub status
             return submission_status
+
         except HTTPError as pcor_error:
             logger.error("error in submission:%s" % pcor_error)
             submission_status = PcorProcessResult()
@@ -552,23 +565,30 @@ class PcorGen3Ingest:
             submission_status.request_content = pcor_error.request
             submission_status.response_content = json.loads(pcor_error.response.content)
 
-            for entity in submission_status.response_content["entities"]:
-                for error_entry in entity["errors"]:
+            if submission_status.response_content.get("entities"):
+                for entity in submission_status.response_content.get("entities"):
+                    for error_entry in entity["errors"]:
 
-                    error = PcorError()
+                        error = PcorError()
 
-                    if len(error_entry["keys"]) > 0:
-                        error.key = error_entry["keys"][0]
+                        if len(error_entry["keys"]) > 0:
+                            error.key = error_entry["keys"][0]
 
-                    error.message = error_entry["message"]
-                    error.type = error_entry["type"]
-                    submission_status.errors.append(error)
+                        error.message = error_entry["message"]
+                        error.type = error_entry["type"]
+                        submission_status.errors.append(error)
 
-            submission_status.path_url = submission_status.request_content.path_url
+            if submission_status.response_content.get("message"):
+                submission_status.message = submission_status.response_content.get("message")
+            return submission_status
+
+        except Exception as pcor_error:
+            logger.error("error in submission:%s" % pcor_error)
+            submission_status = PcorProcessResult()
+            submission_status.success = False
             submission_status.program_name = program
-            submission_status.project_name = project
-            submission_status.message = submission_status.response_content["message"]
-
-            # program_name, program_submitter_id, project_id, project_name
-
+            submission_status.project_code = project
+            submission_status.request_content = pcor_error.request
+            submission_status.response_content = json.loads(pcor_error.response.content)
+            submission_status.traceback = traceback.format_exc(pcor_error)
             return submission_status
