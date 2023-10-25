@@ -205,15 +205,6 @@ class PcorTemplateParser:
         return None
 
     @staticmethod
-    def sanitize_column(value):
-
-        if not value:
-            return ""
-        if math.isnan(value):
-            return ""
-        return value
-
-    @staticmethod
     def extract_resource_data(template_df):
         """
         Given a pandas dataframe with the template date, extract out the resource related data
@@ -300,17 +291,15 @@ class PcorTemplateParser:
 
     @staticmethod
     def sanitize_column(value):
-
         if isinstance(value, str):
             if not value:
                 return ""
-            return value
+            return value.strip()
         if isinstance(value, float):
             if math.isnan(value):
                 return ""
             else:
                 return str(value)
-
         return value
 
     @staticmethod

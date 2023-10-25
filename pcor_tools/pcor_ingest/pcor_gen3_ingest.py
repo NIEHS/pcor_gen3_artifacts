@@ -371,7 +371,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_geo_spatial_tool_resource()")
         template = self.env.get_template("geospatial_tool_resource.jinja")
-        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource)
+        rendered = template.render(geo_tool_resource=geo_spatial_tool_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -383,7 +384,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_pop_data_resource()")
         template = self.env.get_template("population_data_resource.jinja")
-        rendered = template.render(pop_data_resource=pop_data_resource)
+        rendered = template.render(pop_data_resource=pop_data_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 

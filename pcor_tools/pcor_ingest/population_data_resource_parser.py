@@ -71,6 +71,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.source_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'update_frequency':
                         pop_resource.update_frequency = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if len(pop_resource.update_frequency) == 0:
+                            pop_resource.update_frequency = None
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         pop_resource.includes_citizen_collected = \
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -94,8 +96,11 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             pop_resource.has_visualization_tool = True
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
-                        pop_resource.exposures = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(
-                            ',')
+                        temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_measure_list) == 1:
+                            pop_resource.exposures = temp_measure_list[0].split(',')
+                        else:
+                            pop_resource.exposures = temp_measure_list
                     elif template_df.iat[j, 0] == 'exposure_media':
                         pop_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'outcomes':
