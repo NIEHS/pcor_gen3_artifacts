@@ -3,7 +3,7 @@ $schema: "http://json-schema.org/draft-04/schema#"
 id: "supplementary_file"
 title: Supplementary File
 type: object
-namespace: http://chords-health.org/
+namespace: http://chordshealth.org/
 category: data_file
 program: '*'
 project: '*'

@@ -1,18 +1,16 @@
 import logging
-import json
-import os
+import warnings
 import pandas as pd
-
-
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, SubmitResponse, PcorDiscoveryMetadata, \
-    Tag, AdvSearchFilter
-from pcor_ingest.pcor_result_handler import PcorResultHandler
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
-from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
+from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.population_data_resource_parser import PopulationDataResourceParser
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
+
+)
 logger = logging.getLogger(__name__)
 
 
@@ -65,7 +63,7 @@ class PcorSpreadsheeetReader:
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
         self.parsers["population_data_resource"] = PopulationDataResourceParser()
-        self.result_handler = PcorResultHandler(pcor_ingest_configuration)
+        self.result_handler = PcorReporter(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):
         """
@@ -93,15 +91,9 @@ class PcorSpreadsheeetReader:
         if not result.success:
             logger.error("error parsing: %s" % result)
             return
-
-        logger.info("result of parsing:%s" % result)
-
-        # do the processing stuff here for a template
-
-        # processer = processors[type] -> move to processing folder
-        process_template = PcorTemplateProcessor()
-        process_template.process(result)
-
+        else:
+            logger.debug('parsing successful: %s' % result)
+            return result
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):
@@ -110,11 +102,11 @@ class PcorSpreadsheeetReader:
         :param template_absolute_path: absolute path to the template
         :return: string value which is the resource type, used for dictionary lookups
         """
-
+        warnings.simplefilter(action='ignore', category=UserWarning)
         df = pd.read_excel(template_absolute_path, sheet_name=0)
         logger.info(df)
         type_field = df.iat[0, 0]
-        val_field = df.iat[0,1]
+        val_field = df.iat[0, 1]
         logger.info("val:%s" % val_field)
         if type_field != "Type":
             logger.error("did not find expected TYPE field")

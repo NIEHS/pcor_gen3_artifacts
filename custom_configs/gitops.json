@@ -794,5 +794,4 @@
   ],
   "connectSrcCSPWhitelist": [
     "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chords-health.org"
-  ]
-}
+  ] }

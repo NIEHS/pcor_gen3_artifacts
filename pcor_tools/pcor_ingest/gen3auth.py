@@ -1,11 +1,11 @@
 """
 This package handles auth interactions with Gen3
 """
-import logging
-import requests
 import json
+import logging
+
+import requests
 from gen3.auth import Gen3Auth
-from pcor_ingest.ingest_context import PcorIngestConfiguration
 
 logger = logging.getLogger(__name__)
 

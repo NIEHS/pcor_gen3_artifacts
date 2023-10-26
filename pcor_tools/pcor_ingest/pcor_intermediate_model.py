@@ -1,4 +1,3 @@
-import os
 import logging
 
 ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
@@ -10,6 +9,7 @@ class PcorIntermediateProgramModel:
     """
     Represents a program
     """
+
     def __init__(self):
         self.id = None
         self.name = None
@@ -17,7 +17,6 @@ class PcorIntermediateProgramModel:
 
 
 class PcorSubmissionInfoModel:
-
     """
     Represents administrative information about a template (source, curator info and email)
     """
@@ -60,7 +59,6 @@ class PcorIntermediateResourceModel:
     """
 
     def __init__(self):
-
         self.project = ""
         # resource
         self.id = ""
@@ -158,7 +156,7 @@ class PcorDiscoveryMetadata:
         self.name = ""
         self.payment_required = ""
         self.verification_datetime = ""
-        self.comment = "" # collapses intended_use and other descriptions
+        self.comment = ""  # collapses intended_use and other descriptions
         self.description = ""
         self.support_source = ""
         self.source_url = ""
@@ -170,9 +168,9 @@ class PcorDiscoveryMetadata:
         self.resource_use_agreement = ""
         self.resource_id = ""
         self.resource_url = ""
-        self.measures = [] # convert to tags/filters
-        self.exposure_media = [] # convert to tags/filters
-        self.tool_type = "" # tags/filters?
+        self.measures = []  # convert to tags/filters
+        self.exposure_media = []  # convert to tags/filters
+        self.tool_type = ""  # tags/filters?
         self.type = ""
 
 
@@ -236,7 +234,6 @@ class PcorPopDataResourceModel:
         self.population_studied_other = []
 
 
-
 class PcorGeoToolModel:
     """
     Represents a geospatial tool resource subtype
@@ -268,4 +265,3 @@ class PcorGeoToolModel:
         self.geometry_type = ""
         self.geometry_source = ""
         self.model_methods = ""
-
