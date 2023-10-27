@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feature/schema-push
+      - feature/1.4.0
       - develop
       - main
   workflow_dispatch:
