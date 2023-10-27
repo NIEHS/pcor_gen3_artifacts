@@ -2,254 +2,7 @@ global:
   hostname: localhost
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
-ambassador:
-  resources:
-    limits: 
-      memory: 200Mi
-    requests:
-      cpu: 0.5
-      memory: 200Mi
-
-arborist:
-  resources:
-    limits: 
-      memory: 200Mi
-    requests:
-      cpu: 0.5
-      memory: 200Mi
-
-audit:
-  resources:
-      limits: 
-        memory: 120Mi
-      requests:
-        cpu: 0.2
-        memory: 120Mi
-
-aws-es-proxy:
-  resources:
-    # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 250Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of memory the container can use
-      memory: 1Gi
-
-#elasticsearch:
- # resources:
- #   limits:
- #     cpu: 500m
- #     memory: 750Mi
- #   requests:
- #     cpu: 500m
- #     memory: 750Mi
-
-etl:
-  resources:
-    tube: 
-      # -- (map) The amount of resources that the container requests
-      requests:
-        # -- (string) The amount of CPU requested
-        cpu: 0.3
-        # -- (string) The amount of memory requested
-        memory: 128Mi
-      # -- (map) The maximum amount of resources that the container is allowed to use
-      limits:
-        # -- (string) The maximum amount of CPU the container can use
-        cpu: 1.0
-        # -- (string) The maximum amount of memory the container can use
-        memory: 2Gi
-    spark:
-      # -- (map) The amount of resources that the container requests
-      requests:
-        # -- (string) The amount of CPU requested
-        cpu: 0.3
-        # -- (string) The amount of memory requested
-        memory: 128Mi
-      # -- (map) The maximum amount of resources that the container is allowed to use
-      limits:
-        # -- (string) The maximum amount of CPU the container can use
-        cpu: 1.0
-        # -- (string) The maximum amount of memory the container can use
-        memory: 1Gi
-
-guppy:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.3
-      # -- (string) The amount of memory requested
-      memory: 128Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 1Gi
-
-hatchery:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of cpu the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 256Mi
-
-indexd:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 1.0
-      # -- (string) The maximum amount of memory the container can use
-      memory: 512Mi
-
-manifestservice:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 256Mi
-
-metadata:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 256Mi
-
-
-peregrine:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 256Mi
-
-pidgin:
-  resources:
-     limits:
-      cpu: 0.5
-      memory: 256Mi
-
-requestor:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.1
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 256Mi
-
-revproxy:
-  resources:
-  # -- (map) The amount of resources that the container requests
-  requests:
-    # -- (string) The amount of CPU requested
-    cpu: 0.1
-    # -- (string) The amount of memory requested
-    memory: 12Mi
-  # -- (map) The maximum amount of resources that the container is allowed to use
-  limits:
-    # -- (string) The maximum amount of cpu the container can use
-    cpu: 1.0
-    # -- (string) The maximum amount of memory the container can use
-    memory: 512Mi
-
-sheepdog:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.3
-      # -- (string) The amount of memory requested
-      memory: 12Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 0.5
-      # -- (string) The maximum amount of memory the container can use
-      memory: 512Mi
-
-sower:
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.5
-      # -- (string) The amount of memory requested
-      memory: 20Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of memory the container can use
-      memory: 400Mi
-
-
-
-
 fence: 
-  resources:
-  # -- (map) The amount of resources that the container requests
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 0.3
-      # -- (string) The amount of memory requested
-      memory: 128Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of CPU the container can use
-      cpu: 1.0
-      # -- (string) The maximum amount of memory the container can use
-      memory: 1Gi
-
   FENCE_CONFIG:
     MOCK_AUTH: true
   # -- (string) USER YAML. Passed in as a multiline string.
@@ -725,17 +478,6 @@ fence:
 
 portal:
   # -- (map) GitOps configuration for portal
-  resources:
-    requests:
-      # -- (string) The amount of CPU requested
-      cpu: 1.0
-      # -- (string) The amount of memory requested
-      memory: 2048Mi
-  # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
-      # -- (string) The maximum amount of memory the container can use
-      memory: 4096Mi
-
   gitops:
     # -- (string) multiline string - gitops.json
     json: |
@@ -851,16 +593,16 @@ portal:
                 "icon": "workspace",
                 "tooltip": "The Workspace provides a secure cloud environment featuring Jupyter Notebooks and RStudio."
               },
+               {
+                "name": "Resource Browser",
+                "link": "/resource-browser",
+                "icon": "query"
+              },
               {
                 "icon": "profile",
                 "link": "/identity",
                 "color": "#a2a2a2",
                 "name": "Profile"
-              },
-              {
-                "name": "Resource Browser",
-                "link": "/resource-browser",
-                "icon": "query"
               }
             ]
           },
@@ -879,6 +621,20 @@ portal:
               "alt": "Gen3 Data Commons"
             }
           ]
+        },
+         "resourceBrowser": {
+           "title": "PCOR Data Commons Custom Resources",
+              "description": "A collection of custom jupyter notebooks and other resources",
+              "public": true,
+              "resources": [
+                  {
+                    "title": "Tox21 Correlation Browser",
+                    "category": "Notebooks", 
+                    "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
+                    "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
+                    "imageUrl": "/src/img/tox21.png""
+                  }
+              ]
         },
         "featureFlags": {
           "explorer": true,
@@ -1562,26 +1318,12 @@ portal:
               "accessibleFieldCheckList": ["project_id"],
               "accessibleValidationField": "project_id"
             }
-          },
-           "resourceBrowser": {
-           "title": "PCOR Data Commons Custom Resources",
-              "description": "A collection of custom jupyter notebooks and other resources",
-              "public": true,
-              "resources": [
-                  {
-                    "title": "Tox21 Correlation Browser",
-                    "category": "Notebooks", 
-                    "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
-                    "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-                    "imageUrl": "/src/img/tox21.png""
-                  }
-              ]
           }
         ],
         "connectSrcCSPWhitelist": [
           "https://localhost"
         ]
-      }cd 
+      }
 
 etl:
   etlMapping:
