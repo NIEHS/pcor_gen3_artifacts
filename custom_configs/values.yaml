@@ -104,8 +104,8 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
-       
-
+    
+    
       - id: all_programs_reader
         role_ids:
         - reader
@@ -548,7 +548,7 @@ portal:
                             "type": "text",
                             "sourceField": "project_description",
                             "default": "n/a"
-        
+      
                           }
                       ]
                     },
@@ -646,7 +646,7 @@ portal:
                             "label": "Support Source",
                             "sourceField": "support_source",
                             "default": "n/a"
-                          
+      
                           },
                           {
                             "type": "text",
@@ -750,7 +750,7 @@ portal:
                 {
                   "title": "Geospatial Data Resources",
                   "fields":[
-                  
+      
                     "includes_citizen_collected",
                     "measures",
                     "domain",
@@ -1180,10 +1180,10 @@ guppy:
   esEndpoint: ""
   # -- (list) Elasticsearch index configurations
   indices:
-  - index: geospatial_data_resource
-    type: geospatial_data_resource
-  - index: population_data_resource
-    type: population_data_resource
+    - index: geospatial_data_resource
+      type: geospatial_data_resource
+    - index: population_data_resource
+      type: population_data_resource
   # -- (string) The Elasticsearch configuration index
   configIndex: geospatial_data_resource-array-config
 
