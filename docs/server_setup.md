@@ -1,6 +1,31 @@
 # Server setup for Gen3
 Document covers setup of gen3.niehs.nih.gov hosted on a server.
 
+## Accessing the server
+
+### Log In to SCIGATE
+Refer: [Logging In](https://osc.niehs.nih.gov/hpcdocs/)
+
+You will be prompted to log in.  Login as: <NIH Username> when prompted for password: <NIH Password>
+
+Once you have logged into SCIGate you will need to ssh to the server.
+
+### SSH to Server
+
+```
+ssh gen3.niehs.nih.gov
+```
+
+### Use sudo to switch to gen3 user
+(note: sudo rights must be granted by admin)
+
+```
+sudo su - gen3
+
+[sudo] password for <username>:
+```
+Enter NIH password when prompted.
+
 ## prerequisite tools installation
 ### kubectl
 Refer: [Installation steps](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
@@ -70,6 +95,7 @@ pcor_gen3_artifacts      ---> [repo]
 ```
 
 ### Deployment
+On the server:
 1. Navigate to gen3-helm repo
 1. edit `helm/revproxy/values.yaml` file to add SSL cert and key
     ```
@@ -93,9 +119,15 @@ pcor_gen3_artifacts      ---> [repo]
       hostname: gen3.niehs.nih.gov
     ```
 1. Run `helm upgrade --install gen3 ./helm/gen3 -f ./values.yaml`
+
+On your local machine:
 1. Bring up https://gen3.niehs.nih.gov
-1. generate credentials.json under user profile
+1. Generate credentials.json under user profile
 1. load data using python ingest pipeline
+
+Ref: https://github.com/NIEHS/pcor_gen3_artifacts/blob/feature/sops/pcor_tools/RUNNING.md
+
+On the Server:
 1. Submit ETL job run `kubectl create job --from=cronjob/etl-cronjob etl`
 1. Once ETL job is complete you can either wait for Kubernetes to re-deploy guppy or do it manually by killing current pod.  
 *N.B.*: Guppy pod will fail until ETL job is completed,
