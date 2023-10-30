@@ -34,11 +34,18 @@ try:
         etl_mapping_content = etl_mapping_file.read()
         logger.debug('etl_mapping_content: \n%s' % etl_mapping_content)
 
+    # Read the content of resources.yaml file
+    with open(os.path.join(custom_configs_path, 'resources.yaml'), 'r') as resource_file:
+        resource = resource_file.read()
+        logger.debug('resource: \n%s' % resource)
+
     # Define the data context for the template
     data = {
         'user_yaml_content': user_yaml_content,
         'gitops_content': gitops_content,
-        'etl_mapping_content': etl_mapping_content
+        'etl_mapping_content': etl_mapping_content,
+        'resource': resource
+
     }
 
     # Render the values.yaml template with the provided data
