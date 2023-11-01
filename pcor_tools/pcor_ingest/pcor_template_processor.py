@@ -22,8 +22,8 @@ class PcorTemplateProcessor:
     A parent class for a processor of a PCOR spreadsheet template for a type
     """
 
-    def __init__(self):
-        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
+    def __init__(self, pcor_ingest_configuration):
+        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
 
     def process(self, parsed_data):
 
