@@ -9,11 +9,11 @@ fence:
   USER_YAML: |
     cloud_providers: {}
     groups: {}
+    
     authz:
       # policies automatically given to anyone, even if they are not authenticated
       anonymous_policies:
       - open_data_reader
-      - all_programs_reader
 
       # policies automatically given to authenticated users (in addition to their other policies)
       all_users_policies: []
@@ -27,6 +27,7 @@ fence:
         - CHORDS_submitter
         users:
         - test@example.com
+        - test
 
       # can create/update/delete indexd records
       - name: indexd_admins
@@ -36,6 +37,8 @@ fence:
         - test@example.com
 
       resources:
+      - name: 'mds_gateway'
+        description: 'commons /mds-admin'
       - name: workspace
       - name: data_file
       - name: services
@@ -46,13 +49,6 @@ fence:
             subresources:
             - name: program
             - name: project
-        - name: 'indexd'
-          subresources:
-            - name: 'admin'
-        - name: audit
-          subresources:
-            - name: presigned_url
-            - name: login
       - name: open
       - name: programs
         subresources:
@@ -60,10 +56,18 @@ fence:
           subresources:
           - name: projects
             subresources:
+            - name: AQS
             - name: HMS
             - name: CRE
+            - name: MODIS
+            - name: MTBS
+            - name: SmokeEstimates
 
       policies:
+      - id: 'mds_admin'
+        description: 'be able to use metadata service'
+        resource_paths: ['/mds_gateway']
+        role_ids: ['mds_user']
       - id: workspace
         description: be able to use workspace
         resource_paths:
@@ -96,7 +100,12 @@ fence:
         resource_paths:
         - /open
         - /programs/CHORDS/projects/HMS
+        - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/MODIS
+        - /programs/CHORDS/projects/MTBS
+        - /programs/CHORDS/projects/SmokeEstimates
+        
 
       - id: all_programs_reader
         role_ids:
@@ -114,9 +123,19 @@ fence:
         - storage_writer
         resource_paths:
         - /programs/CHORDS/projects/HMS
+        - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/MODIS
+        - /programs/CHORDS/projects/MTBS
+        - /programs/CHORDS/projects/SmokeEstimates
 
       roles:
+      - id: 'mds_user'
+        permissions:
+        - id: 'mds_access'
+          action:
+            service: 'mds_gateway'
+            method: 'access'
       - id: file_uploader
         permissions:
         - id: file_upload
@@ -196,11 +215,23 @@ fence:
       test@example.com:
         tags:
           name: Test User
-    #      email: johndoe@gmail.com
-        policies: []
-        #- CHORDS_submitter
+    #     email: johndoe@gmail.com
+        policies:
+          - CHORDS_submitter
+          - mds_admin
+          - data_upload
+          - services.sheepdog-admin
+      test:
+        tags:
+          name: Test User
+    #     email: johndoe@gmail.com
+        policies:
+          - CHORDS_submitter
+          - mds_admin
+          - data_upload
+          - services.sheepdog-admin
 
-    cloud_providers: {}
+
 portal:
   # -- (map) GitOps configuration for portal
   gitops:
@@ -1342,17 +1373,17 @@ sower:
       # -- (string) The maximum amount of memory the container can use
       memory: 400Mi
 
-fence: 
-  resources:
+#fence: 
+  #resources:
   # -- (map) The amount of resources that the container requests
-    requests:
+  #  requests:
       # -- (string) The amount of CPU requested
-      cpu: 0.3
+  #    cpu: 0.3
       # -- (string) The amount of memory requested
-      memory: 128Mi
+  #    memory: 128Mi
     # -- (map) The maximum amount of resources that the container is allowed to use
-    limits:
+  #  limits:
       # -- (string) The maximum amount of CPU the container can use
-      cpu: 1.0
+  #    cpu: 1.0
       # -- (string) The maximum amount of memory the container can use
-      memory: 1Gi
+  #    memory: 1Gi

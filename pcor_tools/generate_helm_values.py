@@ -17,6 +17,8 @@ env = Environment(loader=FileSystemLoader(custom_configs_path))
 
 # Load the values.yaml template
 values_template = env.get_template('values_template.j2')
+values_template_local = env.get_template('values_template_local.j2')
+
 
 try:
     # Read the content of user.yaml file
@@ -34,17 +36,12 @@ try:
         etl_mapping_content = etl_mapping_file.read()
         logger.debug('etl_mapping_content: \n%s' % etl_mapping_content)
 
-    # Read the content of resources.yaml file
-    with open(os.path.join(custom_configs_path, 'resources.yaml'), 'r') as resource_file:
-        resource = resource_file.read()
-        logger.debug('resource: \n%s' % resource)
 
     # Define the data context for the template
     data = {
         'user_yaml_content': user_yaml_content,
         'gitops_content': gitops_content,
-        'etl_mapping_content': etl_mapping_content,
-        'resource': resource
+        'etl_mapping_content': etl_mapping_content
 
     }
 
@@ -52,9 +49,16 @@ try:
     rendered_values = values_template.render(data)
     logger.info('rendered_values \n%s:' % rendered_values)
 
+    rendered_values_local = values_template_local.render(data)
+    logger.info('rendered_values_local \n%s:' % rendered_values_local)
+
     # Write the rendered content to a new file
     with open(os.path.join(custom_configs_path, 'auto_generated_values.yaml'), 'w') as combined_file:
         combined_file.write(rendered_values)
+
+    with open(os.path.join(custom_configs_path, 'auto_generated_values_local.yaml'), 'w') as combined_file:
+        combined_file.write(rendered_values_local)
+
     logger.info("Combined YAML file generated.")
 
 except Exception as e:
