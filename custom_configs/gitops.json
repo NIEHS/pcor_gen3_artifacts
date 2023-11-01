@@ -158,7 +158,7 @@
           "category": "Notebooks",
           "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
           "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-          "imageUrl": "../../../pcor_gen3_artifacts/img/tox21.png"
+          "imageUrl": "https://github.com/NIEHS/pcor_gen3_artifacts/blob/develop/img/tox32.PNG?raw=true"
         }
       ]
     },
