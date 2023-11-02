@@ -99,3 +99,12 @@ pcor_gen3_artifacts      ---> [repo]
 1. Submit ETL job run `kubectl create job --from=cronjob/etl-cronjob etl`
 1. Once ETL job is complete you can either wait for Kubernetes to re-deploy guppy or do it manually by killing current pod.  
 *N.B.*: Guppy pod will fail until ETL job is completed,
+
+### Cleanup
+
+Run `helm uninstall gen3`
+
+### Administration
+
+k9s - terminal management console for kubernetes - https://k9scli.io/
+
