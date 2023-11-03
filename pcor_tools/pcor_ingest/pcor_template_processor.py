@@ -45,7 +45,7 @@ class PcorTemplateProcessor:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
                 program = model_data['program']
-                parsed_data.program_name = program
+                parsed_data.program_name = program.name
                 try:
                     program_id = self.pcor_ingest.create_program(program=program)
                 except HTTPError as pcor_error:
