@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+
+# title           : upload_spreadsheet_watchdog
+# description     : Monitor pcor_work_dir folder on ddn and trigger gen3 upload on arrival of new SS
+# author          : Deep Patel
+# env variable    : PROPERTIES_FILE=/path/to/properties_file
+# usage           : python WebSubWd.py -f /path/to/folder_to_be_monitored
+# python_version  : 3.9.16
+# ====================================================================================================
+
 import logging
 import os
 import sys
