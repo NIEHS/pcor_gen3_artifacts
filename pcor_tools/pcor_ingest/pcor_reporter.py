@@ -1,5 +1,6 @@
 import logging
 import smtplib
+import traceback
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -76,26 +77,34 @@ class PcorReporter():
         return rendered
 
     def send_email_report(self, pcor_processing_result, email_text):
-        email_message = MIMEMultipart()
-        email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
-        submission = pcor_processing_result.model_data["submission"]
-        if submission.curator_email:
-            recipients.append(submission.curator_email)
+        try:
+            logger.info('send_email_report()')
+            email_message = MIMEMultipart()
+            email_message['From'] = self.pcor_ingest_configuration.mail_from
+            recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
+            submission = pcor_processing_result.model_data["submission"]
+            if submission.curator_email:
+                recipients.append(submission.curator_email)
 
-        email_message['To'] = ", ".join(recipients)
+            email_message['To'] = ", ".join(recipients)
 
-        email_message['Subject'] = 'CHORDS Curation Report'
+            email_message['Subject'] = 'CHORDS Curation Report'
 
-        # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
-        email_message.attach(MIMEText(email_text, "html"))
-        # Convert it as a string
-        email_string = email_message.as_string()
+            # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
+            email_message.attach(MIMEText(email_text, "html"))
+            # Convert it as a string
+            email_string = email_message.as_string()
 
-        # Send the message via local SMTP server.
-        s = smtplib.SMTP(self.pcor_ingest_configuration.smtp_server)
-        s.starttls()
-        # s.login(email_login,
-        #        email_passwd)
-        s.send_message(email_message)
-        s.quit()
+            # Send the message via local SMTP server.
+            logger.info('Initializing SMTP connection....')
+            s = smtplib.SMTP(self.pcor_ingest_configuration.smtp_server)
+            s.starttls()
+            # s.login(email_login,
+            #        email_passwd)
+            s.send_message(email_message)
+            s.quit()
+        except Exception as e:
+            logger.info('Error sending email report: %s', e)
+            # Log the stack trace
+            stack_trace = traceback.format_exc()
+            logger.error('Stack Trace: %s', stack_trace)
