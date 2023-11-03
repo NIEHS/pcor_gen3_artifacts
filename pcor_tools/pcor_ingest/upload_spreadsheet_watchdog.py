@@ -4,7 +4,7 @@
 # description     : Monitor pcor_work_dir folder on ddn and trigger gen3 upload on arrival of new SS
 # author          : Deep Patel
 # env variable    : PROPERTIES_FILE=/path/to/properties_file
-# usage           : python WebSubWd.py -f /path/to/folder_to_be_monitored
+# usage           : python WebSubWd.py -f /path/to/pcor_work_dir/new
 # python_version  : 3.9.16
 # ====================================================================================================
 
