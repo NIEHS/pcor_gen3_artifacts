@@ -14,7 +14,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class TestSpreadsheetReader(unittest.TestCase):
+class TestSpreadsheetProcessing(unittest.TestCase):
     def test_determine_template_instance_type(self):
         ss_reader = PcorSpreadsheeetReader(pcor_testing_utilities.get_pcor_ingest_configuration())
         test_ss_path = 'test_resources/pcor_geospatial_data_resource_test1.xlsx'
