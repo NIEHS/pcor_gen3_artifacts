@@ -1,3 +1,4 @@
+
 authz:
   # policies automatically given to anyone, even if they are not authenticated
   anonymous_policies:
@@ -93,7 +94,6 @@ authz:
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/SmokeEstimates
-
 
   - id: all_programs_reader
     role_ids:
@@ -219,4 +219,3 @@ users:
       - data_upload
       - services.sheepdog-admin
 
-cloud_providers: {}

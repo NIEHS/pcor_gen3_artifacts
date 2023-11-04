@@ -2,6 +2,43 @@ global:
   hostname: localhost
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
+ambassador:
+  resources:
+    limits: 
+      memory: 200Mi
+    requests:
+      cpu: 0.5
+      memory: 200Mi
+
+arborist:
+  resources:
+    limits: 
+      memory: 200Mi
+    requests:
+      cpu: 0.5
+      memory: 200Mi
+
+audit:
+  resources:
+      limits: 
+        memory: 120Mi
+      requests:
+        cpu: 0.2
+        memory: 120Mi
+
+aws-es-proxy:
+  resources:
+    # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 250Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of memory the container can use
+      memory: 1Gi
+
 fence:
   FENCE_CONFIG:
     MOCK_AUTH: true
@@ -105,6 +142,7 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
+        
 
       - id: all_programs_reader
         role_ids:
@@ -231,6 +269,7 @@ fence:
           - services.sheepdog-admin
 
 
+
 portal:
   # -- (map) GitOps configuration for portal
   gitops:
@@ -249,6 +288,7 @@ portal:
             "name": "Population Data Resource",
             "plural": "Population Data Resources"
           }
+
         ],
         "chartCounts": [
           {
@@ -275,7 +315,7 @@ portal:
             "link": "/submission"
           },
           "buttons": [
-            
+           
           ]
         },
         "navigation": {
@@ -306,11 +346,6 @@ portal:
               "tooltip": "Query the databases using GraphQL."
             },
             {
-              "name": "Resource Browser",
-              "link": "/resource-browser",
-              "icon": "query"
-            },
-            {
               "icon": "profile",
               "link": "/identity",
               "color": "#a2a2a2",
@@ -325,41 +360,19 @@ portal:
           "contact": "If you have any questions about access or the registration process, please contact ",
           "email": "mike.conway@nih.gov"
         },
-        "systemUse" : {
-          "systemUseTitle" : "CHORDS Catalog Policy",
-          "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."],
-          "expireUseMsgDays" : 0
-        },
-        "categorical9Colors": [
-          "#B02F34",
-          "#421C52",
-          "#AEEBF2",
-          "#E0DD10",
-          "#40476D",
-          "#FFA630",
-          "#AE8799",
-          "#035C94",
-          "#462255"
-        ],
+
+        "systemUse" : { 
+        "systemUseTitle" : "CHORDS Catalog Policy", 
+        "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."], 
+        "expireUseMsgDays" : 0
+      },
+
+        "categorical9Colors": ["#B02F34", "#421C52", "#AEEBF2", "#E0DD10", "#40476D", "#FFA630", "#AE8799", "#035C94", "#462255"],
         "footerLogos": [
           {
             "src": "/src/img/gen3.png",
             "href": "https://ctds.uchicago.edu/gen3",
             "alt": "CHORDS Health Data Commons"
-          }
-        ]
-      },
-      "resourceBrowser": {
-        "title": "CHORDS Data Commons Custom Resources",
-        "description": "A collection of custom jupyter notebooks and other resources",
-        "public": true,
-        "resources": [
-          {
-            "title": "Tox21 Correlation Browser",
-            "category": "Notebooks",
-            "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
-            "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-            "imageUrl": "/src/img/tox21.png"
           }
         ]
       },
@@ -369,8 +382,8 @@ portal:
         "explorerPublic": true,
         "discovery": true
       },
-      "requiredCerts": [],
-      "discoveryConfig": {
+      "requiredCerts": [ ],
+      "discoveryConfig":{
         "requireLogin": false,
         "public": true,
         "features": {
@@ -383,18 +396,13 @@ portal:
               "enabled": true,
               "inputSubtitle": "CHORDS Resource Search",
               "placeholder": "Search climate and health resources by keyword",
-              "searchableTextFields": [
-                "name",
-                "long_name",
-                "description",
-                "domain",
-                "program_name"
-              ]
+              "searchableTextFields": ["name", "long_name", "description", "domain", "program_name"]
+
             },
-            "tagSearchDropdown": {
+            "tagSearchDropdown": { 
               "enabled": true,
-              "collapseOnDefault": true,
-              "collapsibleButtonText": "Resource Characteristics"
+              "collapseOnDefault": true, 
+              "collapsibleButtonText": "Resource Characteristics" 
             }
           },
           "advSearchFilters": {
@@ -415,11 +423,12 @@ portal:
                 "key": "Measures"
               },
               {
-                "key": "Exposure Media"
+                "key": "Exposures"
               },
               {
                 "key": "Population"
               }
+
             ]
           },
           "tagsColumn": {
@@ -442,25 +451,25 @@ portal:
         "tagSelector": {
           "title": "Tags by category"
         },
-        "studyColumns": [
-          {
+        "studyColumns":[
+         {
             "name": "Resource Type",
             "field": "type",
             "errorIfNotAvailable": false,
             "valueIfNotAvailable": "n/a"
-          },
-          {
+         }, 
+         {
             "name": "Resource Name",
             "field": "name",
             "errorIfNotAvailable": false,
             "valueIfNotAvailable": "n/a"
-          },
-          {
-            "name": "Program Name",
-            "field": "program_name",
-            "errorIfNotAvailable": false,
-            "valueIfNotAvailable": "n/a"
-          }
+         },
+         {
+          "name": "Program Name",
+          "field": "program_name",
+          "errorIfNotAvailable": false,
+          "valueIfNotAvailable": "n/a"
+         }
         ],
         "studyPreviewField": {
           "name": "Description",
@@ -472,202 +481,217 @@ portal:
         },
         "detailView": {
           "headerField": "name",
-          "tabs": [
-            {
-              "tabName": "Summary",
-              "groups": [
-                {
-                  "header": "Description",
-                  "fields": [
+            "tabs": [
+              {
+                "tabName": "Summary",
+                "groups": [
+                  {
+                    "header": "Description",
+                    "fields": [
+                      {
+                        "type": "block",
+                        "sourceField": "description"
+                      }
+                    ]
+                  },
+                  {
+                    "header": "Details",
+                    "fields": [
+                      {
+                        "type": "block",
+                        "sourceField": "comment"
+                      }
+                    ]
+                  },
+                  {
+                    "header": "Program Name",
+                    "fields": [
+                      {
+                        "type": "string",
+                        "label": "Program Name",
+                        "sourceField": "program_name",
+                        "default": "n/a"
+
+                      } 
+                    ]
+                    },
                     {
-                      "type": "block",
-                      "sourceField": "description"
-                    }
-                  ]
+                      "header": "Project",
+                      "fields": [
+                        {
+                          "type": "text",
+                          "label": "Project Name",
+                          "sourceField": "project_name",
+                          "default": "n/a"
+
+                        },
+                        {
+                          "type": "link",
+                          "label": "Project Link",
+                          "sourceField": "project_url",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "text",
+                          "sourceField": "project_description",
+                          "default": "n/a"
+      
+                        }
+                    ]
+                  },
+                  {
+                    "header": "Details",
+                    "fields": [
+                      {
+                        "type": "text",
+                        "label": "Domain",
+                        "sourceField": "domain",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Has API",
+                        "sourceField": "has_api",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Has Visualization Tool",
+                        "sourceField": "has_visualization_tool",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Citizen Collected?",
+                        "sourceField": "is_citizen_collected",
+                        "default": "n/a"
+
+                      }
+                    ]
+                  },
+
+                  {
+                    "header": "Resource Links",
+                    "fields": [
+                      {
+                        "type": "link",
+                        "label": "Resource URL",
+                        "sourceField": "resource_url",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "License Type",
+                        "sourceField": "license_type",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "License Text",
+                        "sourceField": "license_text",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Citation",
+                        "sourceField": "citation",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Subject to Data Usage Agreement",
+                        "sourceField": "resource_use_agreement",
+                        "default": "n/a"
+
+                      },
+                      {
+                        "type": "text",
+                        "label": "Resource Contact",
+                        "sourceField": "resource_contact",
+                        "default": "n/a"
+
+                      }
+                    ]
+                  }
+                ]
                 },
                 {
-                  "header": "Details",
-                  "fields": [
+                  "tabName": "Source",
+                  "groups": [
                     {
-                      "type": "block",
-                      "sourceField": "comment"
+                      "header": "Source Information",
+                      "fields": [
+                        {
+                          "type": "text",
+                          "label": "Support Source",
+                          "sourceField": "support_source",
+                          "default": "n/a"
+                         
+                        },
+                        {
+                          "type": "text",
+                          "label": "Investigator Name",
+                          "sourceField": "investigator_name",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "text",
+                          "label": "Investigator Affiliation",
+                          "sourceField": "investigator_affiliation",
+                          "default": "n/a"
+                        }
+                      ]
+                    },
+                    {
+                      "header": "Resource Links",
+                      "fields": [
+                        {
+                          "type": "link",
+                          "label": "Resource URL",
+                          "sourceField": "resource_url",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "text",
+                          "label": "License Type",
+                          "sourceField": "license_type",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "block",
+                          "label": "License Text",
+                          "sourceField": "license_text",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "block",
+                          "label": "Citation",
+                          "sourceField": "citation",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "text",
+                          "label": "Resource Use Agreement?",
+                          "sourceField": "resource_use_agreement",
+                          "default": "n/a"
+                        },
+                        {
+                          "type": "text",
+                          "label": "Resource Contact",
+                          "sourceField": "resource_contact",
+                          "default": "n/a"
+                        }
+                      ]
                     }
                   ]
-                },
-                {
-                  "header": "Program Name",
-                  "fields": [
-                    {
-                      "type": "string",
-                      "label": "Program Name",
-                      "sourceField": "program_name",
-                      "default": "n/a"
-                    }
-                  ]
-                },
-                {
-                  "header": "Project",
-                  "fields": [
-                    {
-                      "type": "text",
-                      "label": "Project Name",
-                      "sourceField": "project_name",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "link",
-                      "label": "Project Link",
-                      "sourceField": "project_url",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "sourceField": "project_description",
-                      "default": "n/a"
-                    }
-                  ]
-                },
-                {
-                  "header": "Details",
-                  "fields": [
-                    {
-                      "type": "text",
-                      "label": "Domain",
-                      "sourceField": "domain",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Has API",
-                      "sourceField": "has_api",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Has Visualization Tool",
-                      "sourceField": "has_visualization_tool",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Citizen Collected?",
-                      "sourceField": "is_citizen_collected",
-                      "default": "n/a"
-                    }
-                  ]
-                },
-                {
-                  "header": "Resource Links",
-                  "fields": [
-                    {
-                      "type": "link",
-                      "label": "Resource URL",
-                      "sourceField": "resource_url",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "License Type",
-                      "sourceField": "license_type",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "License Text",
-                      "sourceField": "license_text",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Citation",
-                      "sourceField": "citation",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Subject to Data Usage Agreement",
-                      "sourceField": "resource_use_agreement",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Resource Contact",
-                      "sourceField": "resource_contact",
-                      "default": "n/a"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "tabName": "Source",
-              "groups": [
-                {
-                  "header": "Source Information",
-                  "fields": [
-                    {
-                      "type": "text",
-                      "label": "Support Source",
-                      "sourceField": "support_source",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Investigator Name",
-                      "sourceField": "investigator_name",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Investigator Affiliation",
-                      "sourceField": "investigator_affiliation",
-                      "default": "n/a"
-                    }
-                  ]
-                },
-                {
-                  "header": "Resource Links",
-                  "fields": [
-                    {
-                      "type": "link",
-                      "label": "Resource URL",
-                      "sourceField": "resource_url",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "License Type",
-                      "sourceField": "license_type",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "block",
-                      "label": "License Text",
-                      "sourceField": "license_text",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "block",
-                      "label": "Citation",
-                      "sourceField": "citation",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Resource Use Agreement?",
-                      "sourceField": "resource_use_agreement",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "text",
-                      "label": "Resource Contact",
-                      "sourceField": "resource_contact",
-                      "default": "n/a"
-                    }
-                  ]
-                }
-              ]
-            }
+                  }
           ]
         },
         "minimalFieldMapping": {
@@ -695,9 +719,10 @@ portal:
             "color": "rgba(121, 112, 103, 1)",
             "display": true
           }
+
         ]
       },
-      "analysisTools": [],
+      "analysisTools": [ ],
       "explorerConfig": [
         {
           "tabTitle": "Geospatial Data Resources",
@@ -711,7 +736,8 @@ portal:
             "tabs": [
               {
                 "title": "Geospatial Data Resources",
-                "fields": [
+                "fields":[
+                 
                   "includes_citizen_collected",
                   "measures",
                   "domain",
@@ -726,7 +752,7 @@ portal:
               },
               {
                 "title": "Temporal/Spatial Details",
-                "fields": [
+                "fields":[
                   "spatial_resolution",
                   "spatial_coverage",
                   "geometry_type",
@@ -739,7 +765,7 @@ portal:
               },
               {
                 "title": "Project/Program Details",
-                "fields": [
+                "fields":[
                   "program_name",
                   "project_name"
                 ]
@@ -812,9 +838,7 @@ portal:
                 "name": "Dataset Name"
               }
             ],
-            "accessibleFieldCheckList": [
-              "project_id"
-            ],
+            "accessibleFieldCheckList": ["project_id"],
             "accessibleValidationField": "project_id"
           }
         },
@@ -830,7 +854,7 @@ portal:
             "tabs": [
               {
                 "title": "Population Data Resources",
-                "fields": [
+                "fields":[
                   "domain",
                   "keywords",
                   "exposures",
@@ -843,7 +867,7 @@ portal:
               },
               {
                 "title": "Temporal/Spatial Details",
-                "fields": [
+                "fields":[
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
@@ -856,7 +880,7 @@ portal:
               },
               {
                 "title": "Project/Program Details",
-                "fields": [
+                "fields":[
                   "program_name",
                   "project_name",
                   "project_investigator_affiliation"
@@ -876,7 +900,7 @@ portal:
               "population_studied",
               "population_studied_other",
               "resource_url"
-              ],
+            ],
             "linkFields": [
               "resource_url"
             ]
@@ -929,9 +953,7 @@ portal:
                 "name": "Dataset Name"
               }
             ],
-            "accessibleFieldCheckList": [
-              "project_id"
-            ],
+            "accessibleFieldCheckList": ["project_id"],
             "accessibleValidationField": "project_id"
           }
         },
@@ -947,7 +969,7 @@ portal:
             "tabs": [
               {
                 "title": "Geospatial Tool Resources",
-                "fields": [
+                "fields":[
                   "program_name",
                   "project_id",
                   "tool_type",
@@ -962,7 +984,7 @@ portal:
               },
               {
                 "title": "Temporal/Spatial Details",
-                "fields": [
+                "fields":[
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
@@ -974,7 +996,7 @@ portal:
               },
               {
                 "title": "Project/Program Details",
-                "fields": [
+                "fields":[
                   "program_name",
                   "project_name"
                 ]
@@ -1042,9 +1064,7 @@ portal:
                 "name": "Dataset Name"
               }
             ],
-            "accessibleFieldCheckList": [
-              "project_id"
-            ],
+            "accessibleFieldCheckList": ["project_id"],
             "accessibleValidationField": "project_id"
           }
         }
@@ -1052,7 +1072,35 @@ portal:
       "connectSrcCSPWhitelist": [
         "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chords-health.org"
       ] }
+      
 etl:
+  resources:
+    tube: 
+      # -- (map) The amount of resources that the container requests
+      requests:
+        # -- (string) The amount of CPU requested
+        cpu: 0.3
+        # -- (string) The amount of memory requested
+        memory: 128Mi
+      # -- (map) The maximum amount of resources that the container is allowed to use
+      limits:
+        # -- (string) The maximum amount of CPU the container can use
+        cpu: 1.0
+        # -- (string) The maximum amount of memory the container can use
+        memory: 2Gi
+    spark:
+      # -- (map) The amount of resources that the container requests
+      requests:
+        # -- (string) The amount of CPU requested
+        cpu: 0.3
+        # -- (string) The amount of memory requested
+        memory: 128Mi
+      # -- (map) The maximum amount of resources that the container is allowed to use
+      limits:
+        # -- (string) The maximum amount of CPU the container can use
+        cpu: 1.0
+        # -- (string) The maximum amount of memory the container can use
+        memory: 1Gi
   etlMapping:
     mappings:
       - name: geospatial_data_resource
@@ -1143,7 +1191,22 @@ etl:
 
         parent_props:
           - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+
+
 guppy:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.3
+      # -- (string) The amount of memory requested
+      memory: 128Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 1Gi
   enabled: true
   image:
     tag: "feat_es7"
@@ -1159,3 +1222,140 @@ guppy:
 
 hatchery:
   enabled: false
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of cpu the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 256Mi
+
+indexd:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 1.0
+      # -- (string) The maximum amount of memory the container can use
+      memory: 512Mi
+
+manifestservice:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 256Mi
+
+metadata:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 256Mi
+
+peregrine:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 256Mi
+
+pidgin:
+  resources:
+     limits:
+      cpu: 0.5
+      memory: 256Mi
+
+requestor:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.1
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 256Mi
+
+revproxy:
+  resources:
+  # -- (map) The amount of resources that the container requests
+  requests:
+    # -- (string) The amount of CPU requested
+    cpu: 0.1
+    # -- (string) The amount of memory requested
+    memory: 12Mi
+  # -- (map) The maximum amount of resources that the container is allowed to use
+  limits:
+    # -- (string) The maximum amount of cpu the container can use
+    cpu: 1.0
+    # -- (string) The maximum amount of memory the container can use
+    memory: 512Mi
+
+sheepdog:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.3
+      # -- (string) The amount of memory requested
+      memory: 12Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of CPU the container can use
+      cpu: 0.5
+      # -- (string) The maximum amount of memory the container can use
+      memory: 512Mi
+
+sower:
+  resources:
+  # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: 0.5
+      # -- (string) The amount of memory requested
+      memory: 20Mi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of memory the container can use
+      memory: 400Mi

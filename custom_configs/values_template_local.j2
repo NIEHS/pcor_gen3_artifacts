@@ -1,3 +1,7 @@
+global:
+  hostname: localhost
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+
 ambassador:
   resources:
     limits: 
@@ -35,15 +39,22 @@ aws-es-proxy:
       # -- (string) The maximum amount of memory the container can use
       memory: 1Gi
 
-#elasticsearch:
- # resources:
- #   limits:
- #     cpu: 500m
- #     memory: 750Mi
- #   requests:
- #     cpu: 500m
- #     memory: 750Mi
+fence:
+  FENCE_CONFIG:
+    MOCK_AUTH: true
+  # -- (string) USER YAML. Passed in as a multiline string.
+  USER_YAML: |
+    cloud_providers: {}
+    groups: {}
+    {{ user_yaml_content | indent(4) }}
 
+portal:
+  # -- (map) GitOps configuration for portal
+  gitops:
+    # -- (string) multiline string - gitops.json
+    json: |
+      {{ gitops_content | indent(4) }}
+      
 etl:
   resources:
     tube: 
@@ -72,6 +83,8 @@ etl:
         cpu: 1.0
         # -- (string) The maximum amount of memory the container can use
         memory: 1Gi
+  etlMapping:
+    {{ etl_mapping_content | indent(4) }}
 
 guppy:
   resources:
@@ -87,8 +100,21 @@ guppy:
       cpu: 0.5
       # -- (string) The maximum amount of memory the container can use
       memory: 1Gi
+  enabled: true
+  image:
+    tag: "feat_es7"
+  esEndpoint: ""
+  # -- (list) Elasticsearch index configurations
+  indices:
+  - index: geospatial_data_resource
+    type: geospatial_data_resource
+  - index: population_data_resource
+    type: population_data_resource
+  # -- (string) The Elasticsearch configuration index
+  configIndex: geospatial_data_resource-array-config
 
 hatchery:
+  enabled: false
   resources:
   # -- (map) The amount of resources that the container requests
     requests:
@@ -147,7 +173,6 @@ metadata:
       cpu: 0.5
       # -- (string) The maximum amount of memory the container can use
       memory: 256Mi
-
 
 peregrine:
   resources:
@@ -228,17 +253,3 @@ sower:
       # -- (string) The maximum amount of memory the container can use
       memory: 400Mi
 
-#fence: 
-  #resources:
-  # -- (map) The amount of resources that the container requests
-  #  requests:
-      # -- (string) The amount of CPU requested
-  #    cpu: 0.3
-      # -- (string) The amount of memory requested
-  #    memory: 128Mi
-    # -- (map) The maximum amount of resources that the container is allowed to use
-  #  limits:
-      # -- (string) The maximum amount of CPU the container can use
-  #    cpu: 1.0
-      # -- (string) The maximum amount of memory the container can use
-  #    memory: 1Gi
