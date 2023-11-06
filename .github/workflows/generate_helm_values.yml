@@ -40,6 +40,9 @@ jobs:
           cd pcor_tools
           python setup.py install
 
+      - name: List files
+        run: ls
+        
       - name: Execute generate helm values
         id: script
         run: |
