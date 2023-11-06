@@ -53,5 +53,5 @@ jobs:
           git config --global user.email "deeppatel.cs@gmail.com"
 
           git add -A
-          git commit -m "#1 update schema.json"
+          git commit -m "#1 (github_action: Dump Schema) update schema.json"
           git push

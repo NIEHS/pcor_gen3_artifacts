@@ -1,0 +1,12 @@
+# This workflow will trigger generate_helm_values.py when config files are updated
+# it will create 2 values.yaml files in custom_configs folder
+name: Generate Helm Values
+run-name: Generate new helm values ${{ github.actor }} updated config files
+on:
+  push:
+    paths: custom_configs
+jobs:
+  Generate-new-helm-values:
+    runs-on: ubuntu-latest
+    steps:
+      
