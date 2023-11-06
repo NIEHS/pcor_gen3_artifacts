@@ -42,7 +42,7 @@ jobs:
 
       - name: List files
         run: ls
-        
+
       - name: Execute generate helm values
         id: script
         run: |
