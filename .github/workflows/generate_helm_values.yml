@@ -33,19 +33,16 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          python setup.py install
 
       - name: Install pcor_tools
         run: |
           cd pcor_tools
           python setup.py install
 
-      - name: List files
-        run: ls
-
       - name: Execute generate helm values
         id: script
         run: |
+          cd pcor_tools
           python generate_helm_values.py
 
       - name: Print errors
