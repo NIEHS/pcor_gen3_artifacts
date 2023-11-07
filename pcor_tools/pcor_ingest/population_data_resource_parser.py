@@ -96,13 +96,19 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             pop_resource.has_visualization_tool = True
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
-                        temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_measure_list) == 1:
-                            pop_resource.exposures = temp_measure_list[0].split(',')
+                        temp_exposure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_exposure_list) == 1:
+                            pop_resource.exposures = temp_exposure_list[0].split(',')
                         else:
-                            pop_resource.exposures = temp_measure_list
+                            pop_resource.exposures = temp_exposure_list
                     elif template_df.iat[j, 0] == 'exposure_media':
                         pop_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'measures':
+                        temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_measure_list) == 1:
+                            pop_resource.measures = temp_measure_list[0].split(',')
+                        else:
+                            pop_resource.measures = temp_measure_list
                     elif template_df.iat[j, 0] == 'outcomes':
                         pop_resource.outcomes = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(
                             ',')
