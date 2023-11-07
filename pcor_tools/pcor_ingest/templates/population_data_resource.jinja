@@ -66,7 +66,12 @@
           {{ "," if not loop.last }}
         {% endfor %}
   ],
-  "exposure_media": "{{ pop_data_resource.exposure_media }}",
+  "exposure_media":  [
+        {% for media in pop_data_resource.exposure_media  %}
+            "{{ media }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+  ],
   "measures": [
         {% for measure in pop_data_resource.measures %}
             "{{ measure }}"

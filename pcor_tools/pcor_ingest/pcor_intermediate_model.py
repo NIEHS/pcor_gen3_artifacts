@@ -232,7 +232,7 @@ class PcorPopDataResourceModel:
         self.model_methods = []
         self.population_studied = []
         self.population_studied_other = []
-        self.exposure_media = ""
+        self.exposure_media = []
         self.measures = []
 
 

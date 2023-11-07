@@ -140,7 +140,9 @@ properties:
       type: string
   exposure_media:
     description: media that the phenomena is related to
-    type: string
+    type: array
+    items:
+      type: string
   model_methods:
     description: If modeled, description of modeling approaches used to generate the data.
     type: array
