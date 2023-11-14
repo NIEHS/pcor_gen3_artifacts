@@ -40,7 +40,6 @@ uniqueKeys:
   - [project_id, submitter_id]
 
 properties:
-
   #system properties, do not change or remove:
   created_datetime:
     $ref: "_definitions.yaml#/datetime"
@@ -60,26 +59,30 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   # common properties for tool resources
+  comments:
+    description: Optional submitter comment
+    type: string
   tool_type:
     description: The type of tool
     type: array
     items:
       type: string
-  usage_type:
-    description: Is the tool open source, paid, or a combination.
-    enum:
-      - Open-source
-      - Paid
-      - Combination
+  intended_use:
+    description: Narrative that speaks to the how the data can be used in research projects, could include references to good data uses.
+    type: string
+  is_open:
+    description: is the tool open source
+    type: boolean
   operating_system:
     description: The operating system the tool runs on
     type: array
     items:
       enum:
-      - Windows
+      - Android OS
+      - Apple iOS
+      - Apple MacOS
       - Linux
-      - Mac
-      - cross-platform
+      - Microsoft Windows
   languages:
     description: Programming language
     type: array
@@ -94,46 +97,31 @@ properties:
         - Fortran
         - Go
         - Other
-  input_formats:
-    description: Type of data/data format used as input (e.g. NetCDF)
-    type: array
-    items:
-      type: string
-  output_formats:
-    description: Type of data/data format output from the tool
-    type: array
-    items:
-      type: string  # specific properties
-  time_extent_start:
-    description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_extent_end:
-    description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_available_comment:
-    description: Narrative to describe time extent details if multiple exist in the resource.
-    type: string
-  temporal_resolution:
-    description: Frequency of time points.
-    type: string
-  spatial_resolution:
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
-  spatial_coverage:
-    description: Maximum spatial coverage of the data.
-    type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
-  geometry_type:
-    description: Type of geometric data, the file extension will be different for different types.
-    type: string
-  geometry_source:
-    description: Source or provider of the geometry data.
-    type: string
-  model_methods:
-    description: If modeled, type of approach used.
-    type: string
+  license_type:
+      description: license for use of software
+      type: array
+      items:
+        enum:
+          - AGPL
+          - Apache
+          - BSD
+          - CDDL
+          - DUAL
+          - Eclipse
+          - GPL
+          - LGPL
+          - MIT
+          - MPL
+          - Proprietary
+          - Public Domain
+  suggested_audience:
+      description: suggested audience to use this tool
+      type: array
+      items:
+        enum:
+          - Software Developer
+          - Researcher
+          - General Public
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"

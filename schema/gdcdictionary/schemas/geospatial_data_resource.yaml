@@ -75,8 +75,7 @@ properties:
       - Monthly
       - Quarterly
       - Annually
-      - BiAnnual
-      - unknown
+      - Undefined
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.
     type: boolean

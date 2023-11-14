@@ -5,6 +5,7 @@ from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.population_data_resource_parser import PopulationDataResourceParser
+from pcor_ingest.geospatial_tool_resource_parser import GeoSpatialToolResourceParser
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -63,6 +64,7 @@ class PcorSpreadsheeetReader:
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
         self.parsers["population_data_resource"] = PopulationDataResourceParser()
+        self.parsers["geospatial_tool_resource"] = GeoSpatialToolResourceParser()
         self.result_handler = PcorReporter(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):
