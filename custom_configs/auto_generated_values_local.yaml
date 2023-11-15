@@ -398,6 +398,14 @@ portal:
             "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
             "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
             "imageUrl": "/src/img/tox21.png"
+          },
+          {
+            "title": "CHORDS Toolkit book",
+            "category": "Tutorial books html",
+            "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
+            "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
+            "imageUrl": "/src/img/chords.png"
+
           }
         ]
       },
