@@ -99,6 +99,11 @@ authz:
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/KP
+    - /programs/CHORDS/projects/NHANES
+    - /programs/CHORDS/projects/HCUP
+    - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/WISQARS
 
   - id: all_programs_reader
     role_ids:
@@ -121,6 +126,11 @@ authz:
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/KP
+    - /programs/CHORDS/projects/NHANES
+    - /programs/CHORDS/projects/HCUP
+    - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/WISQARS
 
   roles:
   - id: 'mds_user'
