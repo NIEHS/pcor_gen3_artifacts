@@ -104,9 +104,9 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'exposure_media':
                         temp_exposure_media_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
                         if len(temp_exposure_media_list) == 1:
-                            pop_resource.exposures = temp_exposure_media_list[0].split(',')
+                            pop_resource.exposure_media = temp_exposure_media_list[0].split(',')
                         else:
-                            pop_resource.exposures = temp_exposure_media_list
+                            pop_resource.exposure_media = temp_exposure_media_list
                     elif template_df.iat[j, 0] == 'measures':
                         temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
                         if len(temp_measure_list) == 1:

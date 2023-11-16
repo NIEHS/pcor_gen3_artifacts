@@ -110,7 +110,7 @@ class PcorSpreadsheeetReader:
         type_field = df.iat[0, 0]
         val_field = df.iat[0, 1]
         logger.info("val:%s" % val_field)
-        if type_field != "Type":
+        if type_field != "Type" or pd.isna(val_field):
             logger.error("did not find expected TYPE field")
             raise Exception("Cannot determine resource type via TYPE field")
         return df.iat[0, 1]

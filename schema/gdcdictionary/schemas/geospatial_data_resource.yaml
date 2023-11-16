@@ -68,6 +68,7 @@ properties:
     type: string
   update_frequency:
     description: Frequency of update of the resource.
+    nullable: true
     enum:
       - Continuous
       - Hourly
