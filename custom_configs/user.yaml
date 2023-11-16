@@ -51,6 +51,11 @@ authz:
         - name: MODIS
         - name: MTBS
         - name: SmokeEstimates
+        - name: KP
+        - name: NHANES
+        - name: HCUP
+        - name: WONDER
+        - name: WISQARS
 
   policies:
   - id: 'mds_admin'
