@@ -261,7 +261,7 @@ class PcorTemplateParser:
                             resource.is_static = False
                         elif str(resource.is_static).lower() == 'yes':
                             resource.is_static = True
-                    elif template_df.iat[j, 0] == 'Data_Resource':
+                    elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
 
                         # validate needed props and guid assignment
                         if resource.submitter_id is None or resource.submitter_id == '':

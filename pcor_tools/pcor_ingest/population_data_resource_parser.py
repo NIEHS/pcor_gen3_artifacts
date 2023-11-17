@@ -135,8 +135,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         pop_resource.spatial_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
-                        pop_resource.spatial_resolution_other = PcorTemplateParser.sanitize_column(
-                            template_df.iat[j, 1])
+                        pop_resource.spatial_resolution_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         pop_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':

@@ -56,6 +56,7 @@ authz:
         - name: HCUP
         - name: WONDER
         - name: WISQARS
+        - name: BenMAP-CE
 
   policies:
   - id: 'mds_admin'
@@ -104,6 +105,7 @@ authz:
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/WISQARS
+    - /programs/CHORDS/projects/BenMAP-CE
 
   - id: all_programs_reader
     role_ids:
@@ -131,6 +133,7 @@ authz:
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/WISQARS
+    - /programs/CHORDS/projects/BenMAP-CE
 
   roles:
   - id: 'mds_user'

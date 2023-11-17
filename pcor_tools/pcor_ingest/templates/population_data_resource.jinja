@@ -3,7 +3,6 @@
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
   "comments": "{{ pop_data_resource.comments }}",
   "intended_use": "{{ pop_data_resource.intended_use }}",
-  "source_url": "{{ pop_data_resource.source_url }}",
   "update_frequency": "{{ pop_data_resource.update_frequency }}",
 
   {% if not pop_data_resource.includes_citizen_collected %}
@@ -77,7 +76,7 @@
             "{{ measure }}"
             {{ "," if not loop.last }}
         {% endfor %}
-  ]
+  ],
   "outcomes":  [
         {% for outcome in pop_data_resource.outcomes  %}
 

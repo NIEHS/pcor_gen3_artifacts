@@ -85,7 +85,7 @@ properties:
   domain:
     description: Domain of the resource
     type: array
-    items: #does this need to be an enum with cv list?
+    items:
       type: string
   keywords:
     description: Comma delimiter keywords.
