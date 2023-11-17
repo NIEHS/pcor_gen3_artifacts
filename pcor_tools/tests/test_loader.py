@@ -25,8 +25,8 @@ class TestLoaderSpreadsheet(unittest.TestCase):
         # Create scratch folder under tests ( .gitignore updated )
         # scratch_dir location can be changed as per preference
 
-        scratch_dir = os.path.join(os.getcwd(), 'pcor_work_dir')
-        #scratch_dir = '/Users/pateldes/Documents/scratch/pcor_work_dir'
+        #scratch_dir = os.path.join(os.getcwd(), 'pcor_work_dir')
+        scratch_dir = '/Users/pateldes/Documents/scratch/pcor_work_dir'
         test_setup_scratch.setup_scratch(path=scratch_dir)
 
         # copy SS from test resources to new folder

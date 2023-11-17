@@ -17,7 +17,7 @@ class TestDeleteDiscovery(unittest.TestCase):
     def test_delete_discovery_metadata_with_guid(self):
         logger.info('test_delete_discovery_metadata_with_guid()')
 
-        guid = '924dbe30-a9bf-4341-9906-0862b7084e34'   # hardcode entry to be deleted
+        guid = '782c8902-6e3d-4006-93e6-3b41c40a8a5c'   # hardcode entry to be deleted
 
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         actual = pcor_ingest.delete_discovery_metadata_with_guid(guid=guid)

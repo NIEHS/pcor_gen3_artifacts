@@ -267,7 +267,7 @@ portal:
       },
       "components": {
         "appName": "CHORDS Resource Catalog",
-        "homepageHref": "https://staging.chords-health.org/",
+        "homepageHref": "https://staging.chordshealth.org/",
         "index": {
           "introduction": {
             "heading": "CHORDS Resource Catalog",
@@ -1050,7 +1050,7 @@ portal:
         }
       ],
       "connectSrcCSPWhitelist": [
-        "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chords-health.org"
+        "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/"
       ] }
 etl:
   etlMapping:
