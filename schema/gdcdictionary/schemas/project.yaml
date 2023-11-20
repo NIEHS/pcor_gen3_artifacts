@@ -160,11 +160,12 @@ properties:
 
   project_sponsor_type:
     description: Type of project. If multiple use Multiple
-    enum:
-      - Federal Agency
-      - State Agency
-      - Academic Institution
-      - Non-profit Organization
+    type: string
+    #enum:
+    #  - Federal Agency
+    #  - State Agency
+    #  - Academic Institution
+    #  - Non-profit Organization
 
   project_url:
     description: URL for the project
