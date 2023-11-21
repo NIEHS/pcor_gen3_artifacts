@@ -171,7 +171,9 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'project_code':
                         project.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
-                        project.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
+                        project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        # cleanup short name and use it as unique project short name, no special characters or spaces
+                        project.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                         project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
