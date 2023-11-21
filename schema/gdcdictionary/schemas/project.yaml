@@ -85,6 +85,9 @@ properties:
     type: string
   name:
     type: string
+    description: unique name for the project.
+  short_name:
+    type: string
     description: Short display name/brief description for the project.
   releasable:
     description: |
