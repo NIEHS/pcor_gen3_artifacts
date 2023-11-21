@@ -1,24 +1,24 @@
-# This workflow will trigger dump_schema.py which dumps all the schema files in gdcdictionary 
-# folder to one json schema
-name: Dump Schema
-run-name: Build new schema ${{ github.actor }} pushed new upadate
+# This workflow will trigger generate_helm_values.py when config files are updated
+# it will create 2 values.yaml files in custom_configs folder
+name: Generate Helm Values
+run-name: Generate new helm values ${{ github.actor }} updated config files
 on:
   push:
-    paths: schema/**
+    paths: custom_configs/**
 jobs:
-  Build-new-schema:
+  Generate-new-helm-values:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."    
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v6
 
       - name: Current branch name
         run: |
-          echo "${{ steps.branch-name.outputs.current_branch }}"  
+          echo "${{ steps.branch-name.outputs.current_branch }}"
       - name: checkout repo content and branch on which change is pushed # checkout the repository content to github runner.
         uses: actions/checkout@v3
         with:
@@ -33,12 +33,18 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      - name: Install pcor_tools
+        run: |
+          cd pcor_tools
           python setup.py install
-      - name: Execute dump schema
+
+      - name: Execute generate helm values
         id: script
         run: |
-          cd schema
-          python dump_schema.py
+          cd pcor_tools
+          python generate_helm_values.py
+
       - name: Print errors
         if: steps.script.outputs.error == 'true'
         run: |
@@ -46,12 +52,12 @@ jobs:
           printenv "SCRIPT_STDERR"
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
-          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
+          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }}
       - name: Commit and push changes
         run: |
           git config --global user.name "pateldes"
           git config --global user.email "deeppatel.cs@gmail.com"
 
           git add -A
-          git commit -m "#1 (github_action: Dump Schema) update schema.json"
+          git commit -m "#1 (github_action: Generate Helm Values) update helm values.yaml"
           git push

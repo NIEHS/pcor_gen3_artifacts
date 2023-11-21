@@ -72,6 +72,7 @@ class LoaderSpreadsheet:
             # processing folder
             result = PcorProcessResult()
             result.template_source = file_path
+            result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
             ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
 
             try:
