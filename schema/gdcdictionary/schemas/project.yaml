@@ -85,7 +85,7 @@ properties:
     type: string
   name:
     type: string
-    description: Short display name/brief description for the project.
+    description: Unique name for the project.
   releasable:
     description: |
       A project can only be released by the user when `releasable` is true.
@@ -145,6 +145,10 @@ properties:
 
 
   # additional properties to describe the project
+  short_name:
+    type: string
+    description: Short display name/brief description for the project.
+
   long_name:
     type: string
     description: Display name/brief description for the project. # TOREVIEW

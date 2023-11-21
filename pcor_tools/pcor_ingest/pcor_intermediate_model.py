@@ -38,6 +38,7 @@ class PcorIntermediateProjectModel:
         # project
         self.id = ""
         self.name = ""
+        self.short_name = ""
         self.long_name = ""
         self.project_sponsor = ""
         self.project_sponsor_other = ""
@@ -64,6 +65,7 @@ class PcorIntermediateResourceModel:
         self.id = ""
         self.submitter_id = ""
         self.name = ""
+        self.short_name = ""
         self.long_name = ""
         self.resource_type = ""
         self.resource_url = ""

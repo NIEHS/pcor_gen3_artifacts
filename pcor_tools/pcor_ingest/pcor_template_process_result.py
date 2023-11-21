@@ -6,6 +6,7 @@ class PcorProcessResult:
     def __init__(self):
         self.success = True
         # specific to the item being added
+        self.endpoint = ""
         self.id = ""
         self.type = ""
         self.submitter_id = ""

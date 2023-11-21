@@ -26,7 +26,7 @@ uniqueKeys:
 links: []
 
 # Program is the root entity and so it is the only entity
-# without a project or parents.
+# without a project or parents. test-mcc2
 properties:
   # system properties, do not change or remove:
   type:

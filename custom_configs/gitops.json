@@ -122,6 +122,14 @@
         "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
         "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
         "imageUrl": "/src/img/tox21.png"
+      },
+      {
+        "title": "CHORDS Toolkit book",
+        "category": "Tutorial books html",
+        "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
+        "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
+        "imageUrl": "/src/img/chords.png"
+
       }
     ]
   },
@@ -273,7 +281,7 @@
                 {
                   "type": "text",
                   "label": "Project Name",
-                  "sourceField": "project_name",
+                  "sourceField": "project_short_name",
                   "default": "n/a"
                 },
                 {
@@ -503,7 +511,7 @@
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name"
+              "project_short_name"
             ]
           }
         ]
@@ -511,7 +519,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "measures",
           "exposure_media",
@@ -620,7 +628,7 @@
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name",
+              "project_short_name",
               "project_investigator_affiliation"
             ]
           }
@@ -629,7 +637,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "comments",
           "intended_use",
@@ -738,7 +746,7 @@
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name"
+              "project_short_name"
             ]
           }
         ]
@@ -746,7 +754,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "tool_type",
           "usage_type",
@@ -812,5 +820,5 @@
     }
   ],
   "connectSrcCSPWhitelist": [
-    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chords-health.org"
+    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/"
   ] }

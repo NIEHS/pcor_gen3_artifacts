@@ -56,12 +56,19 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: AQS
             - name: HMS
+            - name: EPAAQS
             - name: CRE
             - name: MODIS
             - name: MTBS
             - name: SmokeEstimates
+            - name: KP
+            - name: NHANES
+            - name: HCUP
+            - name: WONDER
+            - name: WISQARS
+            - name: BenMAPCE
+            - name: NWSFireWeather
 
       policies:
       - id: 'mds_admin'
@@ -100,11 +107,18 @@ fence:
         resource_paths:
         - /open
         - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/AQS
+        - /programs/CHORDS/projects/EPAAQS
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/NHANES
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NWSFireWeather
 
       - id: all_programs_reader
         role_ids:
@@ -122,11 +136,18 @@ fence:
         - storage_writer
         resource_paths:
         - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/AQS
+        - /programs/CHORDS/projects/EPAAQS
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/NHANES
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NWSFireWeather
 
       roles:
       - id: 'mds_user'
@@ -230,7 +251,6 @@ fence:
           - data_upload
           - services.sheepdog-admin
 
-
 portal:
   # -- (map) GitOps configuration for portal
   gitops:
@@ -267,7 +287,7 @@ portal:
       },
       "components": {
         "appName": "CHORDS Resource Catalog",
-        "homepageHref": "https://staging.chords-health.org/",
+        "homepageHref": "https://staging.chordshealth.org/",
         "index": {
           "introduction": {
             "heading": "CHORDS Resource Catalog",
@@ -360,6 +380,14 @@ portal:
             "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
             "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
             "imageUrl": "/src/img/tox21.png"
+          },
+          {
+            "title": "CHORDS Toolkit book",
+            "category": "Tutorial books html",
+            "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
+            "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
+            "imageUrl": "/src/img/chords.png"
+
           }
         ]
       },
@@ -511,7 +539,7 @@ portal:
                     {
                       "type": "text",
                       "label": "Project Name",
-                      "sourceField": "project_name",
+                      "sourceField": "project_short_name",
                       "default": "n/a"
                     },
                     {
@@ -741,7 +769,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name"
+                  "project_short_name"
                 ]
               }
             ]
@@ -749,7 +777,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "measures",
               "exposure_media",
@@ -858,7 +886,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name",
+                  "project_short_name",
                   "project_investigator_affiliation"
                 ]
               }
@@ -867,7 +895,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "comments",
               "intended_use",
@@ -976,7 +1004,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name"
+                  "project_short_name"
                 ]
               }
             ]
@@ -984,7 +1012,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "tool_type",
               "usage_type",
@@ -1050,7 +1078,7 @@ portal:
         }
       ],
       "connectSrcCSPWhitelist": [
-        "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chords-health.org"
+        "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/"
       ] }
 etl:
   etlMapping:
@@ -1108,7 +1136,7 @@ etl:
           - name: geometry_source
           - name: model_methods
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
       - name: population_data_resource
         doc_type: population_data_resource
         type: aggregator
@@ -1142,7 +1170,7 @@ etl:
           - name: population_studied_other
 
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
 guppy:
   enabled: true
   image:
