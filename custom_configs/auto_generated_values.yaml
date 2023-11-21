@@ -56,8 +56,8 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: AQS
             - name: HMS
+            - name: EPAAQS
             - name: CRE
             - name: MODIS
             - name: MTBS
@@ -67,7 +67,8 @@ fence:
             - name: HCUP
             - name: WONDER
             - name: WISQARS
-            - name: BenMAP-CE
+            - name: BenMAPCE
+            - name: NWSFireWeather
 
       policies:
       - id: 'mds_admin'
@@ -106,7 +107,7 @@ fence:
         resource_paths:
         - /open
         - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/AQS
+        - /programs/CHORDS/projects/EPAAQS
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
@@ -116,7 +117,8 @@ fence:
         - /programs/CHORDS/projects/HCUP
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/BenMAP-CE
+        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NWSFireWeather
 
       - id: all_programs_reader
         role_ids:
@@ -144,7 +146,8 @@ fence:
         - /programs/CHORDS/projects/HCUP
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/BenMAP-CE
+        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NWSFireWeather
 
       roles:
       - id: 'mds_user'
@@ -774,7 +777,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "measures",
               "exposure_media",
@@ -892,7 +895,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "comments",
               "intended_use",
@@ -1009,7 +1012,7 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "tool_type",
               "usage_type",
@@ -1133,7 +1136,7 @@ etl:
           - name: geometry_source
           - name: model_methods
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
       - name: population_data_resource
         doc_type: population_data_resource
         type: aggregator
@@ -1167,7 +1170,7 @@ etl:
           - name: population_studied_other
 
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
 guppy:
   enabled: true
   image:
