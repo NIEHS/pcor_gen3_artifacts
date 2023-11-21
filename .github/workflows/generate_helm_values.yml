@@ -55,6 +55,7 @@ jobs:
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }}
       - name: Commit and push changes
         run: |
+          git pull
           git config --global user.name "pateldes"
           git config --global user.email "deeppatel.cs@gmail.com"
 
