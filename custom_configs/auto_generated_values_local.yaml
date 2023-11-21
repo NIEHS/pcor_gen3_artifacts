@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/21-Model-1.4.0/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 ambassador:
   resources:
@@ -173,7 +173,7 @@ fence:
         - storage_writer
         resource_paths:
         - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/AQS
+        - /programs/CHORDS/projects/EPAAQS
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
