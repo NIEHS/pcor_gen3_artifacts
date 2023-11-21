@@ -519,7 +519,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "measures",
           "exposure_media",
@@ -637,7 +637,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "comments",
           "intended_use",
@@ -754,7 +754,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "tool_type",
           "usage_type",
