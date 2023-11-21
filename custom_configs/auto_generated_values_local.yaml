@@ -574,7 +574,7 @@ portal:
                     {
                       "type": "text",
                       "label": "Project Name",
-                      "sourceField": "project_name",
+                      "sourceField": "project_short_name",
                       "default": "n/a"
                     },
                     {
@@ -804,7 +804,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name"
+                  "project_short_name"
                 ]
               }
             ]
@@ -921,7 +921,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name",
+                  "project_short_name",
                   "project_investigator_affiliation"
                 ]
               }
@@ -1039,7 +1039,7 @@ portal:
                 "title": "Project/Program Details",
                 "fields": [
                   "program_name",
-                  "project_name"
+                  "project_short_name"
                 ]
               }
             ]
@@ -1199,7 +1199,7 @@ etl:
           - name: geometry_source
           - name: model_methods
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
       - name: population_data_resource
         doc_type: population_data_resource
         type: aggregator
@@ -1233,7 +1233,7 @@ etl:
           - name: population_studied_other
 
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[resource_id, resource_name:long_name, resource_short_name:name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
 
 guppy:
   resources:
