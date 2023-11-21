@@ -1,53 +1,30 @@
 {
   "type": "geospatial_tool_resource",
   "submitter_id": "{{ geo_tool_resource.submitter_id }}",
-  "tool_type":  [
-    {% for entry in geo_tool_resource.tool_type %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "usage_type": "{{ geo_tool_resource.usage_type }}",
-  "temporal_resolution": "{{ geo_tool_resource.temporal_resolution }}",
+  "tool_type":  "{{ geo_tool_resource.tool_type }}",
+  "intended_use": "{{ geo_tool_resource.intended_use }}",
+  {% if geo_tool_resource.is_open %}
+      "is_open": true,
+  {% else %}
+       "is_open": false,
+  {% endif %}
   "languages":[ {% for entry in geo_tool_resource.languages %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %} ],
-  "spatial_coverage": "{{ geo_tool_resource.spatial_coverage }}",
   "operating_system": [
     {% for entry in geo_tool_resource.operating_system %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "input_formats": [{% for entry in geo_tool_resource.input_formats %}
+  "license_type":  "{{ geo_tool_resource.license_type }}",
+  "suggested_audience": [
+    {% for entry in geo_tool_resource.suggested_audience %}
         "{{ entry }}"
       {{ "," if not loop.last }}
-    {% endfor %} ],
-
-  "output_formats": [{% for entry in geo_tool_resource.output_formats %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %} ],
-
-  {% if not geo_tool_resource.time_extent_start %}
-      "time_extent_start": null,
-  {% else %}
-      "time_extent_start": "{{ geo_tool_resource.time_extent_start }}",
-  {% endif %}
-
-   {% if not geo_tool_resource.time_extent_end %}
-      "time_extent_end": null,
-  {% else %}
-      "time_extent_end": "{{ geo_tool_resource.time_extent_end }}",
-  {% endif %}
-
-  "time_available_comment": "{{ geo_tool_resource.times_available_comment }}",
-  "spatial_resolution": "{{ geo_tool_resource.spatial_resolution }}",
-  "geometry_type": "{{ geo_tool_resource.geometry_type }}",
-  "geometry_source": "{{ geo_tool_resource.geometry_source }}",
-  "spatial_bounding_box": "{{ geo_tool_resource.spatial_bounding_box }}",
-  "model_methods": "{{ geo_tool_resource.model_methods }}",
+    {% endfor %}
+  ],
   "resources": {
     "node_id": "{{ geo_tool_resource.resource_id }}",
     "submitter_id": "{{ geo_tool_resource.resource_submitter_id }}"

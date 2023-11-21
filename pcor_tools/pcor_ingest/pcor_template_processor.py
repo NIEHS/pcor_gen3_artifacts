@@ -207,9 +207,9 @@ class PcorTemplateProcessor:
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 
-                        if 'geo_tool_resource' in model_data.keys():
+                        if 'geospatial_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
-                            geo_tool_resource = model_data['geo_tool_resource']
+                            geo_tool_resource = model_data['geospatial_tool_resource']
                             geo_tool_resource.resource_id = resource_submit_status.id
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
                             geo_tool_resource.submitter_id = resource.submitter_id

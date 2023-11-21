@@ -5,19 +5,19 @@
   "intended_use": "{{ pop_data_resource.intended_use }}",
   "update_frequency": "{{ pop_data_resource.update_frequency }}",
 
-  {% if not pop_data_resource.includes_citizen_collected %}
+  {% if pop_data_resource.includes_citizen_collected %}
       "includes_citizen_collected": true,
   {% else %}
        "includes_citizen_collected": false,
   {% endif %}
 
-  {% if not pop_data_resource.has_api %}
+  {% if pop_data_resource.has_api %}
       "has_api": true,
   {% else %}
        "has_api": false,
   {% endif %}
 
-  {% if not pop_data_resource.has_visualization_tool %}
+  {% if pop_data_resource.has_visualization_tool %}
       "has_visualization_tool": true,
   {% else %}
        "has_visualization_tool": false,

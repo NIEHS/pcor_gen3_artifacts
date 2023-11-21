@@ -249,10 +249,10 @@ class PcorGeoToolModel:
         self.created_datetime = ""
         self.submitter_id = ""
         self.updated_datetime = ""
-        self.tool_type = []
+        self.tool_type = ""
         self.operating_system = []
         self.languages = []
         self.license_type = []
         self.intended_use = ""
-        self.isOpen = False
+        self.is_open = False
         self.suggested_audience = []

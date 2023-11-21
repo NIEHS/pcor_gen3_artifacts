@@ -60,12 +60,12 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'intended_use':
                         geo_resource.intended_use = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'is_open':
-                        geo_resource.isOpen = \
+                        geo_resource.is_open = \
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(geo_resource.isOpen).lower() == 'no' or str(
-                                geo_resource.isOpen).lower() == 'none':
-                            geo_resource.isOpen = False
-                        if str(geo_resource.isOpen).lower() == 'yes':
-                            geo_resource.isOpen = True
+                        if str(geo_resource.is_open).lower() == 'no' or str(
+                                geo_resource.is_open).lower() == 'none':
+                            geo_resource.is_open = False
+                        if str(geo_resource.is_open).lower() == 'yes':
+                            geo_resource.is_open = True
 
         return geo_resource

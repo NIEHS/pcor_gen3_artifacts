@@ -29,7 +29,13 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "is_static": {{ resource.is_static }},
+
+  {% if resource.is_static %}
+      "is_static": true,
+  {% else %}
+       "is_static": false,
+  {% endif %}
+
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.code }}"
