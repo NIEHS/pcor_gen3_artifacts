@@ -99,6 +99,12 @@ fence:
             - name: MODIS
             - name: MTBS
             - name: SmokeEstimates
+            - name: KP
+            - name: NHANES
+            - name: HCUP
+            - name: WONDER
+            - name: WISQARS
+            - name: BenMAP-CE
 
       policies:
       - id: 'mds_admin'
@@ -142,6 +148,12 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/NHANES
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/BenMAP-CE
 
       - id: all_programs_reader
         role_ids:
@@ -164,6 +176,12 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/NHANES
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/BenMAP-CE
 
       roles:
       - id: 'mds_user'
@@ -266,7 +284,6 @@ fence:
           - mds_admin
           - data_upload
           - services.sheepdog-admin
-
 
 
 portal:
