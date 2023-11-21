@@ -57,10 +57,6 @@ authz:
         - name: WONDER
         - name: WISQARS
         - name: BenMAP-CE
-        - name: NIFC
-        - name: NWS-Fire Weather
-        - name: LAADS
-
 
   policies:
   - id: 'mds_admin'
@@ -110,9 +106,6 @@ authz:
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/BenMAP-CE
-    - /programs/CHORDS/projects/NIFC
-    - /programs/CHORDS/projects/NWS-Fire Weather
-    - /programs/CHORDS/projects/LAADS
 
   - id: all_programs_reader
     role_ids:
@@ -141,9 +134,6 @@ authz:
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/BenMAP-CE
-    - /programs/CHORDS/projects/NIFC
-    - /programs/CHORDS/projects/NWS-Fire Weather
-    - /programs/CHORDS/projects/LAADS
 
   roles:
   - id: 'mds_user'
@@ -246,4 +236,3 @@ users:
       - mds_admin
       - data_upload
       - services.sheepdog-admin
-
