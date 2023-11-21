@@ -168,7 +168,7 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'project_code':
+                    elif template_df.iat[j, 0] == 'project_name':
                         project.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -230,7 +230,9 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_name':
                         resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_short_name':
-                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
+                        resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        # cleanup short name and use it as unique resource short name, no special characters or spaces
+                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_url':
