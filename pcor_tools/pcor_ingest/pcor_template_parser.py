@@ -178,12 +178,26 @@ class PcorTemplateParser:
                         project.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                         project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
-                        project.project_sponsor = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        logger.info(project.project_sponsor)
+                        temp_project_sponsor_list = str(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_project_sponsor_list) == 1:
+                            project.project_sponsor = temp_project_sponsor_list[0].split(',')
+                        else:
+                            project.project_sponsor = temp_project_sponsor_list
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
-                        project.project_sponsor_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        temp_project_sponsor_other_list = str(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_project_sponsor_other_list) == 1:
+                            project.project_sponsor_other = temp_project_sponsor_other_list[0].split(',')
+                        else:
+                            project.project_sponsor_other = temp_project_sponsor_other_list
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
-                        project.project_sponsor_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        temp_project_sponsor_type_list = str(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_project_sponsor_type_list) == 1:
+                            project.project_sponsor_type = temp_project_sponsor_type_list[0].split(',')
+                        else:
+                            project.project_sponsor_type = temp_project_sponsor_type_list
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -261,7 +275,6 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'publications':
-                        resource.publications = str(template_df.iat[j, 1]).split(',')
                         temp_publication_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
                         if len(temp_publication_list) == 1:
                             resource.publications = temp_publication_list[0].split(',')

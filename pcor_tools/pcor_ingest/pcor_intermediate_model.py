@@ -40,9 +40,9 @@ class PcorIntermediateProjectModel:
         self.name = ""
         self.short_name = ""
         self.long_name = ""
-        self.project_sponsor = ""
-        self.project_sponsor_other = ""
-        self.project_sponsor_type = ""
+        self.project_sponsor = []
+        self.project_sponsor_other = []
+        self.project_sponsor_type = []
         self.project_url = ""
         self.description = ""
         self.code = ""
