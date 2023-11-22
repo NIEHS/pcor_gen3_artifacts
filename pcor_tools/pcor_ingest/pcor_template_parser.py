@@ -259,6 +259,11 @@ class PcorTemplateParser:
                         resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'publications':
                         resource.publications = str(template_df.iat[j, 1]).split(',')
+                        temp_publication_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_publication_list) == 1:
+                            resource.publications = temp_publication_list[0].split(',')
+                        else:
+                            resource.publications = temp_publication_list
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if str(resource.is_static).lower() == 'no':

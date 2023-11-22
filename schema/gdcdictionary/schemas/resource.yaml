@@ -75,10 +75,9 @@ properties:
     type: string
   resource_type:
     description: Type of resource
-    enum:
-      - Data Resource
-      - Tool Resources
-      - Training Resource
+    type: array
+    items:
+      type: string
   resource_url:
     description: resource website
     type: string
