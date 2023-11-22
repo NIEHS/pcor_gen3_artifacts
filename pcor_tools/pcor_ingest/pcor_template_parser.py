@@ -238,7 +238,8 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_url':
                         resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_description':
-                        resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        # use triple double quotes to define the string, which can contain both single and double quotes
+                        resource.description = PcorTemplateParser.sanitize_column("""{}""".format(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'domain':
                         resource.domain = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
                     elif template_df.iat[j, 0] == 'keywords':
