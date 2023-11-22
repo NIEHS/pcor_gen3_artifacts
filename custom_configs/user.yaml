@@ -108,7 +108,7 @@ authz:
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
-    - /programs/CHORDS/projects/NFIC
+    - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
@@ -140,7 +140,7 @@ authz:
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
-    - /programs/CHORDS/projects/NFIC
+    - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
