@@ -67,7 +67,7 @@ class PcorIntermediateResourceModel:
         self.name = ""
         self.short_name = ""
         self.long_name = ""
-        self.resource_type = ""
+        self.resource_type = []
         self.resource_url = ""
         self.description = ""
         self.domain = ""

@@ -234,7 +234,7 @@ class PcorTemplateParser:
                         # cleanup short name and use it as unique resource short name, no special characters or spaces
                         resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                     elif template_df.iat[j, 0] == 'resource_type':
-                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
                     elif template_df.iat[j, 0] == 'resource_url':
                         resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_description':
