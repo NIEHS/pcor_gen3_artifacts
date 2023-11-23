@@ -56,6 +56,7 @@ authz:
         - name: MTBS
         - name: NHANES
         - name: NIFC
+        - name: NWCGInciWeb
         - name: NWSFireWeather
         - name: SmokeEstimates
         - name: USFS
@@ -109,6 +110,7 @@ authz:
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
+    - /programs/CHORDS/projects/NWCGInciWeb
     - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
@@ -141,6 +143,7 @@ authz:
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
+    - /programs/CHORDS/projects/NWCGInciWeb
     - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
