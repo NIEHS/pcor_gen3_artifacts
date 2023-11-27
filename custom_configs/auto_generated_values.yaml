@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/21-Model-1.4.0/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -56,19 +56,23 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: HMS
-            - name: EPAAQS
+            - name: BenMAPCE
             - name: CRE
+            - name: EPAAQS
+            - name: HCUP
+            - name: HMS
+            - name: KP
+            - name: LAADS
             - name: MODIS
             - name: MTBS
-            - name: SmokeEstimates
-            - name: KP
             - name: NHANES
-            - name: HCUP
-            - name: WONDER
-            - name: WISQARS
-            - name: BenMAPCE
+            - name: NIFC
+            - name: NWCGInciWeb
             - name: NWSFireWeather
+            - name: SmokeEstimates
+            - name: USFS
+            - name: WISQARS
+            - name: WONDER
 
       policies:
       - id: 'mds_admin'
@@ -106,19 +110,23 @@ fence:
           - storage_reader
         resource_paths:
         - /open
-        - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/EPAAQS
+        - /programs/CHORDS/projects/BenMAPCE
         - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/EPAAQS
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/HMS
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/LAADS
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
-        - /programs/CHORDS/projects/SmokeEstimates
-        - /programs/CHORDS/projects/KP
         - /programs/CHORDS/projects/NHANES
-        - /programs/CHORDS/projects/HCUP
-        - /programs/CHORDS/projects/WONDER
-        - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NIFC
+        - /programs/CHORDS/projects/NWCGInciWeb
         - /programs/CHORDS/projects/NWSFireWeather
+        - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/USFS
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/WONDER
 
       - id: all_programs_reader
         role_ids:
@@ -135,19 +143,23 @@ fence:
         - storage_reader
         - storage_writer
         resource_paths:
-        - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/EPAAQS
+        - /programs/CHORDS/projects/BenMAPCE
         - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/EPAAQS
+        - /programs/CHORDS/projects/HCUP
+        - /programs/CHORDS/projects/HMS
+        - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/LAADS
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
-        - /programs/CHORDS/projects/SmokeEstimates
-        - /programs/CHORDS/projects/KP
         - /programs/CHORDS/projects/NHANES
-        - /programs/CHORDS/projects/HCUP
-        - /programs/CHORDS/projects/WONDER
-        - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/BenMAPCE
+        - /programs/CHORDS/projects/NIFC
+        - /programs/CHORDS/projects/NWCGInciWeb
         - /programs/CHORDS/projects/NWSFireWeather
+        - /programs/CHORDS/projects/SmokeEstimates
+        - /programs/CHORDS/projects/USFS
+        - /programs/CHORDS/projects/WISQARS
+        - /programs/CHORDS/projects/WONDER
 
       roles:
       - id: 'mds_user'

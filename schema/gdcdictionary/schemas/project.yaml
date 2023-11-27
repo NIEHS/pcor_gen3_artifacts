@@ -161,7 +161,9 @@ properties:
 
   project_sponsor_other:
     description: if does not appear in the CV above, use this value (mc)
-    type: string
+    type: array
+    items:
+      type: string
 
   project_sponsor_type:
     description: Type of project. If multiple use Multiple
