@@ -280,6 +280,11 @@ portal:
             "graphql": "_population_data_resource_count",
             "name": "Population Data Resource",
             "plural": "Population Data Resources"
+          },
+          {
+            "graphql": "_geospatial_tool_resource_count",
+            "name": "Geospatial Tool Resource",
+            "plural": "Geospatial Tool Resources"
           }
         ],
         "chartCounts": [
@@ -292,6 +297,11 @@ portal:
             "graphql": "_population_data_resource_count",
             "name": "Population Data Resource",
             "plural": "Population Data Resources"
+          },
+          {
+            "graphql": "_geospatial_tool_resource_count",
+            "name": "Geospatial Tool Resource",
+            "plural": "Geospatial Tool Resources"
           }
         ],
         "projectDetails": "boardCounts",
@@ -991,25 +1001,12 @@ portal:
                   "program_name",
                   "project_id",
                   "tool_type",
-                  "usage_type",
+                  "intended_use",
                   "operating_system",
                   "languages",
-                  "input_formats",
-                  "output_formats",
-                  "domain",
-                  "model_methods"
-                ]
-              },
-              {
-                "title": "Temporal/Spatial Details",
-                "fields": [
-                  "time_extent_start",
-                  "time_extent_end",
-                  "temporal_resolution",
-                  "spatial_resolution",
-                  "spatial_coverage",
-                  "geometry_type",
-                  "geometry_source"
+                  "license_type",
+                  "is_open",
+                  "suggested_audience"
                 ]
               },
               {
@@ -1027,7 +1024,7 @@ portal:
               "resource_short_name",
               "resource_description",
               "tool_type",
-              "usage_type",
+              "intended_use",
               "resource_url"
             ],
             "linkFields": [
