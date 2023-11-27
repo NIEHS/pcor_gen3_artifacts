@@ -251,7 +251,7 @@ class PcorGeoToolModel:
         self.created_datetime = ""
         self.submitter_id = ""
         self.updated_datetime = ""
-        self.tool_type = ""
+        self.tool_type = []
         self.operating_system = []
         self.languages = []
         self.license_type = []

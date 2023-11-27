@@ -1,7 +1,12 @@
 {
   "type": "geospatial_tool_resource",
   "submitter_id": "{{ geo_tool_resource.submitter_id }}",
-  "tool_type":  "{{ geo_tool_resource.tool_type }}",
+  "tool_type":  [
+     {% for entry in geo_tool_resource.tool_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+   ],
   "intended_use": "{{ geo_tool_resource.intended_use }}",
   {% if geo_tool_resource.is_open %}
       "is_open": true,
@@ -18,7 +23,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "license_type":  "{{ geo_tool_resource.license_type }}",
+  "license_type": [
+     {% for entry in geo_tool_resource.license_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "suggested_audience": [
     {% for entry in geo_tool_resource.suggested_audience %}
         "{{ entry }}"
