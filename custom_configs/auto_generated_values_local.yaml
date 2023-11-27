@@ -1063,6 +1063,11 @@ portal:
               "resource_description",
               "tool_type",
               "intended_use",
+              "operating_system",
+              "languages",
+              "license_type",
+              "is_open",
+              "suggested_audience",
               "resource_url"
             ],
             "linkFields": [
