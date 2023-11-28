@@ -113,6 +113,7 @@ class PcorGeospatialDataResourceModel:
 
     def __init__(self):
         # data resc props are common
+        self.display_type = ""
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
@@ -201,6 +202,7 @@ class PcorPopDataResourceModel:
     """
 
     def __init__(self):
+        self.display_type = ""
         self.pcor_intermediate_resource_model = None
         self.submitter_id = ""
         self.project_id = ""
@@ -242,6 +244,7 @@ class PcorGeoToolModel:
     """
 
     def __init__(self):
+        self.display_type = ""
         self.pcor_intermediate_resource_model = None
         self.submitter_id = ""
         self.project_id = ""

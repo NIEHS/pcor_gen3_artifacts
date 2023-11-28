@@ -49,7 +49,7 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
         ss_rows = template_df.shape[0]
         logging.debug("iterate looking for the GeoExposure_Tool_Resource stanza")
         geo_resource = PcorGeoToolModel()
-
+        geo_resource.display_type = "GeoExposureTool"
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Tool_Resource':
                 logging.debug("found Tool_Resource/GeoExposure_Tool_Resource ")

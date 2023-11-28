@@ -133,7 +133,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['geospatial_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         geo_spatial_resource)
@@ -179,7 +179,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['population_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         pop_data_resource)
@@ -231,7 +231,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            geo_tool_resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['geospatial_tool_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         geo_tool_resource)
