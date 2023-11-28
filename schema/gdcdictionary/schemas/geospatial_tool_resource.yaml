@@ -59,6 +59,9 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   # common properties for tool resources
+  display_type:
+    description: Display type of resource
+    type: string
   comments:
     description: Optional submitter comment
     type: string
