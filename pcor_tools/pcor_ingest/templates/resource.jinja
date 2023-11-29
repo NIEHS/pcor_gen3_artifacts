@@ -3,7 +3,13 @@
   "submitter_id": "{{ resource.submitter_id }}",
   "name": "{{ resource.name }}",
   "long_name": "{{ resource.long_name }}",
-  "resource_type": "{{ resource.resource_type }}",
+  "short_name": "{{ resource.short_name }}",
+  "resource_type": [
+    {% for entry in resource.resource_type %}
+        "{{ entry }}"
+        {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "resource_url": "{{ resource.resource_url }}",
   "description": "{{ resource.description }}",
   "domain": [
@@ -29,7 +35,13 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "is_static": {{ resource.is_static }},
+
+  {% if resource.is_static %}
+      "is_static": true,
+  {% else %}
+       "is_static": false,
+  {% endif %}
+
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.code }}"

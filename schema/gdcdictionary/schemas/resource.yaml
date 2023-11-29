@@ -65,6 +65,9 @@ properties:
     description: Internal identifier. # should we just use id?
     type: string
   name:
+    description: Unique name of resource.
+    type: string
+  short_name:
     description: Name of resource.
     type: string
   long_name:
@@ -72,10 +75,9 @@ properties:
     type: string
   resource_type:
     description: Type of resource
-    enum:
-      - Data Resource
-      - Tool Resources
-      - Training Resource
+    type: array
+    items:
+      type: string
   resource_url:
     description: resource website
     type: string
@@ -98,6 +100,7 @@ properties:
        - open
        - registered
        - controlled
+       - license
   payment_required:
     description: Indicate whether resource is free or fee based
     type: boolean
@@ -118,20 +121,6 @@ properties:
   is_static:
     description: yes if the resource is static, no if the resource is expected to be updated in the future
     type: boolean
-
-  # props not in template
-  citation:
-    description: Citation to use for this resource
-    type: string
-  license_type:
-    description: Type of license.
-    type: string
-  license_text:
-    description: Text of license terms.
-    type: string
-  resource_contact:
-    description: Contact information for the resource.
-    type: string
   projects:
     description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_one_project"

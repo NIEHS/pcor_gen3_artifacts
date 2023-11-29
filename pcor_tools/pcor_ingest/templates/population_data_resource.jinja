@@ -1,24 +1,24 @@
 {
   "type": "population_data_resource",
+  "display_type": "PopulationData",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
   "comments": "{{ pop_data_resource.comments }}",
   "intended_use": "{{ pop_data_resource.intended_use }}",
-  "source_url": "{{ pop_data_resource.source_url }}",
   "update_frequency": "{{ pop_data_resource.update_frequency }}",
 
-  {% if not pop_data_resource.includes_citizen_collected %}
+  {% if pop_data_resource.includes_citizen_collected %}
       "includes_citizen_collected": true,
   {% else %}
        "includes_citizen_collected": false,
   {% endif %}
 
-  {% if not pop_data_resource.has_api %}
+  {% if pop_data_resource.has_api %}
       "has_api": true,
   {% else %}
        "has_api": false,
   {% endif %}
 
-  {% if not pop_data_resource.has_visualization_tool %}
+  {% if pop_data_resource.has_visualization_tool %}
       "has_visualization_tool": true,
   {% else %}
        "has_visualization_tool": false,
@@ -62,11 +62,22 @@
   ],
   "exposures":  [
         {% for exposure in pop_data_resource.exposures  %}
-
             "{{ exposure }}"
           {{ "," if not loop.last }}
         {% endfor %}
-                ],
+  ],
+  "exposure_media":  [
+        {% for media in pop_data_resource.exposure_media  %}
+            "{{ media }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+  ],
+  "measures": [
+        {% for measure in pop_data_resource.measures %}
+            "{{ measure }}"
+            {{ "," if not loop.last }}
+        {% endfor %}
+  ],
   "outcomes":  [
         {% for outcome in pop_data_resource.outcomes  %}
 

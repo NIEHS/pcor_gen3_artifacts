@@ -57,6 +57,9 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   # data resc props are common
+  display_type:
+    description: Display type of resource
+    type: string
   comments:
     description: Notes on usage of the data, including warnings.
     type: string
@@ -68,15 +71,16 @@ properties:
     type: string
   update_frequency:
     description: Frequency of update of the resource.
-    enum:
-      - Continuous
-      - Hourly
-      - Daily
-      - Monthly
-      - Quarterly
-      - Annually
-      - BiAnnual
-      - unknown
+    #nullable: true
+    type: string
+    #enum:
+    #  - Continuous
+    #  - Hourly
+    #  - Daily
+    #  - Monthly
+    #  - Quarterly
+    # - Annually
+    # - Undefined
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.
     type: boolean

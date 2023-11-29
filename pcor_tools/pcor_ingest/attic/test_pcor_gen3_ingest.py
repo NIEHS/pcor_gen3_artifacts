@@ -90,7 +90,6 @@ class TestPcorGen3Ingest(TestCase):
         discovery.full_name = "the full name"
         discovery.description = "descr"
         discovery.support_source = "support source"
-        discovery.source_url = "http://source.url"
         discovery.citation = "citation"
         discovery.type = "type1"
         discovery.domain = "subj1"

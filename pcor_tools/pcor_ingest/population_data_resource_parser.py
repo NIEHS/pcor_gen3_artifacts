@@ -56,7 +56,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
         ss_rows = template_df.shape[0]
         logging.debug("iterate looking for the GeoExposure_Data_Resource stanza")
         pop_resource = PcorPopDataResourceModel()
-
+        pop_resource.display_type = "PopulationData"
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Data_Resource':
                 logging.debug("found Data_Resource/Population_Data_Resource ")
@@ -96,13 +96,23 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             pop_resource.has_visualization_tool = True
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
+                        temp_exposure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_exposure_list) == 1:
+                            pop_resource.exposures = temp_exposure_list[0].split(',')
+                        else:
+                            pop_resource.exposures = temp_exposure_list
+                    elif template_df.iat[j, 0] == 'exposure_media':
+                        temp_exposure_media_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
+                        if len(temp_exposure_media_list) == 1:
+                            pop_resource.exposure_media = temp_exposure_media_list[0].split(',')
+                        else:
+                            pop_resource.exposure_media = temp_exposure_media_list
+                    elif template_df.iat[j, 0] == 'measures':
                         temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
                         if len(temp_measure_list) == 1:
-                            pop_resource.exposures = temp_measure_list[0].split(',')
+                            pop_resource.measures = temp_measure_list[0].split(',')
                         else:
-                            pop_resource.exposures = temp_measure_list
-                    elif template_df.iat[j, 0] == 'exposure_media':
-                        pop_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            pop_resource.measures = temp_measure_list
                     elif template_df.iat[j, 0] == 'outcomes':
                         pop_resource.outcomes = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(
                             ',')
@@ -125,8 +135,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         pop_resource.spatial_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
-                        pop_resource.spatial_resolution_other = PcorTemplateParser.sanitize_column(
-                            template_df.iat[j, 1])
+                        pop_resource.spatial_resolution_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         pop_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':

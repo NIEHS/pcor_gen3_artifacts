@@ -10,6 +10,11 @@
         "graphql": "_population_data_resource_count",
         "name": "Population Data Resource",
         "plural": "Population Data Resources"
+      },
+      {
+        "graphql": "_geospatial_tool_resource_count",
+        "name": "Geospatial Tool Resource",
+        "plural": "Geospatial Tool Resources"
       }
     ],
     "chartCounts": [
@@ -22,6 +27,11 @@
         "graphql": "_population_data_resource_count",
         "name": "Population Data Resource",
         "plural": "Population Data Resources"
+      },
+      {
+        "graphql": "_geospatial_tool_resource_count",
+        "name": "Geospatial Tool Resource",
+        "plural": "Geospatial Tool Resources"
       }
     ],
     "projectDetails": "boardCounts",
@@ -281,7 +291,7 @@
                 {
                   "type": "text",
                   "label": "Project Name",
-                  "sourceField": "project_name",
+                  "sourceField": "project_short_name",
                   "default": "n/a"
                 },
                 {
@@ -511,7 +521,7 @@
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name"
+              "project_short_name"
             ]
           }
         ]
@@ -519,7 +529,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "measures",
           "exposure_media",
@@ -628,7 +638,7 @@
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name",
+              "project_short_name",
               "project_investigator_affiliation"
             ]
           }
@@ -637,7 +647,7 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "comments",
           "intended_use",
@@ -721,32 +731,19 @@
               "program_name",
               "project_id",
               "tool_type",
-              "usage_type",
+              "intended_use",
               "operating_system",
               "languages",
-              "input_formats",
-              "output_formats",
-              "domain",
-              "model_methods"
-            ]
-          },
-          {
-            "title": "Temporal/Spatial Details",
-            "fields": [
-              "time_extent_start",
-              "time_extent_end",
-              "temporal_resolution",
-              "spatial_resolution",
-              "spatial_coverage",
-              "geometry_type",
-              "geometry_source"
+              "license_type",
+              "is_open",
+              "suggested_audience"
             ]
           },
           {
             "title": "Project/Program Details",
             "fields": [
               "program_name",
-              "project_name"
+              "project_short_name"
             ]
           }
         ]
@@ -754,10 +751,10 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "tool_type",
-          "usage_type",
+          "intended_use",
           "resource_url"
         ],
         "linkFields": [

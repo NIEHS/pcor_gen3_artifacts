@@ -45,12 +45,23 @@ authz:
       subresources:
       - name: projects
         subresources:
-        - name: AQS
-        - name: HMS
+        - name: BenMAPCE
         - name: CRE
+        - name: EPAAQS
+        - name: HCUP
+        - name: HMS
+        - name: KP
+        - name: LAADS
         - name: MODIS
         - name: MTBS
+        - name: NHANES
+        - name: NIFC
+        - name: NWCGInciWeb
+        - name: NWSFireWeather
         - name: SmokeEstimates
+        - name: USFS
+        - name: WISQARS
+        - name: WONDER
 
   policies:
   - id: 'mds_admin'
@@ -88,12 +99,23 @@ authz:
       - storage_reader
     resource_paths:
     - /open
-    - /programs/CHORDS/projects/HMS
-    - /programs/CHORDS/projects/AQS
+    - /programs/CHORDS/projects/BenMAPCE
     - /programs/CHORDS/projects/CRE
+    - /programs/CHORDS/projects/EPAAQS
+    - /programs/CHORDS/projects/HCUP
+    - /programs/CHORDS/projects/HMS
+    - /programs/CHORDS/projects/KP
+    - /programs/CHORDS/projects/LAADS
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NHANES
+    - /programs/CHORDS/projects/NIFC
+    - /programs/CHORDS/projects/NWCGInciWeb
+    - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/USFS
+    - /programs/CHORDS/projects/WISQARS
+    - /programs/CHORDS/projects/WONDER
 
   - id: all_programs_reader
     role_ids:
@@ -110,12 +132,23 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/CHORDS/projects/HMS
-    - /programs/CHORDS/projects/AQS
+    - /programs/CHORDS/projects/BenMAPCE
     - /programs/CHORDS/projects/CRE
+    - /programs/CHORDS/projects/EPAAQS
+    - /programs/CHORDS/projects/HCUP
+    - /programs/CHORDS/projects/HMS
+    - /programs/CHORDS/projects/KP
+    - /programs/CHORDS/projects/LAADS
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NHANES
+    - /programs/CHORDS/projects/NIFC
+    - /programs/CHORDS/projects/NWCGInciWeb
+    - /programs/CHORDS/projects/NWSFireWeather
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/USFS
+    - /programs/CHORDS/projects/WISQARS
+    - /programs/CHORDS/projects/WONDER
 
   roles:
   - id: 'mds_user'
@@ -218,4 +251,3 @@ users:
       - mds_admin
       - data_upload
       - services.sheepdog-admin
-

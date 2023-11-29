@@ -53,8 +53,16 @@ jobs:
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }}
+
+      - name: Update dictionaryUrl
+        run: |
+          sed -i -e 's|develop|${{ steps.branch-name.outputs.current_branch }}|' custom_configs/auto_generated_values_local.yaml
+          sed -i -e 's|develop|${{ steps.branch-name.outputs.current_branch }}|' custom_configs/auto_generated_values.yaml
+          
+
       - name: Commit and push changes
         run: |
+          git pull
           git config --global user.name "pateldes"
           git config --global user.email "deeppatel.cs@gmail.com"
 

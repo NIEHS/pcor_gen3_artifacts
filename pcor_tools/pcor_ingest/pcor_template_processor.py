@@ -133,7 +133,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['geospatial_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         geo_spatial_resource)
@@ -179,7 +179,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['population_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         pop_data_resource)
@@ -207,9 +207,9 @@ class PcorTemplateProcessor:
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 
-                        if 'geo_tool_resource' in model_data.keys():
+                        if 'geospatial_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
-                            geo_tool_resource = model_data['geo_tool_resource']
+                            geo_tool_resource = model_data['geospatial_tool_resource']
                             geo_tool_resource.resource_id = resource_submit_status.id
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
                             geo_tool_resource.submitter_id = resource.submitter_id
@@ -230,6 +230,34 @@ class PcorTemplateProcessor:
                                 parsed_data.response_content = resource_submit_status.response_content
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
+
+                            resource.resource_type = model_data['geospatial_tool_resource'].display_type
+
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
+                                                                                        geo_tool_resource)
+                            discovery.comment = geo_tool_resource.intended_use  # intended use?
+
+                            for item in geo_tool_resource.tool_type:
+                                filter = AdvSearchFilter()
+                                filter.key = "Tool_Type"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_tool_resource.operating_system:
+                                filter = AdvSearchFilter()
+                                filter.key = "Operating_System"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_tool_resource.languages:
+                                filter = AdvSearchFilter()
+                                filter.key = "Languages"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            logger.info("created discovery: %s" % discovery)
+                            discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
+                            logger.info("discovery_result: %s" % discovery_result)
 
         except requests.HTTPError as exception:
             logger.error('unexpected Error occurred: %s' % str(exception))
