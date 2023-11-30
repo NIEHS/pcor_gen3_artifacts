@@ -67,7 +67,7 @@ class PcorIntermediateResourceModel:
         self.name = ""
         self.short_name = ""
         self.long_name = ""
-        self.resource_type = []
+        self.resource_type = ""
         self.resource_url = ""
         self.description = ""
         self.domain = ""
@@ -77,7 +77,7 @@ class PcorIntermediateResourceModel:
         self.created_datetime = ""
         self.updated_datetime = ""
         self.verification_datetime = ""
-        self.resource_reference = ""
+        self.resource_reference = []
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""

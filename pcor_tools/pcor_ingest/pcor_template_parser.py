@@ -251,15 +251,15 @@ class PcorTemplateParser:
                         # do not use sanitize_column()
                         resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                     elif template_df.iat[j, 0] == 'resource_type':
-                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_url':
                         resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        resource.domain = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
                     elif template_df.iat[j, 0] == 'keywords':
-                        resource.keywords = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        resource.keywords = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
                     elif template_df.iat[j, 0] == 'access_type':
                         resource.access_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'payment_required':
@@ -271,7 +271,7 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'publications':

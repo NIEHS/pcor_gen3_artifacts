@@ -516,18 +516,21 @@ class PcorGen3Ingest:
         result = sub.query(query)
         logger.info("result:{}".format(result))
 
-        project = PcorIntermediateProjectModel()
-        project.name = result["data"]["project"][0]["name"]
-        project.code = result["data"]["project"][0]["code"]
-        project.investigator_name = result["data"]["project"][0]["investigator_name"]
-        project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
-        project.long_name = result["data"]["project"][0]["long_name"]
-        project.support_source = result["data"]["project"][0]["support_source"]
-        project.support_id = result["data"]["project"][0]["support_id"]
-        project.project_url = result["data"]["project"][0]["project_url"]
-        project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
-        project.id = result["data"]["project"][0]["id"]
-        return project
+        if not result["data"]["project"]:
+            raise Exception("Unable to get project '{}' from Gen3. Check User.yaml file".format(project_code))
+        else:
+            project = PcorIntermediateProjectModel()
+            project.name = result["data"]["project"][0]["name"]
+            project.code = result["data"]["project"][0]["code"]
+            project.investigator_name = result["data"]["project"][0]["investigator_name"]
+            project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
+            project.long_name = result["data"]["project"][0]["long_name"]
+            project.support_source = result["data"]["project"][0]["support_source"]
+            project.support_id = result["data"]["project"][0]["support_id"]
+            project.project_url = result["data"]["project"][0]["project_url"]
+            project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
+            project.id = result["data"]["project"][0]["id"]
+            return project
 
     def submit_record(self, program, project, json_data):
         """
