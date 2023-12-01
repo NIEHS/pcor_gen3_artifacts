@@ -115,7 +115,7 @@ class PcorGeospatialDataResourceModel:
         # data resc props are common
         self.comments = ""
         self.intended_use = ""
-        self.source_name = ""
+        self.source_name = []
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
@@ -123,7 +123,7 @@ class PcorGeospatialDataResourceModel:
 
         # additional properties to describe the dataset
         self.measures = []
-        self.measurement_method = ""
+        self.measurement_method = []
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
@@ -133,11 +133,11 @@ class PcorGeospatialDataResourceModel:
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = ""
         self.spatial_bounding_box = ""
-        self.geometry_type = ""
-        self.geometry_source = ""
-        self.model_methods = ""
-        self.exposure_media = []
-        self.geographic_feature = ""
+        self.geometry_type = []
+        self.geometry_source = []
+        self.model_methods = []
+        self.exposure_media = ""
+        self.geographic_feature = []
 
         self.project_id = ""
         self.project_submitter_id = ""
@@ -212,7 +212,7 @@ class PcorPopDataResourceModel:
         self.updated_datetime = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = ""
+        self.source_name = []
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
@@ -223,8 +223,8 @@ class PcorPopDataResourceModel:
         self.spatial_resolution = ""
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = []
-        self.geometry_type = ""
-        self.geometry_source = ""
+        self.geometry_type = []
+        self.geometry_source = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []

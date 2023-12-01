@@ -178,26 +178,11 @@ class PcorTemplateParser:
                         project.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                         project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
-                        temp_project_sponsor_list = str(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_project_sponsor_list) == 1:
-                            project.project_sponsor = temp_project_sponsor_list[0].split(',')
-                        else:
-                            project.project_sponsor = temp_project_sponsor_list
+                        project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
-                        temp_project_sponsor_other_list = str(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_project_sponsor_other_list) == 1:
-                            project.project_sponsor_other = temp_project_sponsor_other_list[0].split(',')
-                        else:
-                            project.project_sponsor_other = temp_project_sponsor_other_list
+                        project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
-                        temp_project_sponsor_type_list = str(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_project_sponsor_type_list) == 1:
-                            project.project_sponsor_type = temp_project_sponsor_type_list[0].split(',')
-                        else:
-                            project.project_sponsor_type = temp_project_sponsor_type_list
+                        project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -257,9 +242,9 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
+                        resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'keywords':
-                        resource.keywords = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
+                        resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'access_type':
                         resource.access_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'payment_required':
@@ -271,15 +256,11 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
+                        resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'publications':
-                        temp_publication_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_publication_list) == 1:
-                            resource.publications = temp_publication_list[0].split(',')
-                        else:
-                            resource.publications = temp_publication_list
+                       resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if str(resource.is_static).lower() == 'no':
@@ -296,6 +277,17 @@ class PcorTemplateParser:
 
         logger.warning("no program found, return null")
         return None
+
+    @staticmethod
+    def make_complex_array(value):
+        clean_value = str(PcorTemplateParser.sanitize_column(value))
+        temp_list = []
+        if clean_value:
+            temp_list = clean_value.splitlines()
+            if len(temp_list) == 1:
+                return temp_list[0].split(',')
+
+        return temp_list
 
     @staticmethod
     def make_array(value):
@@ -318,12 +310,12 @@ class PcorTemplateParser:
     def sanitize_column(value):
         if isinstance(value, str):
             if not value:
-                return ""
+                return None
             # escape double quotes inside string
             return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):
-                return ""
+                return None
             else:
                 return str(value)
         return value

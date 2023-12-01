@@ -61,7 +61,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'intended_use':
                         geo_resource.intended_use = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'source_name':
-                        geo_resource.source_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.source_name = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'update_frequency':
                         geo_resource.update_frequency = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
@@ -87,13 +87,9 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                             geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_measure_list) == 1:
-                            geo_resource.measures = temp_measure_list[0].split(',')
-                        else:
-                            geo_resource.measures = temp_measure_list
+                        geo_resource.measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measurement_method':
-                        geo_resource.measurement_method = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.measurement_method = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if geo_resource.time_extent_start is not None:
@@ -118,15 +114,14 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_bounding_box':
                         geo_resource.spatial_bounding_box = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geometry_type':
-                        geo_resource.geometry_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.geometry_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        geo_resource.geometry_source = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.geometry_source = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'model_methods':
-                        geo_resource.model_methods = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.model_methods = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'exposure_media':
-                        geo_resource.exposure_media = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(',')
+                        geo_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geographic_feature':
-                        geo_resource.geographic_feature = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
 
         return geo_resource
