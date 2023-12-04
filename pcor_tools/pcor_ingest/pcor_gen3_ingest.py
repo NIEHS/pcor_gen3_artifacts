@@ -1,10 +1,13 @@
 import json
+import os
 import logging
+import sys
+
 import requests
 import traceback
 from gen3.metadata import Gen3Metadata
 from gen3.submission import Gen3Submission
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 from requests import HTTPError
 from urllib.parse import quote
 from pcor_ingest.gen3auth import PcorGen3Auth
@@ -30,8 +33,19 @@ class PcorGen3Ingest:
 
         self.pcor_ingest_configuration = pcor_ingest_configuration
         self.gen3_auth = gen3_auth
-        self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
 
+        # Get the directory of the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Set the relative path to your template directory
+        template_rel_path = 'templates'
+
+        # Construct the absolute path to the template directory
+        template_dir = os.path.join(script_dir, template_rel_path)
+
+        # Create a Jinja environment with the FileSystemLoader
+        self.env = Environment(loader=FileSystemLoader(template_dir))
+        logger.debug('template_dir: %s' % template_dir)
         self.env.filters['jsonify'] = json.dumps
 
         if not gen3_auth:
@@ -294,19 +308,6 @@ class PcorGen3Ingest:
         """
         Produce the json of a program from the jinja template
         :param program: PcorIntermediateProgramModel of a program
-        :return: string with project JSON for loading into Gen3
-        """
-        logger.info("produce_program_json()")
-        template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null').replace('""','null')
-        logger.info("rendered: %s" % rendered)
-        return rendered
-
-    def produce_program_json(self, program):
-
-        """
-        Produce the json of a pgogram from the jinja template
-        :param program: PcorProgramModel of a project
         :return: string with project JSON for loading into Gen3
         """
         logger.info("produce_program_json()")
