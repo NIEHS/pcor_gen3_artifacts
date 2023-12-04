@@ -116,7 +116,7 @@ class LoaderSpreadsheet:
                         new_file_name, processing_file_path, failed_path))
                 shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                 result.template_current_location = failed_path
-            #self.pcor_reporter.report(result)
+            self.pcor_reporter.report(result)
         else:
             logger.info('Ignore non spreadsheet file: %s' % file)
 
