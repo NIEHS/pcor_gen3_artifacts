@@ -39,7 +39,7 @@ class PcorTemplateParser:
         :param result: PcorTemplateParseResult with the outcome
         """
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
 
         try:
             result.model_data["submission"] = self.extract_submission_data(df)
