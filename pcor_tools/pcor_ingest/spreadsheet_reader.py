@@ -109,7 +109,7 @@ class PcorSpreadsheeetReader:
         :return: string value which is the resource type, used for dictionary lookups
         """
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
         logger.info(df)
         type_field = df.iat[0, 0]
         val_field = df.iat[0, 1]
