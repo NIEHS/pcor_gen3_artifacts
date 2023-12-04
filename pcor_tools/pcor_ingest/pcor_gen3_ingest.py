@@ -294,7 +294,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null')
+        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null').replace('""','null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -307,7 +307,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_program_json()")
         template = self.env.get_template("program.jinja")
-        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null')
+        rendered = template.render(program=program).replace('"none"', 'null').replace('"None"', 'null').replace('""','null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -320,7 +320,7 @@ class PcorGen3Ingest:
         logger.info("produce_project_json()")
         template = self.env.get_template("project.jinja")
         rendered = template.render(model=project).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"',
-                                                                                                              'null')
+                                                                                                              'null').replace('""','null')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -332,7 +332,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_resource_json()")
         template = self.env.get_template("resource.jinja")
-        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace(
+        rendered = template.render(resource=resource).replace('"none"', 'null').replace('"None"', 'null').replace('""','null').replace(
             'False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
@@ -358,7 +358,7 @@ class PcorGen3Ingest:
         logger.info("produce_geo_spatial_data_resource()")
         template = self.env.get_template("geospatial_data_resource.jinja")
         rendered = template.render(geo_spatial_data_resource=geo_spatial_data_resource).replace('"none"', 'null') \
-            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '') \
+            .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true').replace(u'\xa0', '') \
             .replace('\'', '')
         logger.info("rendered: %s" % rendered)
         return rendered
@@ -372,7 +372,7 @@ class PcorGen3Ingest:
         logger.info("produce_geo_spatial_tool_resource()")
         template = self.env.get_template("geospatial_tool_resource.jinja")
         rendered = template.render(geo_tool_resource=geo_spatial_tool_resource).replace('"none"', 'null') \
-            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+            .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -385,7 +385,7 @@ class PcorGen3Ingest:
         logger.info("produce_pop_data_resource()")
         template = self.env.get_template("population_data_resource.jinja")
         rendered = template.render(pop_data_resource=pop_data_resource).replace('"none"', 'null') \
-            .replace('"None"', 'null').replace('False', 'false').replace('True', 'true')
+            .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
 
@@ -516,18 +516,21 @@ class PcorGen3Ingest:
         result = sub.query(query)
         logger.info("result:{}".format(result))
 
-        project = PcorIntermediateProjectModel()
-        project.name = result["data"]["project"][0]["name"]
-        project.code = result["data"]["project"][0]["code"]
-        project.investigator_name = result["data"]["project"][0]["investigator_name"]
-        project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
-        project.long_name = result["data"]["project"][0]["long_name"]
-        project.support_source = result["data"]["project"][0]["support_source"]
-        project.support_id = result["data"]["project"][0]["support_id"]
-        project.project_url = result["data"]["project"][0]["project_url"]
-        project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
-        project.id = result["data"]["project"][0]["id"]
-        return project
+        if not result["data"]["project"]:
+            raise Exception("Unable to get project '{}' from Gen3. Check User.yaml file".format(project_code))
+        else:
+            project = PcorIntermediateProjectModel()
+            project.name = result["data"]["project"][0]["name"]
+            project.code = result["data"]["project"][0]["code"]
+            project.investigator_name = result["data"]["project"][0]["investigator_name"]
+            project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
+            project.long_name = result["data"]["project"][0]["long_name"]
+            project.support_source = result["data"]["project"][0]["support_source"]
+            project.support_id = result["data"]["project"][0]["support_id"]
+            project.project_url = result["data"]["project"][0]["project_url"]
+            project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
+            project.id = result["data"]["project"][0]["id"]
+            return project
 
     def submit_record(self, program, project, json_data):
         """

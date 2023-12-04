@@ -4,6 +4,12 @@
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
   "comments": "{{ pop_data_resource.comments }}",
   "intended_use": "{{ pop_data_resource.intended_use }}",
+  "source_name": [
+    {% for entry in pop_data_resource.source_name %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "update_frequency": "{{ pop_data_resource.update_frequency }}",
 
   {% if pop_data_resource.includes_citizen_collected %}
@@ -46,8 +52,18 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "geometry_type": "{{ pop_data_resource.geometry_type }}",
-  "geometry_source": "{{ pop_data_resource.geometry_source }}",
+  "geometry_type": [
+    {% for entry in pop_data_resource.geometry_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_source": [
+    {% for entry in pop_data_resource.geometry_source %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "population_studied": [
     {% for pop_entry in pop_data_resource.population_studied %}
         "{{ pop_entry }}"

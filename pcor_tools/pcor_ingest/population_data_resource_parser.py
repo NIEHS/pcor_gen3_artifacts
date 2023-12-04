@@ -68,7 +68,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'intended_use':
                         pop_resource.intended_use = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'source_name':
-                        pop_resource.source_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        pop_resource.source_name = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'update_frequency':
                         pop_resource.update_frequency = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if len(pop_resource.update_frequency) == 0:
@@ -96,30 +96,15 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             pop_resource.has_visualization_tool = True
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
-                        temp_exposure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_exposure_list) == 1:
-                            pop_resource.exposures = temp_exposure_list[0].split(',')
-                        else:
-                            pop_resource.exposures = temp_exposure_list
+                        pop_resource.exposures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'exposure_media':
-                        temp_exposure_media_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_exposure_media_list) == 1:
-                            pop_resource.exposure_media = temp_exposure_media_list[0].split(',')
-                        else:
-                            pop_resource.exposure_media = temp_exposure_media_list
+                        pop_resource.exposure_media = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measures':
-                        temp_measure_list = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).splitlines()
-                        if len(temp_measure_list) == 1:
-                            pop_resource.measures = temp_measure_list[0].split(',')
-                        else:
-                            pop_resource.measures = temp_measure_list
+                        pop_resource.measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'outcomes':
-                        pop_resource.outcomes = str(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(
-                            ',')
+                        pop_resource.outcomes = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'outcomes_other':
-                        pop_resource.outcomes_other = str(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])).split(
-                            ',')
+                        pop_resource.outcomes_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         pop_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if pop_resource.time_extent_start is not None:
@@ -139,20 +124,19 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         pop_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
-                        pop_resource.spatial_coverage_specific_regions = PcorTemplateParser.sanitize_column(
-                            template_df.iat[j, 1]).split(',')
+                        pop_resource.spatial_coverage_specific_regions = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(
+                            template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_type':
-                        pop_resource.geometry_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        pop_resource.geometry_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        pop_resource.geometry_source = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        pop_resource.geometry_source = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'model_methods':
-                        pop_resource.model_methods = PcorTemplateParser.sanitize_column(template_df.iat[j, 1]).split(
-                            ',')
+                        pop_resource.model_methods = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied':
-                        pop_resource.population_studied = PcorTemplateParser.sanitize_column(
-                            template_df.iat[j, 1]).split(',')
+                        pop_resource.population_studied = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(
+                            template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied_other':
-                        pop_resource.population_studied_other = PcorTemplateParser.sanitize_column(
-                            template_df.iat[j, 1]).split(',')
+                        pop_resource.population_studied_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(
+                            template_df.iat[j, 1]))
 
         return pop_resource

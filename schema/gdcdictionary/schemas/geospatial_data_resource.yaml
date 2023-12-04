@@ -68,7 +68,9 @@ properties:
     type: string
   source_name:
     description: Name of source.
-    type: string
+    type: array
+    items:
+      type: string
   update_frequency:
     description: Frequency of update of the resource.
     #nullable: true
@@ -98,7 +100,14 @@ properties:
       type: string
   measurement_method:
     description: Method used to capture the measure.
-    type: string
+    type: array
+    items:
+      type: string
+  measurement_method_other:
+    description: Method used to capture the measure if does not appear in the CV above
+    type: array
+    items:
+      type: string
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
@@ -128,21 +137,32 @@ properties:
     type: string
   geometry_type:
     description: Type of geometric data, the file extension will be different for different types.
-    type: string
-  geometry_source:
-    description: Source or provider of the geometry data.
-    type: string
-  model_methods:
-    description: If modeled, type of approach used.
-    type: string
-  exposure_media:
-    description: Media that the phenomena is related to.
     type: array
     items:
       type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
+    type: array
+    items:
+      type: string
+  model_methods:
+    description: If modeled, type of approach used.
+    type: array
+    items:
+      type: string
+  exposure_media:
+    description: Media that the phenomena is related to.
+    type: string
   geographic_feature:
     description: The type of geographic feature associated with the data
-    type: string
+    type: array
+    items:
+      type: string
+  geographic_feature_other:
+    description: The type of geographic feature associated with the data
+    type: array
+    items:
+      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
