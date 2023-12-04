@@ -41,6 +41,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
+  "measurement_method_other": [
+    {% for entry in geo_spatial_data_resource.measurement_method_other %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   {% if geo_spatial_data_resource.time_extent_start  %}
     "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
   {% endif %}
@@ -75,6 +81,12 @@
   "exposure_media":  "{{ geo_spatial_data_resource.exposure_media }}",
   "geographic_feature": [
     {% for entry in geo_spatial_data_resource.geographic_feature %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geographic_feature_other": [
+    {% for entry in geo_spatial_data_resource.geographic_feature_other %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

@@ -176,6 +176,11 @@ properties:
     #  - Academic Institution
     #  - Non-profit Organization
 
+  project_sponsor_type_other:
+    description: type of sponsor organization if does not appear in the CV above
+    type: array
+    items:
+      type: string
   project_url:
     description: URL for the project
     type: string

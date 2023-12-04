@@ -1,5 +1,6 @@
 import logging
 import math
+import re
 import traceback
 import uuid
 import json
@@ -183,6 +184,8 @@ class PcorTemplateParser:
                         project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
                         project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'project_sponsor_type_other':
+                        project.project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -243,6 +246,8 @@ class PcorTemplateParser:
                         resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'domain':
                         resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'domain_other':
+                        resource.domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'keywords':
                         resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'access_type':
@@ -312,6 +317,8 @@ class PcorTemplateParser:
             if not value:
                 return None
             # escape double quotes inside string
+            value = re.sub(r'\d\.\s+', '', value)
+            value = re.sub(r'[•●]\s+', '',value)
             return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):

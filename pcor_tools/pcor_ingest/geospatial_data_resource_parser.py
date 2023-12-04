@@ -90,6 +90,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measurement_method':
                         geo_resource.measurement_method = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'measurement_method_other':
+                        geo_resource.measurement_method_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if geo_resource.time_extent_start is not None:
@@ -123,5 +125,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geographic_feature':
                         geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'geographic_feature_other':
+                        geo_resource.geographic_feature_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
 
         return geo_resource

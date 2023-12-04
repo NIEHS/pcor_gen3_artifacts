@@ -43,6 +43,7 @@ class PcorIntermediateProjectModel:
         self.project_sponsor = []
         self.project_sponsor_other = []
         self.project_sponsor_type = []
+        self.project_sponsor_type_other = []
         self.project_url = ""
         self.description = ""
         self.code = ""
@@ -70,7 +71,8 @@ class PcorIntermediateResourceModel:
         self.resource_type = ""
         self.resource_url = ""
         self.description = ""
-        self.domain = ""
+        self.domain = []
+        self.domain_other = []
         self.keywords = []
         self.access_type = ""
         self.payment_required = ""
@@ -124,6 +126,7 @@ class PcorGeospatialDataResourceModel:
         # additional properties to describe the dataset
         self.measures = []
         self.measurement_method = []
+        self.measurement_method_other = []
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
@@ -138,7 +141,7 @@ class PcorGeospatialDataResourceModel:
         self.model_methods = []
         self.exposure_media = ""
         self.geographic_feature = []
-
+        self.geographic_feature_other = []
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_submitter_id = ""
