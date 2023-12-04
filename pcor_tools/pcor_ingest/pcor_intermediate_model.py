@@ -164,7 +164,7 @@ class PcorDiscoveryMetadata:
         self.comment = ""  # collapses intended_use and other descriptions
         self.description = ""
         self.support_source = ""
-        self.publications = ""
+        self.publications = []
         self.domain = []
         self.has_api = ""
         self.has_visualization_tool = ""

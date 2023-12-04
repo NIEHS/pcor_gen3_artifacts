@@ -145,10 +145,11 @@ class PcorTemplateProcessor:
                                 filter.value = item
                                 discovery.adv_search_filters.append(filter)
 
-                            for item in geo_spatial_resource.exposure_media:
+
+                            if geo_spatial_resource.exposure_media:
                                 filter = AdvSearchFilter()
                                 filter.key = "Exposures"
-                                filter.value = item
+                                filter.value = geo_spatial_resource.exposure_media
                                 discovery.adv_search_filters.append(filter)
 
                             logger.info("created discovery: %s" % discovery)

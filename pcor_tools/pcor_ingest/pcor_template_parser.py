@@ -285,10 +285,10 @@ class PcorTemplateParser:
 
     @staticmethod
     def make_complex_array(value):
-        clean_value = str(PcorTemplateParser.sanitize_column(value))
+        clean_value = PcorTemplateParser.sanitize_column(value)
         temp_list = []
         if clean_value:
-            temp_list = clean_value.splitlines()
+            temp_list = str(clean_value).splitlines()
             if len(temp_list) == 1:
                 return temp_list[0].split(',')
 
