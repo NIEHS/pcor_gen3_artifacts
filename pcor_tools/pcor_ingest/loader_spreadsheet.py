@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 import shutil
 from datetime import datetime
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
@@ -110,7 +111,6 @@ class LoaderSpreadsheet:
                 # result --> move file to failed folder
                 failed_path = os.path.join(self.workspace_failed_folder_path,
                                            os.path.basename(processing_file_path))
-
                 logger.info(
                     '\nMoving file: %s \nsrc: %s\ndst: %s' % (
                         new_file_name, processing_file_path, failed_path))
