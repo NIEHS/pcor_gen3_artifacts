@@ -56,8 +56,10 @@ properties:
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
 
-   # data resc props are common
-
+  # data resc props are common
+  display_type:
+    description: Display type of resource
+    type: string
   comments:
     description: Notes on usage of the data, including warnings.
     type: string
