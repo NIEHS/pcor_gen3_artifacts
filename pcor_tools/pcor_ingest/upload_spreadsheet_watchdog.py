@@ -38,6 +38,12 @@ class MyHandler(PatternMatchingEventHandler):
         if not filename.startswith('._'):
             logger.info('Filename: %s' % filename)
             logger.info('Source Path: %s' % source_path)
+
+            # Move file when written
+            while self.is_file_being_written(source_path):
+                logger.info('File is still being written. Waiting...')
+                time.sleep(1)
+
             loader_ss = Loader(pcor_ingest_configuration=PcorIngestConfiguration(str(os.environ["PROPERTIES_FILE"])))
             loader_ss.process_pcor_load(loader_type='spreadsheet', file_path=source_path)
         else:
@@ -48,6 +54,13 @@ class MyHandler(PatternMatchingEventHandler):
             self.process(event)
         except Exception as ex:
             logger.error('\n\n\n\n Exception: {}'.format(ex))
+
+    @staticmethod
+    def is_file_being_written(file_path):
+        initial_size = os.path.getsize(file_path)
+        time.sleep(10)  # Adjust the sleep duration if needed
+        final_size = os.path.getsize(file_path)
+        return initial_size != final_size
 
 
 def setup_arguments():
