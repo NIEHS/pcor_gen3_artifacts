@@ -56,7 +56,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
         ss_rows = template_df.shape[0]
         logging.debug("iterate looking for the GeoExposure_Data_Resource stanza")
         pop_resource = PcorPopDataResourceModel()
-
+        pop_resource.display_type = "PopulationData"
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Data_Resource':
                 logging.debug("found Data_Resource/Population_Data_Resource ")

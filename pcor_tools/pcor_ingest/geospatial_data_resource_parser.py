@@ -50,6 +50,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         ss_rows = template_df.shape[0]
         logging.debug("iterate looking for the GeoExposure_Data_Resource stanza")
         geo_resource = PcorGeospatialDataResourceModel()
+        geo_resource.display_type = "GeoExposureData"
 
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Data_Resource':
