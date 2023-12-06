@@ -290,7 +290,7 @@ class PcorTemplateParser:
         if clean_value:
             temp_list = str(clean_value).splitlines()
             if len(temp_list) == 1:
-                return temp_list[0].split(',')
+                return PcorTemplateParser.make_array(temp_list[0])
 
         return temp_list
 
@@ -309,6 +309,7 @@ class PcorTemplateParser:
         result = []
         if value:
             result = value.split(",")
+            result = list(filter(bool, result)) #clean up any null items
         return result
 
     @staticmethod
