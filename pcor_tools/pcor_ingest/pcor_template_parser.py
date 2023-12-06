@@ -295,7 +295,7 @@ class PcorTemplateParser:
         temp_list = []
         if clean_value:
             temp_list = str(clean_value).splitlines()
-            if len(temp_list) == 1:
+            if temp_list and len(temp_list) == 1:
                 return PcorTemplateParser.make_array(temp_list[0])
 
         return temp_list
