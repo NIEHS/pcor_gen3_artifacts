@@ -29,12 +29,12 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
         except AttributeError as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.message = err
+            result.message = str(err)
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.traceback = traceback.format_exc(err)
-            result.message = err
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
         logger.info("returning general parsed data: %s" % result)
 
     def extract_resource_details(self, template_df):

@@ -44,10 +44,11 @@ class PcorTemplateParser:
         try:
             result.model_data["submission"] = self.extract_submission_data(df)
         except Exception as err:
-            logger.error("exception parsing submission: %s" % err)
+            logger.error("exception parsing submission: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing submission: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing submission: %s" % str(err))
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
             return
 
         try:
@@ -57,10 +58,11 @@ class PcorTemplateParser:
             result.program_name = program.name
 
         except Exception as err:
-            logger.error("exception parsing program: %s" % err)
+            logger.error("exception parsing program: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing program: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing program: %s" % str(err))
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
             return
 
         try:
@@ -69,10 +71,11 @@ class PcorTemplateParser:
             result.project_guid = project.submitter_id
             result.project_code = project.code
         except Exception as err:
-            logger.error("exception parsing project: %s" % err)
+            logger.error("exception parsing project: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing project: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing project: %s" % str(err))
+            result.message = str(err)
+            result.traceback = traceback.format_exc()
             return
 
         result.project_name = result.model_data["project"].name
@@ -83,10 +86,11 @@ class PcorTemplateParser:
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
         except Exception as err:
-            logger.error("exception parsing resource: %s" % err)
+            logger.error("exception parsing resource: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing resource: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing resource: %s" % str(err))
+            result.message = str(err)
+            result.traceback = traceback.format_exc()
 
     @staticmethod
     def extract_program_data(template_df):
@@ -176,6 +180,8 @@ class PcorTemplateParser:
                         project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         # cleanup short name and use it as unique project short name, no special characters or spaces
                         # do not use sanitize_column()
+                        if not project.short_name:
+                            raise Exception("project_short_name required")
                         project.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                         project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
