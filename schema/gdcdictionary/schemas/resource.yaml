@@ -75,9 +75,7 @@ properties:
     type: string
   resource_type:
     description: Type of resource
-    type: array
-    items:
-      type: string
+    type: string
   resource_url:
     description: resource website
     type: string
@@ -86,6 +84,11 @@ properties:
     type: string
   domain:
     description: Domain of the resource
+    type: array
+    items:
+      type: string
+  domain_other:
+    description: subject domain of the resource if does not appear in the CV above
     type: array
     items:
       type: string
@@ -109,7 +112,9 @@ properties:
     $ref: "_definitions.yaml#/datetime"
   resource_reference:
     description: how to cite this resource, DOI preferred
-    type: string
+    type: array
+    item:
+      type: string
   resource_use_agreement:
     description: agreement for use of the resource, include a link or full text or both, don't paraphrase
     type: string

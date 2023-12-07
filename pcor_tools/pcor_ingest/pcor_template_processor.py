@@ -78,7 +78,7 @@ class PcorTemplateProcessor:
                         parsed_data.response_content = json.loads(pcor_error.response.text)
                         parsed_data.path_url = parsed_data.request_content.path_url
                         parsed_data.message = pcor_error.response.text
-                        parsed_data.traceback = traceback.format_exc(pcor_error)
+                        parsed_data.traceback = traceback.format_exc()
                         logger.error("error in project create: %s" % pcor_error)
                         return
 
@@ -87,7 +87,7 @@ class PcorTemplateProcessor:
                         resource = model_data['resource']
                         resource_submit_status = self.pcor_ingest.create_resource(
                             program_name=program.name,
-                            project_code=project.name,
+                            project_code=project.code,
                             resource=resource)
 
                         # add a check if resource_submit_status.success == False
@@ -117,7 +117,7 @@ class PcorTemplateProcessor:
 
                             resource_submit_status = self.pcor_ingest.create_geo_spatial_data_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
 
@@ -145,10 +145,11 @@ class PcorTemplateProcessor:
                                 filter.value = item
                                 discovery.adv_search_filters.append(filter)
 
-                            for item in geo_spatial_resource.exposure_media:
+
+                            if geo_spatial_resource.exposure_media:
                                 filter = AdvSearchFilter()
                                 filter.key = "Exposures"
-                                filter.value = item
+                                filter.value = geo_spatial_resource.exposure_media
                                 discovery.adv_search_filters.append(filter)
 
                             logger.info("created discovery: %s" % discovery)
@@ -164,7 +165,7 @@ class PcorTemplateProcessor:
 
                             resource_submit_status = self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 pop_data_resource=pop_data_resource
                             )
 
@@ -216,7 +217,7 @@ class PcorTemplateProcessor:
 
                             self.pcor_ingest.create_geo_spatial_tool_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 geo_spatial_tool_resource=geo_tool_resource
                             )
 
@@ -266,5 +267,5 @@ class PcorTemplateProcessor:
             pcor_error.type = ""
             pcor_error.key = ""
             pcor_error.message = str(exception)
-            pcor_error.traceback = traceback.format_exc(exception)
+            pcor_error.traceback = traceback.format_exc()
             parsed_data.errors.append(pcor_error)

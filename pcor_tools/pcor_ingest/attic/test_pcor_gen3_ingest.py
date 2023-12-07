@@ -162,17 +162,17 @@ class TestPcorGen3Ingest(TestCase):
         project.availability_type = "Open"
 
         pcor_ingest.create_project(program=program, pcor_intermediate_project_model=project)
-        pcor_ingest.delete_project(program=program, project_name=project.name)
+        pcor_ingest.delete_project(program=program, project_name=project.code)
 
     def test_non_existing_delete_project(self):
         """ test delete project on non existing project"""
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         program = "NFS"
         project = PcorIntermediateProjectModel()
-        project_name = "test_non_existing_project"
+        project_code = "test_non_existing_project"
         expected = 'project does not exist'
         try:
-            actual = pcor_ingest.delete_project(program=program, project_name=project_name)
+            actual = pcor_ingest.delete_project(program=program, project_code=project_code)
         except requests.exceptions.HTTPError:
             logger.warn("error, project not found")
             return
@@ -354,7 +354,7 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.project_submitter_id = resource.submitter_id
 
         actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
-                                                              project_name=project.name,
+                                                              project_code=project.code,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
         self.assertTrue(actual.success)
@@ -438,7 +438,7 @@ class TestPcorGen3Ingest(TestCase):
         geo_spatial_resource.project_submitter_id = resource.submitter_id
 
         actual = pcor_ingest.create_geo_spatial_data_resource(program_name=program.name,
-                                                              project_name=project.name,
+                                                              project_code=project.code,
                                                               geo_spatial_data_resource=geo_spatial_resource)
 
         self.assertFalse(actual.success)
@@ -510,7 +510,7 @@ class TestPcorGen3Ingest(TestCase):
         geo_tool_resource.project_submitter_id = resource.submitter_id
 
         actual = pcor_ingest.create_geo_spatial_tool_resource(program_name=program.name,
-                                                              project_name=project.name,
+                                                              project_code=project.code,
                                                               geo_spatial_tool_resource=geo_tool_resource)
 
         self.assertTrue(actual.success)
@@ -581,7 +581,7 @@ class TestPcorGen3Ingest(TestCase):
         pop_data_resource.resource_submitter_id = resource.submitter_id
 
         actual = pcor_ingest.create_pop_data_resource(program_name=program.name,
-                                                      project_name=project.name,
+                                                      project_code=project.code,
                                                       pop_data_resource=pop_data_resource)
         self.assertTrue(actual.success)
 

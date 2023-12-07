@@ -29,12 +29,12 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
         except AttributeError as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.message = err
+            result.message = str(err)
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.traceback = traceback.format_exc(err)
-            result.message = err
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
         logger.info("returning general parsed data: %s" % result)
 
     def extract_resource_details(self, template_df):
@@ -56,19 +56,19 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
                 for j in range(i, ss_rows):
                     logger.info('prop name: %s' % template_df.iat[j, 0])
                     if template_df.iat[j,0] == 'tool_type':
-                        geo_resource.tool_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        geo_resource.tool_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'operating_system':
                         geo_resource.operating_system = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                            PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'languages':
                         geo_resource.languages = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                            PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'license_type':
                         geo_resource.license_type = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                            PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'suggested_audience':
                         geo_resource.suggested_audience = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                            PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'intended_use':
                         geo_resource.intended_use = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'is_open':

@@ -22,6 +22,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
+  "project_sponsor_type_other": [
+    {% for entry in model.project_sponsor_type_other %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "project_url": "{{ model.project_url }}",
   "description": "{{ model.description }}",
   "dbgap_accession_number": "{{ model.dbgap_accession_number }}"

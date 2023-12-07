@@ -92,7 +92,7 @@ class PcorSpreadsheeetReader:
         parser.parse(template_absolute_path, result)
         if not result.success:
             logger.error("error parsing: %s" % result)
-            return
+            return result
         else:
             logger.debug('parsing successful: %s' % result)
             return result

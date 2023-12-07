@@ -45,9 +45,9 @@ authz:
       subresources:
       - name: projects
         subresources:
-        - name: BenMAPCE
+        - name: BenMAP-CE
         - name: CRE
-        - name: EPAAQS
+        - name: EPA-AQS
         - name: HCUP
         - name: HMS
         - name: KP
@@ -57,7 +57,7 @@ authz:
         - name: NHANES
         - name: NIFC
         - name: NWCGInciWeb
-        - name: NWSFireWeather
+        - name: NWS-FireWeather
         - name: SmokeEstimates
         - name: USFS
         - name: WISQARS
@@ -99,9 +99,9 @@ authz:
       - storage_reader
     resource_paths:
     - /open
-    - /programs/CHORDS/projects/BenMAPCE
+    - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
-    - /programs/CHORDS/projects/EPAAQS
+    - /programs/CHORDS/projects/EPA-AQS
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/HMS
     - /programs/CHORDS/projects/KP
@@ -111,7 +111,7 @@ authz:
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCGInciWeb
-    - /programs/CHORDS/projects/NWSFireWeather
+    - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/WISQARS
@@ -132,9 +132,9 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
-    - /programs/CHORDS/projects/BenMAPCE
+    - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
-    - /programs/CHORDS/projects/EPAAQS
+    - /programs/CHORDS/projects/EPA-AQS
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/HMS
     - /programs/CHORDS/projects/KP
@@ -144,7 +144,7 @@ authz:
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCGInciWeb
-    - /programs/CHORDS/projects/NWSFireWeather
+    - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/WISQARS
