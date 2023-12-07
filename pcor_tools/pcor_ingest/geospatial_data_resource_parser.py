@@ -30,12 +30,12 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         except AttributeError as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.message = err
+            result.message = str(err)
         except Exception as err:
             logger.error("exception parsing resource details: %s" % err)
             result.success = False
-            result.traceback = traceback.format_exc(err)
-            result.message = err
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
         logger.info("returning general parsed data: %s" % result)
 
     def extract_resource_details(self, template_df):
@@ -128,5 +128,9 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature_other':
                         geo_resource.geographic_feature_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'data_formats':
+                        geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'data_location':
+                        geo_resource.data_location = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
 
         return geo_resource

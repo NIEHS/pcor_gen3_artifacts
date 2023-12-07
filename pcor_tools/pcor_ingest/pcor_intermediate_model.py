@@ -125,6 +125,8 @@ class PcorGeospatialDataResourceModel:
         self.has_visualization_tool = False
 
         # additional properties to describe the dataset
+        self.data_formats = []
+        self.data_location = []
         self.measures = []
         self.measurement_method = []
         self.measurement_method_other = []
@@ -239,6 +241,8 @@ class PcorPopDataResourceModel:
         self.population_studied_other = []
         self.exposure_media = []
         self.measures = []
+        self.data_formats = []
+        self.data_location = []
 
 
 class PcorGeoToolModel:

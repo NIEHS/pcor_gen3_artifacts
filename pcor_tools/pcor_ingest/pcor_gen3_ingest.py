@@ -97,17 +97,17 @@ class PcorGen3Ingest:
             logger.info("project_id: %s" % project_id)
             return project_id
 
-    def delete_project(self, program, project_name):
+    def delete_project(self, program, project_code):
         """
         :param program: identifier of the program in Gen3
-        :param project_name: project dbgap_accession number
+        :param project_code: project dbgap_accession number
         :return: void
         """
         logger.info("delete_project()")
         sub = Gen3Submission(self.gen3_auth)
 
         try:
-            response = sub.delete_project(program, project_name)
+            response = sub.delete_project(program, project_code)
         except requests.exceptions.HTTPError:
             logger.warn("error, project not found")
 
@@ -255,45 +255,45 @@ class PcorGen3Ingest:
 
         return response
 
-    def create_geo_spatial_data_resource(self, program_name, project_name, geo_spatial_data_resource):
+    def create_geo_spatial_data_resource(self, program_name, project_code, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         geo_spatial_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_data_resource(geo_spatial_data_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name,
+        status = self.submit_record(program=program_name, project=project_code,
                                     json_data=geo_spatial_data_resource_json)
         logger.info(status)
         return status
 
-    def create_geo_spatial_tool_resource(self, program_name, project_name, geo_spatial_tool_resource):
+    def create_geo_spatial_tool_resource(self, program_name, project_code, geo_spatial_tool_resource):
         logger.info("create_geo_spatial_tool_resource()")
-        self.get_individual_project_info(project_name)
+        self.get_individual_project_info(project_code)
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         geo_spatial_tool_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_geo_spatial_tool_resource(geo_spatial_tool_resource)
         logger.debug("json_string: %s" % json_string)
         geo_spatial_tool_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name,
+        status = self.submit_record(program=program_name, project=project_code,
                                     json_data=geo_spatial_tool_resource_json)
         logger.info(status)
         return status
 
-    def create_pop_data_resource(self, program_name, project_name, pop_data_resource):
+    def create_pop_data_resource(self, program_name, project_code, pop_data_resource):
         logger.info("create_pop_data_resource()")
 
-        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_name)
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         pop_data_resource.project = pcor_intermediate_project_model
 
         json_string = self.produce_pop_data_resource(pop_data_resource)
         logger.info("json_string: %s" % json_string)
         pop_data_resource_json = json.loads(json_string)
-        status = self.submit_record(program=program_name, project=project_name, json_data=pop_data_resource_json)
+        status = self.submit_record(program=program_name, project=project_code, json_data=pop_data_resource_json)
         logger.info(status)
         return status
 
@@ -556,7 +556,7 @@ class PcorGen3Ingest:
             submission_status.submitter_id = unique_keys.get("submitter_id")
             submission_status.project_id = unique_keys.get("project_id")
             submission_status.program_name = program
-            submission_status.project_name = project
+            submission_status.project_code = project
             # TODO: augment sub status
             return submission_status
 
@@ -594,5 +594,5 @@ class PcorGen3Ingest:
             submission_status.project_code = project
             submission_status.request_content = pcor_error.request
             submission_status.response_content = json.loads(pcor_error.response.content)
-            submission_status.traceback = traceback.format_exc(pcor_error)
+            submission_status.traceback = traceback.format_exc()
             return submission_status
