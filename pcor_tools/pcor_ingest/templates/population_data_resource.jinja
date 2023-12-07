@@ -107,13 +107,13 @@
         {% endfor %}
    ],
   "data_formats": [
-    {% for entry in geo_spatial_data_resource.data_formats %}
+    {% for entry in pop_data_resource.data_formats %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
   "data_location": [
-    {% for entry in geo_spatial_data_resource.data_location %}
+    {% for entry in pop_data_resource.data_location %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
