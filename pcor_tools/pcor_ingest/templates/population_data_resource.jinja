@@ -96,18 +96,28 @@
   ],
   "outcomes":  [
         {% for outcome in pop_data_resource.outcomes  %}
-
             "{{ outcome }}"
           {{ "," if not loop.last }}
         {% endfor %}
-                ],
+  ],
   "model_methods":  [
         {% for entry in pop_data_resource.model_methods  %}
-
             "{{ entry }}"
             {{ "," if not loop.last }}
         {% endfor %}
-                ],
+   ],
+  "data_formats": [
+    {% for entry in geo_spatial_data_resource.data_formats %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_location": [
+    {% for entry in geo_spatial_data_resource.data_location %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "resources": {
     "node_id": "{{ pop_data_resource.resource_id }}",
     "submitter_id": "{{ pop_data_resource.resource_submitter_id }}"

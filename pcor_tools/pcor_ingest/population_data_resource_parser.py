@@ -136,5 +136,11 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'population_studied_other':
                         pop_resource.population_studied_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(
                             template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'data_formats':
+                        pop_resource.data_formats = PcorTemplateParser.make_array(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'data_location':
+                        pop_resource.data_location = PcorTemplateParser.make_array(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
 
         return pop_resource

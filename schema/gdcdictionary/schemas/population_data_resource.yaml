@@ -160,6 +160,16 @@ properties:
     type: array
     items:
       type: string
+  data_formats:
+    description: Format of data in the collection
+    type: array
+    items:
+      type: string
+  data_location:
+    description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
+    type: array
+    items:
+      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
