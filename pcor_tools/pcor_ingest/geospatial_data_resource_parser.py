@@ -131,6 +131,6 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'data_formats':
                         geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':
-                        geo_resource.data_location = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.data_location = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
 
         return geo_resource
