@@ -56,12 +56,16 @@ authz:
         - name: MTBS
         - name: NHANES
         - name: NIFC
-        - name: NWCGInciWeb
+        - name: NWCG-InciWeb
         - name: NWS-FireWeather
         - name: SmokeEstimates
         - name: USFS
         - name: WISQARS
         - name: WONDER
+        - name: EJScreen
+        - name: PM2.5
+        - name: NDI
+        - name: WA-APCD
 
   policies:
   - id: 'mds_admin'
@@ -110,12 +114,16 @@ authz:
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
-    - /programs/CHORDS/projects/NWCGInciWeb
+    - /programs/CHORDS/projects/NWCG-InciWeb
     - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/EJScreen
+    - /programs/CHORDS/projects/PM2.5
+    - /programs/CHORDS/projects/NDI
+    - /programs/CHORDS/projects/WA-APCD
 
   - id: all_programs_reader
     role_ids:
@@ -143,12 +151,17 @@ authz:
     - /programs/CHORDS/projects/MTBS
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
-    - /programs/CHORDS/projects/NWCGInciWeb
+    - /programs/CHORDS/projects/NWCG-InciWeb
     - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/EJScreen
+    - /programs/CHORDS/projects/PM2.5
+    - /programs/CHORDS/projects/NDI
+    - /programs/CHORDS/projects/WA-APCD
+
 
   roles:
   - id: 'mds_user'
