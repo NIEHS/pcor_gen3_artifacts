@@ -289,10 +289,9 @@ class PcorTemplateParser:
 
     @staticmethod
     def make_complex_array(value):
-        clean_value = PcorTemplateParser.sanitize_column(value)
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
         temp_list = []
         if clean_value:
-            clean_value = re.sub(r'\\n', '\n', value) #unescape newline for split
             temp_list = str(clean_value).splitlines()
             if temp_list and len(temp_list) == 1:
                 return PcorTemplateParser.make_array(temp_list[0])
@@ -318,14 +317,17 @@ class PcorTemplateParser:
         return result
 
     @staticmethod
-    def sanitize_column(value):
+    def sanitize_column(value, escape_new_line=True):
         if isinstance(value, str):
             if not value:
                 return None
             # escape double quotes inside string
             value = re.sub(r'\d\.\s+', '', value)
-            value = re.sub(r'[•●]\s+', '',value)
-            value = re.sub('\n',  '\\\\n', value) #must escape newlines for strings they are not valid json
+            value = re.sub(r'[•●]\s+', '', value)
+            if escape_new_line:
+                value = re.sub(r'\n', '\\\\n', value)
+            value = re.sub(r'\t', "\\\\t", value) #must escape newlines for strings they are not valid json
+
             return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):
