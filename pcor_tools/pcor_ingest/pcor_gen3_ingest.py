@@ -180,19 +180,11 @@ class PcorGen3Ingest:
         filter.value = program_name
         discovery.adv_search_filters.append(filter)
 
-        filter = AdvSearchFilter()
-        filter.key = "Domain"
-        filter.value = resource.domain
-        discovery.adv_search_filters.append(filter)
-
-        '''
         for item in resource.domain:
             filter = AdvSearchFilter()
-            filter.key = "Measures"
+            filter.key = "Domain"
             filter.value = item
             discovery.adv_search_filters.append(filter)
-
-        '''
 
         filter = AdvSearchFilter()
         filter.key = "Resource Type"
