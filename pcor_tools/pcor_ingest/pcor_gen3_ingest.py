@@ -123,7 +123,7 @@ class PcorGen3Ingest:
         resource.id = status.id
         return status
 
-    def create_discovery_from_resource(self, program_name, project, resource, geo_spatial_resource):
+    def create_discovery_from_resource(self, program_name, project, resource, data_resource):
         """
         Given a project and resource derive the discovery
          model data (to be augmented based on the subtype)
@@ -147,13 +147,15 @@ class PcorGen3Ingest:
         discovery.description = resource.description
         discovery.publications = resource.publications
         discovery.domain = ','.join(resource.domain)
-        discovery.has_api = "false"
         discovery.type = resource.resource_type
-        discovery.has_visualization_tool = "false"
-        discovery.is_citizen_collected = "false"
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
+
+        if data_resource:
+            discovery.has_api = data_resource.has_api
+            discovery.has_visualization_tool = data_resource.has_visualization_tool
+            discovery.is_citizen_collected = data_resource.includes_citizen_collected
 
         # migrate keywords that are available in resource
         for kw in resource.keywords:

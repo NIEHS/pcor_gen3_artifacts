@@ -139,6 +139,10 @@ class PcorTemplateProcessor:
                                                                                         geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments  # intended use?
 
+                            discovery.is_citizen_collected = model_data['geospatial_data_resource'].includes_citizen_collected
+                            discovery.has_api = model_data['geospatial_data_resource'].has_api
+                            discovery.has_visualization_tool = model_data['geospatial_data_resource'].has_visualization_tool
+
                             for item in geo_spatial_resource.measures:
                                 filter = AdvSearchFilter()
                                 filter.key = "Measures"
@@ -185,6 +189,10 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         pop_data_resource)
                             discovery.comment = pop_data_resource.comments  # intended use?
+
+                            discovery.is_citizen_collected = model_data['population_data_resource'].includes_citizen_collected
+                            discovery.has_api = model_data['population_data_resource'].has_api
+                            discovery.has_visualization_tool = model_data['population_data_resource'].has_visualization_tool
 
                             for item in pop_data_resource.exposures:
                                 filter = AdvSearchFilter()
@@ -234,8 +242,7 @@ class PcorTemplateProcessor:
 
                             resource.resource_type = model_data['geospatial_tool_resource'].display_type
 
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
-                                                                                        geo_tool_resource)
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, None)
                             discovery.comment = geo_tool_resource.intended_use  # intended use?
 
                             for item in geo_tool_resource.tool_type:
