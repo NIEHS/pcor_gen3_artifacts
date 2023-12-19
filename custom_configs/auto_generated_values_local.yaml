@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/27-type-email/custom_configs/schema.json
 
 ambassador:
   resources:
@@ -93,7 +93,7 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: BenMAP-CE
+            - name: BenMAP-C
             - name: CRE
             - name: EPA-AQS
             - name: HCUP
