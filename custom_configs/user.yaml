@@ -45,7 +45,7 @@ authz:
       subresources:
       - name: projects
         subresources:
-        - name: BenMAP-C
+        - name: BenMAP-CE
         - name: CRE
         - name: EPA-AQS
         - name: HCUP
