@@ -1,6 +1,9 @@
 import logging
 import smtplib
 import traceback
+import warnings
+import pandas as pd
+from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -50,7 +53,9 @@ class PcorReporter():
         submission = pcor_processing_result.model_data.get("submission")
 
         if not submission:
-            submission = PcorSubmissionInfoModel()
+            warnings.simplefilter(action='ignore', category=UserWarning)
+            df = pd.read_excel(pcor_processing_result.template_current_location, sheet_name=0)
+            submission = PcorTemplateParser.extract_submission_data(df)
             pcor_processing_result.model_data["submission"] = submission
 
         rendered = template.render(data=pcor_processing_result,
@@ -70,7 +75,10 @@ class PcorReporter():
         submission = pcor_processing_result.model_data["submission"]
 
         if not submission:
-            submission = PcorSubmissionInfoModel()
+            warnings.simplefilter(action='ignore', category=UserWarning)
+            df = pd.read_excel(pcor_processing_result.template_current_location, sheet_name=0)
+            submission = PcorTemplateParser.extract_submission_data(df)
+            pcor_processing_result.model_data["submission"] = submission
 
         rendered = template.render(data=pcor_processing_result,
                                    submission=submission)
