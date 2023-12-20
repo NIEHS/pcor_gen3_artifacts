@@ -79,7 +79,10 @@ class PcorSpreadsheeetReader:
         type = self.determine_template_instance_type(template_absolute_path)
         logger.info("of type: %s" % type)
 
-        parser = self.parsers[type]
+        if type in self.parsers:
+            parser = self.parsers[type]
+        else:
+            parser = None
 
         if parser is None:
             logger.error("No parser found for type: %s" % type)
@@ -87,6 +90,7 @@ class PcorSpreadsheeetReader:
             result.success = False
             result.source = template_absolute_path
             result.errors.append("no template parser found for type %s" % type)
+            raise Exception("no template parser found for type %s" % type)
             return
 
         parser.parse(template_absolute_path, result)
@@ -112,5 +116,5 @@ class PcorSpreadsheeetReader:
         logger.info("val:%s" % val_field)
         if type_field != "Type" or pd.isna(val_field):
             logger.error("did not find expected TYPE field")
-            raise Exception("Cannot determine resource type via TYPE field")
+            raise Exception("Cannot determine resource type via TYPE field value: %s" % val_field)
         return df.iat[0, 1]
