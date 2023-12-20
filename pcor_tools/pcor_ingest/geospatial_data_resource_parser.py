@@ -22,7 +22,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         super(GeoSpatialDataResourceParser, self).parse(template_absolute_path, result)
         result.type = "geospatial_data_resource"
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
         try:
             detail_model = self.extract_resource_details(df)
             result.model_data["geospatial_data_resource"] = detail_model

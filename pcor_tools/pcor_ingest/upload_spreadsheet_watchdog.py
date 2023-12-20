@@ -35,13 +35,19 @@ class MyHandler(PatternMatchingEventHandler):
         filename = os.path.basename(source_path)
         logger.info('\n\n_______________________________')
         logger.info('Event triggered: %s' % event.event_type)
-        logger.info('Filename: %s' % filename)
-        logger.info('Source Path: %s' % source_path)
-        loader_ss = Loader(pcor_ingest_configuration=PcorIngestConfiguration(str(os.environ["PROPERTIES_FILE"])))
-        loader_ss.process_pcor_load(loader_type='spreadsheet', file_path=source_path)
+        if not filename.startswith('._'):
+            logger.info('Filename: %s' % filename)
+            logger.info('Source Path: %s' % source_path)
+            loader_ss = Loader(pcor_ingest_configuration=PcorIngestConfiguration(str(os.environ["PROPERTIES_FILE"])))
+            loader_ss.process_pcor_load(loader_type='spreadsheet', file_path=source_path)
+        else:
+            logger.info('Ignore temp file %s: ' % filename)
 
     def on_created(self, event):
         try:
+            wait_time = 20
+            logger.info('Waiting %d seconds for file to finish copying...' % wait_time )
+            time.sleep(wait_time)
             self.process(event)
         except Exception as ex:
             logger.error('\n\n\n\n Exception: {}'.format(ex))

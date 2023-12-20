@@ -1,4 +1,5 @@
 import logging
+import os
 import smtplib
 import traceback
 import warnings
@@ -7,7 +8,7 @@ from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
 
 logger = logging.getLogger(__name__)
@@ -23,8 +24,20 @@ class PcorReporter():
         sets up required components
         :param pcor_ingest_configuration:
         """
-        self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
+
+        # Get the directory of the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Set the relative path to your template directory
+        template_rel_path = 'templates'
+
+        # Construct the absolute path to the template directory
+        template_dir = os.path.join(script_dir, template_rel_path)
+        logger.info('template_dir: %s' % template_dir)
+
+        # Create a Jinja environment with the FileSystemLoader
+        self.env = Environment(loader=FileSystemLoader(template_dir))
 
     def report(self, pcor_processing_result):  # TODO: how would we respond back (JSON?) to an endpoint
         """

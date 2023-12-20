@@ -44,4 +44,5 @@ setup(
         "console_scripts": ["project_code = project_code.__main__:main"]
     },
     extras_require={"test": read_requirements("../requirements-test.txt")},
+    package_data={"pcor_ingest": ["templates/*"]}
 )
