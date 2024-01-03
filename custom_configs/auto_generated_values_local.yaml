@@ -489,7 +489,10 @@ portal:
                 "long_name",
                 "description",
                 "domain",
-                "program_name"
+                "program_name",
+                "project_name",
+                "exposure_media",
+                "measures"
               ]
             },
             "tagSearchDropdown": {
@@ -507,13 +510,10 @@ portal:
                 "key": "Resource Type"
               },
               {
-                "key": "Program"
+                "key": "Project"
               },
               {
                 "key": "Domain"
-              },
-              {
-                "key": "Measures"
               },
               {
                 "key": "Exposure Media"
@@ -553,6 +553,12 @@ portal:
           {
             "name": "Resource Name",
             "field": "name",
+            "errorIfNotAvailable": false,
+            "valueIfNotAvailable": "n/a"
+          },
+          {
+            "name": "Project Name",
+            "field": "project_name",
             "errorIfNotAvailable": false,
             "valueIfNotAvailable": "n/a"
           },
@@ -777,7 +783,7 @@ portal:
         },
         "tagCategories": [
           {
-            "name": "Program",
+            "name": "Project",
             "color": "rgba(71, 130, 195, 1)",
             "display": true
           },
