@@ -178,8 +178,8 @@ class PcorGen3Ingest:
         discovery.tags.append(tag)
 
         filter = AdvSearchFilter()
-        filter.key = "Program"
-        filter.value = program_name
+        filter.key = "Project"
+        filter.value = project.name
         discovery.adv_search_filters.append(filter)
 
         for item in resource.domain:
