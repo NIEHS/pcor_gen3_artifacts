@@ -143,6 +143,7 @@ class PcorGen3Ingest:
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program_name
         discovery.project_description = project.description
+        discovery.project_name = project.name
         discovery.name = resource.name
         discovery.description = resource.description
         discovery.publications = resource.publications
