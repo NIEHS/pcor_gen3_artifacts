@@ -6,7 +6,7 @@ fence:
   FENCE_CONFIG:
     MOCK_AUTH: true
   # -- (string) USER YAML. Passed in as a multiline string.
-  USER_YAML: |
+  USER_YAML: 
     cloud_providers: {}
     groups: {}
     
@@ -280,7 +280,7 @@ portal:
   # -- (map) GitOps configuration for portal
   gitops:
     # -- (string) multiline string - gitops.json
-    json: |
+    json: 
       {
       "graphql": {
         "boardCounts": [
