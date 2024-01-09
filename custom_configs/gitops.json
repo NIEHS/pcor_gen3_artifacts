@@ -539,7 +539,7 @@
         "fields": [
           "resource_short_name",
           "resource_description",
-          "measures",
+          "test_foo.measures",
           "exposure_media",
           "time_extent_start",
           "time_extent_end",
