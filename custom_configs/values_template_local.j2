@@ -54,6 +54,8 @@ portal:
     # -- (string) multiline string - gitops.json
     json: |
       {{ gitops_content | indent(4) }}
+    css: |
+      {{ css_content | indent(4) }}
       
 etl:
   resources:
