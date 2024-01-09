@@ -60,6 +60,7 @@ authz:
         - name: NWS-FireWeather
         - name: SmokeEstimates
         - name: USFS
+        - name: USFA
         - name: WISQARS
         - name: WONDER
         - name: EJScreen
@@ -118,6 +119,7 @@ authz:
     - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
+    - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/EJScreen
@@ -155,6 +157,7 @@ authz:
     - /programs/CHORDS/projects/NWS-FireWeather
     - /programs/CHORDS/projects/SmokeEstimates
     - /programs/CHORDS/projects/USFS
+    - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
     - /programs/CHORDS/projects/EJScreen
