@@ -71,6 +71,7 @@ fence:
             - name: NWS-FireWeather
             - name: SmokeEstimates
             - name: USFS
+            - name: USFA
             - name: WISQARS
             - name: WONDER
             - name: EJScreen
@@ -129,6 +130,7 @@ fence:
         - /programs/CHORDS/projects/NWS-FireWeather
         - /programs/CHORDS/projects/SmokeEstimates
         - /programs/CHORDS/projects/USFS
+        - /programs/CHORDS/projects/USFA
         - /programs/CHORDS/projects/WISQARS
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/EJScreen
@@ -166,6 +168,7 @@ fence:
         - /programs/CHORDS/projects/NWS-FireWeather
         - /programs/CHORDS/projects/SmokeEstimates
         - /programs/CHORDS/projects/USFS
+        - /programs/CHORDS/projects/USFA
         - /programs/CHORDS/projects/WISQARS
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/EJScreen
@@ -814,7 +817,7 @@ portal:
             "fields": [
               "resource_short_name",
               "resource_description",
-              "measures",
+              "test_foo.measures",
               "exposure_media",
               "time_extent_start",
               "time_extent_end",
