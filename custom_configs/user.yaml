@@ -45,15 +45,18 @@ authz:
       subresources:
       - name: projects
         subresources:
+        - name: ACS
         - name: BenMAP-CE
         - name: CRE
         - name: EPA-AQS
+        - name: FIRMS
         - name: HCUP
         - name: HMS
         - name: KP
         - name: LAADS
         - name: MODIS
         - name: MTBS
+        - name: NASA-AQ
         - name: NHANES
         - name: NIFC
         - name: NWCG-InciWeb
@@ -63,6 +66,7 @@ authz:
         - name: USFA
         - name: WISQARS
         - name: WONDER
+        - name: WFSmokeExp
         - name: EJScreen
         - name: PM2.5
         - name: NDI
@@ -104,15 +108,18 @@ authz:
       - storage_reader
     resource_paths:
     - /open
+    - /programs/CHORDS/projects/ACS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/EPA-AQS
+    - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/HMS
     - /programs/CHORDS/projects/KP
     - /programs/CHORDS/projects/LAADS
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NASA-AQ
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCG-InciWeb
@@ -122,6 +129,7 @@ authz:
     - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/WFSmokeExp
     - /programs/CHORDS/projects/EJScreen
     - /programs/CHORDS/projects/PM2.5
     - /programs/CHORDS/projects/NDI
@@ -142,15 +150,18 @@ authz:
     - storage_reader
     - storage_writer
     resource_paths:
+    - /programs/CHORDS/projects/ACS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/EPA-AQS
+    - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/HCUP
     - /programs/CHORDS/projects/HMS
     - /programs/CHORDS/projects/KP
     - /programs/CHORDS/projects/LAADS
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NASA-AQ
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCG-InciWeb
@@ -160,6 +171,7 @@ authz:
     - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
     - /programs/CHORDS/projects/WONDER
+    - /programs/CHORDS/projects/WFSmokeExp
     - /programs/CHORDS/projects/EJScreen
     - /programs/CHORDS/projects/PM2.5
     - /programs/CHORDS/projects/NDI
