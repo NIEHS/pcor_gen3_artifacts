@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/mc-helm/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -1381,7 +1381,7 @@ portal:
         }
       }
     logo: | 
-          iVBORw0KGgoAAAANSUhEUgAAA6AAAABiCAYAAABODb6TAAAKq2lDQ1BJQ0MgUHJv
+              iVBORw0KGgoAAAANSUhEUgAAA6AAAABiCAYAAABODb6TAAAKq2lDQ1BJQ0MgUHJv
         ZmlsZQAASImVlwdQk9kWx+/3pYeElhABKaGGIkgngJQQWujSQVRCEiCUEANBxYbK
         4gquBRURUBRdEFFwVYqsFVFsi4IK9g2yKCjrYsGGyvuAIbj75r0378ycub+cnPu/
         5965d+Z8AJCVuWJxOqwMQIYoWxLm60mPiY2j4wYBBGCABwyA5/KyxKzQ0ECA2PT4
@@ -3053,7 +3053,7 @@ portal:
         rUxsWTiorJbXXI5bwbS23cGdrG+vgdbjkIHWpEFnKylqjWjZEMEz83Lrtrc6HxCB
         U3Eua0ZPuNzovDyP26v5dJsQSAgkBBICCYGEQEIgIZAQSAgkBP5OBFwA/TvLpOwJ
         gYRAQiAhkBBICCQEEgIJgYRAQiAhkBD4uxH4b3UgW2hLJYIeAAAAAElFTkSuQmCC
- 
+
 etl:
   etlMapping:
     mappings:
