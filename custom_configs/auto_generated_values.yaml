@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/mc-helm/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -829,7 +829,7 @@ portal:
             "fields": [
               "resource_short_name",
               "resource_description",
-              "test_foo.measures",
+              "measures",
               "exposure_media",
               "time_extent_start",
               "time_extent_end",
