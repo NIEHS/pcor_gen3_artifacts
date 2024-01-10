@@ -829,7 +829,7 @@ portal:
             "fields": [
               "resource_short_name",
               "resource_description",
-              "test_foo.measures",
+              "measures",
               "exposure_media",
               "time_extent_start",
               "time_extent_end",
