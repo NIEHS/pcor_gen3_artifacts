@@ -31,17 +31,28 @@ try:
         gitops_content = gitops_file.read()
         logger.debug('gitops_content: \n%s' % gitops_content)
 
+        # Read the content of gitops.json file
+    with open(os.path.join(custom_configs_path, 'gitops.css'), 'r') as gitops_file:
+        css_content = gitops_file.read()
+        logger.debug('css_content: \n%s' % css_content)
+
     # Read the content of etlMapping.yaml file
     with open(os.path.join(custom_configs_path, 'etlMapping.yaml'), 'r') as etl_mapping_file:
         etl_mapping_content = etl_mapping_file.read()
         logger.debug('etl_mapping_content: \n%s' % etl_mapping_content)
+
+    # Read the content of logo.txt file
+    with open(os.path.join(custom_configs_path, 'images/logo.txt'), 'r') as gitops_file:
+        logo_content = gitops_file.read()
 
 
     # Define the data context for the template
     data = {
         'user_yaml_content': user_yaml_content,
         'gitops_content': gitops_content,
-        'etl_mapping_content': etl_mapping_content
+        'etl_mapping_content': etl_mapping_content,
+        'css_content': css_content,
+        'logo_content': logo_content
 
     }
 
