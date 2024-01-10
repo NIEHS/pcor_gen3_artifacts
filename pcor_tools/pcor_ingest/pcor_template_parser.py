@@ -255,7 +255,7 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'keywords':
                         resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'access_type':
-                        resource.access_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'payment_required':
                         resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'date_added':
