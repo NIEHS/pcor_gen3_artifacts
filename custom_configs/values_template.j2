@@ -17,7 +17,9 @@ portal:
     json: |
       {{ gitops_content | indent(4) }}
     css: |
-        {{ css_content | indent(4) }}
+      {{ css_content | indent(4) }}
+    logo: | 
+      {{ logo_content | indent(4) }} 
 etl:
   etlMapping:
     {{ etl_mapping_content | indent(4) }}
