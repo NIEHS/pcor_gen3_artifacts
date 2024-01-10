@@ -236,7 +236,6 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Resource':
                 logging.debug("found Resource")
                 for j in range(i, ss_rows):
-
                     field_name = template_df.iat[j, 0]
                     if not isinstance(field_name, float):
                         field_name = field_name.strip()
