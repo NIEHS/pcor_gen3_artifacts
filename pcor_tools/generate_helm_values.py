@@ -41,13 +41,18 @@ try:
         etl_mapping_content = etl_mapping_file.read()
         logger.debug('etl_mapping_content: \n%s' % etl_mapping_content)
 
+    # Read the content of logo.txt file
+    with open(os.path.join(custom_configs_path, 'images/logo.txt'), 'r') as gitops_file:
+        logo_content = gitops_file.read()
+
 
     # Define the data context for the template
     data = {
         'user_yaml_content': user_yaml_content,
         'gitops_content': gitops_content,
         'etl_mapping_content': etl_mapping_content,
-        'css_content': css_content
+        'css_content': css_content,
+        'logo_content': logo_content
 
     }
 
