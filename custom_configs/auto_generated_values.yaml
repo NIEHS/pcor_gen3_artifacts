@@ -1,6 +1,6 @@
 global:
-  hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/mc-helm/custom_configs/schema.json
+  hostname: chords.niehs.nih.gov
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -336,12 +336,12 @@ portal:
         "chartNodesExcludeFiles": true
       },
       "components": {
-        "appName": "CHORDS Resource Catalog",
-        "homepageHref": "https://staging.chordshealth.org/",
+        "appName": "CHORDS",
+        "homepageHref": "https://chords.niehs.nih.gov/",
         "index": {
           "introduction": {
-            "heading": "CHORDS Resource Catalog",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae tellus eu est sagittis sagittis. Nulla consectetur lorem ante, nec rutrum dolor laoreet sit amet. Etiam eu dapibus dolor, vel vestibulum arcu. Quisque vel eleifend urna. In hac habitasse platea dictumst. Cras fermentum tincidunt odio, eu ultricies risus ultrices ac. Praesent at turpis et mauris vehicula ornare. Fusce ornare aliquam rutrum. Nam dignissim diam orci, a scelerisque ligula gravida vitae. Donec vitae nulla interdum, placerat augue quis, scelerisque ligula. Aenean quis eros mauris. Donec eget nunc ac elit feugiat luctus sed quis turpis. Curabitur condimentum ligula cursus ligula tempus suscipit. Etiam tempus ornare odio. Fusce a diam ac eros suscipit condimentum id eu urna. Donec consectetur porttitor nibh nec sagittis.",
+            "heading": "CHORDS - Climate and Health Outcomes Research Data Systems",
+            "text": "The CHORDS Platform provides resources aimed at making it easier for researchers to study the effects of external, place based environmental exposures on health outcomes as well as supporting research into the impact of health interventions on well-being. Place-based exposures are varied and can include pollution from land, air, and water source; natural phenomena such as the heat, humidity, and pollen; extreme events such as drought and wildfires; as well as factors such as crime and the availability of green space that result from our social and built environment. The CHORDS Platform emphasizes research into the impacts of climate change, with a focus on wildfires, although many of the resources provided here are applicable across a breadth of scenarios.",
             "link": "/submission"
           },
           "buttons": [
@@ -353,14 +353,14 @@ portal:
             {
               "icon": "query",
               "link": "/discovery",
-              "name": "Discovery",
-              "tooltip": "Use free-text search and tags to rapidly find relevant studies."
+              "name": "CHORDS Catalog",
+              "tooltip": "Free-text search and tags to rapidly find relevant resources."
             },
             {
-              "name": "Exploration",
+              "name": "Data Explorer",
               "link": "/explorer",
               "icon": "exploration",
-              "tooltip": "The Exploration Page enables discovery of the climate related resources"
+              "tooltip": "Fine grained search and discovery for specific resource types."
             },
             {
               "icon": "dictionary",
@@ -370,13 +370,13 @@ portal:
               "tooltip": "The CHORDS Catalog employs a data model to power queries and data submissions. Study the dictionary to send GraphQL queries or format your data submissions."
             },
             {
-              "name": "Query",
+              "name": "Catalog Query",
               "link": "/query",
               "icon": "query",
-              "tooltip": "Query the databases using GraphQL."
+              "tooltip": "Query CHORDS Resources with GraphQL."
             },
             {
-              "name": "Resource Browser",
+              "name": "CHORDS Tools",
               "link": "/resource-browser",
               "icon": "query"
             },
@@ -389,7 +389,7 @@ portal:
           ]
         },
         "login": {
-          "title": "CHORDS Catalog",
+          "title": "CHORDS - Climate and Health Outcomes Research Data Systems",
           "subTitle": "Explore, Analyze, and Share Climate and Health Resources",
           "text": "",
           "contact": "If you have any questions about access or the registration process, please contact ",
@@ -1395,7 +1395,7 @@ portal:
           padding: 0 10%;
         }
       }
-    logo: |
+   logo: |
         iVBORw0KGgoAAAANSUhEUgAAA6AAAABiCAYAAABODb6TAAAKq2lDQ1BJQ0MgUHJv
         ZmlsZQAASImVlwdQk9kWx+/3pYeElhABKaGGIkgngJQQWujSQVRCEiCUEANBxYbK
         4gquBRURUBRdEFFwVYqsFVFsi4IK9g2yKCjrYsGGyvuAIbj75r0378ycub+cnPu/
