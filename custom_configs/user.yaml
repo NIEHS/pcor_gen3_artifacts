@@ -48,6 +48,7 @@ authz:
         - name: ACS
         - name: BenMAP-CE
         - name: CRE
+        - name: EJI
         - name: EPA-AQS
         - name: FIRMS
         - name: HCUP
@@ -61,7 +62,9 @@ authz:
         - name: NIFC
         - name: NWCG-InciWeb
         - name: NWS-FireWeather
+        - name: PLACES
         - name: SmokeEstimates
+        - name: TrackingNetwork
         - name: USFS
         - name: USFA
         - name: WISQARS
@@ -111,6 +114,7 @@ authz:
     - /programs/CHORDS/projects/ACS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
+    - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EPA-AQS
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/HCUP
@@ -124,7 +128,9 @@ authz:
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCG-InciWeb
     - /programs/CHORDS/projects/NWS-FireWeather
+    - /programs/CHORDS/projects/PLACES
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/TrackingNetwork
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
@@ -153,6 +159,7 @@ authz:
     - /programs/CHORDS/projects/ACS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CRE
+    - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EPA-AQS
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/HCUP
@@ -166,7 +173,9 @@ authz:
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCG-InciWeb
     - /programs/CHORDS/projects/NWS-FireWeather
+    - /programs/CHORDS/projects/PLACES
     - /programs/CHORDS/projects/SmokeEstimates
+    - /programs/CHORDS/projects/TrackingNetwork
     - /programs/CHORDS/projects/USFS
     - /programs/CHORDS/projects/USFA
     - /programs/CHORDS/projects/WISQARS
