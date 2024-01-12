@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/mc-helm/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 ambassador:
   resources:
@@ -467,7 +467,7 @@ portal:
         ]
       },
       "resourceBrowser": {
-        "title": "CHORDS Data Commons Custom Resources",
+        "title": "CHORDS Tools and Resources",
         "description": "A collection of custom jupyter notebooks and other resources",
         "public": true,
         "resources": [
@@ -476,14 +476,14 @@ portal:
             "category": "Notebooks",
             "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
             "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-            "imageUrl": "/src/img/tox21.png"
+            "imageUrl": "custom/tox21.jpg"
           },
           {
             "title": "CHORDS Toolkit book",
             "category": "Tutorial books html",
             "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
             "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
-            "imageUrl": "/src/img/chords.png"
+            "imageUrl": "custom/chordstk.jpg"
 
           }
         ]
