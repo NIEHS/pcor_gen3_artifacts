@@ -1,9 +1,14 @@
 import logging
+import os
 import smtplib
+import traceback
+import warnings
+import pandas as pd
+from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
 
 logger = logging.getLogger(__name__)
@@ -19,8 +24,20 @@ class PcorReporter():
         sets up required components
         :param pcor_ingest_configuration:
         """
-        self.env = Environment(loader=PackageLoader('pcor_ingest', 'templates'))
         self.pcor_ingest_configuration = pcor_ingest_configuration
+
+        # Get the directory of the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Set the relative path to your template directory
+        template_rel_path = 'templates'
+
+        # Construct the absolute path to the template directory
+        template_dir = os.path.join(script_dir, template_rel_path)
+        logger.info('template_dir: %s' % template_dir)
+
+        # Create a Jinja environment with the FileSystemLoader
+        self.env = Environment(loader=FileSystemLoader(template_dir))
 
     def report(self, pcor_processing_result):  # TODO: how would we respond back (JSON?) to an endpoint
         """
@@ -49,7 +66,9 @@ class PcorReporter():
         submission = pcor_processing_result.model_data.get("submission")
 
         if not submission:
-            submission = PcorSubmissionInfoModel()
+            warnings.simplefilter(action='ignore', category=UserWarning)
+            df = pd.read_excel(pcor_processing_result.template_current_location, sheet_name=0)
+            submission = PcorTemplateParser.extract_submission_data(df)
             pcor_processing_result.model_data["submission"] = submission
 
         rendered = template.render(data=pcor_processing_result,
@@ -69,33 +88,44 @@ class PcorReporter():
         submission = pcor_processing_result.model_data["submission"]
 
         if not submission:
-            submission = PcorSubmissionInfoModel()
+            warnings.simplefilter(action='ignore', category=UserWarning)
+            df = pd.read_excel(pcor_processing_result.template_current_location, sheet_name=0)
+            submission = PcorTemplateParser.extract_submission_data(df)
+            pcor_processing_result.model_data["submission"] = submission
 
         rendered = template.render(data=pcor_processing_result,
                                    submission=submission)
         return rendered
 
     def send_email_report(self, pcor_processing_result, email_text):
-        email_message = MIMEMultipart()
-        email_message['From'] = self.pcor_ingest_configuration.mail_from
-        recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
-        submission = pcor_processing_result.model_data["submission"]
-        if submission.curator_email:
-            recipients.append(submission.curator_email)
+        try:
+            logger.info('send_email_report()')
+            email_message = MIMEMultipart()
+            email_message['From'] = self.pcor_ingest_configuration.mail_from
+            recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov', 'april.graves@nih.gov']
+            submission = pcor_processing_result.model_data["submission"]
+            if submission.curator_email and self.pcor_ingest_configuration.mail_send_curator_email:
+                recipients.append(submission.curator_email)
 
-        email_message['To'] = ", ".join(recipients)
+            email_message['To'] = ", ".join(recipients)
 
-        email_message['Subject'] = 'CHORDS Curation Report'
+            email_message['Subject'] = 'CHORDS Curation Report'
 
-        # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
-        email_message.attach(MIMEText(email_text, "html"))
-        # Convert it as a string
-        email_string = email_message.as_string()
+            # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
+            email_message.attach(MIMEText(email_text, "html"))
+            # Convert it as a string
+            email_string = email_message.as_string()
 
-        # Send the message via local SMTP server.
-        s = smtplib.SMTP(self.pcor_ingest_configuration.smtp_server)
-        s.starttls()
-        # s.login(email_login,
-        #        email_passwd)
-        s.send_message(email_message)
-        s.quit()
+            # Send the message via local SMTP server.
+            logger.info('Initializing SMTP connection....')
+            s = smtplib.SMTP(self.pcor_ingest_configuration.smtp_server)
+            s.starttls()
+            # s.login(email_login,
+            #        email_passwd)
+            s.send_message(email_message)
+            s.quit()
+        except Exception as e:
+            logger.info('Error sending email report: %s', e)
+            # Log the stack trace
+            stack_trace = traceback.format_exc()
+            logger.error('Stack Trace: %s', stack_trace)

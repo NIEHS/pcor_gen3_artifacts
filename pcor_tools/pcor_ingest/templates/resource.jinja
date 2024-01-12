@@ -3,12 +3,18 @@
   "submitter_id": "{{ resource.submitter_id }}",
   "name": "{{ resource.name }}",
   "long_name": "{{ resource.long_name }}",
-  "resource_type": "{{ resource.resource_type }}",
+  "short_name": "{{ resource.short_name }}",
+  "resource_type": "{{resource.resource_type}}",
   "resource_url": "{{ resource.resource_url }}",
   "description": "{{ resource.description }}",
   "domain": [
     {% for entry in resource.domain %}
-
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "domain_other": [
+    {% for entry in resource.domain_other %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
@@ -20,8 +26,18 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "access_type": "{{ resource.access_type }}",
-  "resource_reference": "{{ resource.resource_reference }}",
+  "access_type": [
+    {% for entry in resource.access_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "resource_reference": [
+    {% for entry in resource.resource_reference %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "resource_use_agreement": "{{ resource.resource_use_agreement }}",
   "publications":  [
     {% for entry in resource.publications %}
@@ -29,7 +45,13 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "is_static": {{ resource.is_static }},
+
+  {% if resource.is_static %}
+      "is_static": true,
+  {% else %}
+       "is_static": false,
+  {% endif %}
+
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.code }}"

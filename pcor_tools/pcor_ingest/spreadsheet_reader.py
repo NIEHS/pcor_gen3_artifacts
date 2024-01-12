@@ -5,6 +5,7 @@ from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.population_data_resource_parser import PopulationDataResourceParser
+from pcor_ingest.geospatial_tool_resource_parser import GeoSpatialToolResourceParser
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -63,6 +64,7 @@ class PcorSpreadsheeetReader:
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
         self.parsers["population_data_resource"] = PopulationDataResourceParser()
+        self.parsers["geospatial_tool_resource"] = GeoSpatialToolResourceParser()
         self.result_handler = PcorReporter(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):
@@ -77,7 +79,10 @@ class PcorSpreadsheeetReader:
         type = self.determine_template_instance_type(template_absolute_path)
         logger.info("of type: %s" % type)
 
-        parser = self.parsers[type]
+        if type in self.parsers:
+            parser = self.parsers[type]
+        else:
+            parser = None
 
         if parser is None:
             logger.error("No parser found for type: %s" % type)
@@ -85,12 +90,13 @@ class PcorSpreadsheeetReader:
             result.success = False
             result.source = template_absolute_path
             result.errors.append("no template parser found for type %s" % type)
+            raise Exception("no template parser found for type %s" % type)
             return
 
         parser.parse(template_absolute_path, result)
         if not result.success:
             logger.error("error parsing: %s" % result)
-            return
+            return result
         else:
             logger.debug('parsing successful: %s' % result)
             return result
@@ -103,12 +109,12 @@ class PcorSpreadsheeetReader:
         :return: string value which is the resource type, used for dictionary lookups
         """
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
         logger.info(df)
         type_field = df.iat[0, 0]
         val_field = df.iat[0, 1]
         logger.info("val:%s" % val_field)
-        if type_field != "Type":
+        if type_field != "Type" or pd.isna(val_field):
             logger.error("did not find expected TYPE field")
-            raise Exception("Cannot determine resource type via TYPE field")
+            raise Exception("Cannot determine resource type via TYPE field value: %s" % val_field)
         return df.iat[0, 1]

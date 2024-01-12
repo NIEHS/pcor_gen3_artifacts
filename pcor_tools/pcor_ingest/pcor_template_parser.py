@@ -1,7 +1,9 @@
 import logging
 import math
+import re
 import traceback
 import uuid
+import json
 import warnings
 import pandas as pd
 from datetime import datetime
@@ -37,15 +39,16 @@ class PcorTemplateParser:
         :param result: PcorTemplateParseResult with the outcome
         """
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0)
+        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
 
         try:
             result.model_data["submission"] = self.extract_submission_data(df)
         except Exception as err:
-            logger.error("exception parsing submission: %s" % err)
+            logger.error("exception parsing submission: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing submission: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing submission: %s" % str(err))
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
             return
 
         try:
@@ -55,10 +58,11 @@ class PcorTemplateParser:
             result.program_name = program.name
 
         except Exception as err:
-            logger.error("exception parsing program: %s" % err)
+            logger.error("exception parsing program: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing program: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing program: %s" % str(err))
+            result.traceback = traceback.format_exc()
+            result.message = str(err)
             return
 
         try:
@@ -67,10 +71,11 @@ class PcorTemplateParser:
             result.project_guid = project.submitter_id
             result.project_code = project.code
         except Exception as err:
-            logger.error("exception parsing project: %s" % err)
+            logger.error("exception parsing project: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing project: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing project: %s" % str(err))
+            result.message = str(err)
+            result.traceback = traceback.format_exc()
             return
 
         result.project_name = result.model_data["project"].name
@@ -81,10 +86,11 @@ class PcorTemplateParser:
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
         except Exception as err:
-            logger.error("exception parsing resource: %s" % err)
+            logger.error("exception parsing resource: %s" % str(err))
             result.success = False
-            result.errors.append("error parsing resource: %s" % err)
-            result.traceback = traceback.format_exc(err)
+            result.errors.append("error parsing resource: %s" % str(err))
+            result.message = str(err)
+            result.traceback = traceback.format_exc()
 
     @staticmethod
     def extract_program_data(template_df):
@@ -168,18 +174,22 @@ class PcorTemplateParser:
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'project_code':
+                    elif template_df.iat[j, 0] == 'project_name':
                         project.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
-                        project.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
-                        project.code = project.name
+                        project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        #if project_short_name is not empty, use it for project.code
+                        if project.short_name:
+                            project.name = project.short_name.replace(' ', '').strip()
+                            project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
-                        project.project_sponsor = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        logger.info(project.project_sponsor)
+                        project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
-                        project.project_sponsor_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
-                        project.project_sponsor_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'project_sponsor_type_other':
+                        project.project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -228,7 +238,10 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_name':
                         resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_short_name':
-                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
+                        resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        # cleanup short name and use it as unique resource short name, no special characters or spaces
+                        # do not use sanitize_column()
+                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
                     elif template_df.iat[j, 0] == 'resource_type':
                         resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_url':
@@ -236,11 +249,13 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'resource_description':
                         resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'domain_other':
+                        resource.domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'keywords':
-                        resource.keywords = PcorTemplateParser.sanitize_column(template_df.iat[j, 1].split(','))
+                        resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'access_type':
-                        resource.access_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'payment_required':
                         resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'date_added':
@@ -250,18 +265,18 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'date_verified':
                         resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'resource_use_agreement':
                         resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'publications':
-                        resource.publications = str(template_df.iat[j, 1]).split(',')
+                       resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'is_static':
                         resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if str(resource.is_static).lower() == 'no':
                             resource.is_static = False
                         elif str(resource.is_static).lower() == 'yes':
                             resource.is_static = True
-                    elif template_df.iat[j, 0] == 'Data_Resource':
+                    elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
 
                         # validate needed props and guid assignment
                         if resource.submitter_id is None or resource.submitter_id == '':
@@ -271,6 +286,17 @@ class PcorTemplateParser:
 
         logger.warning("no program found, return null")
         return None
+
+    @staticmethod
+    def make_complex_array(value):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+        temp_list = []
+        if clean_value:
+            temp_list = str(clean_value).splitlines()
+            if temp_list and len(temp_list) == 1:
+                return PcorTemplateParser.make_array(temp_list[0])
+
+        return temp_list
 
     @staticmethod
     def make_array(value):
@@ -287,17 +313,25 @@ class PcorTemplateParser:
         result = []
         if value:
             result = value.split(",")
+            result = list(filter(bool, result)) #clean up any null items
         return result
 
     @staticmethod
-    def sanitize_column(value):
+    def sanitize_column(value, escape_new_line=True):
         if isinstance(value, str):
             if not value:
-                return ""
-            return value.strip()
+                return None
+            # escape double quotes inside string
+            value = re.sub(r'\d\.\s+', '', value)
+            value = re.sub(r'[•●]\s+', '', value)
+            if escape_new_line:
+                value = re.sub(r'\n', '\\\\n', value)
+            value = re.sub(r'\t', "\\\\t", value) #must escape newlines for strings they are not valid json
+
+            return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):
-                return ""
+                return None
             else:
                 return str(value)
         return value

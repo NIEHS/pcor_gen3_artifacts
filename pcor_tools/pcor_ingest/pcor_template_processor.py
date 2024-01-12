@@ -22,8 +22,8 @@ class PcorTemplateProcessor:
     A parent class for a processor of a PCOR spreadsheet template for a type
     """
 
-    def __init__(self):
-        self.pcor_ingest = PcorGen3Ingest(PcorIngestConfiguration('test_resources/pcor.properties'))
+    def __init__(self, pcor_ingest_configuration):
+        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
 
     def process(self, parsed_data):
 
@@ -45,7 +45,7 @@ class PcorTemplateProcessor:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
                 program = model_data['program']
-                parsed_data.program_name = program
+                parsed_data.program_name = program.name
                 try:
                     program_id = self.pcor_ingest.create_program(program=program)
                 except HTTPError as pcor_error:
@@ -78,7 +78,7 @@ class PcorTemplateProcessor:
                         parsed_data.response_content = json.loads(pcor_error.response.text)
                         parsed_data.path_url = parsed_data.request_content.path_url
                         parsed_data.message = pcor_error.response.text
-                        parsed_data.traceback = traceback.format_exc(pcor_error)
+                        parsed_data.traceback = traceback.format_exc()
                         logger.error("error in project create: %s" % pcor_error)
                         return
 
@@ -87,7 +87,7 @@ class PcorTemplateProcessor:
                         resource = model_data['resource']
                         resource_submit_status = self.pcor_ingest.create_resource(
                             program_name=program.name,
-                            project_code=project.name,
+                            project_code=project.code,
                             resource=resource)
 
                         # add a check if resource_submit_status.success == False
@@ -117,7 +117,7 @@ class PcorTemplateProcessor:
 
                             resource_submit_status = self.pcor_ingest.create_geo_spatial_data_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 geo_spatial_data_resource=geo_spatial_resource
                             )
 
@@ -133,7 +133,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['geospatial_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         geo_spatial_resource)
@@ -145,10 +145,11 @@ class PcorTemplateProcessor:
                                 filter.value = item
                                 discovery.adv_search_filters.append(filter)
 
-                            for item in geo_spatial_resource.exposure_media:
+
+                            if geo_spatial_resource.exposure_media:
                                 filter = AdvSearchFilter()
                                 filter.key = "Exposures"
-                                filter.value = item
+                                filter.value = geo_spatial_resource.exposure_media
                                 discovery.adv_search_filters.append(filter)
 
                             logger.info("created discovery: %s" % discovery)
@@ -164,7 +165,7 @@ class PcorTemplateProcessor:
 
                             resource_submit_status = self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 pop_data_resource=pop_data_resource
                             )
 
@@ -179,7 +180,7 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
-                            resource.resource_type = parsed_data.type
+                            resource.resource_type = model_data['population_data_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         pop_data_resource)
@@ -207,16 +208,16 @@ class PcorTemplateProcessor:
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 
-                        if 'geo_tool_resource' in model_data.keys():
+                        if 'geospatial_tool_resource' in model_data.keys():
                             logger.info('process:: adding geo_tool_resource')
-                            geo_tool_resource = model_data['geo_tool_resource']
+                            geo_tool_resource = model_data['geospatial_tool_resource']
                             geo_tool_resource.resource_id = resource_submit_status.id
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
                             geo_tool_resource.submitter_id = resource.submitter_id
 
                             self.pcor_ingest.create_geo_spatial_tool_resource(
                                 program_name=program.name,
-                                project_name=project.name,
+                                project_code=project.code,
                                 geo_spatial_tool_resource=geo_tool_resource
                             )
 
@@ -231,6 +232,34 @@ class PcorTemplateProcessor:
                                 parsed_data.request_content = resource_submit_status.request_content
                                 return
 
+                            resource.resource_type = model_data['geospatial_tool_resource'].display_type
+
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
+                                                                                        geo_tool_resource)
+                            discovery.comment = geo_tool_resource.intended_use  # intended use?
+
+                            for item in geo_tool_resource.tool_type:
+                                filter = AdvSearchFilter()
+                                filter.key = "Tool_Type"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_tool_resource.operating_system:
+                                filter = AdvSearchFilter()
+                                filter.key = "Operating_System"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            for item in geo_tool_resource.languages:
+                                filter = AdvSearchFilter()
+                                filter.key = "Languages"
+                                filter.value = item
+                                discovery.adv_search_filters.append(filter)
+
+                            logger.info("created discovery: %s" % discovery)
+                            discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
+                            logger.info("discovery_result: %s" % discovery_result)
+
         except requests.HTTPError as exception:
             logger.error('unexpected Error occurred: %s' % str(exception))
             parsed_data.success = False
@@ -238,5 +267,5 @@ class PcorTemplateProcessor:
             pcor_error.type = ""
             pcor_error.key = ""
             pcor_error.message = str(exception)
-            pcor_error.traceback = traceback.format_exc(exception)
+            pcor_error.traceback = traceback.format_exc()
             parsed_data.errors.append(pcor_error)

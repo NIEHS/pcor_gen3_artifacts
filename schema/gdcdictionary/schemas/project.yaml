@@ -85,7 +85,7 @@ properties:
     type: string
   name:
     type: string
-    description: Short display name/brief description for the project.
+    description: Unique name for the project.
   releasable:
     description: |
       A project can only be released by the user when `releasable` is true.
@@ -145,27 +145,42 @@ properties:
 
 
   # additional properties to describe the project
+  short_name:
+    type: string
+    description: Short display name/brief description for the project.
+
   long_name:
     type: string
     description: Display name/brief description for the project. # TOREVIEW
 
   project_sponsor:
     description: the name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department or consortium name.
-    nullable: true
-    type: string
+    type: array
+    items:
+      type: string
 
   project_sponsor_other:
     description: if does not appear in the CV above, use this value (mc)
-    type: string
+    type: array
+    items:
+      type: string
 
   project_sponsor_type:
     description: Type of project. If multiple use Multiple
-    enum:
-      - Federal Agency
-      - State Agency
-      - Academic Institution
-      - Non-profit Organization
+    type: array
+    items:
+      type: string
+    #enum:
+    #  - Federal Agency
+    #  - State Agency
+    #  - Academic Institution
+    #  - Non-profit Organization
 
+  project_sponsor_type_other:
+    description: type of sponsor organization if does not appear in the CV above
+    type: array
+    items:
+      type: string
   project_url:
     description: URL for the project
     type: string

@@ -38,10 +38,12 @@ class PcorIntermediateProjectModel:
         # project
         self.id = ""
         self.name = ""
+        self.short_name = ""
         self.long_name = ""
-        self.project_sponsor = ""
-        self.project_sponsor_other = ""
-        self.project_sponsor_type = ""
+        self.project_sponsor = []
+        self.project_sponsor_other = []
+        self.project_sponsor_type = []
+        self.project_sponsor_type_other = []
         self.project_url = ""
         self.description = ""
         self.code = ""
@@ -64,18 +66,20 @@ class PcorIntermediateResourceModel:
         self.id = ""
         self.submitter_id = ""
         self.name = ""
+        self.short_name = ""
         self.long_name = ""
         self.resource_type = ""
         self.resource_url = ""
         self.description = ""
-        self.domain = ""
+        self.domain = []
+        self.domain_other = []
         self.keywords = []
-        self.access_type = ""
+        self.access_type = []
         self.payment_required = ""
         self.created_datetime = ""
         self.updated_datetime = ""
         self.verification_datetime = ""
-        self.resource_reference = ""
+        self.resource_reference = []
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
@@ -111,17 +115,21 @@ class PcorGeospatialDataResourceModel:
 
     def __init__(self):
         # data resc props are common
+        self.display_type = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = ""
+        self.source_name = []
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
         self.has_visualization_tool = False
 
         # additional properties to describe the dataset
+        self.data_formats = []
+        self.data_location = []
         self.measures = []
-        self.measurement_method = ""
+        self.measurement_method = []
+        self.measurement_method_other = []
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
@@ -131,12 +139,12 @@ class PcorGeospatialDataResourceModel:
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = ""
         self.spatial_bounding_box = ""
-        self.geometry_type = ""
-        self.geometry_source = ""
-        self.model_methods = ""
-        self.exposure_media = []
-        self.geographic_feature = ""
-
+        self.geometry_type = []
+        self.geometry_source = []
+        self.model_methods = []
+        self.exposure_media = ""
+        self.geographic_feature = []
+        self.geographic_feature_other = []
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_submitter_id = ""
@@ -159,8 +167,7 @@ class PcorDiscoveryMetadata:
         self.comment = ""  # collapses intended_use and other descriptions
         self.description = ""
         self.support_source = ""
-        self.source_url = ""
-        self.publications = ""
+        self.publications = []
         self.domain = []
         self.has_api = ""
         self.has_visualization_tool = ""
@@ -200,6 +207,7 @@ class PcorPopDataResourceModel:
     """
 
     def __init__(self):
+        self.display_type = ""
         self.pcor_intermediate_resource_model = None
         self.submitter_id = ""
         self.project_id = ""
@@ -211,8 +219,7 @@ class PcorPopDataResourceModel:
         self.updated_datetime = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = ""
-        self.source_url = ""
+        self.source_name = []
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
@@ -223,8 +230,8 @@ class PcorPopDataResourceModel:
         self.spatial_resolution = ""
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = []
-        self.geometry_type = ""
-        self.geometry_source = ""
+        self.geometry_type = []
+        self.geometry_source = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
@@ -232,6 +239,10 @@ class PcorPopDataResourceModel:
         self.model_methods = []
         self.population_studied = []
         self.population_studied_other = []
+        self.exposure_media = []
+        self.measures = []
+        self.data_formats = []
+        self.data_location = []
 
 
 class PcorGeoToolModel:
@@ -240,6 +251,7 @@ class PcorGeoToolModel:
     """
 
     def __init__(self):
+        self.display_type = ""
         self.pcor_intermediate_resource_model = None
         self.submitter_id = ""
         self.project_id = ""
@@ -250,18 +262,9 @@ class PcorGeoToolModel:
         self.submitter_id = ""
         self.updated_datetime = ""
         self.tool_type = []
-        self.usage_type = ""
         self.operating_system = []
         self.languages = []
-        self.input_formats = []
-        self.output_formats = []
-        self.time_extent_start = ""
-        self.time_extent_end = ""
-        self.times_available_comment = ""
-        self.temporal_resolution = ""
-        self.spatial_resolution = ""
-        self.spatial_coverage = ""
-        self.spatial_bounding_box = ""
-        self.geometry_type = ""
-        self.geometry_source = ""
-        self.model_methods = ""
+        self.license_type = []
+        self.intended_use = ""
+        self.is_open = False
+        self.suggested_audience = []

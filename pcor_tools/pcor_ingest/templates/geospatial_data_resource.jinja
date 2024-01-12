@@ -1,24 +1,30 @@
 {
   "type": "geospatial_data_resource",
+  "display_type": "GeoExposureData",
   "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "comments": "{{ geo_spatial_data_resource.comments }}",
   "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
-  "source_name": "{{ geo_spatial_data_resource.source_name }}",
+  "source_name": [
+    {% for entry in geo_spatial_data_resource.source_name %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "update_frequency": "{{ geo_spatial_data_resource.update_frequency }}",
 
-  {% if not geo_spatial_data_resource.includes_citizen_collected %}
+  {% if geo_spatial_data_resource.includes_citizen_collected %}
       "includes_citizen_collected": true,
   {% else %}
        "includes_citizen_collected": false,
   {% endif %}
 
-  {% if not geo_spatial_data_resource.has_api %}
+  {% if geo_spatial_data_resource.has_api %}
       "has_api": true,
   {% else %}
        "has_api": false,
   {% endif %}
 
-  {% if not geo_spatial_data_resource.has_visualization_tool %}
+  {% if geo_spatial_data_resource.has_visualization_tool %}
       "has_visualization_tool": true,
   {% else %}
        "has_visualization_tool": false,
@@ -30,7 +36,18 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "measurement_method": "{{ geo_spatial_data_resource.measurement_method }}",
+  "measurement_method": [
+    {% for entry in geo_spatial_data_resource.measurement_method %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measurement_method_other": [
+    {% for entry in geo_spatial_data_resource.measurement_method_other %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   {% if geo_spatial_data_resource.time_extent_start  %}
     "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
   {% endif %}
@@ -44,16 +61,49 @@
   "spatial_coverage": "{{ geo_spatial_data_resource.spatial_coverage }}",
   "spatial_coverage_specific_regions": "{{ geo_spatial_data_resource.spatial_coverage_specific_regions }}",
   "spatial_bounding_box": "{{ geo_spatial_data_resource.spatial_bounding_box }}",
-  "geometry_type": "{{ geo_spatial_data_resource.geometry_type }}",
-  "geometry_source": "{{ geo_spatial_data_resource.geometry_source }}",
-  "model_methods": "{{ geo_spatial_data_resource.model_methods }}",
-  "exposure_media":  [
-    {% for entry in geo_spatial_data_resource.exposure_media %}
+  "geometry_type": [
+    {% for entry in geo_spatial_data_resource.geometry_type %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "geographic_feature": "{{ geo_spatial_data_resource.geographic_feature }}",
+  "geometry_source": [
+    {% for entry in geo_spatial_data_resource.geometry_source %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "model_methods":  [
+    {% for entry in geo_spatial_data_resource.model_methods %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "exposure_media":  "{{ geo_spatial_data_resource.exposure_media }}",
+  "geographic_feature": [
+    {% for entry in geo_spatial_data_resource.geographic_feature %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geographic_feature_other": [
+    {% for entry in geo_spatial_data_resource.geographic_feature_other %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_formats": [
+    {% for entry in geo_spatial_data_resource.data_formats %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_location": [
+    {% for entry in geo_spatial_data_resource.data_location %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
     "resources": {
         "node_id": "{{ geo_spatial_data_resource.resource_id }}",
         "submitter_id": "{{ geo_spatial_data_resource.resource_submitter_id }}"

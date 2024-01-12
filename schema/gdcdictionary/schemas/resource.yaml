@@ -65,6 +65,9 @@ properties:
     description: Internal identifier. # should we just use id?
     type: string
   name:
+    description: Unique name of resource.
+    type: string
+  short_name:
     description: Name of resource.
     type: string
   long_name:
@@ -72,10 +75,7 @@ properties:
     type: string
   resource_type:
     description: Type of resource
-    enum:
-      - Data Resource
-      - Tool Resources
-      - Training Resource
+    type: string
   resource_url:
     description: resource website
     type: string
@@ -84,20 +84,14 @@ properties:
     type: string
   domain:
     description: Domain of the resource
-    enum:
-      - Social Determinants of Health
-      - Electronic Health Records
-      - Population Health Records
-      - Clinical Research
-      - General Exposure
-      - Air Quality
-      - Water Quality
-      - Water Security
-      - Greenness
-      - Neighborhood
-      - Weather
-      - Extreme Weather
-      - Climate Change
+    type: array
+    items:
+      type: string
+  domain_other:
+    description: subject domain of the resource if does not appear in the CV above
+    type: array
+    items:
+      type: string
   keywords:
     description: Comma delimiter keywords.
     type: array
@@ -105,10 +99,9 @@ properties:
       type: string
   access_type:
      description: type of resource access
-     enum:
-       - open
-       - registered
-       - controlled
+     type: array
+     items:
+       type: string
   payment_required:
     description: Indicate whether resource is free or fee based
     type: boolean
@@ -117,7 +110,9 @@ properties:
     $ref: "_definitions.yaml#/datetime"
   resource_reference:
     description: how to cite this resource, DOI preferred
-    type: string
+    type: array
+    item:
+      type: string
   resource_use_agreement:
     description: agreement for use of the resource, include a link or full text or both, don't paraphrase
     type: string
@@ -129,20 +124,6 @@ properties:
   is_static:
     description: yes if the resource is static, no if the resource is expected to be updated in the future
     type: boolean
-
-  # props not in template
-  citation:
-    description: Citation to use for this resource
-    type: string
-  license_type:
-    description: Type of license.
-    type: string
-  license_text:
-    description: Text of license terms.
-    type: string
-  resource_contact:
-    description: Contact information for the resource.
-    type: string
   projects:
     description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_one_project"

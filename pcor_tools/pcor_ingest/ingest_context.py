@@ -20,6 +20,11 @@ class PcorIngestConfiguration:
         self.smtp_server = self.pcor_props_dict['smtp.server']
         self.mail_from = self.pcor_props_dict['mail.from']
 
+        if not self.pcor_props_dict['mail.send_curator_email'] or str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'no'  or str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'false':
+            self.mail_send_curator_email = False
+        elif str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'true' or str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'yes':
+            self.mail_send_curator_email = True
+
 
 def dict_from_props(filename):
     """return a dictionary of properties file values"""
