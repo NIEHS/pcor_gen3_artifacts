@@ -1,6 +1,6 @@
 global:
   hostname: chords.niehs.nih.gov
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/portal-customize/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -410,7 +410,7 @@ portal:
           "expireUseMsgDays" : 0
         },
         "footer": {
-          "externalURL": "https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/portal-customize/custom_configs/assets/iframe.html",
+          "externalURL": "https://www.niehs.nih.gov/research/programs/chords",
           "links": [
             {
               "text": "About CHORDS",
@@ -1134,7 +1134,7 @@ portal:
         }
       ],
       "connectSrcCSPWhitelist": [
-        "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://raw.githubusercontent.com/"
+        "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov"
       ] }
     css: |
       :root {
