@@ -448,7 +448,7 @@ portal:
           "expireUseMsgDays" : 0
         },
         "footer": {
-          "externalURL": "https://www.niehs.nih.gov/research/programs/chords",
+          "externalURL": "https://rstudio.niehs.nih.gov/content/c0a3fbb4-5309-46c1-a7f9-3a36e7e4b5f1/",
           "links": [
             {
               "text": "About CHORDS",
@@ -1164,7 +1164,7 @@ portal:
         }
       ],
       "connectSrcCSPWhitelist": [
-        "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov"
+        "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://rstudio.niehs.nih.gov"
       ] }
     css: |
       :root {
