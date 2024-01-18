@@ -1228,6 +1228,7 @@ portal:
       .form-body,
       .form-special-number {
           font-family: 'Arial';
+          color: var(--g3-color__black);
       }
 
       /* Buttons */
@@ -1242,6 +1243,10 @@ portal:
       .data-dictionary__switch-button:hover,
       .button-primary-orange:hover {
         background-color: var(--primary-color)
+      }
+
+      .g3-filter-section__options {
+        color: var(--g3-color__black);
       }
 
       .g3-button--default:active,
