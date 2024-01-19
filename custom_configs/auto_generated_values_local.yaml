@@ -122,6 +122,10 @@ fence:
             - name: PM2.5
             - name: NDI
             - name: WA-APCD
+            - name: NASA-HI
+            - name: NASA-WD
+            - name: PURPLE
+            - name: EJScreen
 
       policies:
       - id: 'mds_admin'
@@ -188,6 +192,10 @@ fence:
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
+        - /programs/CHORDS/projects/NASA-AQ
+        - /programs/CHORDS/projects/NASA-WD
+        - /programs/CHORDS/projects/PURPLE
+        - /programs/CHORDS/projects/EJScreen
 
       - id: all_programs_reader
         role_ids:
@@ -233,6 +241,10 @@ fence:
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
+        - /programs/CHORDS/projects/NASA-AQ
+        - /programs/CHORDS/projects/NASA-WD
+        - /programs/CHORDS/projects/PURPLE
+        - /programs/CHORDS/projects/EJScreen
 
 
       roles:
