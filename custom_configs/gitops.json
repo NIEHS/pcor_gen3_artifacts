@@ -487,9 +487,9 @@
     {
       "tabTitle": "Geospatial Data Resources",
       "charts": {
-        "project_investigator_affiliation": {
+        "domain": {
           "chartType": "bar",
-          "title": "Investigator Affiliation"
+          "title": "Domain"
         }
       },
       "filters": {
@@ -606,9 +606,9 @@
     {
       "tabTitle": "Population Data Resources",
       "charts": {
-        "project_investigator_affiliation": {
+        "domain": {
           "chartType": "bar",
-          "title": "Investigator Affiliation"
+          "title": "Domain"
         }
       },
       "filters": {
@@ -723,9 +723,9 @@
     {
       "tabTitle": "Geospatial Tool Resources",
       "charts": {
-        "project_investigator_affiliation": {
+        "domain": {
           "chartType": "bar",
-          "title": "Investigator Affiliation"
+          "title": "Domain"
         }
       },
       "filters": {
