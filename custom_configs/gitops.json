@@ -102,22 +102,20 @@
       "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."],
       "expireUseMsgDays" : 0
     },
-    "categorical9Colors": [
-      "#B02F34",
-      "#421C52",
-      "#AEEBF2",
-      "#E0DD10",
-      "#40476D",
-      "#FFA630",
-      "#AE8799",
-      "#035C94",
-      "#462255"
-    ],
-    "footerLogos": [
+    "footer": {
+      "externalURL": "https://rstudio.niehs.nih.gov/content/c0a3fbb4-5309-46c1-a7f9-3a36e7e4b5f1/",
+      "links": [
+        {
+          "text": "About CHORDS",
+          "href": "https://www.niehs.nih.gov/research/programs/chords"
+        }
+      ]
+    },
+    "footerLogos": [ 
       {
-        "src": "/src/img/gen3.png",
-        "href": "https://ctds.uchicago.edu/gen3",
-        "alt": "CHORDS Health Data Commons"
+        "src": "/src/img/createdby.png",
+        "href": "https://ctds.uchicago.edu/",
+        "alt": "Center for Translational Data Science at the University of Chicago"
       }
     ]
   },
@@ -139,7 +137,6 @@
         "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
         "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
         "imageUrl": "custom/chordstk.jpg"
-
       }
     ]
   },
@@ -822,5 +819,5 @@
     }
   ],
   "connectSrcCSPWhitelist": [
-    "https://gen3-dev.niehs.nih.gov", "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/"
+    "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://rstudio.niehs.nih.gov"
   ] }

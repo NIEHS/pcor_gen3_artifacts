@@ -59,6 +59,7 @@
   .form-body,
   .form-special-number {
       font-family: 'Arial';
+      color: var(--g3-color__black);
   }
 
   /* Buttons */
@@ -73,6 +74,10 @@
   .data-dictionary__switch-button:hover,
   .button-primary-orange:hover {
     background-color: var(--primary-color)
+  }
+
+  .g3-filter-section__options {
+    color: var(--g3-color__black);
   }
 
   .g3-button--default:active,
@@ -269,4 +274,10 @@
     .index-button-bar {
       padding: 0 10%;
     }
+  }
+
+  #externalFooter {
+    display: block !important;
+    width: 100% !important;
+    height: 350px !important;
   }
