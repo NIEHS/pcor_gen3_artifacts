@@ -81,7 +81,6 @@ fence:
             - name: WISQARS
             - name: WONDER
             - name: WFSmokeExp
-            - name: EJScreen
             - name: PM2.5
             - name: NDI
             - name: WA-APCD
@@ -151,7 +150,6 @@ fence:
         - /programs/CHORDS/projects/WISQARS
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/WFSmokeExp
-        - /programs/CHORDS/projects/EJScreen
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
@@ -200,7 +198,6 @@ fence:
         - /programs/CHORDS/projects/WISQARS
         - /programs/CHORDS/projects/WONDER
         - /programs/CHORDS/projects/WFSmokeExp
-        - /programs/CHORDS/projects/EJScreen
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
