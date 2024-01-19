@@ -156,6 +156,7 @@ fence:
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
         - /programs/CHORDS/projects/NASA-AQ
+        - /programs/CHORDS/projects/NASA-HI
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
         - /programs/CHORDS/projects/EJScreen
@@ -205,6 +206,7 @@ fence:
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
         - /programs/CHORDS/projects/NASA-AQ
+        - /programs/CHORDS/projects/NASA-HI
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
         - /programs/CHORDS/projects/EJScreen
