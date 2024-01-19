@@ -192,7 +192,6 @@ fence:
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
-        - /programs/CHORDS/projects/NASA-AQ
         - /programs/CHORDS/projects/NASA-HI
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
@@ -242,7 +241,6 @@ fence:
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
-        - /programs/CHORDS/projects/NASA-AQ
         - /programs/CHORDS/projects/NASA-HI
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
