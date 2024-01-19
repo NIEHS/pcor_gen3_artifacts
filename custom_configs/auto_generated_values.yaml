@@ -803,9 +803,9 @@ portal:
         {
           "tabTitle": "Geospatial Data Resources",
           "charts": {
-            "project_investigator_affiliation": {
+            "domain": {
               "chartType": "bar",
-              "title": "Investigator Affiliation"
+              "title": "Domain"
             }
           },
           "filters": {
@@ -922,9 +922,9 @@ portal:
         {
           "tabTitle": "Population Data Resources",
           "charts": {
-            "project_investigator_affiliation": {
+            "domain": {
               "chartType": "bar",
-              "title": "Investigator Affiliation"
+              "title": "Domain"
             }
           },
           "filters": {
@@ -1039,9 +1039,9 @@ portal:
         {
           "tabTitle": "Geospatial Tool Resources",
           "charts": {
-            "project_investigator_affiliation": {
+            "domain": {
               "chartType": "bar",
-              "title": "Investigator Affiliation"
+              "title": "Domain"
             }
           },
           "filters": {
@@ -1170,7 +1170,7 @@ portal:
       --g3-primary-btn__border-color--hover: var(--g3-color__gray);
       --g3-primary-btn__border-color--active: var(--g3-color__lightgray);
 
-      --g3-secondary-btn__color: var(--g3-color__white);
+      --g3-secondary-btn__color: var(--g3---secondary-color);
       --g3-secondary-btn__bg-color: var(--secondary-color);
       --g3-secondary-btn__bg-color--hover: var(--secondary-color_light);
       --g3-secondary-btn__border-color: var(--g3-color__lightgray);
@@ -1185,7 +1185,7 @@ portal:
       --g3-default-btn__border-color--hover: var(--g3-color__black);
 
       --g3-disabled-btn__color: var(--g3-color__lightgray);
-      --g3-disabled-btn__bg-color: var(--g3-color__white);
+      --g3-disabled-btn__bg-color: var(--secondary-color_light);
       --g3-disabled-btn__border-color: var(--g3-color__silver);
 
       --g3-dropdown-item__bg-color: var(--g3-color__gray);
@@ -1366,6 +1366,10 @@ portal:
 
       .g3-single-select-filter__checkbox:checked {
         background: var(--primary-color);
+      }
+
+      .g3-single-select-filter__checkbox {
+        border: 1px solid var(--g3-color__black)
       }
 
       .input-range__track--active,
