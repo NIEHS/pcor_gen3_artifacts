@@ -1,0 +1,69 @@
+:root {
+  --primary-color: #225C7A;
+  --secondary-color: #518611;
+
+  --primary-color_light: #7db3cb;
+  --secondary-color_light: #77a22c;
+
+  --g3-color__bg-cloud: #ebebeb;
+  --g3-color__bg-coal: #333333;
+  --g3-color__gray: #cccccc;
+  --g3-color__lightgray: #ebebeb;
+  --g3-color__smoke: #afad83;
+  --g3-color__silver: #72898D;
+  --g3-color__black: #000000;
+  --g3-color__white: #FFFFFF;
+  --g3-color__purple: #56608B;
+
+  --g3-primary-btn__color: var(--g3-color__white);
+  --g3-primary-btn__bg-color: var(--secondary-color);
+  --g3-primary-btn__bg-color--hover: var(--secondary-color_light);
+  --g3-primary-btn__border-color: var(--g3-color__lightgray);
+  --g3-primary-btn__border-color--hover: var(--g3-color__gray);
+  --g3-primary-btn__border-color--active: var(--g3-color__lightgray);
+
+  --g3-secondary-btn__color: var(--g3---secondary-color);
+  --g3-secondary-btn__bg-color: var(--secondary-color);
+  --g3-secondary-btn__bg-color--hover: var(--secondary-color_light);
+  --g3-secondary-btn__border-color: var(--g3-color__lightgray);
+  --g3-secondary-btn__border-color--hover: var(--g3-color__gray);
+  --g3-secondary-btn__border-color--active: var(--g3-color__lightgray);
+
+  --g3-default-btn__color: var(--g3-color__gray);
+  --g3-default-btn__color--hover: var(--g3-color__black);
+  --g3-default-btn__color--active: var(--g3-color_lightgray);
+  --g3-default-btn__bg-color: var(--g3-color__white);
+  --g3-default-btn__border-color: var(--g3-color__gray);
+  --g3-default-btn__border-color--hover: var(--g3-color__black);
+
+  --g3-disabled-btn__color: var(--g3-color__lightgray);
+  --g3-disabled-btn__bg-color: var(--secondary-color_light);
+  --g3-disabled-btn__border-color: var(--g3-color__silver);
+
+  --g3-dropdown-item__bg-color: var(--g3-color__gray);
+  --g3-dropdown-item__color: var(--g3-color__white);
+  --g3-dropdown-menu__border-color: var(--g3-color__gray);
+
+  --g3-footer-color: var(--g3-color__bg-coal);
+  --g3-font__medium-weight: 500;
+  --g3-font__semi-bold-weight: 600;
+  }
+
+  h1, h2, h3, h4,
+  body,
+  .caption,
+  .form-h1, .form-h2, .form-caption,
+  .introduction,
+  .body,
+  .special-number,
+  .form-body,
+  .form-special-number {
+      font-family: 'Arial';
+  }
+
+  .nav-bar__logo-img {
+    height: 100px;
+  }
+
+  
+  
