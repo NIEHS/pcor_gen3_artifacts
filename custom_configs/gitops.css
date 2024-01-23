@@ -285,3 +285,7 @@
     width: 100% !important;
     height: 350px !important;
   }
+
+  .nav-bar__logo-img {
+    height: 100px;
+  }
