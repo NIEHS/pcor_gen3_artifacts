@@ -319,6 +319,8 @@ class PcorTemplateParser:
     @staticmethod
     def sanitize_column(value, escape_new_line=True):
         if isinstance(value, str):
+            if value.lower() == 'none':
+                return None
             if not value:
                 return None
             # escape double quotes inside string
