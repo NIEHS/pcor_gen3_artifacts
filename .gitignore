@@ -383,3 +383,4 @@ pcor_tools/tests/pcor_work_dir
 #custom_configs/auto_generated_values.yaml
 #custom_configs/auto_generated_values_local.yaml
 .Rproj.user
+*/chords-footer.dcf
