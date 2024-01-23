@@ -1,0 +1,12 @@
+name: chords-footer
+title: chords-footer
+username: conwaymc
+account: conwaymc
+server: rstudio.niehs.nih.gov
+hostUrl: https://rstudio.niehs.nih.gov/__api__
+appId: 89
+bundleId: 248
+url: https://rstudio.niehs.nih.gov:443/content/c0a3fbb4-5309-46c1-a7f9-3a36e7e4b5f1/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
