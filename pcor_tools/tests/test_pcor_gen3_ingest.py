@@ -19,7 +19,6 @@ class TestPcorGen3Ingest(unittest.TestCase):
         logger.info('test_delete_discovery_metadata_with_guid()')
 
         guid = 'b8058b19-46bd-4f7a-bca9-edd30e35c314'  # hardcode entry to be deleted
-
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         actual = pcor_ingest.delete_discovery_metadata_with_guid(guid=guid)
         logger.info(actual)
@@ -65,4 +64,10 @@ class TestPcorGen3Ingest(unittest.TestCase):
         existing_discovery_entires = pcor_ingest.get_discovery_entries()
         response = pcor_ingest.check_discovery_entry_exists(existing_discovery_entries=existing_discovery_entires,
                                                             new_entry=new_entry)
+    def test_query_discovery(self):
+        logger.info('test_query_discovery()')
+        test_query = 'test query'
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        response = pcor_ingest.query_discovery(query=test_query)
         logger.info(response)
