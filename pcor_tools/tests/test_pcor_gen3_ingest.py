@@ -12,9 +12,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class TestDeleteDiscovery(unittest.TestCase):
+class TestPcorGen3Ingest(unittest.TestCase):
 
     def test_delete_discovery_metadata_with_guid(self):
+        # not a real test used to delete discovery entry
         logger.info('test_delete_discovery_metadata_with_guid()')
 
         guid = 'b8058b19-46bd-4f7a-bca9-edd30e35c314'   # hardcode entry to be deleted
@@ -22,3 +23,11 @@ class TestDeleteDiscovery(unittest.TestCase):
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         actual = pcor_ingest.delete_discovery_metadata_with_guid(guid=guid)
         logger.info(actual)
+
+    def test_query_discovery(self):
+        logger.info('test_query_discovery()')
+        test_query = 'test query'
+
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        response = pcor_ingest.query_discovery(query=test_query)
+        logger.info(response)

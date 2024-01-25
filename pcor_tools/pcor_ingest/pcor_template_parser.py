@@ -244,7 +244,7 @@ class PcorTemplateParser:
                             resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             # cleanup short name and use it as unique resource short name, no special characters or spaces
                             # do not use sanitize_column()
-                            resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
+                            resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
                         elif field_name == 'resource_type':
                             resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_url':
@@ -258,7 +258,7 @@ class PcorTemplateParser:
                         elif field_name == 'keywords':
                             resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'access_type':
-                            resource.access_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'payment_required':
                             resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'date_added':
