@@ -221,21 +221,31 @@ class PcorGen3Ingest:
         json_string = self.produce_discovery_json(discovery_data)
         logger.debug("json_string: %s" % json_string)
         discovery_json = json.loads(json_string)
-        discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
+        logger.info('discovery_json: %s', discovery_json)
 
-        logger.info('adding discovery data')
-
-        metadata = Gen3Metadata(self.gen3_auth)
-        response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
-        ''' cgymeyer submit_mds()
-        metadata = Gen3Expansion(auth_provider=self.gen3_auth,
-                                 submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
-                                 endpoint='https://staging.chordshealth.org/')
-        mds = Gen3Metadata(auth_provider=self.gen3_auth)
-        discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
-        response = metadata.submit_mds(mds=discovery_mds)
-        '''
-        return response
+        # validation check
+        existing_discovery_entries = self.get_discovery_entries()
+        discovery_entry_already_exists = self.check_discovery_entry_exists(
+            existing_discovery_entries=existing_discovery_entries,
+            new_entry=discovery_json)
+        if discovery_entry_already_exists:
+            return 'Discovery entry already exists. Skip creating a new entry...'
+        else:
+            logger.info('Discovery entry does not exists: %s', discovery_json)
+            logger.info('Creating a new entry...')
+            discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
+            logger.info('adding discovery data')
+            metadata = Gen3Metadata(self.gen3_auth)
+            response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
+            ''' cgymeyer submit_mds()
+            metadata = Gen3Expansion(auth_provider=self.gen3_auth,
+                                     submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
+                                     endpoint='https://staging.chordshealth.org/')
+            mds = Gen3Metadata(auth_provider=self.gen3_auth)
+            discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
+            response = metadata.submit_mds(mds=discovery_mds)
+            '''
+            return response
 
     def delete_discovery_metadata_with_guid(self, guid):
         """
@@ -249,16 +259,6 @@ class PcorGen3Ingest:
         response = metadata.delete(guid=guid)
 
         return response
-
-    def query_discovery(self, query):
-        """
-        Query discovery metadata given a query
-        """
-        logger.info("query_discovery()")
-        logger.info('query: %s' % query)
-        metadata = Gen3Metadata(self.gen3_auth)
-
-        return
 
     def create_geo_spatial_data_resource(self, program_name, project_code, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
@@ -429,6 +429,28 @@ class PcorGen3Ingest:
                     project_already_exist = True
         return project_already_exist
 
+    @staticmethod
+    def check_discovery_entry_exists(existing_discovery_entries, new_entry):
+        """
+        For now, it only checks if name in new_entry already exists we can expand this in future to validate entry updates
+        :param existing_discovery_entries:
+            Dict{guid: {metadata}}: Dictionary with GUIDs as keys and associated
+                metadata JSON blobs as values
+        :param new_entry: metadata JSON blob
+        :return:
+            True if entry exist
+            False if entry does not exist
+        """
+        logger.info("check_discovery_exists()")
+        new_entry_name = new_entry['name']
+        entry_already_exist = False
+        if existing_discovery_entries:
+            for entry_guid, existing_entry in existing_discovery_entries.items():
+                temp_entry_name = existing_entry['gen3_discovery']['name']
+                if temp_entry_name == new_entry_name:
+                    entry_already_exist = True
+        return entry_already_exist
+
     def retrieve_project_files_tsv(self, project, program, node_type, export_file):
         """
         Export the nodes as tsv
@@ -537,6 +559,21 @@ class PcorGen3Ingest:
             project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
             project.id = result["data"]["project"][0]["id"]
             return project
+
+    def get_discovery_entries(self):
+        """
+        Query all the discovery entries in 'discovery_metadata'
+        :return:
+            Dict{guid: {metadata}}: Dictionary with GUIDs as keys and associated
+            metadata JSON blobs as values
+        """
+        logger.info('get_discovery_entries()')
+        query = "data=True&_guid_type=discovery_metadata&limit=2000&offset=0"
+        metadata = Gen3Metadata(self.gen3_auth)
+
+        # for now limit is set to 100, add batch query for faster response
+        response = metadata.query(query=query, return_full_metadata=True, limit=100)
+        return response
 
     def submit_record(self, program, project, json_data):
         """
