@@ -1,6 +1,6 @@
 global:
   hostname: chords.niehs.nih.gov
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/26-discovery-dp/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -481,7 +481,10 @@ portal:
                 "long_name",
                 "description",
                 "domain",
-                "program_name"
+                "program_name",
+                "project_name",
+                "exposure_media",
+                "measures"
               ]
             },
             "tagSearchDropdown": {
@@ -499,16 +502,13 @@ portal:
                 "key": "Resource Type"
               },
               {
-                "key": "Program"
+                "key": "Project"
               },
               {
                 "key": "Domain"
               },
               {
-                "key": "Measures"
-              },
-              {
-                "key": "Exposure Media"
+                "key": "Exposures"
               },
               {
                 "key": "Population"
@@ -545,6 +545,12 @@ portal:
           {
             "name": "Resource Name",
             "field": "name",
+            "errorIfNotAvailable": false,
+            "valueIfNotAvailable": "n/a"
+          },
+          {
+            "name": "Project Name",
+            "field": "project_name",
             "errorIfNotAvailable": false,
             "valueIfNotAvailable": "n/a"
           },
@@ -769,7 +775,7 @@ portal:
         },
         "tagCategories": [
           {
-            "name": "Program",
+            "name": "Project",
             "color": "rgba(71, 130, 195, 1)",
             "display": true
           },

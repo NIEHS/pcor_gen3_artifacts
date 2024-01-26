@@ -159,6 +159,7 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.program_name = ""
+        self.project_name = ""
         self.project_url = ""
         self.project_description = ""
         self.name = ""
