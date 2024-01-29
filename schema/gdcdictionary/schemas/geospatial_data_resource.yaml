@@ -152,7 +152,9 @@ properties:
       type: string
   exposure_media:
     description: Media that the phenomena is related to.
-    type: string
+    type: array
+    items:
+      type: string
   geographic_feature:
     description: The type of geographic feature associated with the data
     type: array

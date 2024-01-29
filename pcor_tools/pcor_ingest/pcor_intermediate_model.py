@@ -142,7 +142,7 @@ class PcorGeospatialDataResourceModel:
         self.geometry_type = []
         self.geometry_source = []
         self.model_methods = []
-        self.exposure_media = ""
+        self.exposure_media = []
         self.geographic_feature = []
         self.geographic_feature_other = []
         self.project_id = ""
