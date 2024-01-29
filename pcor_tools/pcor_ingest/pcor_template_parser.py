@@ -294,7 +294,7 @@ class PcorTemplateParser:
         clean_value = PcorTemplateParser.sanitize_column(value, False)
         temp_list = []
         if clean_value:
-            temp_list = str(clean_value).splitlines()
+            temp_list = [line.strip() for line in str(clean_value).splitlines()]
             if temp_list and len(temp_list) == 1:
                 return PcorTemplateParser.make_array(temp_list[0])
 
@@ -314,7 +314,7 @@ class PcorTemplateParser:
         """
         result = []
         if value:
-            result = value.split(",")
+            result = [item.strip() for item in value.split(',')]
             result = list(filter(bool, result)) #clean up any null items
         return result
 

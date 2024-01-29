@@ -123,7 +123,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'model_methods':
                         geo_resource.model_methods = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'exposure_media':
-                        geo_resource.exposure_media = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.exposure_media = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature':
                         geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature_other':
