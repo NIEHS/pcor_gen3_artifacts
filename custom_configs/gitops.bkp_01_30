@@ -495,22 +495,36 @@
           {
             "title": "Geospatial Data Resources",
             "fields": [
-              "project_sponsor",
-              "project_sponsor_other",
-              "project_sponsor_type",
-              "project_sponsor_type_other",
-              "domain",
-              "domain_other",
-              "access_type",
-              "has_api",
+              "includes_citizen_collected",
               "measures",
+              "domain",
+              "keywords",
+              "exposure_media",
+              "model_methods",
+              "has_api",
+              "has_visualization_tool",
+              "resource_use_agreement",
+              "payment_required"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields": [
+              "spatial_resolution",
+              "spatial_coverage",
+              "geometry_type",
+              "geometry_source",
+              "geographic_feature",
               "time_extent_start",
               "time_extent_end",
-              "temporal_resolution",
-              "spatial_resolution",
-              "spatial_resolution_other",
-              "spatial_coverage",
-              "exposure_media"
+              "temporal_resolution"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields": [
+              "program_name",
+              "project_short_name"
             ]
           }
         ]
