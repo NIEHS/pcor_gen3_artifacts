@@ -1500,11 +1500,6 @@ etl:
         props:
           - name: project_id
           - name: submitter_id
-          - name: project_sponsor
-          - name: project_sponsor_other
-          - name: project_sponsor_type
-          - name: project_sponsor_type_other
-          - name: access_type
           - name: has_api
           - name: measures
           - name: time_extent_start
