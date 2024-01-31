@@ -518,15 +518,18 @@
       "table": {
         "enabled": true,
         "fields": [
+          "project_sponsor",
+          "resource_name",
           "resource_short_name",
           "resource_description",
+          "domain",
+          "keywords",
+          "intended_use",
           "measures",
-          "exposure_media",
           "time_extent_start",
           "time_extent_end",
-          "resource_description",
-          "spatial_resolution",
           "spatial_coverage",
+          "spatial_coverage_specific_regions",
           "resource_url"
         ],
         "linkFields": [
