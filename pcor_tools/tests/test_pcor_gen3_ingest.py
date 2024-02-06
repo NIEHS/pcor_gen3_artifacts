@@ -26,5 +26,8 @@ class TestPcorGen3Ingest(unittest.TestCase):
         logger.info('test_query_discovery()')
         test_query = 'test query'
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
-        response = pcor_ingest.query_discovery(query=test_query)
-        logger.info(response)
+        test_query = "data=True&_guid_type=discovery_metadata&limit=2000&offset=0"
+        existing_discovery_entires = pcor_ingest.get_discovery_entries()
+        response = pcor_ingest.check_discovery_entry_exists(existing_discovery_entries=existing_discovery_entires,
+                                                            new_entry=new_entry)
+    

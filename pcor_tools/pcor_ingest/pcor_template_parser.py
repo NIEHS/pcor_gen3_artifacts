@@ -387,7 +387,11 @@ class PcorTemplateParser:
                         elif str(resource.is_static).lower() == 'yes':
                             resource.is_static = True
                     elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
+<<<<<<< HEAD
                         # validate needed props and guid assignment
+=======
+                            # validate needed props and guid assignment
+>>>>>>> 07e0120 (merge in deeps changes)
                         if resource.submitter_id is None or resource.submitter_id == '':
                             resource.submitter_id = str(uuid.uuid4())
 
