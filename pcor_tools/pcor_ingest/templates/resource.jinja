@@ -21,7 +21,6 @@
   ],
   "keywords":  [
     {% for entry in resource.keywords %}
-
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
@@ -45,13 +44,11 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
   {% if resource.is_static %}
       "is_static": true,
   {% else %}
        "is_static": false,
   {% endif %}
-
   "projects": {
     "node_id": "{{ resource.project.id }}",
     "code": "{{ resource.project.code }}"

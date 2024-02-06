@@ -259,6 +259,16 @@ class PcorGen3Ingest:
 
         return response
 
+    def query_discovery(self, query):
+        """
+        Query discovery metadata given a query
+        """
+        logger.info("query_discovery()")
+        logger.info('query: %s' % query)
+        metadata = Gen3Metadata(self.gen3_auth)
+
+        return
+
     def create_geo_spatial_data_resource(self, program_name, project_code, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
 
