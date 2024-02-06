@@ -142,7 +142,6 @@ authz:
     - /programs/CHORDS/projects/PM2.5
     - /programs/CHORDS/projects/NDI
     - /programs/CHORDS/projects/WA-APCD
-    - /programs/CHORDS/projects/NASA-AQ
     - /programs/CHORDS/projects/NASA-HI
     - /programs/CHORDS/projects/NASA-WD
     - /programs/CHORDS/projects/PURPLE
@@ -175,7 +174,6 @@ authz:
     - /programs/CHORDS/projects/LAADS
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
-    - /programs/CHORDS/projects/NASA-AQ
     - /programs/CHORDS/projects/NHANES
     - /programs/CHORDS/projects/NIFC
     - /programs/CHORDS/projects/NWCG-InciWeb
@@ -193,7 +191,6 @@ authz:
     - /programs/CHORDS/projects/WA-APCD
     - /programs/CHORDS/projects/NASA-HI
     - /programs/CHORDS/projects/NASA-AQ
-    - /programs/CHORDS/projects/NASA-HI
     - /programs/CHORDS/projects/NASA-WD
     - /programs/CHORDS/projects/PURPLE
     - /programs/CHORDS/projects/EJScreen
