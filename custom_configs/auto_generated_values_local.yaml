@@ -1,6 +1,10 @@
 global:
   hostname: localhost
+<<<<<<< HEAD
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/26-Discovery-Updates/custom_configs/schema.json
+=======
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/27-type-email/custom_configs/schema.json
+>>>>>>> 7fdd55e (#1 (github_action: Generate Helm Values) update helm values.yaml)
 
 ambassador:
   resources:
@@ -93,7 +97,7 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: BenMAP-CE
+            - name: BenMAP-C
             - name: CRE
             - name: EPA-AQS
             - name: HCUP
