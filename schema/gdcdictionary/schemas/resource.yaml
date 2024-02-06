@@ -99,11 +99,9 @@ properties:
       type: string
   access_type:
      description: type of resource access
-     enum:
-       - open
-       - registered
-       - controlled
-       - license
+     type: array
+     items:
+       type: string
   payment_required:
     description: Indicate whether resource is free or fee based
     type: boolean

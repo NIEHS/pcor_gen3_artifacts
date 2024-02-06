@@ -74,7 +74,7 @@ class PcorIntermediateResourceModel:
         self.domain = []
         self.domain_other = []
         self.keywords = []
-        self.access_type = ""
+        self.access_type = []
         self.payment_required = ""
         self.created_datetime = ""
         self.updated_datetime = ""

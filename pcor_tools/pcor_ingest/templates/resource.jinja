@@ -26,7 +26,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "access_type": "{{ resource.access_type }}",
+  "access_type": [
+    {% for entry in resource.access_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "resource_reference": [
     {% for entry in resource.resource_reference %}
         "{{ entry }}"
