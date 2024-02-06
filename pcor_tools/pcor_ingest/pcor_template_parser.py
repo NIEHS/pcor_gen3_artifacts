@@ -237,6 +237,7 @@ class PcorTemplateParser:
                 logging.debug("found Resource")
                 for j in range(i, ss_rows):
 <<<<<<< HEAD
+<<<<<<< HEAD
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'resource_GUID':
                         resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -340,6 +341,55 @@ class PcorTemplateParser:
 
                             return resource
 >>>>>>> 39e2690 (#30 remove _other in DD and ETL, merge in parser)
+=======
+
+                    if template_df.iat[j, 0] == 'resource_GUID':
+                        resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'resource_name':
+                        resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'resource_short_name':
+                        resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        # cleanup short name and use it as unique resource short name, no special characters or spaces
+                        # do not use sanitize_column()
+                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
+                    elif template_df.iat[j, 0] == 'resource_type':
+                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'resource_url':
+                        resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'resource_description':
+                        resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'domain':
+                        resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'domain_other':
+                        resource.domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'keywords':
+                        resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'access_type':
+                        resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'payment_required':
+                        resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'date_added':
+                        resource.created_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'date_updated':
+                        resource.updated_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'date_verified':
+                        resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'resource_reference':
+                        resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'resource_use_agreement':
+                        resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'publications':
+                       resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'is_static':
+                        resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if str(resource.is_static).lower() == 'no':
+                            resource.is_static = False
+                        elif str(resource.is_static).lower() == 'yes':
+                            resource.is_static = True
+                    elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
+
+            return resource
+>>>>>>> 2663f76 (merge array fix)
 
         logger.warning("no resource found, return null")
         return None
