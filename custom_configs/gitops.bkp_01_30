@@ -495,18 +495,36 @@
           {
             "title": "Geospatial Data Resources",
             "fields": [
-              "project_sponsor",
-              "project_sponsor_type",
-              "domain",
-              "access_type",
-              "has_api",
+              "includes_citizen_collected",
               "measures",
-              "time_extent_start",
-              "time_extent_end",
-              "temporal_resolution",
+              "domain",
+              "keywords",
+              "exposure_media",
+              "model_methods",
+              "has_api",
+              "has_visualization_tool",
+              "resource_use_agreement",
+              "payment_required"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields": [
               "spatial_resolution",
               "spatial_coverage",
-              "exposure_media"
+              "geometry_type",
+              "geometry_source",
+              "geographic_feature",
+              "time_extent_start",
+              "time_extent_end",
+              "temporal_resolution"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields": [
+              "program_name",
+              "project_short_name"
             ]
           }
         ]
@@ -514,18 +532,15 @@
       "table": {
         "enabled": true,
         "fields": [
-          "project_sponsor",
-          "resource_name",
           "resource_short_name",
           "resource_description",
-          "domain",
-          "keywords",
-          "intended_use",
           "measures",
+          "exposure_media",
           "time_extent_start",
           "time_extent_end",
+          "resource_description",
+          "spatial_resolution",
           "spatial_coverage",
-          "spatial_coverage_specific_regions",
           "resource_url"
         ],
         "linkFields": [
@@ -603,8 +618,10 @@
               "keywords",
               "exposures",
               "outcomes",
+              "outcomes_other",
               "exposure_media",
-              "population_studied"
+              "population_studied",
+              "population_studied_other"
             ]
           },
           {
@@ -614,6 +631,7 @@
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
+              "spatial_resolution_other",
               "spatial_coverage",
               "geometry_type",
               "geometry_source"
@@ -639,6 +657,7 @@
           "exposures",
           "outcomes",
           "population_studied",
+          "population_studied_other",
           "resource_url"
           ],
         "linkFields": [

@@ -6,18 +6,28 @@ mappings:
     props:
       - name: project_id
       - name: submitter_id
+      - name: comments
+      - name: intended_use
+      - name: source_name
+      - name: update_frequency
+      - name: includes_citizen_collected
       - name: has_api
+      - name: has_visualization_tool
       - name: measures
       - name: time_extent_start
       - name: time_extent_end
+      - name: time_available_comment
       - name: temporal_resolution
       - name: spatial_resolution
       - name: spatial_coverage
+      - name: spatial_bounding_box
+      - name: geometry_type
+      - name: geometry_source
+      - name: geographic_feature
+      - name: model_methods
       - name: exposure_media
-      - name: intended_use
-      - name: spatial_coverage_specific_regions
     parent_props:
-      - path: resources[domain, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_type]
+      - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
   - name: geospatial_tool_resource
     doc_type: geospatial_tool_resource
     type: aggregator
@@ -34,7 +44,6 @@ mappings:
       - name: suggested_audience
     parent_props:
       - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
-
   - name: population_data_resource
     doc_type: population_data_resource
     type: aggregator
@@ -54,14 +63,18 @@ mappings:
       - name: time_available_comment
       - name: temporal_resolution
       - name: spatial_resolution
+      - name: spatial_resolution_other
       - name: spatial_coverage
       - name: spatial_coverage_specific_regions
       - name: geometry_type
       - name: geometry_source
       - name: exposures
       - name: outcomes
+      - name: outcomes_other
       - name: exposure_media
       - name: model_methods
       - name: population_studied
+      - name: population_studied_other
+
     parent_props:
       - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]

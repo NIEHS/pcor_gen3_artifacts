@@ -99,9 +99,6 @@ properties:
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
-  spatial_resolution_other:
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: string
@@ -130,11 +127,6 @@ properties:
     type: array
     items:
       type: string
-  outcomes_other:
-    description: if outcome of interest is missing in the list above.
-    type: array
-    items:
-      type: string
   exposure_media:
     description: media that the phenomena is related to
     type: array
@@ -147,11 +139,6 @@ properties:
       type: string
   population_studied:
     description: type of population in the study.
-    type: array
-    items:
-      type: string
-  population_studied_other:
-    description: type of population in the study if not in the list above.
     type: array
     items:
       type: string
