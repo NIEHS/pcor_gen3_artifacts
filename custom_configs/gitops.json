@@ -579,14 +579,31 @@
               "project_sponsor",
               "project_sponsor_type",
               "domain",
-              "access_type",
-              "has_api",
-              "measures",
+              "keywords",
+              "exposures",
+              "outcomes",
+              "exposure_media",
+              "population_studied"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields": [
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
-              "spatial_coverage"
+              "spatial_coverage",
+              "geometry_type",
+              "geometry_source"
+            ]
+          },
+          {
+            "title": "Project/Program Details",
+            "fields": [
+              "program_name",
+              "project_short_name",
+              "project_investigator_affiliation"
             ]
           }
         ]
@@ -601,11 +618,9 @@
           "domain",
           "keywords",
           "intended_use",
-          "measures",
-          "time_extent_start",
-          "time_extent_end",
-          "spatial_coverage",
-          "spatial_coverage_specific_regions",
+          "exposures",
+          "outcomes",
+          "population_studied",
           "resource_url"
           ],
         "linkFields": [

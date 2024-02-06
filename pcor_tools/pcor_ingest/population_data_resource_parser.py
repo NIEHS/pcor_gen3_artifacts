@@ -102,7 +102,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.outcomes = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'outcomes_other':
                         temp_outcomes_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        pop_resource.outcomes = PcorTemplateParser.combine_prop(pop_resource.outcomes, temp_outcomes_other)
+                        if temp_outcomes_other is not None:
+                            pop_resource.outcomes += temp_outcomes_other
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         pop_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if pop_resource.time_extent_start is not None:
@@ -119,7 +120,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.spatial_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
                         temp_spatial_resolution_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        pop_resource.spatial_resolution = PcorTemplateParser.combine_prop(pop_resource.spatial_resolution, temp_spatial_resolution_other)
+                        if temp_spatial_resolution_other is not None:
+                            pop_resource.spatial_resolution += temp_spatial_resolution_other
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         pop_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
@@ -136,7 +138,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied_other':
                         temp_population_studied_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        pop_resource.population_studied = PcorTemplateParser.combine_prop(pop_resource.population_studied, temp_population_studied_other)
+                        if temp_population_studied_other is not None:
+                           pop_resource.population_studied += temp_population_studied_other
                     elif template_df.iat[j, 0] == 'data_formats':
                         pop_resource.data_formats = PcorTemplateParser.make_array(
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))

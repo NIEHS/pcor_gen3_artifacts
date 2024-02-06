@@ -93,7 +93,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.measurement_method = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'measurement_method_other':
                         temp_measurement_method_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        geo_resource.measurement_method = PcorTemplateParser.combine_prop(geo_resource.measurement_method, temp_measurement_method_other)
+                        if temp_measurement_method_other is not None:
+                            geo_resource.measurement_method += temp_measurement_method_other
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if geo_resource.time_extent_start is not None:
@@ -110,7 +111,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.spatial_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
                         temp_spatial_resolution_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        geo_resource.spatial_resolution= PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
+                        if temp_spatial_resolution_other is not None:
+                            geo_resource.spatial_resolution += temp_spatial_resolution_other
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         geo_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
@@ -130,7 +132,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature_other':
                         temp_geographic_feature_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        geo_resource.geographic_feature = PcorTemplateParser.combine_prop(geo_resource.geographic_feature, temp_geographic_feature_other)
+                        if temp_geographic_feature_other is not None:
+                            geo_resource.geographic_feature += temp_geographic_feature_other
                     elif template_df.iat[j, 0] == 'data_formats':
                         geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':

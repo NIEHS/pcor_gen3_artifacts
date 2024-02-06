@@ -17,7 +17,7 @@ mappings:
       - name: spatial_coverage_specific_regions
       - name: exposure_media
     parent_props:
-      - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
+      - path: resources[domain, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_type]
   - name: geospatial_tool_resource
     doc_type: geospatial_tool_resource
     type: aggregator
@@ -50,5 +50,12 @@ mappings:
       - name: spatial_resolution
       - name: spatial_coverage
       - name: spatial_coverage_specific_regions
+      - name: geometry_type
+      - name: geometry_source
+      - name: exposures
+      - name: outcomes
+      - name: exposure_media
+      - name: model_methods
+      - name: population_studied
     parent_props:
       - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
