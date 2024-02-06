@@ -164,12 +164,14 @@
           "inputSubtitle": "CHORDS Resource Search",
           "placeholder": "Search climate and health resources by keyword",
           "searchableTextFields": [
+            "project_short_name",
             "name",
-            "long_name",
             "description",
             "domain",
-            "program_name",
+            "keywords",
             "project_name",
+            "project_description",
+            "project_sponsors",
             "exposure_media",
             "measures"
           ]

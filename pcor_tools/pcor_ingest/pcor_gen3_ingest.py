@@ -149,11 +149,12 @@ class PcorGen3Ingest:
         discovery.description = resource.description
         discovery.publications = resource.publications
         discovery.domain = ','.join(resource.domain)
+        discovery.project_sponsors = ','.join(project.project_sponsor + project.project_sponsor_other)
         discovery.type = resource.resource_type
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
-
+    
         if data_resource:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
