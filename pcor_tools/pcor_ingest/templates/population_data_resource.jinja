@@ -70,12 +70,6 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "population_studied_other": [
-    {% for entry in pop_data_resource.population_studied %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
   "exposures":  [
         {% for exposure in pop_data_resource.exposures  %}
             "{{ exposure }}"

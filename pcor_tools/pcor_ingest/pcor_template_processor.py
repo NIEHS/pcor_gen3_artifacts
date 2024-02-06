@@ -206,12 +206,6 @@ class PcorTemplateProcessor:
                                 filter.value = item
                                 discovery.adv_search_filters.append(filter)
 
-                            for item in pop_data_resource.population_studied_other:
-                                filter = AdvSearchFilter()
-                                filter.key = "Population"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)

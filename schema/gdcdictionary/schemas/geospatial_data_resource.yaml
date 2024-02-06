@@ -103,11 +103,6 @@ properties:
     type: array
     items:
       type: string
-  measurement_method_other:
-    description: Method used to capture the measure if does not appear in the CV above
-    type: array
-    items:
-      type: string
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
@@ -122,9 +117,6 @@ properties:
     type: string
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
-  spatial_resolution_other:
-    description: the highest spatial resolution of the data if not on the list above. May be a specific distance measure using SI units for distance (e.g., 5km).
     type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data.
@@ -156,11 +148,6 @@ properties:
     items:
       type: string
   geographic_feature:
-    description: The type of geographic feature associated with the data
-    type: array
-    items:
-      type: string
-  geographic_feature_other:
     description: The type of geographic feature associated with the data
     type: array
     items:

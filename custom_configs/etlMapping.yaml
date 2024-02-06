@@ -12,13 +12,12 @@ mappings:
       - name: time_extent_end
       - name: temporal_resolution
       - name: spatial_resolution
-      - name: spatial_resolution_other
       - name: spatial_coverage
       - name: exposure_media
       - name: intended_use
       - name: spatial_coverage_specific_regions
     parent_props:
-      - path: resources[domain, domain_other, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_other, project_sponsor_type, project_sponsor_type_other]
+      - path: resources[domain, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_type]
   - name: geospatial_tool_resource
     doc_type: geospatial_tool_resource
     type: aggregator
@@ -55,17 +54,14 @@ mappings:
       - name: time_available_comment
       - name: temporal_resolution
       - name: spatial_resolution
-      - name: spatial_resolution_other
       - name: spatial_coverage
       - name: spatial_coverage_specific_regions
       - name: geometry_type
       - name: geometry_source
       - name: exposures
       - name: outcomes
-      - name: outcomes_other
       - name: exposure_media
       - name: model_methods
       - name: population_studied
-      - name: population_studied_other
     parent_props:
       - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]

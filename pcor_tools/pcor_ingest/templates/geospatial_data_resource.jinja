@@ -42,12 +42,6 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "measurement_method_other": [
-    {% for entry in geo_spatial_data_resource.measurement_method_other %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
   {% if geo_spatial_data_resource.time_extent_start  %}
     "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
   {% endif %}
@@ -57,7 +51,6 @@
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
   "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
-  "spatial_resolution_other": "{{ geo_spatial_data_resource.spatial_resolution_other }}",
   "spatial_coverage": "{{ geo_spatial_data_resource.spatial_coverage }}",
   "spatial_coverage_specific_regions": "{{ geo_spatial_data_resource.spatial_coverage_specific_regions }}",
   "spatial_bounding_box": "{{ geo_spatial_data_resource.spatial_bounding_box }}",
@@ -87,12 +80,6 @@
   ],
   "geographic_feature": [
     {% for entry in geo_spatial_data_resource.geographic_feature %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "geographic_feature_other": [
-    {% for entry in geo_spatial_data_resource.geographic_feature_other %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

@@ -496,11 +496,8 @@
             "title": "Geospatial Data Resources",
             "fields": [
               "project_sponsor",
-              "project_sponsor_other",
               "project_sponsor_type",
-              "project_sponsor_type_other",
               "domain",
-              "domain_other",
               "access_type",
               "has_api",
               "measures",
@@ -508,7 +505,6 @@
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
-              "spatial_resolution_other",
               "spatial_coverage",
               "exposure_media"
             ]
@@ -607,10 +603,8 @@
               "keywords",
               "exposures",
               "outcomes",
-              "outcomes_other",
               "exposure_media",
-              "population_studied",
-              "population_studied_other"
+              "population_studied"
             ]
           },
           {
@@ -620,7 +614,6 @@
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
-              "spatial_resolution_other",
               "spatial_coverage",
               "geometry_type",
               "geometry_source"
@@ -646,7 +639,6 @@
           "exposures",
           "outcomes",
           "population_studied",
-          "population_studied_other",
           "resource_url"
           ],
         "linkFields": [
