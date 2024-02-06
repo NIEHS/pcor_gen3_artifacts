@@ -13,12 +13,6 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "domain_other": [
-    {% for entry in resource.domain_other %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
   "keywords":  [
     {% for entry in resource.keywords %}
         "{{ entry }}"

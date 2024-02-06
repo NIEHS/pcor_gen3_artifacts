@@ -185,11 +185,15 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
-                        project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        temp_project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        if temp_project_sponsor_other is not None:
+                            project.project_sponsor += temp_project_sponsor_other
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
                         project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_type_other':
-                        project.project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        if project_sponsor_type_other is not None:
+                            project.project_sponsor_type += project_sponsor_type_other
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -232,50 +236,57 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Resource':
                 logging.debug("found Resource")
                 for j in range(i, ss_rows):
-                    if template_df.iat[j, 0] == 'resource_GUID':
-                        resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'resource_name':
-                        resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'resource_short_name':
-                        resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        # cleanup short name and use it as unique resource short name, no special characters or spaces
-                        # do not use sanitize_column()
-                        resource.name = str(template_df.iat[j, 1]).replace(' ', '').replace('-', '').strip()
-                    elif template_df.iat[j, 0] == 'resource_type':
-                        resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'resource_url':
-                        resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'resource_description':
-                        resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'domain':
-                        resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'domain_other':
-                        resource.domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'keywords':
-                        resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'access_type':
-                        resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'payment_required':
-                        resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'date_added':
-                        resource.created_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'date_updated':
-                        resource.updated_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'date_verified':
-                        resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'resource_reference':
-                        resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'resource_use_agreement':
-                        resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'publications':
-                       resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
-                    elif template_df.iat[j, 0] == 'is_static':
-                        resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(resource.is_static).lower() == 'no':
-                            resource.is_static = False
-                        elif str(resource.is_static).lower() == 'yes':
-                            resource.is_static = True
-                    elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
+
+                    field_name = template_df.iat[j, 0]
+                    if not isinstance(field_name, float):
+                        field_name = field_name.strip()
+                        # FixMe:  submitter id is missing in template!
+                        if field_name == 'resource_GUID':
+                            resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'resource_name':
+                            resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'resource_short_name':
+                            resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            # cleanup short name and use it as unique resource short name, no special characters or spaces
+                            # do not use sanitize_column()
+                            resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
+                        elif field_name == 'resource_type':
+                            resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'resource_url':
+                            resource.resource_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'resource_description':
+                            resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'domain':
+                            resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        elif field_name == 'domain_other':
+                            temp_domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            if temp_domain_other is not None:
+                                resource.domain += temp_domain_other
+                        elif field_name == 'keywords':
+                            resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        elif field_name == 'access_type':
+                            resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        elif field_name == 'payment_required':
+                            resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'date_added':
+                            resource.created_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'date_updated':
+                            resource.updated_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'date_verified':
+                            resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'resource_reference':
+                            resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        elif field_name == 'resource_use_agreement':
+                            resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        elif field_name == 'publications':
+                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        elif field_name == 'is_static':
+                            resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            if str(resource.is_static).lower() == 'no':
+                                resource.is_static = False
+                            elif str(resource.is_static).lower() == 'yes':
+                                resource.is_static = True
+                        elif field_name == 'Data_Resource' or field_name == 'Tool_Resource':
                             # validate needed props and guid assignment
                         if resource.submitter_id is None or resource.submitter_id == '':
                             resource.submitter_id = str(uuid.uuid4())

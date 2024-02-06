@@ -87,11 +87,6 @@ properties:
     type: array
     items:
       type: string
-  domain_other:
-    description: subject domain of the resource if does not appear in the CV above
-    type: array
-    items:
-      type: string
   keywords:
     description: Comma delimiter keywords.
     type: array
