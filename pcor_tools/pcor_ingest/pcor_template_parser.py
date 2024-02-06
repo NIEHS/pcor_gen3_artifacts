@@ -238,6 +238,7 @@ class PcorTemplateParser:
                 for j in range(i, ss_rows):
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     # FixMe:  submitter id is missing in template!
                     if template_df.iat[j, 0] == 'resource_GUID':
                         resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -285,6 +286,8 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'Data_Resource' or template_df.iat[j, 0] == 'Tool_Resource':
                         return resource
 =======
+=======
+>>>>>>> dc50876 (30 remove _other in DD and ETL, merge in parser)
                     field_name = template_df.iat[j, 0]
                     if not isinstance(field_name, float):
                         field_name = field_name.strip()
@@ -338,6 +341,7 @@ class PcorTemplateParser:
                             # validate needed props and guid assignment
                             if resource.submitter_id is None or resource.submitter_id == '':
                                 resource.submitter_id = str(uuid.uuid4())
+<<<<<<< HEAD
 
                             return resource
 >>>>>>> 39e2690 (#30 remove _other in DD and ETL, merge in parser)
@@ -396,6 +400,8 @@ class PcorTemplateParser:
                             # validate needed props and guid assignment
                             if resource.submitter_id is None or resource.submitter_id == '':
                                 resource.submitter_id = str(uuid.uuid4())
+=======
+>>>>>>> dc50876 (30 remove _other in DD and ETL, merge in parser)
 
             return resource
 >>>>>>> 2663f76 (merge array fix)
