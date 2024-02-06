@@ -144,6 +144,7 @@ class PcorGen3Ingest:
         discovery.program_name = program_name
         discovery.project_description = project.description
         discovery.project_name = project.name
+        discovery.project_short_name = project.short_name
         discovery.name = resource.name
         discovery.description = resource.description
         discovery.publications = resource.publications
@@ -178,21 +179,28 @@ class PcorGen3Ingest:
         tag.category = "Resource Type"
         discovery.tags.append(tag)
 
-        filter = AdvSearchFilter()
-        filter.key = "Project"
-        filter.value = project.name
-        discovery.adv_search_filters.append(filter)
+        for sponsor in project.project_sponsor:
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Sponsoring Program"
+            search_filter.value = sponsor
+            discovery.adv_search_filters.append(search_filter)
+
+        for sponsor in project.project_sponsor_other:
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Sponsoring Program"
+            search_filter.value = sponsor
+            discovery.adv_search_filters.append(search_filter)
 
         for item in resource.domain:
-            filter = AdvSearchFilter()
-            filter.key = "Domain"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Domain"
+            search_filter.value = item
+            discovery.adv_search_filters.append(search_filter)
 
-        filter = AdvSearchFilter()
-        filter.key = "Resource Type"
-        filter.value = resource.resource_type
-        discovery.adv_search_filters.append(filter)
+        search_filter = AdvSearchFilter()
+        search_filter.key = "Resource Type"
+        search_filter.value = resource.resource_type
+        discovery.adv_search_filters.append(search_filter)
 
         return discovery
 

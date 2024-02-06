@@ -145,14 +145,14 @@ class PcorTemplateProcessor:
 
                             for item in geo_spatial_resource.measures:
                                 filter = AdvSearchFilter()
-                                filter.key = "Measures"
+                                filter.key = "Variables"
                                 filter.value = item
                                 discovery.adv_search_filters.append(filter)
 
 
                             if geo_spatial_resource.exposure_media:
                                 filter = AdvSearchFilter()
-                                filter.key = "Exposures"
+                                filter.key = "Variables"
                                 filter.value = geo_spatial_resource.exposure_media
                                 discovery.adv_search_filters.append(filter)
 
@@ -244,24 +244,6 @@ class PcorTemplateProcessor:
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, None)
                             discovery.comment = geo_tool_resource.intended_use  # intended use?
-
-                            for item in geo_tool_resource.tool_type:
-                                filter = AdvSearchFilter()
-                                filter.key = "Tool_Type"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
-                            for item in geo_tool_resource.operating_system:
-                                filter = AdvSearchFilter()
-                                filter.key = "Operating_System"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
-                            for item in geo_tool_resource.languages:
-                                filter = AdvSearchFilter()
-                                filter.key = "Languages"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

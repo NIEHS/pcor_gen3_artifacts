@@ -159,7 +159,9 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.program_name = ""
+        self.project_sponsors = []
         self.project_name = ""
+        self.project_short_name = ""
         self.project_url = ""
         self.project_description = ""
         self.name = ""
@@ -168,6 +170,7 @@ class PcorDiscoveryMetadata:
         self.comment = ""  # collapses intended_use and other descriptions
         self.description = ""
         self.support_source = ""
+        self.update_frequency = ""
         self.publications = []
         self.domain = []
         self.has_api = ""
@@ -176,8 +179,8 @@ class PcorDiscoveryMetadata:
         self.resource_use_agreement = ""
         self.resource_id = ""
         self.resource_url = ""
-        self.measures = []  # convert to tags/filters
-        self.exposure_media = []  # convert to tags/filters
+        self.data_locations = []
+        self.variables = []
         self.tool_type = ""  # tags/filters?
         self.type = ""
 

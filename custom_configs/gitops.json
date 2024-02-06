@@ -189,16 +189,16 @@
             "key": "Resource Type"
           },
           {
+            "key": "Sponsoring Program"
+          },
+          {
             "key": "Project"
           },
           {
+            "key": "Variables"
+          },
+          {
             "key": "Domain"
-          },
-          {
-            "key": "Exposures"
-          },
-          {
-            "key": "Population"
           }
         ]
       },
