@@ -59,10 +59,10 @@ class PopulationDataResourceParser(PcorTemplateParser):
         pop_resource.display_type = "PopulationData"
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Data_Resource':
+                # Data Resource section
                 logging.debug("found Data_Resource/Population_Data_Resource ")
                 for j in range(i, ss_rows):
-                    prop_name = template_df.iat[j, 0]
-                    logger.info('prop name: %s' % prop_name)
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'comments':
                         pop_resource.comments = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'intended_use':
@@ -72,8 +72,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'update_frequency':
                         pop_resource.update_frequency = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
-                        pop_resource.includes_citizen_collected = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if str(pop_resource.includes_citizen_collected).lower() == 'no' or str(
                                 pop_resource.includes_citizen_collected).lower() == 'none':
                             pop_resource.includes_citizen_collected = False
