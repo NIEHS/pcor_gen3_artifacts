@@ -26,14 +26,10 @@ mappings:
       - name: project_id
       - name: submitter_id
       - name: tool_type
-      - name: intended_use
       - name: operating_system
       - name: languages
-      - name: is_open
-      - name: license_type
-      - name: suggested_audience
     parent_props:
-      - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+      - path: resources[domain, keywords, access_type, payment_required].projects[project_sponsor, project_sponsor_type]
   - name: population_data_resource
     doc_type: population_data_resource
     type: aggregator
