@@ -599,32 +599,17 @@
           {
             "title": "Population Data Resources",
             "fields": [
+              "project_sponsor",
+              "project_sponsor_type",
               "domain",
-              "keywords",
-              "exposures",
-              "outcomes",
-              "exposure_media",
-              "population_studied"
-            ]
-          },
-          {
-            "title": "Temporal/Spatial Details",
-            "fields": [
+              "access_type",
+              "has_api",
+              "measures",
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
-              "spatial_coverage",
-              "geometry_type",
-              "geometry_source"
-            ]
-          },
-          {
-            "title": "Project/Program Details",
-            "fields": [
-              "program_name",
-              "project_short_name",
-              "project_investigator_affiliation"
+              "spatial_coverage"
             ]
           }
         ]
@@ -632,13 +617,18 @@
       "table": {
         "enabled": true,
         "fields": [
+          "project_sponsor",
+          "resource_name",
           "resource_short_name",
           "resource_description",
-          "comments",
+          "domain",
+          "keywords",
           "intended_use",
-          "exposures",
-          "outcomes",
-          "population_studied",
+          "measures",
+          "time_extent_start",
+          "time_extent_end",
+          "spatial_coverage",
+          "spatial_coverage_specific_regions",
           "resource_url"
           ],
         "linkFields": [
