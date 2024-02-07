@@ -288,8 +288,8 @@ class PcorTemplateParser:
                                 resource.is_static = True
                         elif field_name == 'Data_Resource' or field_name == 'Tool_Resource':
                             # validate needed props and guid assignment
-                        if resource.submitter_id is None or resource.submitter_id == '':
-                            resource.submitter_id = str(uuid.uuid4())
+                            if resource.submitter_id is None or resource.submitter_id == '':
+                                resource.submitter_id = str(uuid.uuid4())
 
             return resource
 

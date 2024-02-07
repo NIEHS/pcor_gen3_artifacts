@@ -189,6 +189,20 @@ class PcorGen3Ingest:
                 tag.category = "Domain"
                 discovery.tags.append(tag)
 
+        for item in project.project_sponsor:
+            if item:
+                tag = Tag()
+                tag.name = item
+                tag.category = "Sponsoring Program"
+                discovery.tags.append(tag)
+
+        for item in project.project_sponsor_other:
+            if item:
+                tag = Tag()
+                tag.name = item
+                tag.category = "Sponsoring Program"
+                discovery.tags.append(tag)
+
         tag = Tag()
         tag.name = discovery.type
         tag.category = "Resource Type"

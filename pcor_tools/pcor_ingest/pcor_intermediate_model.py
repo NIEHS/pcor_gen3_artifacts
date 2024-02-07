@@ -173,9 +173,12 @@ class PcorDiscoveryMetadata:
         self.resource_use_agreement = ""
         self.resource_id = ""
         self.resource_url = ""
-        self.data_locations = []
+        self.data_location_1 = ""
+        self.data_location_2 = ""
+        self.data_location_3 = ""
         self.variables = []
-        self.tool_type = ""  # tags/filters?
+        self.data_formats = []
+        self.tool_type = []
         self.type = ""
 
 
