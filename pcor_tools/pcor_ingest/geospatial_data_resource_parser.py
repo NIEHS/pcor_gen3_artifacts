@@ -51,12 +51,12 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
         logging.debug("iterate looking for the GeoExposure_Data_Resource stanza")
         geo_resource = PcorGeospatialDataResourceModel()
         geo_resource.display_type = "GeoExposureData"
-
         for i in range(ss_rows):
             if template_df.iat[i, 0] == 'Data_Resource':
+                # Data Resource section
                 logging.debug("found Data_Resource/GeoExposure_Data_Resource ")
                 for j in range(i, ss_rows):
-                    logger.info('prop name: %s' % template_df.iat[j, 0])
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'comments':
                         geo_resource.comments = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'intended_use':

@@ -190,8 +190,8 @@ class PcorTemplateParser:
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
                         project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_type_other':
-                        project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
-                        project.project.project_sponsor_type = PcorTemplateParser.combine_prop(project.project.project_sponsor_type, project_sponsor_type_other)
+                        temp_project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        project.project_sponsor_type = PcorTemplateParser.combine_prop(project.project_sponsor_type, temp_project_sponsor_type_other)
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
