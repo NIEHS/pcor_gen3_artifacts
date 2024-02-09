@@ -289,7 +289,7 @@ class PcorTemplateParser:
                             if resource.submitter_id is None or resource.submitter_id == '':
                                 resource.submitter_id = str(uuid.uuid4())
 
-            return resource
+        return resource
 
         logger.warning("no resource found, return null")
         return None
