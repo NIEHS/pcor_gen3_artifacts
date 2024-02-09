@@ -403,8 +403,12 @@ class PcorTemplateParser:
 =======
 >>>>>>> dc50876 (30 remove _other in DD and ETL, merge in parser)
 
+<<<<<<< HEAD
             return resource
 >>>>>>> 2663f76 (merge array fix)
+=======
+        return resource
+>>>>>>> 8b2cbb1 (first successful discovery load)
 
         logger.warning("no resource found, return null")
         return None

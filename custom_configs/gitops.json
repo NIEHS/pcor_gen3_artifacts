@@ -394,6 +394,31 @@
                   "label": "Dataset Location 3",
                   "sourceField": "data_location_3",
                   "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 1",
+                  "sourceField": "data_location_1",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 2",
+                  "sourceField": "data_location_2",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 3",
+                  "sourceField": "data_location_3",
+                  "default": "n/a"
+                },
+            
+                {
+                  "type": "text",
+                  "label": "Subject to Data Usage Agreement",
+                  "sourceField": "resource_use_agreement",
+                  "default": "n/a"
                 }
               ]
             }

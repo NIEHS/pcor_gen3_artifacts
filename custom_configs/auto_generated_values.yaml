@@ -1,6 +1,6 @@
 global:
   hostname: gen3.niehs.nih.gov
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/26-Discovery-Updates/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -685,6 +685,7 @@ portal:
                     }
                   ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 },
                 {
@@ -723,6 +724,8 @@ portal:
                     }
                   ]
 >>>>>>> 65ce4f7 (discovery gitops)
+=======
+>>>>>>> 8b2cbb1 (first successful discovery load)
                 }
               ]
             },
@@ -783,7 +786,35 @@ portal:
                       "label": "Resource Use Agreement?",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
+<<<<<<< HEAD
 >>>>>>> 65ce4f7 (discovery gitops)
+=======
+                    },
+                    {
+                      "type": "link",
+                      "label": "Dataset Location 1",
+                      "sourceField": "data_location_1",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Dataset Location 2",
+                      "sourceField": "data_location_2",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Dataset Location 3",
+                      "sourceField": "data_location_3",
+                      "default": "n/a"
+                    },
+                
+                    {
+                      "type": "text",
+                      "label": "Subject to Data Usage Agreement",
+                      "sourceField": "resource_use_agreement",
+                      "default": "n/a"
+>>>>>>> 8b2cbb1 (first successful discovery load)
                     }
                   ]
                 }
