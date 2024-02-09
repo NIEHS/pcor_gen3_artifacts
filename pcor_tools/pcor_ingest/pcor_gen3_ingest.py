@@ -163,7 +163,7 @@ class PcorGen3Ingest:
         discovery.description = resource.description
         discovery.publications = resource.publications
         discovery.domain = ','.join(resource.domain)
-        discovery.project_sponsors = project.project_sponsor
+        discovery.project_sponsor = project.project_sponsor
         discovery.type = resource.resource_type
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
@@ -193,7 +193,7 @@ class PcorGen3Ingest:
             if item:
                 tag = Tag()
                 tag.name = item
-                tag.category = "Sponsoring Program"
+                tag.category = "Project Sponsor"
                 discovery.tags.append(tag)
 
         tag = Tag()
@@ -203,7 +203,7 @@ class PcorGen3Ingest:
 
         for sponsor in project.project_sponsor:
             search_filter = AdvSearchFilter()
-            search_filter.key = "Sponsoring Program"
+            search_filter.key = "Project Sponsor"
             search_filter.value = sponsor
             discovery.adv_search_filters.append(search_filter)
 

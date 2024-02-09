@@ -153,7 +153,7 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.program_name = ""
-        self.project_sponsors = []
+        self.project_sponsor = []
         self.project_name = ""
         self.project_short_name = ""
         self.project_url = ""

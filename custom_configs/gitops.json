@@ -168,7 +168,7 @@
             "keywords",
             "project_name",
             "project_description",
-            "project_sponsors",
+            "project_sponsor",
             "variables"
           ]
         },
@@ -187,7 +187,7 @@
             "key": "Resource Type"
           },
           {
-            "key": "Sponsoring Program"
+            "key": "Project Sponsor"
           },
           {
             "key": "Project"
@@ -201,10 +201,10 @@
         ]
       },
       "tagsColumn": {
-        "enabled": false
+        "enabled": true
       },
       "tagsInDescription": {
-        "enabled": true
+        "enabled": false
       },
       "authorization": {
         "enabled": false
@@ -240,8 +240,8 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Sponsoring Programs",
-        "field": "project_sponsors",
+        "name": "Project Sponsor",
+        "field": "project_sponsor",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
       }
@@ -279,12 +279,12 @@
               ]
             },
             {
-              "header": "Sponsoring Programs",
+              "header": "Project Sponsor",
               "fields": [
                 {
                   "type": "string",
-                  "label": "Program Names",
-                  "sourceField": "project_sponsors",
+                  "label": "Project Sponsor",
+                  "sourceField": "project_sponsor",
                   "default": "n/a"
                 }
               ]
@@ -300,8 +300,8 @@
                 },
                 {
                   "type": "text",
-                  "label": "Project Sponsors",
-                  "sourceField": "project_sponsors",
+                  "label": "Project Sponsor",
+                  "sourceField": "project_sponsor",
                   "default": "n/a"
                 },
                 {
@@ -373,12 +373,6 @@
                 },
                 {
                   "type": "text",
-                  "label": "License Type",
-                  "sourceField": "license_type",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
                   "label": "Resource Use Agreement?",
                   "sourceField": "resource_use_agreement",
                   "default": "n/a"
@@ -399,13 +393,6 @@
                   "type": "link",
                   "label": "Dataset Location 3",
                   "sourceField": "data_location_3",
-                  "default": "n/a"
-                },
-            
-                {
-                  "type": "text",
-                  "label": "Subject to Data Usage Agreement",
-                  "sourceField": "resource_use_agreement",
                   "default": "n/a"
                 }
               ]
@@ -440,7 +427,7 @@
         "display": true
       },
       {
-        "name": "Variable",
+        "name": "Variables",
         "color": "rgba(250, 225, 195, 1)",
         "display": true
       }

@@ -5,7 +5,7 @@ import requests
 from requests import HTTPError
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, AdvSearchFilter
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, AdvSearchFilter, Tag
 
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -146,12 +146,20 @@ class PcorTemplateProcessor:
                                 search_filter.key = "Variables"
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
+                                tag = Tag()
+                                tag.name = item
+                                tag.category = "Variables"
+                                discovery.tags.append(tag)
 
                             if geo_spatial_resource.exposure_media:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Variables"
                                 search_filter.value = geo_spatial_resource.exposure_media
                                 discovery.adv_search_filters.append(search_filter)
+                                tag = Tag()
+                                tag.name = geo_spatial_resource.exposure_media
+                                tag.category = "Variables"
+                                discovery.tags.append(tag)
 
                             discovery.data_formats = geo_spatial_resource.data_formats
 
