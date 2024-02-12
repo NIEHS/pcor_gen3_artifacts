@@ -934,16 +934,9 @@ portal:
                   "project_sponsor",
                   "project_sponsor_type",
                   "domain",
-                  "keywords",
-                  "exposures",
-                  "outcomes",
-                  "exposure_media",
-                  "population_studied"
-                ]
-              },
-              {
-                "title": "Temporal/Spatial Details",
-                "fields": [
+                  "access_type",
+                  "has_api",
+                  "measures",
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
