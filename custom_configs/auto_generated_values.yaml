@@ -1,6 +1,10 @@
 global:
   hostname: gen3.niehs.nih.gov
+<<<<<<< HEAD
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/26-Discovery-Updates/custom_configs/schema.json
+=======
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+>>>>>>> develop
 
 fence:
   FENCE_CONFIG:
@@ -185,6 +189,7 @@ fence:
         - /programs/CHORDS/projects/LAADS
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
+        - /programs/CHORDS/projects/NASA-AQ
         - /programs/CHORDS/projects/NHANES
         - /programs/CHORDS/projects/NIFC
         - /programs/CHORDS/projects/NWCG-InciWeb
@@ -201,7 +206,10 @@ fence:
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
         - /programs/CHORDS/projects/NASA-HI
+<<<<<<< HEAD
         - /programs/CHORDS/projects/NASA-AQ
+=======
+>>>>>>> develop
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
         - /programs/CHORDS/projects/EJScreen
@@ -896,6 +904,7 @@ portal:
                   "project_sponsor",
                   "project_sponsor_type",
                   "domain",
+<<<<<<< HEAD
                   "keywords",
                   "exposures",
                   "outcomes",
@@ -906,10 +915,16 @@ portal:
               {
                 "title": "Temporal/Spatial Details",
                 "fields": [
+=======
+                  "access_type",
+                  "has_api",
+                  "measures",
+>>>>>>> develop
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
                   "spatial_resolution",
+<<<<<<< HEAD
                   "spatial_coverage",
                   "geometry_type",
                   "geometry_source"
@@ -921,6 +936,9 @@ portal:
                   "program_name",
                   "project_short_name",
                   "project_investigator_affiliation"
+=======
+                  "spatial_coverage"
+>>>>>>> develop
                 ]
               }
             ]
@@ -935,9 +953,17 @@ portal:
               "domain",
               "keywords",
               "intended_use",
+<<<<<<< HEAD
               "exposures",
               "outcomes",
               "population_studied",
+=======
+              "measures",
+              "time_extent_start",
+              "time_extent_end",
+              "spatial_coverage",
+              "spatial_coverage_specific_regions",
+>>>>>>> develop
               "resource_url"
               ],
             "linkFields": [
@@ -1011,22 +1037,13 @@ portal:
               {
                 "title": "Geospatial Tool Resources",
                 "fields": [
-                  "program_name",
-                  "project_id",
+                  "project_sponsor",
+                  "project_sponsor_type",
+                  "domain",
+                  "keywords",
                   "tool_type",
-                  "intended_use",
                   "operating_system",
-                  "languages",
-                  "license_type",
-                  "is_open",
-                  "suggested_audience"
-                ]
-              },
-              {
-                "title": "Project/Program Details",
-                "fields": [
-                  "program_name",
-                  "project_short_name"
+                  "languages"
                 ]
               }
             ]
@@ -1034,16 +1051,15 @@ portal:
           "table": {
             "enabled": true,
             "fields": [
-              "resource_short_name",
-              "resource_description",
+              "project_sponsor",
+              "project_sponsor_type",
+              "domain",
+              "keywords",
+              "access_type",
               "tool_type",
-              "intended_use",
               "operating_system",
               "languages",
-              "license_type",
-              "is_open",
-              "suggested_audience",
-              "resource_url"
+              "payment_required"
             ],
             "linkFields": [
               "resource_url"
@@ -1422,7 +1438,11 @@ etl:
           - name: spatial_coverage_specific_regions
           - name: exposure_media
         parent_props:
+<<<<<<< HEAD
           - path: resources[domain, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_type]
+=======
+          - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
+>>>>>>> develop
       - name: geospatial_tool_resource
         doc_type: geospatial_tool_resource
         type: aggregator
@@ -1431,14 +1451,10 @@ etl:
           - name: project_id
           - name: submitter_id
           - name: tool_type
-          - name: intended_use
           - name: operating_system
           - name: languages
-          - name: is_open
-          - name: license_type
-          - name: suggested_audience
         parent_props:
-          - path: resources[resource_id, resource_name:long_name, resource_short_name:short_name, resource_type, resource_description:description, resource_citation:citation, payment_required, domain, keywords, license_type, license_text, verification_datetime, resource_use_agreement, resource_contact, resource_url].projects[project_code:code, project_investigator_affiliation:investigator_affiliation, project_investigator_name:investigator_name, project_date:date_collected, project_name:name, project_short_name:short_name, support_source, support_id, project_url].programs[program_name:name, program_short_name:name]
+          - path: resources[domain, keywords, access_type, payment_required].projects[project_sponsor, project_sponsor_type]
       - name: population_data_resource
         doc_type: population_data_resource
         type: aggregator
@@ -1455,6 +1471,7 @@ etl:
           - name: spatial_resolution
           - name: spatial_coverage
           - name: spatial_coverage_specific_regions
+<<<<<<< HEAD
           - name: geometry_type
           - name: geometry_source
           - name: exposures
@@ -1462,6 +1479,8 @@ etl:
           - name: exposure_media
           - name: model_methods
           - name: population_studied
+=======
+>>>>>>> develop
         parent_props:
           - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
 guppy:

@@ -594,17 +594,7 @@
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
-              "spatial_coverage",
-              "geometry_type",
-              "geometry_source"
-            ]
-          },
-          {
-            "title": "Project/Program Details",
-            "fields": [
-              "program_name",
-              "project_short_name",
-              "project_investigator_affiliation"
+              "spatial_coverage"
             ]
           }
         ]
@@ -619,9 +609,11 @@
           "domain",
           "keywords",
           "intended_use",
-          "exposures",
-          "outcomes",
-          "population_studied",
+          "measures",
+          "time_extent_start",
+          "time_extent_end",
+          "spatial_coverage",
+          "spatial_coverage_specific_regions",
           "resource_url"
           ],
         "linkFields": [
@@ -695,22 +687,13 @@
           {
             "title": "Geospatial Tool Resources",
             "fields": [
-              "program_name",
-              "project_id",
+              "project_sponsor",
+              "project_sponsor_type",
+              "domain",
+              "keywords",
               "tool_type",
-              "intended_use",
               "operating_system",
-              "languages",
-              "license_type",
-              "is_open",
-              "suggested_audience"
-            ]
-          },
-          {
-            "title": "Project/Program Details",
-            "fields": [
-              "program_name",
-              "project_short_name"
+              "languages"
             ]
           }
         ]
@@ -718,16 +701,15 @@
       "table": {
         "enabled": true,
         "fields": [
-          "resource_short_name",
-          "resource_description",
+          "project_sponsor",
+          "project_sponsor_type",
+          "domain",
+          "keywords",
+          "access_type",
           "tool_type",
-          "intended_use",
           "operating_system",
           "languages",
-          "license_type",
-          "is_open",
-          "suggested_audience",
-          "resource_url"
+          "payment_required"
         ],
         "linkFields": [
           "resource_url"

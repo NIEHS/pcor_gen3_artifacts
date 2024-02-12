@@ -186,6 +186,7 @@ class PcorTemplateParser:
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
                         temp_project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+<<<<<<< HEAD
                         if temp_project_sponsor_other is not None:
                             project.project_sponsor += temp_project_sponsor_other
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
@@ -194,6 +195,14 @@ class PcorTemplateParser:
                         project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         if project_sponsor_type_other is not None:
                             project.project_sponsor_type += project_sponsor_type_other
+=======
+                        project.project_sponsor = PcorTemplateParser.combine_prop(project.project_sponsor, temp_project_sponsor_other)
+                    elif template_df.iat[j, 0] == 'project_sponsor_type':
+                        project.project_sponsor_type = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'project_sponsor_type_other':
+                        temp_project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        project.project_sponsor_type = PcorTemplateParser.combine_prop(project.project_sponsor_type, temp_project_sponsor_type_other)
+>>>>>>> develop
                     elif template_df.iat[j, 0] == 'project_url':
                         project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_description':
@@ -311,8 +320,12 @@ class PcorTemplateParser:
                             resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'domain_other':
                             temp_domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+<<<<<<< HEAD
                             if temp_domain_other is not None:
                                 resource.domain += temp_domain_other
+=======
+                            resource.domain = PcorTemplateParser.combine_prop(resource.domain, temp_domain_other)
+>>>>>>> develop
                         elif field_name == 'keywords':
                             resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'access_type':

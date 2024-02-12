@@ -45,7 +45,7 @@ class MyHandler(PatternMatchingEventHandler):
 
     def on_created(self, event):
         try:
-            wait_time = 10
+            wait_time = 2
             logger.info('Waiting %d seconds for file to finish copying...' % wait_time)
             time.sleep(wait_time)
             self.process(event)
