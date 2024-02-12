@@ -152,14 +152,15 @@ class PcorTemplateProcessor:
                                 discovery.tags.append(tag)
 
                             if geo_spatial_resource.exposure_media:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Variables"
-                                search_filter.value = geo_spatial_resource.exposure_media
-                                discovery.adv_search_filters.append(search_filter)
-                                tag = Tag()
-                                tag.name = geo_spatial_resource.exposure_media
-                                tag.category = "Variables"
-                                discovery.tags.append(tag)
+                                for item in geo_spatial_resource.exposure_media:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Variables"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
+                                    tag = Tag()
+                                    tag.name = item
+                                    tag.category = "Variables"
+                                    discovery.tags.append(tag)
 
                             discovery.data_formats = geo_spatial_resource.data_formats
 
