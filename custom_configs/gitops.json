@@ -159,51 +159,52 @@
         "searchBar": {
           "enabled": true,
           "inputSubtitle": "CHORDS Resource Search",
-          "placeholder": "Search climate and health resources by keyword",
+          "placeholder": "Try keywords such as wildfire, smoke, pm2.5",
           "searchableTextFields": [
+            "project_short_name",
             "name",
-            "long_name",
             "description",
             "domain",
-            "program_name",
+            "keywords",
             "project_name",
-            "exposure_media",
-            "measures"
+            "project_description",
+            "project_sponsor",
+            "variables"
           ]
         },
         "tagSearchDropdown": {
           "enabled": true,
           "collapseOnDefault": true,
-          "collapsibleButtonText": "Resource Characteristics"
+          "collapsibleButtonText": "Show keyword search"
         }
       },
       "advSearchFilters": {
         "enabled": true,
         "field": "advSearchFilters",
-        "displayName": "Filters",
+        "displayName": "Show Search Filters",
         "filters": [
           {
             "key": "Resource Type"
           },
           {
+            "key": "Project Sponsor"
+          },
+          {
             "key": "Project"
           },
           {
+            "key": "Variables"
+          },
+          {
             "key": "Domain"
-          },
-          {
-            "key": "Exposures"
-          },
-          {
-            "key": "Population"
           }
         ]
       },
       "tagsColumn": {
-        "enabled": false
+        "enabled": true
       },
       "tagsInDescription": {
-        "enabled": true
+        "enabled": false
       },
       "authorization": {
         "enabled": false
@@ -239,8 +240,8 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Program Name",
-        "field": "program_name",
+        "name": "Project Sponsor",
+        "field": "project_sponsor",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
       }
@@ -278,12 +279,12 @@
               ]
             },
             {
-              "header": "Program Name",
+              "header": "Project Sponsor",
               "fields": [
                 {
                   "type": "string",
-                  "label": "Program Name",
-                  "sourceField": "program_name",
+                  "label": "Project Sponsor",
+                  "sourceField": "project_sponsor",
                   "default": "n/a"
                 }
               ]
@@ -295,6 +296,12 @@
                   "type": "text",
                   "label": "Project Name",
                   "sourceField": "project_short_name",
+                  "default": "n/a"
+                },
+                {
+                  "type": "text",
+                  "label": "Project Sponsor",
+                  "sourceField": "project_sponsor",
                   "default": "n/a"
                 },
                 {
@@ -338,47 +345,6 @@
                   "default": "n/a"
                 }
               ]
-            },
-            {
-              "header": "Resource Links",
-              "fields": [
-                {
-                  "type": "link",
-                  "label": "Resource URL",
-                  "sourceField": "resource_url",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "License Type",
-                  "sourceField": "license_type",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "License Text",
-                  "sourceField": "license_text",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "Citation",
-                  "sourceField": "citation",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "Subject to Data Usage Agreement",
-                  "sourceField": "resource_use_agreement",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "Resource Contact",
-                  "sourceField": "resource_contact",
-                  "default": "n/a"
-                }
-              ]
             }
           ]
         },
@@ -393,18 +359,6 @@
                   "label": "Support Source",
                   "sourceField": "support_source",
                   "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "Investigator Name",
-                  "sourceField": "investigator_name",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
-                  "label": "Investigator Affiliation",
-                  "sourceField": "investigator_affiliation",
-                  "default": "n/a"
                 }
               ]
             },
@@ -419,32 +373,51 @@
                 },
                 {
                   "type": "text",
-                  "label": "License Type",
-                  "sourceField": "license_type",
-                  "default": "n/a"
-                },
-                {
-                  "type": "block",
-                  "label": "License Text",
-                  "sourceField": "license_text",
-                  "default": "n/a"
-                },
-                {
-                  "type": "block",
-                  "label": "Citation",
-                  "sourceField": "citation",
-                  "default": "n/a"
-                },
-                {
-                  "type": "text",
                   "label": "Resource Use Agreement?",
                   "sourceField": "resource_use_agreement",
                   "default": "n/a"
                 },
                 {
+                  "type": "link",
+                  "label": "Dataset Location 1",
+                  "sourceField": "data_location_1",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 2",
+                  "sourceField": "data_location_2",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 3",
+                  "sourceField": "data_location_3",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 1",
+                  "sourceField": "data_location_1",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 2",
+                  "sourceField": "data_location_2",
+                  "default": "n/a"
+                },
+                {
+                  "type": "link",
+                  "label": "Dataset Location 3",
+                  "sourceField": "data_location_3",
+                  "default": "n/a"
+                },
+            
+                {
                   "type": "text",
-                  "label": "Resource Contact",
-                  "sourceField": "resource_contact",
+                  "label": "Subject to Data Usage Agreement",
+                  "sourceField": "resource_use_agreement",
                   "default": "n/a"
                 }
               ]
@@ -459,23 +432,28 @@
     },
     "tagCategories": [
       {
-        "name": "Project",
-        "color": "rgba(71, 130, 195, 1)",
+        "name": "Project Sponsor",
+        "color": "rgba(34, 92, 122, 1)",
         "display": true
       },
       {
         "name": "Keyword",
-        "color": "rgba(81, 175, 195, 1)",
+        "color": "rgba(81, 134, 17, 1)",
         "display": true
       },
       {
         "name": "Domain",
-        "color": "rgba(81, 100, 54, 1)",
+        "color": "rgba(122, 83, 34, 1)",
         "display": true
       },
       {
         "name": "Resource Type",
-        "color": "rgba(121, 112, 103, 1)",
+        "color": "rgba(153, 200, 224, 1)",
+        "display": true
+      },
+      {
+        "name": "Variables",
+        "color": "rgba(250, 225, 195, 1)",
         "display": true
       }
     ]
@@ -602,9 +580,16 @@
               "project_sponsor",
               "project_sponsor_type",
               "domain",
-              "access_type",
-              "has_api",
-              "measures",
+              "keywords",
+              "exposures",
+              "outcomes",
+              "exposure_media",
+              "population_studied"
+            ]
+          },
+          {
+            "title": "Temporal/Spatial Details",
+            "fields": [
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution",

@@ -158,15 +158,17 @@ class PcorGen3Ingest:
         discovery.program_name = program_name
         discovery.project_description = project.description
         discovery.project_name = project.name
+        discovery.project_short_name = project.short_name
         discovery.name = resource.name
         discovery.description = resource.description
         discovery.publications = resource.publications
         discovery.domain = ','.join(resource.domain)
+        discovery.project_sponsor = project.project_sponsor
         discovery.type = resource.resource_type
         discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
-
+    
         if data_resource:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
@@ -187,26 +189,34 @@ class PcorGen3Ingest:
                 tag.category = "Domain"
                 discovery.tags.append(tag)
 
+        for item in project.project_sponsor:
+            if item:
+                tag = Tag()
+                tag.name = item
+                tag.category = "Project Sponsor"
+                discovery.tags.append(tag)
+
         tag = Tag()
         tag.name = discovery.type
         tag.category = "Resource Type"
         discovery.tags.append(tag)
 
-        filter = AdvSearchFilter()
-        filter.key = "Project"
-        filter.value = project.name
-        discovery.adv_search_filters.append(filter)
+        for sponsor in project.project_sponsor:
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Project Sponsor"
+            search_filter.value = sponsor
+            discovery.adv_search_filters.append(search_filter)
 
         for item in resource.domain:
-            filter = AdvSearchFilter()
-            filter.key = "Domain"
-            filter.value = item
-            discovery.adv_search_filters.append(filter)
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Domain"
+            search_filter.value = item
+            discovery.adv_search_filters.append(search_filter)
 
-        filter = AdvSearchFilter()
-        filter.key = "Resource Type"
-        filter.value = resource.resource_type
-        discovery.adv_search_filters.append(filter)
+        search_filter = AdvSearchFilter()
+        search_filter.key = "Resource Type"
+        search_filter.value = resource.resource_type
+        discovery.adv_search_filters.append(search_filter)
 
         return discovery
 
@@ -259,6 +269,16 @@ class PcorGen3Ingest:
         response = metadata.delete(guid=guid)
 
         return response
+
+    def query_discovery(self, query):
+        """
+        Query discovery metadata given a query
+        """
+        logger.info("query_discovery()")
+        logger.info('query: %s' % query)
+        metadata = Gen3Metadata(self.gen3_auth)
+
+        return
 
     def create_geo_spatial_data_resource(self, program_name, project_code, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")

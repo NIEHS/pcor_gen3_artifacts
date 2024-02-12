@@ -5,7 +5,7 @@ import requests
 from requests import HTTPError
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, AdvSearchFilter
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, AdvSearchFilter, Tag
 
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -15,7 +15,6 @@ logging.basicConfig(
 
 )
 logger = logging.getLogger(__name__)
-
 
 class PcorTemplateProcessor:
     """
@@ -40,7 +39,6 @@ class PcorTemplateProcessor:
         program_id = ''
         project_id = ''
 
-        # ToDo: validate create response
         try:
             if 'program' in model_data.keys():
                 logger.info('process:: adding program')
@@ -137,24 +135,42 @@ class PcorTemplateProcessor:
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         geo_spatial_resource)
-                            discovery.comment = geo_spatial_resource.comments  # intended use?
+                            discovery.comment = geo_spatial_resource.comments
 
                             discovery.is_citizen_collected = model_data['geospatial_data_resource'].includes_citizen_collected
                             discovery.has_api = model_data['geospatial_data_resource'].has_api
                             discovery.has_visualization_tool = model_data['geospatial_data_resource'].has_visualization_tool
 
                             for item in geo_spatial_resource.measures:
-                                filter = AdvSearchFilter()
-                                filter.key = "Measures"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Variables"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+                                tag = Tag()
+                                tag.name = item
+                                tag.category = "Variables"
+                                discovery.tags.append(tag)
 
                             if geo_spatial_resource.exposure_media:
-                                filter = AdvSearchFilter()
-                                filter.key = "Exposures"
-                                filter.value = geo_spatial_resource.exposure_media
-                                discovery.adv_search_filters.append(filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Variables"
+                                search_filter.value = geo_spatial_resource.exposure_media
+                                discovery.adv_search_filters.append(search_filter)
+                                tag = Tag()
+                                tag.name = geo_spatial_resource.exposure_media
+                                tag.category = "Variables"
+                                discovery.tags.append(tag)
+
+                            discovery.data_formats = geo_spatial_resource.data_formats
+
+                            if len(geo_spatial_resource.data_location) > 1:
+                                discovery.data_location_1 = geo_spatial_resource.data_location[0]
+
+                            if len(geo_spatial_resource.data_location) > 2:
+                                discovery.data_location_2 = geo_spatial_resource.data_location[1]
+
+                            if len(geo_spatial_resource.data_location) > 3:
+                                discovery.data_location_3 = geo_spatial_resource.data_location[2]
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
@@ -188,23 +204,36 @@ class PcorTemplateProcessor:
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource,
                                                                                         pop_data_resource)
-                            discovery.comment = pop_data_resource.comments  # intended use?
+                            discovery.comment = pop_data_resource.comments
 
-                            discovery.is_citizen_collected = model_data['population_data_resource'].includes_citizen_collected
+                            discovery.is_citizen_collected = model_data['population_data_resource']\
+                                .includes_citizen_collected
                             discovery.has_api = model_data['population_data_resource'].has_api
-                            discovery.has_visualization_tool = model_data['population_data_resource'].has_visualization_tool
+                            discovery.has_visualization_tool = model_data['population_data_resource']\
+                                .has_visualization_tool
 
                             for item in pop_data_resource.exposures:
-                                filter = AdvSearchFilter()
-                                filter.key = "Exposures"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Variables"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
 
                             for item in pop_data_resource.population_studied:
-                                filter = AdvSearchFilter()
-                                filter.key = "Population"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Variables"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            discovery.data_formats = pop_data_resource.data_formats
+
+                            if len(pop_data_resource.data_location) > 1:
+                                discovery.data_location_1 = pop_data_resource.data_location[0]
+
+                            if len(pop_data_resource.data_location) > 2:
+                                discovery.data_location_2 = pop_data_resource.data_location[1]
+
+                            if len(pop_data_resource.data_location) > 3:
+                                discovery.data_location_3 = pop_data_resource.data_location[2]
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
@@ -237,25 +266,8 @@ class PcorTemplateProcessor:
                             resource.resource_type = model_data['geospatial_tool_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program.name, project, resource, None)
-                            discovery.comment = geo_tool_resource.intended_use  # intended use?
-
-                            for item in geo_tool_resource.tool_type:
-                                filter = AdvSearchFilter()
-                                filter.key = "Tool_Type"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
-                            for item in geo_tool_resource.operating_system:
-                                filter = AdvSearchFilter()
-                                filter.key = "Operating_System"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
-
-                            for item in geo_tool_resource.languages:
-                                filter = AdvSearchFilter()
-                                filter.key = "Languages"
-                                filter.value = item
-                                discovery.adv_search_filters.append(filter)
+                            discovery.comment = geo_tool_resource.intended_use
+                            discovery.tool_type = geo_tool_resource.tool_type
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

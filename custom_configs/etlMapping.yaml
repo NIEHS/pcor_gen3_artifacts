@@ -46,5 +46,12 @@ mappings:
       - name: spatial_resolution
       - name: spatial_coverage
       - name: spatial_coverage_specific_regions
+      - name: geometry_type
+      - name: geometry_source
+      - name: exposures
+      - name: outcomes
+      - name: exposure_media
+      - name: model_methods
+      - name: population_studied
     parent_props:
       - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
