@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/26-Discovery-Updates/custom_configs/schema.json
 
 ambassador:
   resources:
@@ -239,10 +239,6 @@ fence:
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/WA-APCD
         - /programs/CHORDS/projects/NASA-HI
-<<<<<<< HEAD
-        - /programs/CHORDS/projects/NASA-AQ
-=======
->>>>>>> develop
         - /programs/CHORDS/projects/NASA-WD
         - /programs/CHORDS/projects/PURPLE
         - /programs/CHORDS/projects/EJScreen
@@ -938,7 +934,6 @@ portal:
                   "project_sponsor",
                   "project_sponsor_type",
                   "domain",
-<<<<<<< HEAD
                   "keywords",
                   "exposures",
                   "outcomes",
@@ -949,30 +944,11 @@ portal:
               {
                 "title": "Temporal/Spatial Details",
                 "fields": [
-=======
-                  "access_type",
-                  "has_api",
-                  "measures",
->>>>>>> develop
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
                   "spatial_resolution",
-<<<<<<< HEAD
-                  "spatial_coverage",
-                  "geometry_type",
-                  "geometry_source"
-                ]
-              },
-              {
-                "title": "Project/Program Details",
-                "fields": [
-                  "program_name",
-                  "project_short_name",
-                  "project_investigator_affiliation"
-=======
                   "spatial_coverage"
->>>>>>> develop
                 ]
               }
             ]
@@ -987,17 +963,11 @@ portal:
               "domain",
               "keywords",
               "intended_use",
-<<<<<<< HEAD
-              "exposures",
-              "outcomes",
-              "population_studied",
-=======
               "measures",
               "time_extent_start",
               "time_extent_end",
               "spatial_coverage",
               "spatial_coverage_specific_regions",
->>>>>>> develop
               "resource_url"
               ],
             "linkFields": [
@@ -1499,11 +1469,7 @@ etl:
           - name: spatial_coverage_specific_regions
           - name: exposure_media
         parent_props:
-<<<<<<< HEAD
-          - path: resources[domain, access_type, resource_name:long_name, resource_short_name:short_name, resource_description:description, keywords, resource_url].projects[project_sponsor, project_sponsor_type]
-=======
           - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
->>>>>>> develop
       - name: geospatial_tool_resource
         doc_type: geospatial_tool_resource
         type: aggregator
@@ -1532,7 +1498,6 @@ etl:
           - name: spatial_resolution
           - name: spatial_coverage
           - name: spatial_coverage_specific_regions
-<<<<<<< HEAD
           - name: geometry_type
           - name: geometry_source
           - name: exposures
@@ -1540,8 +1505,6 @@ etl:
           - name: exposure_media
           - name: model_methods
           - name: population_studied
-=======
->>>>>>> develop
         parent_props:
           - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
 
