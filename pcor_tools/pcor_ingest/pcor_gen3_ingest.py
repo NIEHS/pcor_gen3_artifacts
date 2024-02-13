@@ -156,19 +156,38 @@ class PcorGen3Ingest:
 
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program_name
-        discovery.project_description = project.description
+        discovery.project_sponsor = ','.join(project.project_sponsor)
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
+        discovery.project_url = project.project_url
+        discovery.project_description = project.description
         discovery.name = resource.name
+        discovery.payment_required = resource.payment_required
+        discovery.verification_datetime = resource.verification_datetime
         discovery.description = resource.description
-        discovery.publications = resource.publications
-        discovery.domain = ','.join(resource.domain)
-        discovery.project_sponsor = project.project_sponsor
-        discovery.type = resource.resource_type
-        discovery.resource_use_agreement = resource.resource_use_agreement
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
-    
+        discovery.type = resource.resource_type
+        discovery.domain = ','.join(resource.domain)
+        discovery.publications = resource.publications
+
+        if len(resource.publications) > 0:
+            discovery.publications_1 = resource.publications[0]
+
+        if len(resource.publications) > 1:
+            discovery.publications_2 = resource.publications[1]
+
+        if len(resource.publications) > 2:
+            discovery.publications_3 = resource.publications[2]
+
+        discovery.keywords = ','.join(resource.keywords)
+        discovery.access_type = resource.access_type
+        discovery.payment_required = resource.payment_required
+        discovery.created_datetime = resource.created_datetime
+        discovery.updated_datetime = resource.updated_datetime
+        discovery.resource_reference = resource.resource_reference
+        discovery.resource_use_agreement = resource.resource_use_agreement
+
         if data_resource:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
@@ -217,6 +236,19 @@ class PcorGen3Ingest:
         search_filter.key = "Resource Type"
         search_filter.value = resource.resource_type
         discovery.adv_search_filters.append(search_filter)
+
+        discovery.data_formats = data_resource.data_formats
+
+        if len(data_resource.data_location) > 0:
+            discovery.data_location_1 = data_resource.data_location[0]
+
+        if len(data_resource.data_location) > 1:
+            discovery.data_location_2 = data_resource.data_location[1]
+
+        if len(data_resource.data_location) > 2:
+            discovery.data_location_3 =  data_resource.data_location[2]
+
+        discovery.source_name = data_resource.source_name
 
         return discovery
 
@@ -541,20 +573,14 @@ class PcorGen3Ingest:
         query = """{{
          project(code: "{}") {{
            id
-           code
            name
-           long_name
-           investigator_affiliation
-           investigator_name
-           availability_mechanism
-           availability_type
-           support_source
-           support_id
-           dbgap_accession_number
-           submitter_id
-           complete
+           code
+           short_name
+           project_sponsor
+           project_sponsor_type
            project_url
            description
+           dbgap_accession_number
          }}
        }}
        """.format(project_code)
@@ -569,13 +595,12 @@ class PcorGen3Ingest:
         else:
             project = PcorIntermediateProjectModel()
             project.name = result["data"]["project"][0]["name"]
+            project.short_name = result["data"]["project"][0]["short_name"]
             project.code = result["data"]["project"][0]["code"]
-            project.investigator_name = result["data"]["project"][0]["investigator_name"]
-            project.investigator_affiliation = result["data"]["project"][0]["investigator_affiliation"]
-            project.long_name = result["data"]["project"][0]["long_name"]
-            project.support_source = result["data"]["project"][0]["support_source"]
-            project.support_id = result["data"]["project"][0]["support_id"]
+            project.sponsor = result["data"]["project"][0]["project_sponsor"]
+            project.sponsor_type = result["data"]["project"][0]["project_sponsor_type"]
             project.project_url = result["data"]["project"][0]["project_url"]
+            project.description = result["data"]["project"][0]["description"]
             project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
             project.id = result["data"]["project"][0]["id"]
             return project

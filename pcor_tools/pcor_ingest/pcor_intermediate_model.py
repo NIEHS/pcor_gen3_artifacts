@@ -39,7 +39,6 @@ class PcorIntermediateProjectModel:
         self.id = ""
         self.name = ""
         self.short_name = ""
-        self.long_name = ""
         self.project_sponsor = []
         self.project_sponsor_type = []
         self.project_url = ""
@@ -70,13 +69,13 @@ class PcorIntermediateResourceModel:
         self.resource_url = ""
         self.description = ""
         self.domain = []
-        self.keywords = []
+        self.keywords = "" # collapsed to commas
         self.access_type = []
         self.payment_required = ""
         self.created_datetime = ""
         self.updated_datetime = ""
         self.verification_datetime = ""
-        self.resource_reference = []
+        self.resource_reference = ""
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
@@ -115,7 +114,7 @@ class PcorGeospatialDataResourceModel:
         self.display_type = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = []
+        self.source_name = ""
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
@@ -153,7 +152,8 @@ class PcorDiscoveryMetadata:
         self.tags = []
         self.adv_search_filters = []
         self.program_name = ""
-        self.project_sponsor = []
+        self.project_sponsor = ""
+        self.project_sponsor_type = ""
         self.project_name = ""
         self.project_short_name = ""
         self.project_url = ""
@@ -163,23 +163,28 @@ class PcorDiscoveryMetadata:
         self.verification_datetime = ""
         self.comment = ""  # collapses intended_use and other descriptions
         self.description = ""
-        self.support_source = ""
         self.update_frequency = ""
-        self.publications = []
+        self.resource_id = ""
+        self.resource_url = ""
+        self.type = ""
         self.domain = []
+        self.publications = []
+        self.publications_1 = ""
+        self.publications_2 = ""
+        self.publications_3 = ""
+        self.access_type = ""
+        self.resource_reference = ""
         self.has_api = ""
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
         self.resource_use_agreement = ""
-        self.resource_id = ""
-        self.resource_url = ""
         self.data_location_1 = ""
         self.data_location_2 = ""
         self.data_location_3 = ""
         self.variables = []
         self.data_formats = []
         self.tool_type = []
-        self.type = ""
+        self.source_name = ""
 
 
 class Tag:
@@ -220,7 +225,7 @@ class PcorPopDataResourceModel:
         self.updated_datetime = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = []
+        self.source_name = ""
         self.update_frequency = ""
         self.includes_citizen_collected = False
         self.has_api = False
