@@ -46,7 +46,6 @@ fence:
   USER_YAML: |
     cloud_providers: {}
     groups: {}
-    
     authz:
       # policies automatically given to anyone, even if they are not authenticated
       anonymous_policies:
@@ -61,22 +60,42 @@ fence:
         policies:
         - services.sheepdog-admin
         - data_upload
-        - CHORDS_submitter
+        - project_submitter
         users:
+        - deeppatel.cs@gmail.com
+        - michael.c.conway@gmail.com
+        - sznolte@gmail.com
+        - schmittcp@yahoo.com
         - test@example.com
         - test
-
-      # can create/update/delete indexd records
+        # can do workspace operations
+      - name: workspace_users
+        policies:
+          - workspace
+          - sower
+        users:
+          - deeppatel.cs@gmail.com
+          - michael.c.conway@gmail.com
+          - test@example.com
+          - sznolte@gmail.com
+          - schmittcp@yahoo.com
+          - test
+        # can create/update/delete indexd records
       - name: indexd_admins
         policies:
         - indexd_admin
         users:
+        - deeppatel.cs@gmail.com
+        - michael.c.conway@gmail.com
         - test@example.com
-
+        - sznolte@gmail.com
+        - schmittcp@yahoo.com
+        - test
       resources:
       - name: 'mds_gateway'
         description: 'commons /mds-admin'
       - name: workspace
+      - name: sower
       - name: data_file
       - name: services
         subresources:
@@ -93,38 +112,52 @@ fence:
           subresources:
           - name: projects
             subresources:
-            - name: ACS
-            - name: BenMAP-CE
-            - name: CRE
-            - name: EJI
-            - name: EPA-AQS
-            - name: FIRMS
-            - name: HCUP
-            - name: HMS
-            - name: KP
-            - name: LAADS
-            - name: MODIS
-            - name: MTBS
-            - name: NASA-AQ
-            - name: NHANES
-            - name: NIFC
-            - name: NWCG-InciWeb
-            - name: NWS-FireWeather
-            - name: PLACES
-            - name: SmokeEstimates
-            - name: TrackingNetwork
-            - name: USFS
-            - name: USFA
-            - name: WISQARS
-            - name: WONDER
-            - name: WFSmokeExp
-            - name: PM2.5
-            - name: NDI
-            - name: WA-APCD
-            - name: NASA-HI
-            - name: NASA-WD
-            - name: PURPLE
-            - name: EJScreen
+              - name: CHORDS
+        - name: MTBS
+          subresources:
+          - name: projects
+            subresources:
+              - name: MTBS
+        - name: NFS
+          subresources:
+          - name: projects
+            subresources:
+              - name: NFS-1
+              - name: NFS-2
+        - name: USGS
+          subresources:
+          - name: projects
+            subresources:
+              - name: USGS-1
+              - name: USGS-2
+        - name: NOAA
+          subresources:
+          - name: projects
+            subresources:
+              - name: NOAA-1
+              - name: NOAA-2
+        - name: EPA
+          subresources:
+          - name: projects
+            subresources:
+              - name: EPA-1
+              - name: EPA-2
+        - name: NASA
+          subresources:
+          - name: projects
+            subresources:
+              - name: NASA-1
+              - name: NASA-2
+        - name: jnkns
+          subresources:
+            - name: projects
+              subresources:
+                - name: jenkins
+        #- name: program1
+        #  subresources:
+        #  - name: projects
+        #    subresources:
+        #    - name: P1
 
       policies:
       - id: 'mds_admin'
@@ -156,44 +189,25 @@ fence:
           - indexd_admin
         resource_paths:
           - /programs
+          - /data_file
       - id: open_data_reader
         role_ids:
           - reader
           - storage_reader
         resource_paths:
         - /open
-        - /programs/CHORDS/projects/ACS
-        - /programs/CHORDS/projects/BenMAP-CE
-        - /programs/CHORDS/projects/CRE
-        - /programs/CHORDS/projects/EJI
-        - /programs/CHORDS/projects/EPA-AQS
-        - /programs/CHORDS/projects/FIRMS
-        - /programs/CHORDS/projects/HCUP
-        - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/KP
-        - /programs/CHORDS/projects/LAADS
-        - /programs/CHORDS/projects/MODIS
-        - /programs/CHORDS/projects/MTBS
-        - /programs/CHORDS/projects/NASA-AQ
-        - /programs/CHORDS/projects/NHANES
-        - /programs/CHORDS/projects/NIFC
-        - /programs/CHORDS/projects/NWCG-InciWeb
-        - /programs/CHORDS/projects/NWS-FireWeather
-        - /programs/CHORDS/projects/PLACES
-        - /programs/CHORDS/projects/SmokeEstimates
-        - /programs/CHORDS/projects/TrackingNetwork
-        - /programs/CHORDS/projects/USFS
-        - /programs/CHORDS/projects/USFA
-        - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/WONDER
-        - /programs/CHORDS/projects/WFSmokeExp
-        - /programs/CHORDS/projects/PM2.5
-        - /programs/CHORDS/projects/NDI
-        - /programs/CHORDS/projects/WA-APCD
-        - /programs/CHORDS/projects/NASA-HI
-        - /programs/CHORDS/projects/NASA-WD
-        - /programs/CHORDS/projects/PURPLE
-        - /programs/CHORDS/projects/EJScreen
+        - /programs/CHORDS/projects/CHORDS
+        - /programs/MTBS/projects/MTBS
+        - /programs/NFS/projects/NFS-1
+        - /programs/NFS/projects/NFS-2
+        - /programs/USGS/projects/USGS-1
+        - /programs/USGS/projects/USGS-2
+        - /programs/NOAA/projects/NOAA-1
+        - /programs/NOAA/projects/NOAA-2
+        - /programs/EPA/projects/EPA-1
+        - /programs/EPA/projects/EPA-2
+        - /programs/NASA/projects/NASA-1
+        - /programs/NASA/projects/NASA-2
 
       - id: all_programs_reader
         role_ids:
@@ -201,7 +215,7 @@ fence:
         - storage_reader
         resource_paths:
         - /programs
-      - id: CHORDS_submitter
+      - id: project_submitter
         role_ids:
         - reader
         - creator
@@ -210,40 +224,105 @@ fence:
         - storage_reader
         - storage_writer
         resource_paths:
-        - /programs/CHORDS/projects/ACS
-        - /programs/CHORDS/projects/BenMAP-CE
-        - /programs/CHORDS/projects/CRE
-        - /programs/CHORDS/projects/EJI
-        - /programs/CHORDS/projects/EPA-AQS
-        - /programs/CHORDS/projects/FIRMS
-        - /programs/CHORDS/projects/HCUP
-        - /programs/CHORDS/projects/HMS
-        - /programs/CHORDS/projects/KP
-        - /programs/CHORDS/projects/LAADS
-        - /programs/CHORDS/projects/MODIS
-        - /programs/CHORDS/projects/MTBS
-        - /programs/CHORDS/projects/NASA-AQ
-        - /programs/CHORDS/projects/NHANES
-        - /programs/CHORDS/projects/NIFC
-        - /programs/CHORDS/projects/NWCG-InciWeb
-        - /programs/CHORDS/projects/NWS-FireWeather
-        - /programs/CHORDS/projects/PLACES
-        - /programs/CHORDS/projects/SmokeEstimates
-        - /programs/CHORDS/projects/TrackingNetwork
-        - /programs/CHORDS/projects/USFS
-        - /programs/CHORDS/projects/USFA
-        - /programs/CHORDS/projects/WISQARS
-        - /programs/CHORDS/projects/WONDER
-        - /programs/CHORDS/projects/WFSmokeExp
-        - /programs/CHORDS/projects/PM2.5
-        - /programs/CHORDS/projects/NDI
-        - /programs/CHORDS/projects/WA-APCD
-        - /programs/CHORDS/projects/NASA-HI
-        - /programs/CHORDS/projects/NASA-WD
-        - /programs/CHORDS/projects/PURPLE
-        - /programs/CHORDS/projects/EJScreen
-
-
+        - /programs/CHORDS/projects/CHORDS
+        - /programs/MTBS/projects/MTBS
+        - /programs/NFS/projects/NFS-1
+        - /programs/NFS/projects/NFS-2
+        - /programs/USGS/projects/USGS-1
+        - /programs/USGS/projects/USGS-2
+        - /programs/NOAA/projects/NOAA-1
+        - /programs/NOAA/projects/NOAA-2
+        - /programs/EPA/projects/EPA-1
+        - /programs/EPA/projects/EPA-2
+        - /programs/NASA/projects/NASA-1
+        - /programs/NASA/projects/NASA-2
+      - id: jnkns
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/jnkns
+        - /programs/jnkns/projects/jenkins
+      - id: sower
+        description: be able to user sower
+        resource_paths:
+        - /sower
+        role_ids:
+        - sower_user
+      - id: CHORDS
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/CHORDS
+      - id: MTBS
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/MTBS
+      - id: NFS
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/NFS
+      - id: USGS
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/USGS
+      - id: NOAA
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/NOAA
+      - id: EPA
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/EPA
+      - id: NASA
+        role_ids:
+        - reader
+        - creator
+        - updater
+        - deleter
+        - storage_reader
+        - storage_writer
+        resource_paths:
+        - /programs/NASA
       roles:
       - id: 'mds_user'
         permissions:
@@ -291,9 +370,17 @@ fence:
               method: create
       - id: reader
         permissions:
-          - id: reader
+          - id: storage_reader
             action:
-              service: '*'
+              service: 'fence'
+              method: read-storage 
+          - id: storage_reader_perigrine
+            action:
+              service: 'perigrine'
+              method: read
+          - id: storage_reader_guppy
+            action:
+              service: 'guppy'
               method: read
       - id: updater
         permissions:
@@ -317,9 +404,22 @@ fence:
         permissions:
           - id: storage_reader
             action:
-              service: '*'
-              method: read-storage
-
+              service: 'fence'
+              method: read-storage 
+          - id: storage_reader_perigrine
+            action:
+              service: 'perigrine'
+              method: read
+          - id: storage_reader_guppy
+            action:
+              service: 'guppy'
+              method: read
+      - id: sower_user
+        permissions:
+          - id: sower_access
+            action:
+              method: access
+              service: job
     clients:
       wts:
         policies:
@@ -327,24 +427,113 @@ fence:
         - open_data_reader
 
     users:
+      deeppatel.cs@gmail.com:
+        tags:
+          name: Deep Patel
+    #      email: mustbe@differentemail.com
+        policies:
+        - mds_admin
+        - workspace
+        - data_upload
+        - project_submitter
+        - jnkns
+        - NFS
+        - CHORDS
+        - MTBS
+        - USGS
+        - NOAA
+        - EPA
+        - NASA
+        - services.sheepdog-admin
+      michael.c.conway@gmail.com:
+        tags:
+          name: Mike Conway
+    #      email: johndoe@gmail.com
+        policies:
+        - workspace
+        - mds_admin
+        - data_upload
+        - project_submitter
+        - jnkns
+        - NFS
+        - CHORDS
+        - MTBS
+        - USGS
+        - NOAA
+        - EPA
+        - NASA
+        - services.sheepdog-admin
       test@example.com:
         tags:
-          name: Test User
-    #     email: johndoe@gmail.com
+          name: Mike Conway
+    #      email: johndoe@gmail.com
         policies:
-          - CHORDS_submitter
-          - mds_admin
+        - workspace
+        - data_upload
+        - project_submitter
+        - mds_admin
+        - jnkns
+        - NFS
+        - CHORDS
+        - MTBS
+        - USGS
+        - NOAA
+        - EPA
+        - NASA
+        - services.sheepdog-admin
+      sznolte@gmail.com:
+        tags:
+          name: Mike Conway
+        #      email: johndoe@gmail.com
+        policies:
+          - workspace
           - data_upload
+          - project_submitter
+          - jnkns
+          - NFS
+          - CHORDS
+          - MTBS
+          - USGS
+          - NOAA
+          - EPA
+          - NASA
+          - services.sheepdog-admin
+      schmittcp@yahoo.com:
+        tags:
+          name: Charles Schmitt
+        policies:
+          - workspace
+          - data_upload
+          - project_submitter
+          - jnkns
+          - NFS
+          - CHORDS
+          - MTBS
+          - USGS
+          - NOAA
+          - EPA
+          - NASA
           - services.sheepdog-admin
       test:
         tags:
-          name: Test User
-    #     email: johndoe@gmail.com
+          name: test
+        #      email: johndoe@gmail.com
         policies:
-          - CHORDS_submitter
-          - mds_admin
+          - workspace
           - data_upload
+          - project_submitter
+          - mds_admin
+          - jnkns
+          - NFS
+          - CHORDS
+          - MTBS
+          - USGS
+          - NOAA
+          - EPA
+          - NASA
           - services.sheepdog-admin
+    cloud_providers: {}
+    groups: {}
 
 
 portal:
