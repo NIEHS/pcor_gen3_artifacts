@@ -159,13 +159,18 @@ authz:
 
   - id: all_programs_reader
     role_ids:
-    - reader
-    - storage_reader
+    - 'guppy_reader'
+    - 'fence_reader'
+    - 'peregrine_reader'
+    - 'sheepdog_reader'
     resource_paths:
     - /programs
   - id: CHORDS_submitter
     role_ids:
-    - reader
+    - 'guppy_reader'
+    - 'fence_reader'
+    - 'peregrine_reader'
+    - 'sheepdog_reader'
     - creator
     - updater
     - deleter
@@ -251,62 +256,59 @@ authz:
         action:
           service: '*'
           method: create
-  # mc revise
   - id: 'guppy_reader'
-      description: ''
-      permissions:
-      - id: 'guppy_reader'
-        action:
-          method: read
-          service: 'guppy'
-    - id: 'fence_reader'
-      description: ''
-      permissions:
-      - id: 'fence-reader'
-        action:
-          method: read
-          service: 'fence'
-      - id: 'fence_storage_reader'
-        action:
-          method: read-storage
-          service: 'fence'
+    description: ''
+    permissions:
+    - id: 'guppy_reader'
+      action:
+        method: read
+        service: 'guppy'
+  - id: 'fence_reader'
+    description: ''
+    permissions:
+    - id: 'fence-reader'
+      action:
+        method: read
+        service: 'fence'
+    - id: 'fence_storage_reader'
+      action:
+        method: read-storage
+        service: 'fence'
+  - id: 'peregrine_reader'
+    description: ''
+    permissions:
     - id: 'peregrine_reader'
-      description: ''
-      permissions:
-      - id: 'peregrine_reader'
-        action:
-          method: read
-          service: 'peregrine'
+      action:
+        method: read
+        service: 'peregrine'
+  - id: 'sheepdog_reader'
+    description: ''
+    permissions:
     - id: 'sheepdog_reader'
-      description: ''
-      permissions:
-      - id: 'sheepdog_reader'
-        action:
-          method: read
-          service: 'sheepdog'
-# for dicom viewer
+      action:
+        method: read
+        service: 'sheepdog'
+  - id: 'dicom-viewer_reader'
+    description: ''
+    permissions:
     - id: 'dicom-viewer_reader'
-      description: ''
-      permissions:
-      - id: 'dicom-viewer_reader'
-        action:
-          method: read
-          service: 'dicom-viewer'
+      action:
+        method: read
+        service: 'dicom-viewer'
+  - id: 'orthanc_reader'
+    description: ''
+    permissions:
     - id: 'orthanc_reader'
-      description: ''
-      permissions:
-      - id: 'orthanc_reader'
-        action:
-          method: read
-          service: 'orthanc'
+      action:
+        method: read
+        service: 'orthanc'
+  - id: 'ohif-viewer_reader'
+    description: ''
+    permissions:
     - id: 'ohif-viewer_reader'
-      description: ''
-      permissions:
-      - id: 'ohif-viewer_reader'
-        action:
-          method: read
-          service: 'ohif-viewer'
-# mc revise
+      action:
+        method: read
+        service: 'ohif-viewer'
   - id: updater
     permissions:
       - id: updater
