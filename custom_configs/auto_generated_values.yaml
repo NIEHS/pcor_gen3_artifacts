@@ -787,7 +787,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Geospatial Data Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
@@ -891,7 +891,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Population Data Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
@@ -994,7 +994,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Geospatial Tool Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
