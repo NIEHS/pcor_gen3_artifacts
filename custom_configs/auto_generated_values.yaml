@@ -546,14 +546,13 @@ portal:
               "placeholder": "Try keywords such as wildfire, smoke, pm2.5",
               "searchableTextFields": [
                 "project_short_name",
+                "project_name",
                 "name",
                 "description",
                 "domain",
                 "keywords",
-                "project_name",
                 "project_description",
-                "project_sponsor",
-                "variables"
+                "project_sponsor"
               ]
             },
             "tagSearchDropdown": {
@@ -657,18 +656,62 @@ portal:
                   "header": "Details",
                   "fields": [
                     {
-                      "type": "block",
-                      "sourceField": "comment"
+                      "type": "text",
+                      "label": "Comment",
+                      "sourceField": "comment",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "Reference",
+                      "sourceField": "resource_reference",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "publication 1",
+                      "sourceField": "publications_1",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "publication 2",
+                      "sourceField": "publications_2",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "publication 3",
+                      "sourceField": "publications_3",
+                      "default": ""
                     }
                   ]
                 },
                 {
                   "header": "Project Sponsor",
                   "fields": [
+                     {
+                      "type": "string",
+                      "label": "Project Name",
+                      "sourceField": "project_name",
+                      "default": "n/a"
+                    },
                     {
                       "type": "string",
                       "label": "Project Sponsor",
                       "sourceField": "project_sponsor",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "string",
+                      "label": "Project Sponsor Type",
+                      "sourceField": "project_sponsor_type",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Project URL",
+                      "sourceField": "project_url",
                       "default": "n/a"
                     }
                   ]
@@ -702,7 +745,7 @@ portal:
                   ]
                 },
                 {
-                  "header": "Details",
+                  "header": "Data Details",
                   "fields": [
                     {
                       "type": "text",
@@ -726,6 +769,24 @@ portal:
                       "type": "text",
                       "label": "Citizen Collected?",
                       "sourceField": "is_citizen_collected",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "Data Formats",
+                      "sourceField": "data_formats",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "Tool Type",
+                      "sourceField": "tool_type",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "Payment Required?",
+                      "sourceField": "payment_required",
                       "default": "n/a"
                     }
                   ]
@@ -757,7 +818,7 @@ portal:
                     },
                     {
                       "type": "text",
-                      "label": "Resource Use Agreement?",
+                      "label": "Resource Use Agreement",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
                     },
@@ -777,31 +838,6 @@ portal:
                       "type": "link",
                       "label": "Dataset Location 3",
                       "sourceField": "data_location_3",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "link",
-                      "label": "Dataset Location 1",
-                      "sourceField": "data_location_1",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "link",
-                      "label": "Dataset Location 2",
-                      "sourceField": "data_location_2",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "link",
-                      "label": "Dataset Location 3",
-                      "sourceField": "data_location_3",
-                      "default": "n/a"
-                    },
-                
-                    {
-                      "type": "text",
-                      "label": "Subject to Data Usage Agreement",
-                      "sourceField": "resource_use_agreement",
                       "default": "n/a"
                     }
                   ]
