@@ -43,7 +43,7 @@
     "index": {
       "introduction": {
         "heading": "CHORDS - Climate and Health Outcomes Research Data Systems",
-        "text": "The CHORDS Platform provides resources aimed at making it easier for researchers to study the effects of external, place based environmental exposures on health outcomes as well as supporting research into the impact of health interventions on well-being. Place-based exposures are varied and can include pollution from land, air, and water source; natural phenomena such as the heat, humidity, and pollen; extreme events such as drought and wildfires; as well as factors such as crime and the availability of green space that result from our social and built environment. The CHORDS Platform emphasizes research into the impacts of climate change, with a focus on wildfires, although many of the resources provided here are applicable across a breadth of scenarios.",
+        "text": "The CHORDS project aims to build and strengthen data infrastructure for patient-centered outcomes research on climate change and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes. The project also provides analytical and educational resources that will allow not only researchers, but also health practitioners, public health officials, and communities to assess the health effects associated with climate-related events, create and evaluate evidence-based interventions to protect communities, and anticipate and respond to potential adverse health outcomes resulting from these events.​",
         "link": "/submission"
       },
       "buttons": [
@@ -159,7 +159,7 @@
         "searchBar": {
           "enabled": true,
           "inputSubtitle": "CHORDS Resource Search",
-          "placeholder": "Try keywords such as wildfire, smoke, pm2.5",
+          "placeholder": "Try searches such as 'Air quality', 'General exposure', 'Climate hazard'",
           "searchableTextFields": [
             "project_short_name",
             "project_name",

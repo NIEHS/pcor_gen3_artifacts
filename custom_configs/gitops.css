@@ -289,3 +289,20 @@
   .nav-bar__logo-img {
     height: 100px;
   }
+
+  .nav-bar__link--right {
+    border-left: none !important;
+  } 
+
+  .nav-button__icon svg {
+    height: 30px !important;
+  }
+
+  .login-page__side-box[style] {
+    background-image: none !important;
+  }
+  
+  .nav-bar__link--right:last-child {
+    border-right: none !important;
+  }
+
