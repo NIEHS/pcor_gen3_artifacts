@@ -1485,11 +1485,15 @@ portal:
       } 
 
       .nav-button__icon svg {
-        height: 50px !important;
+        height: 30px !important;
       }
 
-      .login-page__side-box {
+      .login-page__side-box[style] {
         background-image: none !important;
+      }
+      
+      .nav-bar__link--right:last-child {
+        border-right: none !important;
       }
 
 
