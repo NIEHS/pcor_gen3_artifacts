@@ -1,6 +1,6 @@
 global:
   hostname: gen3.niehs.nih.gov
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/28-more-exploration/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
@@ -891,7 +891,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Geospatial Data Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
@@ -995,7 +995,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Population Data Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
@@ -1098,7 +1098,7 @@ portal:
           "filters": {
             "tabs": [
               {
-                "title": "Geospatial Tool Resources",
+                "title": "Search Facets",
                 "fields": [
                   "project_sponsor",
                   "project_sponsor_type",
