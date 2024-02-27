@@ -22,7 +22,7 @@ systemProperties:
 
 links:
   - name: resources
-    backref: geospatial_data_resources
+    backref: geospatial_tool_resources
     label: is_a_resource_of
     target_type: resource
     multiplicity: one_to_one
