@@ -1,17 +1,19 @@
 $schema: "http://json-schema.org/draft-04/schema#"
-# GeoExposure_Data_Resource
-id: "geospatial_data_resource"
-title: GeospatialDataResource
+
+id: "geospatial_tool_resource"
+title: GeospatialToolResource
 type: object
 nodeTerms: null
 namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
-description: A collection of geospatial data or resources, can have files attached or may point to an external reference
+description: A tool for dealing with geospatial data
 additionalProperties: false
 submittable: true
 validators: null
+
+# GeoExposure_Tool_Resource
 
 systemProperties:
   - id
@@ -25,7 +27,7 @@ links:
     backref: geospatial_tool_resources
     label: is_a_resource_of
     target_type: resource
-    multiplicity: one_to_one
+    multiplicity: many_to_one
     required: true
 
 required:
@@ -56,112 +58,77 @@ properties:
       - geospatial_tool_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
-  # data resc props are common
+  # common properties for tool resources
   display_type:
     description: Display type of resource
     type: string
   comments:
-    description: Notes on usage of the data, including warnings.
+    description: Optional submitter comment
     type: string
+  tool_type:
+    description: The type of tool
+    type: array
+    items:
+      type: string
   intended_use:
     description: Narrative that speaks to the how the data can be used in research projects, could include references to good data uses.
     type: string
-  source_name:
-    description: Name of source.
-    type: array
-    items:
-      type: string
-  update_frequency:
-    description: Frequency of update of the resource.
-    #nullable: true
-    type: string
-    #enum:
-    #  - Continuous
-    #  - Hourly
-    #  - Daily
-    #  - Monthly
-    #  - Quarterly
-    # - Annually
-    # - Undefined
-  includes_citizen_collected:
-    description: Flag indicating that the data is from citizen science.
+  is_open:
+    description: is the tool open source
     type: boolean
-  has_api:
-    description: Flag if the resource has an API
-    type: boolean
-  has_visualization_tool:
-    description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
-    type: boolean
-  # additional properties to describe the dataset
-  measures:
-    description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
+  operating_system:
+    description: The operating system the tool runs on
     type: array
     items:
       type: string
-  measurement_method:
-    description: Method used to capture the measure.
+      #enum:
+      #- Android OS
+      #- Apple iOS
+      #- Apple MacOS
+      #- Linux
+      #- Microsoft Windows
+  languages:
+    description: Programming language
     type: array
     items:
       type: string
-  time_extent_start:
-    description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_extent_end:
-    description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_available_comment:
-    description: Narrative to describe time extent details if multiple exist in the resource.
-    type: string
-  temporal_resolution:
-    description: Frequency of time points.
-    type: string
-  spatial_resolution:
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
-  spatial_coverage:
-    description: Maximum spatial coverage of the data.
-    type: string
-  spatial_coverage_specific_regions:
-    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
-    type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
-  geometry_type:
-    description: Type of geometric data, the file extension will be different for different types.
-    type: array
-    items:
-      type: string
-  geometry_source:
-    description: Source or provider of the geometry data.
-    type: array
-    items:
-      type: string
-  model_methods:
-    description: If modeled, type of approach used.
-    type: array
-    items:
-      type: string
-  exposure_media:
-    description: Media that the phenomena is related to.
-    type: array
-    items:
-      type: string
-  geographic_feature:
-    description: The type of geographic feature associated with the data
-    type: array
-    items:
-      type: string
-  data_formats:
-    description: Format of data in the collection
-    type: array
-    items:
-      type: string
-  data_location:
-    description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
-    type: array
-    items:
-      type: string
+      #enum:
+      #  - Python
+      #  - R
+      #  - Java
+      #  - C/C++
+      #  - C#/.Net
+      #  - Javascript
+      #  - Fortran
+      #  - Go
+      #  - Other
+  license_type:
+      description: license for use of software
+      type: array
+      items:
+        type: string
+        #enum:
+        #  - AGPL
+        #  - Apache
+        #  - BSD
+        #  - CDDL
+        #  - DUAL
+        # - Eclipse
+        #  - GPL
+        # - LGPL
+        #  - MIT
+        #  - MPL
+        #  - Proprietary
+        #  - Public Domain
+  suggested_audience:
+      description: suggested audience to use this tool
+      type: array
+      items:
+        type: string
+       # enum:
+       #   - Software Developer
+       #   - Researcher
+       #   - General Public
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
