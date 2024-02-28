@@ -53,7 +53,7 @@ properties:
   type:
     description: The name of the node in the database to be used in queries.
     enum:
-      - geospatial_data_resource
+      - geospatial_tool_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   # data resc props are common
