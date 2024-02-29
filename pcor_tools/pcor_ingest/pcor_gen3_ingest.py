@@ -260,7 +260,7 @@ class PcorGen3Ingest:
         """
 
         logger.info("decorate_resc_with_discovery()")
-        json_string = self.produce_discovery_json(discovery_data)
+        json_string = self.produce_discovery_json(discovery_data).encode().decode('unicode_escape')
         logger.debug("json_string: %s" % json_string)
         discovery_json = json.loads(json_string)
         logger.info('discovery_json: %s', discovery_json)
