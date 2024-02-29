@@ -1,6 +1,6 @@
 global:
   hostname: gen3.niehs.nih.gov
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/schema.json
 
 fence:
   FENCE_CONFIG:
