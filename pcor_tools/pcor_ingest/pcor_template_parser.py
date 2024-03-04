@@ -172,6 +172,7 @@ class PcorTemplateParser:
                 logging.debug("found Project")
                 for j in range(i, ss_rows):
                     # FixMe:  submitter id is missing in template!
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_name':
@@ -234,6 +235,7 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Resource':
                 logging.debug("found Resource")
                 for j in range(i, ss_rows):
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     field_name = template_df.iat[j, 0]
                     if not isinstance(field_name, float):
                         field_name = field_name.strip()
@@ -275,7 +277,7 @@ class PcorTemplateParser:
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'publications':
-                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1], force_new_line_delimit=True)
                         elif field_name == 'is_static':
                             resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             if str(resource.is_static).lower() == 'no':
@@ -292,13 +294,16 @@ class PcorTemplateParser:
         return None
 
     @staticmethod
-    def make_complex_array(value):
+    def make_complex_array(value, force_new_line_delimit=False):
         clean_value = PcorTemplateParser.sanitize_column(value, False)
         temp_list = []
         if clean_value:
             temp_list = [line.strip() for line in str(clean_value).splitlines()]
             if temp_list and len(temp_list) == 1:
-                return PcorTemplateParser.make_array(temp_list[0])
+                if force_new_line_delimit:
+                    return temp_list[0]
+                else:
+                    return PcorTemplateParser.make_array(temp_list[0])
 
         return temp_list
 
@@ -333,7 +338,7 @@ class PcorTemplateParser:
             if escape_new_line:
                 value = re.sub(r'\n', '\\\\n', value)
             value = re.sub(r'\t', "\\\\t", value) #must escape newlines for strings they are not valid json
-
+            value = value.replace('\xa0', '')
             return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):

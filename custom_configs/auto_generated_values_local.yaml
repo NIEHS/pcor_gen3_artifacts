@@ -94,6 +94,7 @@ fence:
           - name: projects
             subresources:
             - name: ACS
+            - name: AirNow
             - name: AQPathfinder
             - name: AQS
             - name: BenMAP-CE
@@ -102,6 +103,9 @@ fence:
             - name: DiseasePathfinder
             - name: EJI
             - name: EJScreen
+            - name: EPA-AirNow
+            - name: EPA-EnviroAtlas
+            - name: EPA-SS
             - name: FireWeather
             - name: FIRMS
             - name: GHGPathfinder
@@ -114,11 +118,13 @@ fence:
             - name: MODIS
             - name: MTBS
             - name: NDI
+            - name: NEPHTN
             - name: NHANES
             - name: NIFC
             - name: PLACES
             - name: PM2.5
             - name: PurpleAir
+            - name: SDOH
             - name: TrackingNetwork
             - name: USFA
             - name: WA-APCD
@@ -173,6 +179,7 @@ fence:
         resource_paths:
         - /open
         - /programs/CHORDS/projects/ACS
+        - /programs/CHORDS/projects/AirNow
         - /programs/CHORDS/projects/AQPathfinder
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
@@ -181,6 +188,9 @@ fence:
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
         - /programs/CHORDS/projects/EJScreen
+        - /programs/CHORDS/projects/EPA-AirNow
+        - /programs/CHORDS/projects/EPA-EnviroAtlas
+        - /programs/CHORDS/projects/EPA-SS
         - /programs/CHORDS/projects/FireWeather
         - /programs/CHORDS/projects/FIRMS
         - /programs/CHORDS/projects/GHGPathfinder
@@ -193,11 +203,13 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/NDI
+        - /programs/CHORDS/projects/NEPHTN
         - /programs/CHORDS/projects/NHANES
         - /programs/CHORDS/projects/NIFC
         - /programs/CHORDS/projects/PLACES
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/PurpleAir
+        - /programs/CHORDS/projects/SDOH
         - /programs/CHORDS/projects/TrackingNetwork
         - /programs/CHORDS/projects/USFA
         - /programs/CHORDS/projects/WA-APCD
@@ -226,6 +238,7 @@ fence:
         - storage_writer
         resource_paths:
         - /programs/CHORDS/projects/ACS
+        - /programs/CHORDS/projects/AirNow
         - /programs/CHORDS/projects/AQPathfinder
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
@@ -234,6 +247,9 @@ fence:
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
         - /programs/CHORDS/projects/EJScreen
+        - /programs/CHORDS/projects/EPA-AirNow
+        - /programs/CHORDS/projects/EPA-EnviroAtlas
+        - /programs/CHORDS/projects/EPA-SS
         - /programs/CHORDS/projects/FireWeather
         - /programs/CHORDS/projects/FIRMS
         - /programs/CHORDS/projects/GHGPathfinder
@@ -246,11 +262,13 @@ fence:
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/NDI
+        - /programs/CHORDS/projects/NEPHTN
         - /programs/CHORDS/projects/NHANES
         - /programs/CHORDS/projects/NIFC
         - /programs/CHORDS/projects/PLACES
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/PurpleAir
+        - /programs/CHORDS/projects/SDOH
         - /programs/CHORDS/projects/TrackingNetwork
         - /programs/CHORDS/projects/USFA
         - /programs/CHORDS/projects/WA-APCD

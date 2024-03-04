@@ -192,6 +192,17 @@ class PcorGen3Ingest:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
             discovery.is_citizen_collected = data_resource.includes_citizen_collected
+            discovery.data_formats = data_resource.data_formats
+            if len(data_resource.data_location) > 0:
+                discovery.data_location_1 = data_resource.data_location[0]
+
+            if len(data_resource.data_location) > 1:
+                discovery.data_location_2 = data_resource.data_location[1]
+
+            if len(data_resource.data_location) > 2:
+                discovery.data_location_3 = data_resource.data_location[2]
+
+            discovery.source_name = data_resource.source_name
 
         # migrate keywords that are available in resource
         for kw in resource.keywords:
@@ -237,18 +248,6 @@ class PcorGen3Ingest:
         search_filter.value = resource.resource_type
         discovery.adv_search_filters.append(search_filter)
 
-        discovery.data_formats = data_resource.data_formats
-
-        if len(data_resource.data_location) > 0:
-            discovery.data_location_1 = data_resource.data_location[0]
-
-        if len(data_resource.data_location) > 1:
-            discovery.data_location_2 = data_resource.data_location[1]
-
-        if len(data_resource.data_location) > 2:
-            discovery.data_location_3 =  data_resource.data_location[2]
-
-        discovery.source_name = data_resource.source_name
 
         return discovery
 
