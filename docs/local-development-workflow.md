@@ -42,6 +42,11 @@ hatchery:
   enabled: false
 ```
 
+
+## Loading data notes
+
+Once data is loaded, the ETL job needs to be started (and guppy restarted). See (https://github.com/NIEHS/gen3-helm/blob/master/docs/etl.md)
+
 ## Developer tools and scripts
 
 This repo will hold scripts and tools that help with the development workflow.

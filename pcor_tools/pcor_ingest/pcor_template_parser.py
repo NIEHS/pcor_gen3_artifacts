@@ -256,14 +256,14 @@ class PcorTemplateParser:
                         elif field_name == 'resource_description':
                             resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'domain':
-                            resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.domain = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'domain_other':
-                            temp_domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            temp_domain_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                             resource.domain = PcorTemplateParser.combine_prop(resource.domain, temp_domain_other)
                         elif field_name == 'keywords':
-                            resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.keywords = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'access_type':
-                            resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.access_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'payment_required':
                             resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'date_added':
@@ -308,6 +308,20 @@ class PcorTemplateParser:
         return temp_list
 
     @staticmethod
+    def make_complex_camel_case_array(value, force_new_line_delimit=False):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+        temp_list = []
+        if clean_value:
+            temp_list = [line.strip() for line in str(clean_value).splitlines()]
+            if temp_list and len(temp_list) == 1:
+                if force_new_line_delimit:
+                    return temp_list[0]
+                else:
+                    return PcorTemplateParser.make_array_and_camel_case(temp_list[0])
+
+        return temp_list
+
+    @staticmethod
     def make_array(value):
         """
         Just avoiding 'None' when parsing spreadsheet
@@ -321,8 +335,33 @@ class PcorTemplateParser:
         """
         result = []
         if value:
-            result = [item.strip() for item in value.split(',')]
+            if ('\\n' in value):
+                result = [item.strip() for item in value.split('\\n')]
+            else:
+                result = [item.strip() for item in value.split(',')]
             result = list(filter(bool, result)) #clean up any null items
+        return result
+
+    @staticmethod
+    def make_array_and_camel_case(value):
+        """
+        Just avoiding 'None' when parsing spreadsheet, also camel case the entries
+        Parameters
+        ----------
+        value string to split into array
+
+        Returns
+        -------
+
+        """
+        result = []
+        if value:
+            if ('\\n' in value):
+                result = [PcorTemplateParser.camel_case_it(item.strip()) for item in value.split('\\n')]
+            else:
+                result = [PcorTemplateParser.camel_case_it(item.strip()) for item in value.split(',')]
+
+            result = list(filter(bool, result))  # clean up any null items
         return result
 
     @staticmethod
@@ -346,6 +385,12 @@ class PcorTemplateParser:
             else:
                 return str(value)
         return value
+
+    @staticmethod
+    def camel_case_it(prop):
+        """ Make a string camel case """
+        if prop:
+            return prop.title()
 
     @staticmethod
     def combine_prop(main_prop, other_prop):

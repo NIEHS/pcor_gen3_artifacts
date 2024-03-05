@@ -64,7 +64,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'source_name':
                         geo_resource.source_name = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'update_frequency':
-                        geo_resource.update_frequency = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.update_frequency = PcorTemplateParser.camel_case_it(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         geo_resource.includes_citizen_collected = \
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -88,11 +89,11 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                             geo_resource.has_visualization_tool = True
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        geo_resource.measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        geo_resource.measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measurement_method':
-                        geo_resource.measurement_method = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.measurement_method = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'measurement_method_other':
-                        temp_measurement_method_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        temp_measurement_method_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.measurement_method = PcorTemplateParser.combine_prop(geo_resource.measurement_method, temp_measurement_method_other)
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
@@ -105,31 +106,30 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
-                        geo_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.temporal_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_resolution':
-                        geo_resource.spatial_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
-                        temp_spatial_resolution_other = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        temp_spatial_resolution_other = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.spatial_resolution= PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
                     elif template_df.iat[j, 0] == 'spatial_coverage':
-                        geo_resource.spatial_coverage = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.spatial_coverage = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
-                        geo_resource.spatial_coverage_specific_regions = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.spatial_coverage_specific_regions = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_bounding_box':
                         geo_resource.spatial_bounding_box = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geometry_type':
-                        geo_resource.geometry_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.geometry_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        geo_resource.geometry_source = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.geometry_source = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'model_methods':
-                        geo_resource.model_methods = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.model_methods = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'exposure_media':
-                        geo_resource.exposure_media = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.exposure_media = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature':
-                        geo_resource.geographic_feature = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.geographic_feature = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geographic_feature_other':
-                        temp_geographic_feature_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        temp_geographic_feature_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.geographic_feature = PcorTemplateParser.combine_prop(geo_resource.geographic_feature, temp_geographic_feature_other)
                     elif template_df.iat[j, 0] == 'data_formats':
                         geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
