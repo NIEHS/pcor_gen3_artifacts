@@ -277,7 +277,7 @@ class PcorTemplateParser:
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'publications':
-                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1], force_new_line_delimit=True)
+                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1], force_new_line_delimit=False)
                         elif field_name == 'is_static':
                             resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             if str(resource.is_static).lower() == 'no':
@@ -408,6 +408,8 @@ class PcorTemplateParser:
 
     @staticmethod
     def formate_date_time(string):
+        if not string:
+            return ""
         # use dummy
         date_string = '2023/01/01T12:00:00Z'
         datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")

@@ -137,12 +137,13 @@ class PcorGen3Ingest:
         resource.id = status.id
         return status
 
-    def create_discovery_from_resource(self, program_name, project, resource, data_resource):
+    @staticmethod
+    def create_discovery_from_resource(program, project, resource, data_resource):
         """
         Given a project and resource derive the discovery
          model data (to be augmented based on the subtype)
 
-         :param program_name
+         :param program
          :param project: PcorIntermediateProjectModel
          :param resource: PcorIntermediateResourceModel
          :return: PcorDiscoveryMetadata with the metadata that can be derived
@@ -150,12 +151,10 @@ class PcorGen3Ingest:
         """
         logger.info("create_discovery_from_resource()")
 
-        logger.info("looking up program: %")
 
-        program = self.get_individual_program_info(program_name)
 
         discovery = PcorDiscoveryMetadata()
-        discovery.program_name = program_name
+        discovery.program_name = program.name
         discovery.project_sponsor = ','.join(project.project_sponsor)
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
