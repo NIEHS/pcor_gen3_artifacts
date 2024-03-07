@@ -674,8 +674,7 @@ portal:
                   "header": "Details",
                   "fields": [
                     {
-                      "type": "text",
-                      "label": "Comment",
+                      "type": "block",
                       "sourceField": "comment",
                       "default": "n/a"
                     },

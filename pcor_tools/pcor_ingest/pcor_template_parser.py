@@ -296,10 +296,9 @@ class PcorTemplateParser:
     @staticmethod
     def new_make_array(value, comma_delim=False, camel_case=False):
         clean_value = PcorTemplateParser.sanitize_column(value, False)
-        temp_list = []
 
         if not clean_value:
-            return temp_list
+            return []
 
         if comma_delim:
             result = [item.strip() for item in value.split(',')]
@@ -308,12 +307,11 @@ class PcorTemplateParser:
 
         if camel_case:
             camel_list = []
-            for item in temp_list:
+            for item in result:
                 camel_list.append(PcorTemplateParser.camel_case_it(item))
-
             return camel_list
         else:
-            return temp_list
+            return result
 
 
     @staticmethod
