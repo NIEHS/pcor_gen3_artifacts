@@ -151,8 +151,6 @@ class PcorGen3Ingest:
         """
         logger.info("create_discovery_from_resource()")
 
-
-
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program.name
         discovery.project_sponsor = ','.join(project.project_sponsor)

@@ -277,7 +277,7 @@ class PcorTemplateParser:
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'publications':
-                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1], force_new_line_delimit=False)
+                           resource.publications = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
                         elif field_name == 'is_static':
                             resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             if str(resource.is_static).lower() == 'no':
@@ -292,6 +292,29 @@ class PcorTemplateParser:
 
         logger.warning("no resource found, return null")
         return None
+
+    @staticmethod
+    def new_make_array(value, comma_delim=False, camel_case=False):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+        temp_list = []
+
+        if not clean_value:
+            return temp_list
+
+        if comma_delim:
+            result = [item.strip() for item in value.split(',')]
+        else:
+            result = [item.strip() for item in value.splitlines()]
+
+        if camel_case:
+            camel_list = []
+            for item in temp_list:
+                camel_list.append(PcorTemplateParser.camel_case_it(item))
+
+            return camel_list
+        else:
+            return temp_list
+
 
     @staticmethod
     def make_complex_array(value, force_new_line_delimit=False):

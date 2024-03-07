@@ -306,12 +306,6 @@
             {
               "header": "Project Sponsor",
               "fields": [
-                 {
-                  "type": "string",
-                  "label": "Project Name",
-                  "sourceField": "project_name",
-                  "default": "n/a"
-                },
                 {
                   "type": "string",
                   "label": "Project Sponsor",
@@ -322,12 +316,6 @@
                   "type": "string",
                   "label": "Project Sponsor Type",
                   "sourceField": "project_sponsor_type",
-                  "default": "n/a"
-                },
-                {
-                  "type": "link",
-                  "label": "Project URL",
-                  "sourceField": "project_url",
                   "default": "n/a"
                 }
               ]
