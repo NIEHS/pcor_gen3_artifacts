@@ -1,29 +1,9 @@
 ---
 output:
   html_document:
-    css: "gitops.css"
+    css: "./css/gitops.css"
     includes:
-      after_body: chordsfootinc.html
+      after_body: chordsfootinc2.html
 ---
 
-##  The CHORDS project therefore aims to build and strengthen data infrastructure for patient-centered outcomes research on climate change and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes {.tabset}
-
-### Catalog
-
-A web-based catalog of resources on climate and health including data, tools and educational resources, engagement opportunities, and more.
-
-### Datasets
-
-Standardized, linked datasets integrating climate, environmental exposures, and health outcomes. This data will follow FAIR+ principles (Findable, Accessible, Interoperable, Reusable, and Computable).
-
-### Toolkit
-
-A climate and health toolkit with resources and manuals to facilitate data linking and analysis by different kinds of users (beginner, intermediate, advanced).
-
-### Use Case 
-
-An evaluation use case for wildfires and related health effects to demonstrate the capabilities of the data catalog and its related resources.
-
-### Engagement 
-
-Engagement opportunities to address end-user needs both on the website (user forum, FAQs, Contact Us section) and at other events (such as scientific conferences, Share Your Data events, and webinars).
+The CHORDS project therefore aims to build and strengthen data infrastructure for patient-centered outcomes research on climate change and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes
