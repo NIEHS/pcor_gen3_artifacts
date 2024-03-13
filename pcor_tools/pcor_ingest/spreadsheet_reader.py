@@ -62,9 +62,9 @@ class PcorSpreadsheeetReader:
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
 
-        self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser()
-        self.parsers["population_data_resource"] = PopulationDataResourceParser()
-        self.parsers["geospatial_tool_resource"] = GeoSpatialToolResourceParser()
+        self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser(pcor_ingest_configuration)
+        self.parsers["population_data_resource"] = PopulationDataResourceParser(pcor_ingest_configuration)
+        self.parsers["geospatial_tool_resource"] = GeoSpatialToolResourceParser(pcor_ingest_configuration)
         self.result_handler = PcorReporter(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):

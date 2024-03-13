@@ -9,7 +9,7 @@ import pandas as pd
 from datetime import datetime
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
-    PcorSubmissionInfoModel
+    PcorSubmissionInfoModel, MeasuresArrays
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -93,3 +93,32 @@ class PcorMeasuresRollup:
             return rollup
         else:
             return PcorMeasuresRollupStructure("Other", "Other", measure)
+
+    def process_measures(self, measures):
+        """
+        for an array of measures, return three arrays which are the measures rollup for each
+        of the provided measures with duplicates filtered
+
+        Parameters
+        ----------
+        measures - str[] with the measures
+
+        Returns MeasuresArrays with the complete rollup of each measure
+        -------
+        """
+
+        measures_arrays = MeasuresArrays()
+
+        for measure in measures:
+
+            if measure not in measures_arrays.measures:
+                measures_arrays.measures.append(measure.title())
+                measure_rollup = self.lookup_measure(measure)
+
+                if measure_rollup.parent not in measures_arrays.measures_parents:
+                    measures_arrays.measures_parents.append(measure_rollup.parent)
+
+                if measure_rollup.subcategory not in measures_arrays.measures_subcategories:
+                    measures_arrays.measures_subcategories.append(measure_rollup.subcategory)
+
+        return measures_arrays
