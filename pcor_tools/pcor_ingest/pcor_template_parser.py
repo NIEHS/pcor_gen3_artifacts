@@ -7,6 +7,9 @@ import json
 import warnings
 import pandas as pd
 from datetime import datetime
+
+from pcor_ingest.measures_rollup import PcorMeasuresRollup
+from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel
@@ -24,8 +27,9 @@ class PcorTemplateParser:
     A parent class for a parser of a PCOR spreadsheet template for a type
     """
 
-    def __init__(self):
-        # Regular expression pattern to match "yyyy"
+    def __init__(self, pcor_ingest_configuration):
+        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
+        self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration)
         self.yyyy_pattern = r"\b(\d{4})\b"
 
     def parse(self, template_absolute_path, result):

@@ -18,6 +18,9 @@ class PopulationDataResourceParser(PcorTemplateParser):
         Parser subclass for population data resource templates
     """
 
+    def __init__(self, pcor_ingest_configuration):
+        super().__init__(pcor_ingest_configuration)
+
     def parse(self, template_absolute_path, result):
         """
         Parse a geospatial data resource
@@ -97,7 +100,11 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'exposure_media':
                         pop_resource.exposure_media = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measures':
-                        pop_resource.measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
+                        measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
+                        measures_rollup = self.pcor_measures_rollup.process_measures(measures)
+                        pop_resource.measures = measures_rollup.measures
+                        pop_resource.measures_parent = measures_rollup.measures_parents
+                        pop_resource.measures_subcategory = measures_rollup.measures_subcategories
                     elif template_df.iat[j, 0] == 'outcomes':
                         pop_resource.outcomes = PcorTemplateParser.make_complex_camel_case_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'outcomes_other':

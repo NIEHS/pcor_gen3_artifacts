@@ -46,3 +46,9 @@ class TestPcorGen3Ingest(unittest.TestCase):
         self.assertIsNotNone(actual)
         self.assertEqual(test_measure, actual.measure)
         self.assertEqual("Other", actual.parent)
+
+    def test_process_measures(self):
+        measures_rollup = PcorMeasuresRollup(pcor_testing_utilities.get_pcor_ingest_configuration())
+        test_measure = ["Womens Health", "Nutrition", "Endocrine System", "Nutrition"]
+        actual = measures_rollup.process_measures(test_measure)
+        self.assertIsNotNone(actual)

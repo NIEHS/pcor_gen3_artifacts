@@ -4,6 +4,15 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 
 logger = logging.getLogger(__name__)
 
+class MeasuresArrays:
+    """
+    contains a set of measures and the associated rollups
+    """
+
+    def __init__(self):
+        self.measures = []
+        self.measures_subcategories = []
+        self.measures_parents = []
 
 class PcorIntermediateProgramModel:
     """
@@ -123,6 +132,8 @@ class PcorGeospatialDataResourceModel:
         # additional properties to describe the dataset
         self.data_formats = []
         self.data_location = []
+        self.measures_parent = []
+        self.measures_subcategory = []
         self.measures = []
         self.measurement_method = []
         self.time_extent_start = ""
@@ -244,6 +255,8 @@ class PcorPopDataResourceModel:
         self.model_methods = []
         self.population_studied = []
         self.exposure_media = []
+        self.measures_parent = []
+        self.measures_subcategory = []
         self.measures = []
         self.data_formats = []
         self.data_location = []
