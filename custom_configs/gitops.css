@@ -280,12 +280,6 @@
     }
   }
 
-  #externalFooter {
-    display: block !important;
-    width: 100% !important;
-    height: 350px !important;
-  }
-
   .nav-bar__logo-img {
     height: 100px;
   }
@@ -305,4 +299,3 @@
   .nav-bar__link--right:last-child {
     border-right: none !important;
   }
-

@@ -1,5 +1,0 @@
----
-title: "CHORDS Footer"
----
-
-This is footer content for chords

@@ -172,6 +172,7 @@ class PcorTemplateParser:
                 logging.debug("found Project")
                 for j in range(i, ss_rows):
                     # FixMe:  submitter id is missing in template!
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_name':
@@ -234,6 +235,7 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Resource':
                 logging.debug("found Resource")
                 for j in range(i, ss_rows):
+                    logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     field_name = template_df.iat[j, 0]
                     if not isinstance(field_name, float):
                         field_name = field_name.strip()
@@ -254,14 +256,14 @@ class PcorTemplateParser:
                         elif field_name == 'resource_description':
                             resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'domain':
-                            resource.domain = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.domain = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'domain_other':
-                            temp_domain_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            temp_domain_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                             resource.domain = PcorTemplateParser.combine_prop(resource.domain, temp_domain_other)
                         elif field_name == 'keywords':
-                            resource.keywords = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.keywords = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'access_type':
-                            resource.access_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.access_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'payment_required':
                             resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'date_added':
@@ -275,7 +277,7 @@ class PcorTemplateParser:
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'publications':
-                           resource.publications = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                           resource.publications = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
                         elif field_name == 'is_static':
                             resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             if str(resource.is_static).lower() == 'no':
@@ -292,13 +294,51 @@ class PcorTemplateParser:
         return None
 
     @staticmethod
-    def make_complex_array(value):
+    def new_make_array(value, comma_delim=False, camel_case=False):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+
+        if not clean_value:
+            return []
+
+        if comma_delim:
+            result = [item.strip() for item in value.split(',')]
+        else:
+            result = [item.strip() for item in value.splitlines()]
+
+        if camel_case:
+            camel_list = []
+            for item in result:
+                camel_list.append(PcorTemplateParser.camel_case_it(item))
+            return camel_list
+        else:
+            return result
+
+
+    @staticmethod
+    def make_complex_array(value, force_new_line_delimit=False):
         clean_value = PcorTemplateParser.sanitize_column(value, False)
         temp_list = []
         if clean_value:
             temp_list = [line.strip() for line in str(clean_value).splitlines()]
             if temp_list and len(temp_list) == 1:
-                return PcorTemplateParser.make_array(temp_list[0])
+                if force_new_line_delimit:
+                    return temp_list[0]
+                else:
+                    return PcorTemplateParser.make_array(temp_list[0])
+
+        return temp_list
+
+    @staticmethod
+    def make_complex_camel_case_array(value, force_new_line_delimit=False):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+        temp_list = []
+        if clean_value:
+            temp_list = [line.strip() for line in str(clean_value).splitlines()]
+            if temp_list and len(temp_list) == 1:
+                if force_new_line_delimit:
+                    return temp_list[0]
+                else:
+                    return PcorTemplateParser.make_array_and_camel_case(temp_list[0])
 
         return temp_list
 
@@ -316,8 +356,33 @@ class PcorTemplateParser:
         """
         result = []
         if value:
-            result = [item.strip() for item in value.split(',')]
+            if ('\\n' in value):
+                result = [item.strip() for item in value.split('\\n')]
+            else:
+                result = [item.strip() for item in value.split(',')]
             result = list(filter(bool, result)) #clean up any null items
+        return result
+
+    @staticmethod
+    def make_array_and_camel_case(value):
+        """
+        Just avoiding 'None' when parsing spreadsheet, also camel case the entries
+        Parameters
+        ----------
+        value string to split into array
+
+        Returns
+        -------
+
+        """
+        result = []
+        if value:
+            if ('\\n' in value):
+                result = [PcorTemplateParser.camel_case_it(item.strip()) for item in value.split('\\n')]
+            else:
+                result = [PcorTemplateParser.camel_case_it(item.strip()) for item in value.split(',')]
+
+            result = list(filter(bool, result))  # clean up any null items
         return result
 
     @staticmethod
@@ -333,7 +398,7 @@ class PcorTemplateParser:
             if escape_new_line:
                 value = re.sub(r'\n', '\\\\n', value)
             value = re.sub(r'\t', "\\\\t", value) #must escape newlines for strings they are not valid json
-
+            value = value.replace('\xa0', '')
             return value.strip().replace('"', '\\"')
         if isinstance(value, float):
             if math.isnan(value):
@@ -341,6 +406,12 @@ class PcorTemplateParser:
             else:
                 return str(value)
         return value
+
+    @staticmethod
+    def camel_case_it(prop):
+        """ Make a string camel case """
+        if prop:
+            return prop.title()
 
     @staticmethod
     def combine_prop(main_prop, other_prop):
@@ -358,6 +429,8 @@ class PcorTemplateParser:
 
     @staticmethod
     def formate_date_time(string):
+        if not string:
+            return ""
         # use dummy
         date_string = '2023/01/01T12:00:00Z'
         datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")

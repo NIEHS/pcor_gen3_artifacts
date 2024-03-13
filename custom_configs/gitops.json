@@ -102,20 +102,16 @@
       "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."],
       "expireUseMsgDays" : 0
     },
-    "footer": {
-      "externalURL": "https://rstudio.niehs.nih.gov/content/c0a3fbb4-5309-46c1-a7f9-3a36e7e4b5f1/",
-      "links": [
-        {
-          "text": "About CHORDS",
-          "href": "https://www.niehs.nih.gov/research/programs/chords"
-        }
-      ]
-    },
     "footerLogos": [ 
       {
         "src": "/src/img/createdby.png",
         "href": "https://ctds.uchicago.edu/",
         "alt": "Center for Translational Data Science at the University of Chicago"
+      },
+      {
+        "src": "custom/ospcortf_logo.jpg",
+        "href": "https://aspe.hhs.gov/enhancing-patient-centered-outcomes-research-pcor-creating-national-small-area-social-determinants",
+        "alt": "Patient-Centered Outcomes Research Trust Fund"
       }
     ]
   },
@@ -272,8 +268,7 @@
               "header": "Details",
               "fields": [
                 {
-                  "type": "text",
-                  "label": "Comment",
+                  "type": "block",
                   "sourceField": "comment",
                   "default": "n/a"
                 },
@@ -306,12 +301,6 @@
             {
               "header": "Project Sponsor",
               "fields": [
-                 {
-                  "type": "string",
-                  "label": "Project Name",
-                  "sourceField": "project_name",
-                  "default": "n/a"
-                },
                 {
                   "type": "string",
                   "label": "Project Sponsor",
@@ -322,12 +311,6 @@
                   "type": "string",
                   "label": "Project Sponsor Type",
                   "sourceField": "project_sponsor_type",
-                  "default": "n/a"
-                },
-                {
-                  "type": "link",
-                  "label": "Project URL",
-                  "sourceField": "project_url",
                   "default": "n/a"
                 }
               ]

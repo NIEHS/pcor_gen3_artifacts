@@ -57,7 +57,7 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
                     logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     # Tool_Resource section
                     if template_df.iat[j,0] == 'tool_type':
-                        geo_resource.tool_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.tool_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'intended_use':
                         geo_resource.intended_use = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'is_open':
@@ -67,21 +67,21 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
                         if str(geo_resource.is_open).lower() == 'yes':
                             geo_resource.is_open = True
                     elif template_df.iat[j, 0] == 'operating_system':
-                        geo_resource.operating_system = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.operating_system = PcorTemplateParser.make_array(PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'operating_system_other':
-                        temp_operating_system_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        temp_operating_system_other = PcorTemplateParser.make_array(PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                         geo_resource.operating_system = PcorTemplateParser.combine_prop(geo_resource.operating_system, temp_operating_system_other)
                     elif template_df.iat[j, 0] == 'languages':
-                        geo_resource.languages = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.languages = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'languages_other':
-                        temp_languages_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        temp_languages_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.languages = PcorTemplateParser.combine_prop(geo_resource.languages, temp_languages_other)
                     elif template_df.iat[j, 0] == 'license_type':
-                        geo_resource.license_type = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.license_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'license_type_other':
-                        temp_license_type_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        temp_license_type_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.license_type = PcorTemplateParser.combine_prop(geo_resource.license_type, temp_license_type_other)
                     elif template_df.iat[j, 0] == 'suggested_audience':
-                        geo_resource.suggested_audience = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.suggested_audience = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
 
         return geo_resource
