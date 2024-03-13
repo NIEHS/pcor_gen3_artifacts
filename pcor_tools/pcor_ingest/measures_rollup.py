@@ -37,6 +37,7 @@ class PcorMeasuresRollup:
         pcor_ingest_configuration PcorIngestConfiguration that contains configuration from properties file
         """
         self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.measures = self.build_measures_structure()
 
     def measures_rollup_as_dataframe(self):
         """
@@ -75,3 +76,20 @@ class PcorMeasuresRollup:
 
         return measures_dict
 
+    def lookup_measure(self, measure):
+        """
+        For a given measure, return the rollup
+        Parameters
+        ----------
+        measure - str with the measure
+
+        Returns PcorMeasuresRollupStructure associated with the measure
+        -------
+        """
+
+        rollup = self.measures.get(measure.title())
+
+        if rollup:
+            return rollup
+        else:
+            return PcorMeasuresRollupStructure("Other", "Other", measure)

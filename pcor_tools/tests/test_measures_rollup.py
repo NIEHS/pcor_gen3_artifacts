@@ -31,3 +31,18 @@ class TestPcorGen3Ingest(unittest.TestCase):
         self.assertEqual("Electronic Health Records", ehr.measure)
         self.assertEqual("Health Data", ehr.parent)
         self.assertEqual('Electronic Health Records', ehr.subcategory)
+
+    def test_lookup_measure(self):
+        measures_rollup = PcorMeasuresRollup(pcor_testing_utilities.get_pcor_ingest_configuration())
+        test_measure = "Womens Health"
+        actual = measures_rollup.lookup_measure(test_measure)
+        self.assertIsNotNone(actual)
+        self.assertEqual(test_measure, actual.measure)
+
+    def test_lookup_measure_other(self):
+        measures_rollup = PcorMeasuresRollup(pcor_testing_utilities.get_pcor_ingest_configuration())
+        test_measure = "Notsmeasure"
+        actual = measures_rollup.lookup_measure(test_measure)
+        self.assertIsNotNone(actual)
+        self.assertEqual(test_measure, actual.measure)
+        self.assertEqual("Other", actual.parent)
