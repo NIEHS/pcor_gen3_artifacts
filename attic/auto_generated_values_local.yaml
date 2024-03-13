@@ -1,6 +1,6 @@
 global:
   hostname: localhost
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/1.5-measures/custom_configs/schema.json
 
 ambassador:
   resources:
@@ -937,13 +937,20 @@ portal:
                   "domain",
                   "access_type",
                   "has_api",
-                  "measures",
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
                   "spatial_resolution",
                   "spatial_coverage",
                   "exposure_media"
+                ]
+              },
+              {
+                "title": "Measures",
+                "fields": [
+                  "measures_parent_category",
+                  "measures_subcategory",
+                  "measures"
                 ]
               }
             ]
@@ -958,7 +965,8 @@ portal:
               "domain",
               "keywords",
               "intended_use",
-              "measures",
+              "measures_parent_category",
+              "measures_subcategory",
               "time_extent_start",
               "time_extent_end",
               "spatial_coverage",
@@ -1041,12 +1049,19 @@ portal:
                   "domain",
                   "access_type",
                   "has_api",
-                  "measures",
                   "time_extent_start",
                   "time_extent_end",
                   "temporal_resolution",
                   "spatial_resolution",
                   "spatial_coverage"
+                ]
+              },
+              {
+                "title": "Measures",
+                "fields": [
+                  "measures_parent_category",
+                  "measures_subcategory",
+                  "measures"
                 ]
               }
             ]
@@ -1061,7 +1076,8 @@ portal:
               "domain",
               "keywords",
               "intended_use",
-              "measures",
+              "measures_parent_category",
+              "measures_subcategory",
               "time_extent_start",
               "time_extent_end",
               "spatial_coverage",
@@ -1570,6 +1586,8 @@ etl:
           - name: submitter_id
           - name: intended_use
           - name: has_api
+          - name: measures_parent_category
+          - name: measures_subcategory
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
@@ -1601,6 +1619,8 @@ etl:
           - name: submitter_id
           - name: intended_use
           - name: has_api
+          - name: measures_parent_category
+          - name: measures_subcategory
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
