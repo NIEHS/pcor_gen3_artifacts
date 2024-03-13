@@ -497,13 +497,20 @@
               "domain",
               "access_type",
               "has_api",
-              "measures",
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
               "spatial_coverage",
               "exposure_media"
+            ]
+          },
+          {
+            "title": "Measures",
+            "fields": [
+              "measures_parent_category",
+              "measures_subcategory",
+              "measures"
             ]
           }
         ]
@@ -518,7 +525,8 @@
           "domain",
           "keywords",
           "intended_use",
-          "measures",
+          "measures_parent_category",
+          "measures_subcategory",
           "time_extent_start",
           "time_extent_end",
           "spatial_coverage",
@@ -601,12 +609,19 @@
               "domain",
               "access_type",
               "has_api",
-              "measures",
               "time_extent_start",
               "time_extent_end",
               "temporal_resolution",
               "spatial_resolution",
               "spatial_coverage"
+            ]
+          },
+          {
+            "title": "Measures",
+            "fields": [
+              "measures_parent_category",
+              "measures_subcategory",
+              "measures"
             ]
           }
         ]
@@ -621,7 +636,8 @@
           "domain",
           "keywords",
           "intended_use",
-          "measures",
+          "measures_parent_category",
+          "measures_subcategory",
           "time_extent_start",
           "time_extent_end",
           "spatial_coverage",

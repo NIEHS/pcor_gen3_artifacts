@@ -93,6 +93,17 @@ properties:
     description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
     type: boolean
   # additional properties to describe the dataset
+  # measures is a three-level hierarchy of parent/subcategory/measure to allow easier filtering and grouping
+  measures_parent_category:
+    description: type of environmental phenomena being observed at the parent concept level
+    type: array
+    items:
+      type: string
+  measures_subcategory:
+    description: type of environmental phenomena being observed at the subcategory level
+    type: array
+    items:
+      type: string
   measures:
     description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
     type: array
