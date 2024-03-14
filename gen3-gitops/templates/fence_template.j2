@@ -1,0 +1,31 @@
+fence:
+  enabled: true
+{%- if aws_staging %}
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
+    tag: 2023.12
+
+  usersync:
+     #-- (bool) Whether to run Fence usersync or not.
+    usersync: true
+    userYamlS3Path: s3://cdis-gen3-users/staging-chords-health/user.yaml
+{% else %}
+  FENCE_CONFIG:
+    MOCK_AUTH: true
+{% endif %}
+  USER_YAML: |
+    {{ user_yaml_content | indent(4) }}
+{% if aws_staging %}
+  # -- (map) External Secrets settings.
+  externalSecrets:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-jwt-keys"
+    fenceJwtKeys:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-google-app-creds-secret"
+    fenceGoogleAppCredsSecret:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-google-storage-creds-secret"
+    fenceGoogleStorageCredsSecret:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-config"
+    fenceConfig: "chordstaging-fence-config"
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "Values.global.environment-.Chart.Name-creds"
+    dbcreds: "chords_chords-fence-db-creds"
+{% endif %}

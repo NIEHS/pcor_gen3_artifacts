@@ -28,7 +28,7 @@ def setup_and_run(portal_dir, pcor_artifacts, hostname=LOCAL_PORTAL_DNS_NAME, ru
     logging.info("runit:%s" % runit)
     # assume that a common parent folder sits above data_portal and pcor_gen3_artifacts, will put cdis-manifest under common parent
     os.chdir(pcor_artifacts)
-    os.chdir("..")
+    os.chdir("../..")
     parent_dir = os.getcwd()
     logger.info("parent dir is:%s" % parent_dir)
 
