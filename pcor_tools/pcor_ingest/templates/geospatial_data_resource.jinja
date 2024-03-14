@@ -36,8 +36,14 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "measurement_method": [
-    {% for entry in geo_spatial_data_resource.measurement_method %}
+    "measures_parent_category":  [
+    {% for entry in geo_spatial_data_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory": [
+    {% for entry in geo_spatial_data_resource.measures_subcategory %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
