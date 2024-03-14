@@ -87,6 +87,18 @@
             "{{ measure }}"
             {{ "," if not loop.last }}
         {% endfor %}
+  ]w,
+    "measures_parent_category":  [
+    {% for entry in pop_data_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory": [
+    {% for entry in pop_data_resource.measures_subcategory %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
   ],
   "outcomes":  [
         {% for outcome in pop_data_resource.outcomes  %}
