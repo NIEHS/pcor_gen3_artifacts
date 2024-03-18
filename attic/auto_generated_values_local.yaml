@@ -952,7 +952,6 @@ portal:
                 "fields": [
                   "measures_parent_category",
                   "measures_subcategory_major",
-                  "measures_subcategory_minor",
                   "measures"
                 ]
               }
@@ -1064,7 +1063,6 @@ portal:
                 "fields": [
                   "measures_parent_category",
                   "measures_subcategory_major",
-                  "measures_subcategory_minor",
                   "measures"
                 ]
               }
