@@ -113,22 +113,6 @@ wts:
   hostname: "localhost"
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
-sheepdog:
-  enabled: true
-  volumeMounts:
-    - name: "config-volume"
-      readOnly: true
-      mountPath: "/var/www/sheepdog/settings.py"
-      subPath: "wsgi.py"
-
-peregrine:
-  enabled: true
-  volumeMounts:
-    - name: "config-volume"
-      readOnly: true
-      mountPath: "/var/www/peregrine/wsgi.py"
-      subPath: "settings.py"
-
 {% endif %}
 sower:
   enabled: false
