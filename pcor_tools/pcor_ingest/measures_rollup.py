@@ -21,9 +21,10 @@ logger = logging.getLogger(__name__)
 
 class PcorMeasuresRollupStructure:
 
-    def __init__(self, parent, subcategory, measure):
+    def __init__(self, parent, subcategory_major, subcategory_minor, measure):
         self.parent = parent
-        self.subcategory = subcategory
+        self.subcategory_major = subcategory_major
+        self.subcategory_minor = subcategory_minor
         self.measure = measure
 
 
@@ -49,7 +50,7 @@ class PcorMeasuresRollup:
 
         """
         logger.info("measures_rollup_as_dataframe")
-        df = pd.read_excel(self.pcor_ingest_configuration.measures_rollup, sheet_name='MeasureList', engine='openpyxl')
+        df = pd.read_excel(self.pcor_ingest_configuration.measures_rollup, sheet_name='MeasuresFullView', engine='openpyxl')
         return df
 
     def build_measures_structure(self):
@@ -69,12 +70,22 @@ class PcorMeasuresRollup:
         ss_rows = df.shape[0]
 
         for i in range(ss_rows):
-            if isinstance(df.iat[i, 0], str):
-                measure = PcorMeasuresRollupStructure(df.iat[i, 0], df.iat[i, 1], df.iat[i, 2])
-                logger.info("measure:%s" % measure)
-                measures_dict[df.iat[i, 2]] = measure
+            if isinstance(df.iat[i, 4], str):
+                measure = PcorMeasuresRollupStructure(PcorMeasuresRollup.filter_blank_measure(df.iat[i, 1]),
+                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 2]),
+                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 3]),
+                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 4]))
+                #logger.info("measure:%s" % measure)
+                measures_dict[PcorMeasuresRollup.filter_blank_measure(df.iat[i, 4])] = measure
 
         return measures_dict
+
+    @staticmethod
+    def filter_blank_measure(measure):
+        if isinstance(measure, str):
+            return measure.title()
+        else:
+            return "Other"
 
     def lookup_measure(self, measure):
         """
@@ -92,7 +103,7 @@ class PcorMeasuresRollup:
         if rollup:
             return rollup
         else:
-            return PcorMeasuresRollupStructure("Other", "Other", measure)
+            return PcorMeasuresRollupStructure("Other", "Other", "Other", measure)
 
     def process_measures(self, measures):
         """
@@ -118,7 +129,10 @@ class PcorMeasuresRollup:
                 if measure_rollup.parent not in measures_arrays.measures_parents:
                     measures_arrays.measures_parents.append(measure_rollup.parent)
 
-                if measure_rollup.subcategory not in measures_arrays.measures_subcategories:
-                    measures_arrays.measures_subcategories.append(measure_rollup.subcategory)
+                if measure_rollup.subcategory_major not in measures_arrays.measures_subcategories_major:
+                    measures_arrays.measures_subcategories_major.append(measure_rollup.subcategory_major)
+
+                if measure_rollup.subcategory_minor not in measures_arrays.measures_subcategories_minor:
+                    measures_arrays.measures_subcategories_minor.append(measure_rollup.subcategory_minor)
 
         return measures_arrays

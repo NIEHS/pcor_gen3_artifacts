@@ -509,7 +509,8 @@
             "title": "Measures",
             "fields": [
               "measures_parent_category",
-              "measures_subcategory",
+              "measures_subcategory_major",
+              "measures_subcategory_minor",
               "measures"
             ]
           }
@@ -526,7 +527,7 @@
           "keywords",
           "intended_use",
           "measures_parent_category",
-          "measures_subcategory",
+          "measures",
           "time_extent_start",
           "time_extent_end",
           "spatial_coverage",
@@ -620,7 +621,8 @@
             "title": "Measures",
             "fields": [
               "measures_parent_category",
-              "measures_subcategory",
+              "measures_subcategory_major",
+              "measures_subcategory_minor",
               "measures"
             ]
           }
@@ -637,7 +639,7 @@
           "keywords",
           "intended_use",
           "measures_parent_category",
-          "measures_subcategory",
+          "measures",
           "time_extent_start",
           "time_extent_end",
           "spatial_coverage",

@@ -104,7 +104,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         measures_rollup = self.pcor_measures_rollup.process_measures(measures)
                         pop_resource.measures = measures_rollup.measures
                         pop_resource.measures_parent = measures_rollup.measures_parents
-                        pop_resource.measures_subcategory = measures_rollup.measures_subcategories
+                        pop_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+                        pop_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
                     elif template_df.iat[j, 0] == 'outcomes':
                         pop_resource.outcomes = PcorTemplateParser.make_complex_camel_case_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'outcomes_other':

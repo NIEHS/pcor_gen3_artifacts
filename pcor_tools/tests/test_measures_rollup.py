@@ -29,8 +29,8 @@ class TestPcorGen3Ingest(unittest.TestCase):
         self.assertIsNotNone(measures)
         ehr = measures["Electronic Health Records"]
         self.assertEqual("Electronic Health Records", ehr.measure)
-        self.assertEqual("Health Data", ehr.parent)
-        self.assertEqual('Electronic Health Records', ehr.subcategory)
+        self.assertEqual("Health", ehr.parent)
+        self.assertEqual('Health Data', ehr.subcategory_major)
 
     def test_lookup_measure(self):
         measures_rollup = PcorMeasuresRollup(pcor_testing_utilities.get_pcor_ingest_configuration())

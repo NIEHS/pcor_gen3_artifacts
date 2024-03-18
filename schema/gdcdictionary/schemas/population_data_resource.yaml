@@ -143,12 +143,17 @@ properties:
     items:
       type: string
   # measures is a three-level hierarchy of parent/subcategory/measure to allow easier filtering and grouping
-  measures_parent_category:
+ measures_parent_category:
     description: type of environmental phenomena being observed at the parent concept level
+    type: array 
+    items:
+      type: string
+  measures_subcategory_major:
+    description: type of environmental phenomena being observed at the subcategory level
     type: array
     items:
       type: string
-  measures_subcategory:
+  measures_subcategory_minor:
     description: type of environmental phenomena being observed at the subcategory level
     type: array
     items:
