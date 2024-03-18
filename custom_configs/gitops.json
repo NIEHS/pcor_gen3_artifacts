@@ -510,7 +510,6 @@
             "fields": [
               "measures_parent_category",
               "measures_subcategory_major",
-              "measures_subcategory_minor",
               "measures"
             ]
           }
@@ -622,7 +621,6 @@
             "fields": [
               "measures_parent_category",
               "measures_subcategory_major",
-              "measures_subcategory_minor",
               "measures"
             ]
           }
