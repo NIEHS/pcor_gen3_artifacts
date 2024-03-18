@@ -109,7 +109,7 @@
         "alt": "Center for Translational Data Science at the University of Chicago"
       },
       {
-        "src": "custom/images/ospcortf_logo.jpg",
+        "src": "custom/ospcortf_logo.jpg",
         "href": "https://aspe.hhs.gov/enhancing-patient-centered-outcomes-research-pcor-creating-national-small-area-social-determinants",
         "alt": "Patient-Centered Outcomes Research Trust Fund"
       }
@@ -125,14 +125,14 @@
         "category": "Notebooks",
         "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
         "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-        "imageUrl": "custom/images/tox21.jpg"
+        "imageUrl": "custom/tox21.jpg"
       },
       {
         "title": "CHORDS Toolkit book",
         "category": "Tutorial books html",
         "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
         "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
-        "imageUrl": "custom/images/chordstk.jpg"
+        "imageUrl": "custom/chordstk.jpg"
       }
     ]
   },
