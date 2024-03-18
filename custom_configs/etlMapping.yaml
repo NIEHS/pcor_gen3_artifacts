@@ -9,7 +9,8 @@ mappings:
       - name: intended_use
       - name: has_api
       - name: measures_parent_category
-      - name: measures_subcategory
+      - name: measures_subcategory_major
+      - name: measures_subcategory_minor
       - name: measures
       - name: time_extent_start
       - name: time_extent_end
@@ -42,7 +43,8 @@ mappings:
       - name: intended_use
       - name: has_api
       - name: measures_parent_category
-      - name: measures_subcategory
+      - name: measures_subcategory_major
+      - name: measures_subcategory_minor
       - name: measures
       - name: time_extent_start
       - name: time_extent_end

@@ -96,7 +96,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         measures_rollup = self.pcor_measures_rollup.process_measures(measures)
                         geo_resource.measures = measures_rollup.measures
                         geo_resource.measures_parent = measures_rollup.measures_parents
-                        geo_resource.measures_subcategory = measures_rollup.measures_subcategories
+                        geo_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+                        geo_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
                     elif template_df.iat[j, 0] == 'measurement_method':
                         geo_resource.measurement_method = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'measurement_method_other':

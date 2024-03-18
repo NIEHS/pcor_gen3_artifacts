@@ -42,8 +42,14 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "measures_subcategory": [
-    {% for entry in geo_spatial_data_resource.measures_subcategory %}
+  "measures_subcategory_major": [
+    {% for entry in geo_spatial_data_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_minor": [
+    {% for entry in geo_spatial_data_resource.measures_subcategory_minor %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

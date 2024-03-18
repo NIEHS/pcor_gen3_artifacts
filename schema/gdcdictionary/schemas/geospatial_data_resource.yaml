@@ -98,7 +98,12 @@ properties:
     type: array 
     items:
       type: string
-  measures_subcategory:
+  measures_subcategory_major:
+    description: type of environmental phenomena being observed at the subcategory level
+    type: array
+    items:
+      type: string
+  measures_subcategory_minor:
     description: type of environmental phenomena being observed at the subcategory level
     type: array
     items:

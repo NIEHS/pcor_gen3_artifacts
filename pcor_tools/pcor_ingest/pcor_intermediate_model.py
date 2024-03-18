@@ -11,7 +11,8 @@ class MeasuresArrays:
 
     def __init__(self):
         self.measures = []
-        self.measures_subcategories = []
+        self.measures_subcategories_major = []
+        self.measures_subcategories_minor = []
         self.measures_parents = []
 
 class PcorIntermediateProgramModel:
@@ -133,7 +134,8 @@ class PcorGeospatialDataResourceModel:
         self.data_formats = []
         self.data_location = []
         self.measures_parent = []
-        self.measures_subcategory = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_major = []
         self.measures = []
         self.measurement_method = []
         self.time_extent_start = ""
@@ -256,7 +258,8 @@ class PcorPopDataResourceModel:
         self.population_studied = []
         self.exposure_media = []
         self.measures_parent = []
-        self.measures_subcategory = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_major = []
         self.measures = []
         self.data_formats = []
         self.data_location = []
