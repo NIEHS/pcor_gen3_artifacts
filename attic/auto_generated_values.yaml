@@ -913,7 +913,8 @@ portal:
                 "title": "Measures",
                 "fields": [
                   "measures_parent_category",
-                  "measures_subcategory",
+                  "measures_subcategory_major",
+                  "measures_subcategory_minor",
                   "measures"
                 ]
               }
@@ -930,7 +931,7 @@ portal:
               "keywords",
               "intended_use",
               "measures_parent_category",
-              "measures_subcategory",
+              "measures",
               "time_extent_start",
               "time_extent_end",
               "spatial_coverage",
@@ -1024,7 +1025,8 @@ portal:
                 "title": "Measures",
                 "fields": [
                   "measures_parent_category",
-                  "measures_subcategory",
+                  "measures_subcategory_major",
+                  "measures_subcategory_minor",
                   "measures"
                 ]
               }
@@ -1041,7 +1043,7 @@ portal:
               "keywords",
               "intended_use",
               "measures_parent_category",
-              "measures_subcategory",
+              "measures",
               "time_extent_start",
               "time_extent_end",
               "spatial_coverage",
@@ -1524,7 +1526,8 @@ etl:
           - name: intended_use
           - name: has_api
           - name: measures_parent_category
-          - name: measures_subcategory
+          - name: measures_subcategory_major
+          - name: measures_subcategory_minor
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
@@ -1557,7 +1560,8 @@ etl:
           - name: intended_use
           - name: has_api
           - name: measures_parent_category
-          - name: measures_subcategory
+          - name: measures_subcategory_major
+          - name: measures_subcategory_minor
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
