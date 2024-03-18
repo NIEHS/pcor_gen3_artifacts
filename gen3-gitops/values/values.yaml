@@ -15,3 +15,19 @@ audit:
 # disabling argo-wrapper service
 argo-wrapper:
   enabled: false
+
+sheepdog:
+  enabled: true
+  volumeMounts:
+    - name: "config-volume"
+      readOnly: true
+      mountPath: "/var/www/sheepdog/settings.py"
+      subPath: "wsgi.py"
+
+peregrine:
+  enabled: true
+  volumeMounts:
+    - name: "config-volume"
+      readOnly: true
+      mountPath: "/var/www/peregrine/wsgi.py"
+      subPath: "settings.py"
