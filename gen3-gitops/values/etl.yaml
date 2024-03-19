@@ -10,6 +10,9 @@ etl:
           - name: submitter_id
           - name: intended_use
           - name: has_api
+          - name: measures_parent_category
+          - name: measures_subcategory_major
+          - name: measures_subcategory_minor
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
@@ -41,6 +44,9 @@ etl:
           - name: submitter_id
           - name: intended_use
           - name: has_api
+          - name: measures_parent_category
+          - name: measures_subcategory_major
+          - name: measures_subcategory_minor
           - name: measures
           - name: time_extent_start
           - name: time_extent_end
