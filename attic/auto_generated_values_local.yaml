@@ -101,6 +101,7 @@ fence:
             - name: AQS
             - name: BenMAP-CE
             - name: CDC-ATSDR
+            - name: CSL
             - name: CRE
             - name: DiseasePathfinder
             - name: EJI
@@ -186,6 +187,7 @@ fence:
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/CDC-ATSDR
+        - /programs/CHORDS/projects/CSL
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
@@ -245,6 +247,7 @@ fence:
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/CDC-ATSDR
+        - /programs/CHORDS/projects/CSL
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
