@@ -36,8 +36,20 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "measurement_method": [
-    {% for entry in geo_spatial_data_resource.measurement_method %}
+    "measures_parent_category":  [
+    {% for entry in geo_spatial_data_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_major": [
+    {% for entry in geo_spatial_data_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_minor": [
+    {% for entry in geo_spatial_data_resource.measures_subcategory_minor %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

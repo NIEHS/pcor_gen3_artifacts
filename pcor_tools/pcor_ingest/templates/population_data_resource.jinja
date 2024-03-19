@@ -88,6 +88,24 @@
             {{ "," if not loop.last }}
         {% endfor %}
   ],
+    "measures_parent_category":  [
+    {% for entry in pop_data_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_major": [
+    {% for entry in pop_data_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_minor": [
+    {% for entry in pop_data_resource.measures_subcategory_minor %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "outcomes":  [
         {% for outcome in pop_data_resource.outcomes  %}
             "{{ outcome }}"

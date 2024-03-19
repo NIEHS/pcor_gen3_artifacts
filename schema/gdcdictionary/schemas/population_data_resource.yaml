@@ -142,8 +142,24 @@ properties:
     type: array
     items:
       type: string
+  # measures is a three-level hierarchy of parent/subcategory/measure to allow easier filtering and grouping
+  measures_parent_category:
+    description: type of environmental phenomena being observed at the parent concept level
+    type: array 
+    items:
+      type: string
+  measures_subcategory_major:
+    description: type of environmental phenomena being observed at the subcategory level
+    type: array
+    items:
+      type: string
+  measures_subcategory_minor:
+    description: type of environmental phenomena being observed at the subcategory level
+    type: array
+    items:
+      type: string
   measures:
-    description: list of specific variables collected by the system.  If the variables are part of a set of variables then the set name can be provided, e.g., clinical labs for clinical laboratory tests especially if the specific labs vary from individual to individual, or VOC for a list of volatile organic chemicals.
+    description: type of environmental phenomena being observed (e.g., air_pollution, wildfire plumes.  Note this is the high level observable, the specific measures contribute to this observation).
     type: array
     items:
       type: string

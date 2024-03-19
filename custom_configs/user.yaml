@@ -1,4 +1,3 @@
-
 authz:
   # policies automatically given to anyone, even if they are not authenticated
   anonymous_policies:
@@ -51,6 +50,7 @@ authz:
         - name: AQS
         - name: BenMAP-CE
         - name: CDC-ATSDR
+        - name: CSL
         - name: CRE
         - name: DiseasePathfinder
         - name: EJI
@@ -136,6 +136,7 @@ authz:
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CDC-ATSDR
+    - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/DiseasePathfinder
     - /programs/CHORDS/projects/EJI
@@ -195,6 +196,7 @@ authz:
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
     - /programs/CHORDS/projects/CDC-ATSDR
+    - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/DiseasePathfinder
     - /programs/CHORDS/projects/EJI

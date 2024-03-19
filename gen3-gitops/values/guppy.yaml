@@ -1,0 +1,15 @@
+guppy:
+  enabled: true
+  image:
+    tag: "feat_es7"
+  esEndpoint: ""
+
+  indices:
+    - index: chordstaging_geospatial_data_resource
+      type: geospatial_data_resource
+    - index: chordstaging_population_data_resource
+      type: population_data_resource
+    - index: chordstaging_geospatial_tool_resource
+      type: geospatial_tool_resource
+  configIndex: chordstaging_array-config
+  authFilterField: auth_resource_path

@@ -1,5 +1,5 @@
 mappings:
-  - name: chordstaging_geospatial_data_resource
+  - name: geospatial_data_resource
     doc_type: geospatial_data_resource
     type: aggregator
     root: geospatial_data_resource
@@ -8,9 +8,6 @@ mappings:
       - name: submitter_id
       - name: intended_use
       - name: has_api
-      - name: measures_parent_category
-      - name: measures_subcategory_major
-      - name: measures_subcategory_minor
       - name: measures
       - name: time_extent_start
       - name: time_extent_end
@@ -21,7 +18,7 @@ mappings:
       - name: exposure_media
     parent_props:
       - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
-  - name: chordstaging_geospatial_tool_resource
+  - name: geospatial_tool_resource
     doc_type: geospatial_tool_resource
     type: aggregator
     root: geospatial_tool_resource
@@ -33,7 +30,7 @@ mappings:
       - name: languages
     parent_props:
       - path: resources[domain, keywords, access_type, payment_required].projects[project_sponsor, project_sponsor_type]
-  - name: chordstaging_population_data_resource
+  - name: population_data_resource
     doc_type: population_data_resource
     type: aggregator
     root: population_data_resource
@@ -42,9 +39,6 @@ mappings:
       - name: submitter_id
       - name: intended_use
       - name: has_api
-      - name: measures_parent_category
-      - name: measures_subcategory_major
-      - name: measures_subcategory_minor
       - name: measures
       - name: time_extent_start
       - name: time_extent_end

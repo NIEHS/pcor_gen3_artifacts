@@ -1,0 +1,18 @@
+global:
+  hostname: "localhost"
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+
+
+sower:
+  enabled: false
+
+hatchery:
+  enabled: false
+
+# disabling audit service
+audit:
+  enabled: false
+
+# disabling argo-wrapper service
+argo-wrapper:
+  enabled: false

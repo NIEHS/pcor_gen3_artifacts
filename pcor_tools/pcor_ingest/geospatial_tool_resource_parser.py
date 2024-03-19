@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class GeoSpatialToolResourceParser(PcorTemplateParser):
+
+    def __init__(self,  pcor_ingest_configuration):
+        super().__init__(pcor_ingest_configuration)
+
     """
         Parser subclass for geospatial tool resource templates
     """

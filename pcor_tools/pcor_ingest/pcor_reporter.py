@@ -48,10 +48,10 @@ class PcorReporter():
 
         if pcor_processing_result.success:
             msg = self.produce_html_success_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result, msg)
+            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
         else:
             msg = self.produce_html_error_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result, msg)
+            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
 
     def produce_html_error_report(self, pcor_processing_result):
 
@@ -97,7 +97,7 @@ class PcorReporter():
                                    submission=submission)
         return rendered
 
-    def send_email_report(self, pcor_processing_result, email_text):
+    def send_email_report(self, pcor_processing_result, email_text, status=None):
         try:
             logger.info('send_email_report()')
             email_message = MIMEMultipart()
@@ -109,7 +109,7 @@ class PcorReporter():
 
             email_message['To'] = ", ".join(recipients)
 
-            email_message['Subject'] = 'CHORDS Curation Report'
+            email_message['Subject'] = '(' + status + ')CHORDS Curation Report'
 
             # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
             email_message.attach(MIMEText(email_text, "html"))
