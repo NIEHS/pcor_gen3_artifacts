@@ -121,11 +121,11 @@
     "public": true,
     "resources": [
       {
-        "title": "Tox21 Correlation Browser",
+        "title": "Literature Use Cases",
         "category": "Notebooks",
-        "description": "This can be used to provide insight into specific Tox21 chemicals, or to generate sets of similar chemicals to be used in subsequent read across or enrichment type analysis.",
-        "link": "https://rstudio.niehs.nih.gov/correlation-browser/",
-        "imageUrl": "custom/tox21.jpg"
+        "description": "Example literature use cases linking climate and health",
+        "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141",
+        "imageUrl": "custom/lit.jpeg"
       },
       {
         "title": "CHORDS Toolkit book",
