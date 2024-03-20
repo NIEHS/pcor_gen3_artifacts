@@ -121,7 +121,7 @@
     "public": true,
     "resources": [
       {
-        "title": "Literature Use Cases",
+        "title": "CHORDS Literature Use Cases",
         "category": "Notebooks",
         "description": "Example literature use cases linking climate and health",
         "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141",
