@@ -3,7 +3,7 @@ global:
   dev: false
   # uncomment once we cutover, so we can use shared ALB
   #environment: "unfunded"
-  hostname: "staging.chordshealth.org"
+  hostname: "localhost"
   aws:
     enabled: true
     useLocalSecret:
@@ -11,7 +11,7 @@ global:
         localSecretName: external-secrets-chords-secret
         localSecretNamespace: chordstaginghelm
   revproxyArn: arn:aws:acm:us-east-1:048463324059:certificate/b85556ab-b13b-45bf-afd3-1a70b9234b6e
-  dictionaryUrl: "https://s3.amazonaws.com/dictionary-artifacts/chords-health-dictionary/0.1.0/schema.json"
+  dictionaryUrl: "https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/1.5-style/custom_configs/schema.json"
   postgres:
     dbCreate: false
     externalSecret: "chords_aurora-master-password"
