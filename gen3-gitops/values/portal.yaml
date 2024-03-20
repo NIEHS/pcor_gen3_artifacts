@@ -2,7 +2,7 @@ portal:
   enabled: true
   # Extra images to pull in to serve in portal container
   extraImages:
-    - url: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/images/tox21.jpg
+    - url: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/images/lit.jpeg
     - url: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/images/chordstk.jpg
     - url:  https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/images/ospcortf_logo.jpg
   # GitOps config for portal
@@ -434,7 +434,7 @@ portal:
         "public": true,
         "resources": [
           {
-            "title": "Literature Use Cases",
+            "title": "CHORDS Literature Use Cases",
             "category": "Notebooks",
             "description": "Example literature use cases linking climate and health",
             "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141",
