@@ -303,3 +303,8 @@
   .resource {
      box-shadow: 5px 2px 2px  var( --g3-color__silver);
   }
+
+  .resource__title {
+    text-align: center;
+    background-color: var(--secondary-color);
+  }
