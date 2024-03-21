@@ -121,19 +121,34 @@
     "public": true,
     "resources": [
       {
-        "title": "CHORDS Literature Use Cases",
+        "title": "Home",
+        "category": "Notebooks",
+        "description": "CHORDS Catalog",
+        "link": "https://gen3.niehs.nih.gov/discovery",
+        "imageUrl": "custom/logo.png"
+      },
+      {
+        "title": "Examples",
         "category": "Notebooks",
         "description": "Example literature use cases linking climate and health",
         "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141/literature_tool_v4.html",
         "imageUrl": "custom/lit.jpeg"
       },
       {
-        "title": "CHORDS Toolkit book",
+        "title": "Tools",
         "category": "Tutorial books html",
         "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
         "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
         "imageUrl": "custom/chordstk.jpg"
+      },
+      {
+        "title": "About",
+        "category": "About CHORDS",
+        "description": "",
+        "link": "https://www.niehs.nih.gov/research/programs/chords",
+        "imageUrl": "custom/chords_logo.jpeg"
       }
+
     ]
   },
   "featureFlags": {
