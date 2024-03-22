@@ -121,13 +121,6 @@
     "public": true,
     "resources": [
       {
-        "title": "Home",
-        "category": "Notebooks",
-        "description": "CHORDS Catalog",
-        "link": "https://gen3.niehs.nih.gov/discovery",
-        "imageUrl": "custom/chords_logo.jpeg"
-      },
-      {
         "title": "Examples",
         "category": "Notebooks",
         "description": "Example literature use cases linking climate and health",
