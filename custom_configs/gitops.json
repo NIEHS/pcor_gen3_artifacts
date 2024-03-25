@@ -133,15 +133,7 @@
         "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
         "link": "https://sandbox-staging.ntp.niehs.nih.gov/rsconnect/CHORDS_Toolkit_dev/",
         "imageUrl": "custom/chordstk.jpg"
-      },
-      {
-        "title": "About",
-        "category": "About CHORDS",
-        "description": "",
-        "link": "https://www.niehs.nih.gov/research/programs/chords",
-        "imageUrl": "custom/chords_logo.jpeg"
       }
-
     ]
   },
   "featureFlags": {
