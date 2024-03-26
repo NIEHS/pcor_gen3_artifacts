@@ -5,7 +5,7 @@ authz:
 
   # policies automatically given to authenticated users (in addition to their other policies)
   all_users_policies: []
-
+  
   groups:
   # can CRUD programs and projects and upload data files
   - name: data_submitters
