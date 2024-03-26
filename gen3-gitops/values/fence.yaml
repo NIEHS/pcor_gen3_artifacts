@@ -57,7 +57,7 @@ fence:
             - name: BenMAP-CE
             - name: CDC-ATSDR
             - name: CSL
-            - name: CRE
+            - name: CRE-032224
             - name: DiseasePathfinder
             - name: EJI
             - name: EJScreen
@@ -73,15 +73,18 @@ fence:
             - name: HumanImpactPathFinder
             - name: InciWeb
             - name: KP
+            - name: LANDFIRE
             - name: MODIS
             - name: MTBS
             - name: NDI
             - name: NEPHTN
             - name: NHANES
             - name: NIFC
+            - name: OpenAQ
             - name: PLACES
             - name: PM2.5
             - name: PurpleAir
+            - name: RAP
             - name: SDOH
             - name: TrackingNetwork
             - name: USFA
@@ -143,7 +146,7 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/CDC-ATSDR
         - /programs/CHORDS/projects/CSL
-        - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/CRE-032224
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
         - /programs/CHORDS/projects/EJScreen
@@ -165,8 +168,10 @@ fence:
         - /programs/CHORDS/projects/NEPHTN
         - /programs/CHORDS/projects/NHANES
         - /programs/CHORDS/projects/NIFC
+        - /programs/CHORDS/projects/OpenAQ
         - /programs/CHORDS/projects/PLACES
         - /programs/CHORDS/projects/PM2.5
+        - /programs/CHORDS/projects/RAP
         - /programs/CHORDS/projects/PurpleAir
         - /programs/CHORDS/projects/SDOH
         - /programs/CHORDS/projects/TrackingNetwork
@@ -203,7 +208,7 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/CDC-ATSDR
         - /programs/CHORDS/projects/CSL
-        - /programs/CHORDS/projects/CRE
+        - /programs/CHORDS/projects/CRECRE-032224
         - /programs/CHORDS/projects/DiseasePathfinder
         - /programs/CHORDS/projects/EJI
         - /programs/CHORDS/projects/EJScreen
@@ -225,9 +230,11 @@ fence:
         - /programs/CHORDS/projects/NEPHTN
         - /programs/CHORDS/projects/NHANES
         - /programs/CHORDS/projects/NIFC
+        - /programs/CHORDS/projects/OpenAQ
         - /programs/CHORDS/projects/PLACES
         - /programs/CHORDS/projects/PM2.5
         - /programs/CHORDS/projects/PurpleAir
+        - /programs/CHORDS/projects/RAP
         - /programs/CHORDS/projects/SDOH
         - /programs/CHORDS/projects/TrackingNetwork
         - /programs/CHORDS/projects/USFA
