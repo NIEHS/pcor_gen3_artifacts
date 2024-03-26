@@ -167,6 +167,7 @@ fence:
         - /programs/CHORDS/projects/NDI
         - /programs/CHORDS/projects/NEPHTN
         - /programs/CHORDS/projects/NHANES
+        - /programs/CHORDS/projects/LANDFIRE
         - /programs/CHORDS/projects/NIFC
         - /programs/CHORDS/projects/OpenAQ
         - /programs/CHORDS/projects/PLACES
@@ -224,6 +225,7 @@ fence:
         - /programs/CHORDS/projects/HumanImpactPathFinder
         - /programs/CHORDS/projects/InciWeb
         - /programs/CHORDS/projects/KP
+        - /programs/CHORDS/projects/LANDFIRE
         - /programs/CHORDS/projects/MODIS
         - /programs/CHORDS/projects/MTBS
         - /programs/CHORDS/projects/NDI
