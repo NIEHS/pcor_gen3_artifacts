@@ -500,6 +500,12 @@
   "explorerConfig": [
     {
       "tabTitle": "Geospatial Data Resources",
+      "charts": {
+        "domain": {
+          "chartType": "pie",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
@@ -603,6 +609,12 @@
     },
     {
       "tabTitle": "Population Data Resources",
+      "charts": {
+        "domain": {
+          "chartType": "pie",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
@@ -705,6 +717,12 @@
     },
     {
       "tabTitle": "Geospatial Tool Resources",
+      "charts": {
+        "domain": {
+          "chartType": "pie",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
