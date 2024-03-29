@@ -90,6 +90,24 @@
         }
       ]
     },
+    "topBar": { 
+    "items": [
+      {
+        "icon": "upload",
+        "link": "/submission",
+        "name": "Submit Data"
+      },
+      {
+        "link": "https://gen3.org/resources/user/",
+        "name": "Documentation"
+      },
+      {
+        "link": "https://www.niehs.nih.gov/research/programs/chords",
+        "name": "About"
+      }
+
+    ],
+    "useProfileDropdown": false,
     "login": {
       "title": "CHORDS - Climate and Health Outcomes Research Data Systems",
       "subTitle": "Explore, Analyze, and Share Climate and Health Resources",
@@ -196,10 +214,10 @@
         ]
       },
       "tagsColumn": {
-        "enabled": false
+        "enabled": true
       },
       "tagsInDescription": {
-        "enabled": false
+        "enabled": true
       },
       "authorization": {
         "enabled": false
@@ -481,6 +499,12 @@
   "explorerConfig": [
     {
       "tabTitle": "Geospatial Data Resources",
+      "charts": {
+        "domain": {
+          "chartType": "count",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
@@ -584,6 +608,12 @@
     },
     {
       "tabTitle": "Population Data Resources",
+      "charts": {
+        "domain": {
+          "chartType": "count",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
@@ -686,6 +716,12 @@
     },
     {
       "tabTitle": "Geospatial Tool Resources",
+      "charts": {
+        "domain": {
+          "chartType": "count",
+          "title": "Count"
+        }
+      },
       "filters": {
         "tabs": [
           {
