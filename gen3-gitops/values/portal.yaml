@@ -412,22 +412,23 @@ portal:
           ]
         },
         "topBar": { 
-        "items": [
-          {
-            "icon": "upload",
-            "link": "/submission",
-            "name": "Submit Data"
-          },
-          {
-            "link": "https://gen3.org/resources/user/",
-            "name": "Documentation"
-          },
-          {
-            "link": "https://www.niehs.nih.gov/research/programs/chords",
-            "name": "About"
-          }
+          "items": [
+            {
+              "icon": "upload",
+              "link": "/submission",
+              "name": "Submit Data"
+            },
+            {
+              "link": "https://gen3.org/resources/user/",
+              "name": "Documentation"
+            },
+            {
+              "link": "https://www.niehs.nih.gov/research/programs/chords",
+              "name": "About"
+            }
 
-        ],
+          ]
+      },
         "useProfileDropdown": false,
         "login": {
           "title": "CHORDS - Climate and Health Outcomes Research Data Systems",
