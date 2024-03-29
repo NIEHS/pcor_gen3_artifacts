@@ -196,7 +196,7 @@
         ]
       },
       "tagsColumn": {
-        "enabled": true
+        "enabled": false
       },
       "tagsInDescription": {
         "enabled": false
@@ -481,12 +481,6 @@
   "explorerConfig": [
     {
       "tabTitle": "Geospatial Data Resources",
-      "charts": {
-        "domain": {
-          "chartType": "bar",
-          "title": "Domain"
-        }
-      },
       "filters": {
         "tabs": [
           {
@@ -497,10 +491,7 @@
               "domain",
               "access_type",
               "has_api",
-              "time_extent_start",
-              "time_extent_end",
               "temporal_resolution",
-              "spatial_resolution",
               "spatial_coverage",
               "exposure_media"
             ]
@@ -593,12 +584,6 @@
     },
     {
       "tabTitle": "Population Data Resources",
-      "charts": {
-        "domain": {
-          "chartType": "bar",
-          "title": "Domain"
-        }
-      },
       "filters": {
         "tabs": [
           {
@@ -609,10 +594,7 @@
               "domain",
               "access_type",
               "has_api",
-              "time_extent_start",
-              "time_extent_end",
               "temporal_resolution",
-              "spatial_resolution",
               "spatial_coverage"
             ]
           },
@@ -704,12 +686,6 @@
     },
     {
       "tabTitle": "Geospatial Tool Resources",
-      "charts": {
-        "domain": {
-          "chartType": "bar",
-          "title": "Domain"
-        }
-      },
       "filters": {
         "tabs": [
           {
