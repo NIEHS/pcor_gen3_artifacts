@@ -464,14 +464,14 @@ portal:
             "title": "Examples",
             "category": "Notebooks",
             "description": "Example literature use cases linking climate and health",
-            "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141/literature_tool_v4.html",
+            "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141/literature_tool_v5.html",
             "imageUrl": "custom/lit.jpeg"
           },
           {
             "title": "Tools",
             "category": "Tutorial books html",
             "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
-            "link": "https://dev.posit.niehs.nih.gov/content/4f7ea292-ac44-4313-a2ba-cfe4ff447141/literature_tool_v5.html",
+            "link": "https://dev.posit.niehs.nih.gov/content/ff7f0656-e065-4a1e-9362-a4be5b663547/_book/",
             "imageUrl": "custom/chordstk.jpg"
           }
         ]
@@ -823,7 +823,7 @@ portal:
           "tabTitle": "Geospatial Data Resources",
           "charts": {
             "domain": {
-              "chartType": "pie",
+              "chartType": "count",
               "title": "Count"
             }
           },
@@ -932,7 +932,7 @@ portal:
           "tabTitle": "Population Data Resources",
           "charts": {
             "domain": {
-              "chartType": "pie",
+              "chartType": "count",
               "title": "Count"
             }
           },
@@ -1040,7 +1040,7 @@ portal:
           "tabTitle": "Geospatial Tool Resources",
           "charts": {
             "domain": {
-              "chartType": "pie",
+              "chartType": "count",
               "title": "Count"
             }
           },
