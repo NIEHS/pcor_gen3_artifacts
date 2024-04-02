@@ -228,7 +228,7 @@
       {
         "name": "Resources",
         "field": "resource_id",
-        "type": "count"
+        "type": "Projects"
       }
     ],
     "tagSelector": {
@@ -503,7 +503,7 @@
       "charts": {
         "domain": {
           "chartType": "count",
-          "title": "Count"
+          "title": "Projects"
         }
       },
       "filters": {
@@ -612,7 +612,7 @@
       "charts": {
         "domain": {
           "chartType": "count",
-          "title": "Count"
+          "title": "Projects"
         }
       },
       "filters": {
@@ -720,7 +720,7 @@
       "charts": {
         "domain": {
           "chartType": "count",
-          "title": "Count"
+          "title": "Projects"
         }
       },
       "filters": {
