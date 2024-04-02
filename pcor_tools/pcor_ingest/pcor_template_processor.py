@@ -138,6 +138,10 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
                                                                                         geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments
+                            discovery.spatial_coverage = geo_spatial_resource.spatial_coverage
+                            discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
+                            discovery.time_extent_start = geo_spatial_resource.time_extent_start
+                            discovery.time_extent_end = geo_spatial_resource.time_extent_end
 
                             for item in geo_spatial_resource.measures:
                                 search_filter = AdvSearchFilter()
@@ -197,6 +201,10 @@ class PcorTemplateProcessor:
                                 return
 
                             resource.resource_type = model_data['population_data_resource'].display_type
+                            discovery.spatial_coverage = pop_data_resource.spatial_coverage
+                            discovery.spatial_resolution = pop_data_resource.spatial_resolution
+                            discovery.time_extent_start = pop_data_resource.time_extent_start
+                            discovery.time_extent_end = pop_data_resource.time_extent_end
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
                                                                                         pop_data_resource)

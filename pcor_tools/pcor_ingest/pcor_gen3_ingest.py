@@ -161,7 +161,7 @@ class PcorGen3Ingest:
 
         if discovery.project_name == resource.name:
             discovery.name = resource.name
-        else:g
+        else:
             discovery.name = discovery.project_name + ":" + resource.name
 
         discovery.payment_required = resource.payment_required
