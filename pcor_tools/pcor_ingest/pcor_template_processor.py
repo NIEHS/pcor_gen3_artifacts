@@ -149,7 +149,7 @@ class PcorTemplateProcessor:
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
-                                if item in discovery.tags:
+                                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
                                     tag = Tag()
@@ -164,7 +164,7 @@ class PcorTemplateProcessor:
                                     search_filter.value = item
                                     discovery.adv_search_filters.append(search_filter)
 
-                                    if item in discovery.tags:
+                                    if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                         pass
                                     else:
                                         tag = Tag()
@@ -201,13 +201,15 @@ class PcorTemplateProcessor:
                                 return
 
                             resource.resource_type = model_data['population_data_resource'].display_type
+
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
+                                                                                        pop_data_resource)
+
                             discovery.spatial_coverage = pop_data_resource.spatial_coverage
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
                             discovery.time_extent_start = pop_data_resource.time_extent_start
                             discovery.time_extent_end = pop_data_resource.time_extent_end
 
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
-                                                                                        pop_data_resource)
                             discovery.comment = pop_data_resource.comments
 
                             for item in pop_data_resource.exposures:
