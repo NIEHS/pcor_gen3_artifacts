@@ -236,20 +236,8 @@
     },
     "studyColumns": [
       {
-        "name": "Resource Type",
-        "field": "type",
-        "errorIfNotAvailable": false,
-        "valueIfNotAvailable": "n/a"
-      },
-      {
         "name": "Resource Name",
         "field": "name",
-        "errorIfNotAvailable": false,
-        "valueIfNotAvailable": "n/a"
-      },
-      {
-        "name": "Project Name",
-        "field": "project_name",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
       },
