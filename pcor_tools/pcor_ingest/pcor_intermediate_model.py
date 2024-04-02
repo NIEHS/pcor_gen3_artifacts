@@ -201,7 +201,7 @@ class PcorDiscoveryMetadata:
         self.spatial_coverage = ""
         self.spatial_resolution = ""
         self.time_extent_start = ""
-        self.time_extent_end
+        self.time_extent_end = ""
 
 
 class Tag:

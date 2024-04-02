@@ -216,7 +216,7 @@ class PcorGen3Ingest:
 
         for item in resource.domain:
             if item:
-                if item in discovery.tags:
+                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                     continue
                 else:
                     tag = Tag()
@@ -226,7 +226,7 @@ class PcorGen3Ingest:
 
         for item in project.project_sponsor:
             if item:
-                if item in discovery.tags:
+                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                     continue
                 else:
                     tag = Tag()
@@ -435,6 +435,8 @@ class PcorGen3Ingest:
         logger.info("rendered: %s" % rendered)
         return rendered
 
+
+
     def produce_pop_data_resource(self, pop_data_resource):
         """
         Render pop_data_resource  as JSON via template
@@ -451,6 +453,16 @@ class PcorGen3Ingest:
     #############################################
     # supporting methods
     ###########################################
+
+    @staticmethod
+    def check_tag_present(item, tags):
+        for tag in tags:
+            if item == tag.name:
+                return True
+
+        return False
+
+
     @staticmethod
     def check_program_exists(existing_programs, program):
         """

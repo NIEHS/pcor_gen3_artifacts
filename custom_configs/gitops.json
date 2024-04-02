@@ -198,9 +198,6 @@
         "displayName": "Show Search Filters",
         "filters": [
           {
-            "key": "Resource Type"
-          },
-          {
             "key": "Project Sponsor"
           },
           {
@@ -246,7 +243,14 @@
         "field": "project_sponsor",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
+      },
+      {
+        "name": "Domain",
+        "field": "domain",
+        "errorIfNotAvailable": false,
+        "valueIfNotAvailable": "n/a"
       }
+
     ],
     "studyPreviewField": {
       "name": "Description",
