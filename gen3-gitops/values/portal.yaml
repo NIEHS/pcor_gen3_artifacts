@@ -549,7 +549,7 @@ portal:
           {
             "name": "Resources",
             "field": "resource_id",
-            "type": "Projects"
+            "type": "Resource"
           }
         ],
         "tagSelector": {
@@ -836,7 +836,7 @@ portal:
           "charts": {
             "domain": {
               "chartType": "count",
-              "title": "Projects"
+              "title": "Domain"
             }
           },
           "filters": {
@@ -945,7 +945,7 @@ portal:
           "charts": {
             "domain": {
               "chartType": "count",
-              "title": "Projects"
+              "title": "Domain"
             }
           },
           "filters": {
@@ -1053,7 +1053,7 @@ portal:
           "charts": {
             "domain": {
               "chartType": "count",
-              "title": "Projects"
+              "title": "Domain"
             }
           },
           "filters": {
