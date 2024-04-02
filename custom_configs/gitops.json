@@ -215,10 +215,10 @@
         ]
       },
       "tagsColumn": {
-        "enabled": true
+        "enabled": false
       },
       "tagsInDescription": {
-        "enabled": false
+        "enabled": true
       },
       "authorization": {
         "enabled": false
