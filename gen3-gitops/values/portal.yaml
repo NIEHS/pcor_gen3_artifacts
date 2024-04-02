@@ -715,6 +715,30 @@ portal:
                       "label": "Payment Required?",
                       "sourceField": "payment_required",
                       "default": "n/a"
+                    },
+                    {
+                      "type": "text",
+                      "label": "Time Extent Start",
+                      "sourceField": "time_extent_start",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Time Extent End",
+                      "sourceField": "time_extent_end",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Spatial Resolution",
+                      "sourceField": "spatial_resolution",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Spatial Coverage",
+                      "sourceField": "spatial_coverage",
+                      "default": ""
                     }
                   ]
                 }
