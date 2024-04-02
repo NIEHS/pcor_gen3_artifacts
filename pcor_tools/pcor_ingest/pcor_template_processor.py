@@ -84,6 +84,7 @@ class PcorTemplateProcessor:
                     if 'resource' in model_data.keys():
                         logger.info('process:: adding resource')
                         resource = model_data['resource']
+
                         resource_submit_status = self.pcor_ingest.create_resource(
                             program_name=program.name,
                             project_code=project.code,
@@ -143,10 +144,14 @@ class PcorTemplateProcessor:
                                 search_filter.key = "Variables"
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
-                                tag = Tag()
-                                tag.name = item
-                                tag.category = "Variables"
-                                discovery.tags.append(tag)
+
+                                if item in discovery.tags:
+                                    pass
+                                else:
+                                    tag = Tag()
+                                    tag.name = item
+                                    tag.category = "Variables"
+                                    discovery.tags.append(tag)
 
                             if geo_spatial_resource.exposure_media:
                                 for item in geo_spatial_resource.exposure_media:
@@ -154,10 +159,14 @@ class PcorTemplateProcessor:
                                     search_filter.key = "Variables"
                                     search_filter.value = item
                                     discovery.adv_search_filters.append(search_filter)
-                                    tag = Tag()
-                                    tag.name = item
-                                    tag.category = "Variables"
-                                    discovery.tags.append(tag)
+
+                                    if item in discovery.tags:
+                                        pass
+                                    else:
+                                        tag = Tag()
+                                        tag.name = item
+                                        tag.category = "Variables"
+                                        discovery.tags.append(tag)
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

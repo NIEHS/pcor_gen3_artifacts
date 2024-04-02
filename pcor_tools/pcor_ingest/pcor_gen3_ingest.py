@@ -158,7 +158,12 @@ class PcorGen3Ingest:
         discovery.project_short_name = project.short_name
         discovery.project_url = project.project_url
         discovery.project_description = project.description
-        discovery.name = resource.name
+
+        if discovery.project_name == resource.name:
+            discovery.name = resource.name
+        else:g
+            discovery.name = discovery.project_name + ":" + resource.name
+
         discovery.payment_required = resource.payment_required
         discovery.verification_datetime = resource.verification_datetime
         discovery.description = resource.description
@@ -211,22 +216,23 @@ class PcorGen3Ingest:
 
         for item in resource.domain:
             if item:
-                tag = Tag()
-                tag.name = item
-                tag.category = "Domain"
-                discovery.tags.append(tag)
+                if item in discovery.tags:
+                    continue
+                else:
+                    tag = Tag()
+                    tag.name = item
+                    tag.category = "Domain"
+                    discovery.tags.append(tag)
 
         for item in project.project_sponsor:
             if item:
-                tag = Tag()
-                tag.name = item
-                tag.category = "Project Sponsor"
-                discovery.tags.append(tag)
-
-        tag = Tag()
-        tag.name = discovery.type
-        tag.category = "Resource Type"
-        discovery.tags.append(tag)
+                if item in discovery.tags:
+                    continue
+                else:
+                    tag = Tag()
+                    tag.name = item
+                    tag.category = "Project Sponsor"
+                    discovery.tags.append(tag)
 
         for sponsor in project.project_sponsor:
             search_filter = AdvSearchFilter()
@@ -244,7 +250,6 @@ class PcorGen3Ingest:
         search_filter.key = "Resource Type"
         search_filter.value = resource.resource_type
         discovery.adv_search_filters.append(search_filter)
-
 
         return discovery
 
