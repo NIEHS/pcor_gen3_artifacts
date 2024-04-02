@@ -228,7 +228,7 @@
       {
         "name": "Resources",
         "field": "resource_id",
-        "type": "Resource"
+        "type": "count"
       }
     ],
     "tagSelector": {
