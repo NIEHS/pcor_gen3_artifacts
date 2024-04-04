@@ -1,4 +1,5 @@
 PyYAML~=5.4.1
+pypfb~=0.5.26
 asyncio~=3.4.3
 attrs~=21.4.0
 cdislogging~=1.1.1
