@@ -207,10 +207,12 @@ class PcorGen3Ingest:
             discovery.source_name = data_resource.source_name
 
         # migrate keywords that are available in resource
-        for kw in resource.keywords:
-            if kw:
+        for item in resource.keywords:
+            if item:
+                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
+                    continue
                 tag = Tag()
-                tag.name = kw
+                tag.name = item
                 tag.category = "Keyword"
                 discovery.tags.append(tag)
 
