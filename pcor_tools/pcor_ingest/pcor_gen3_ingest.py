@@ -335,7 +335,6 @@ class PcorGen3Ingest:
 
     def create_geo_spatial_tool_resource(self, program_name, project_code, geo_spatial_tool_resource):
         logger.info("create_geo_spatial_tool_resource()")
-        self.get_individual_project_info(project_code)
 
         pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
         geo_spatial_tool_resource.project = pcor_intermediate_project_model

@@ -175,7 +175,6 @@ class PcorTemplateParser:
             if template_df.iat[i, 0] == 'Project':
                 logging.debug("found Project")
                 for j in range(i, ss_rows):
-                    # FixMe:  submitter id is missing in template!
                     logger.info('prop name: %s  value: %s' % (template_df.iat[j, 0], template_df.iat[j, 1]))
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
