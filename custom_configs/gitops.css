@@ -313,13 +313,13 @@
     background: inherit;
     margin-top: -25px;
     cursor: pointer;
-    height: 90px;
+    height: 90px  !important;
     width: 100%;
     overflow: hidden;
-    padding: 0 16px 0 16px;
-    margin: 10px 0 10px 0;
+    padding: 0 16px 0 16px  !important;
+    margin: 10px 0 10px 0  !important;
     display: -webkit-box;
-    font-size: medium;
+    font-size: medium  !important;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     text-overflow: ellipsis;
@@ -330,14 +330,14 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 10px 16px 0 16px;
+    padding: 10px 16px 0 16px  !important;
     width: 100%;
     flex-wrap: wrap;
   }
 
   .discovery-table__row {
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold  !important;
     overflow: visible;
     position: relative;
   }
