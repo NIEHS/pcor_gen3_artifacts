@@ -325,19 +325,19 @@
     text-overflow: ellipsis;
 }
 
-  .discovery-table__row-horizontal-content {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 10px 16px 0 16px  !important;
-    width: 100%;
-    flex-wrap: wrap;
-  }
+.discovery-table__row-horizontal-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 16px 0 16px  !important;
+  width: 100%;
+  flex-wrap: wrap;
+}
 
-  .discovery-table__row {
-    cursor: pointer;
-    font-weight: bold  !important;
-    overflow: visible;
-    position: relative;
-  }
+.discovery-table__row {
+  cursor: pointer;
+  font-weight: bold  !important;
+  overflow: visible;
+  position: relative;
+}
