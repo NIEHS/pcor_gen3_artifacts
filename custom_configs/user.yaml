@@ -52,6 +52,7 @@ authz:
         - name: CDC-ATSDR
         - name: CSL
         - name: CRE-032224
+        - name: CRE
         - name: DiseasePathfinder
         - name: EJI
         - name: EJScreen
@@ -141,6 +142,7 @@ authz:
     - /programs/CHORDS/projects/CDC-ATSDR
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE-032224
+    - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/DiseasePathfinder
     - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EJScreen
@@ -204,6 +206,7 @@ authz:
     - /programs/CHORDS/projects/CDC-ATSDR
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE-032224
+    - /programs/CHORDS/projects/CRE
     - /programs/CHORDS/projects/DiseasePathfinder
     - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EJScreen
