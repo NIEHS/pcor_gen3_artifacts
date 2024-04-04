@@ -308,3 +308,36 @@
     text-align: center;
     background-color: var(--secondary-color);
   }
+
+  .discovery-table__expanded-row-content {
+    background: inherit;
+    margin-top: -25px;
+    cursor: pointer;
+    height: 90px;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 16px 0 16px;
+    margin: 10px 0 10px 0;
+    display: -webkit-box;
+    font-size: medium;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+  .discovery-table__row-horizontal-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px 16px 0 16px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .discovery-table__row {
+    cursor: pointer;
+    font-weight: bold;
+    overflow: visible;
+    position: relative;
+  }
