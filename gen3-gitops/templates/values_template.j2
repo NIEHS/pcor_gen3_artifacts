@@ -83,6 +83,8 @@ manifestservice:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
     tag: 2023.12
+  externalSecrets:
+    manifestserviceG3auto: "chords_chords-manifestservice-g3auto"
 
 ssjdispatcher:
   enabled: true
@@ -94,6 +96,7 @@ metadata:
   useAggMds: False
   externalSecrets:
     dbcreds: "chords_chords-metadata-db-creds"
+    metadataG3auto: "chords_chord-metadata-g3auto"
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
