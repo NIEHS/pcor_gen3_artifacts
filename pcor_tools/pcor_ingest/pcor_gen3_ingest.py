@@ -182,6 +182,12 @@ class PcorGen3Ingest:
         if len(resource.publications) > 2:
             discovery.publications_3 = resource.publications[2]
 
+        if len(resource.resource_reference) > 0:
+            discovery.resource_reference_1 = resource.resource_reference[0]
+
+        if len(resource.resource_reference) > 1:
+            discovery.resource_reference_2 = resource.resource_reference[2]
+        
         discovery.keywords = ','.join(resource.keywords)
         discovery.access_type = resource.access_type
         discovery.payment_required = resource.payment_required

@@ -341,3 +341,7 @@
     overflow: visible;
     position: relative;
   }
+
+  .discovery-modal__fieldtext {
+    text-align: left 9m !important;
+} 
