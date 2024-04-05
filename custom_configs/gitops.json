@@ -281,25 +281,31 @@
                   "default": "n/a"
                 },
                 {
-                  "type": "text",
-                  "label": "Reference",
-                  "sourceField": "resource_reference",
-                  "default": "n/a"
+                  "type": "link",
+                  "label": "Reference 1",
+                  "sourceField": "resource_reference_1",
+                  "default": ""
                 },
                 {
-                  "type": "text",
+                  "type": "link",
+                  "label": "Reference 2",
+                  "sourceField": "resource_reference_2",
+                  "default": ""
+                },
+                {
+                  "type": "link",
                   "label": "publication 1",
                   "sourceField": "publications_1",
                   "default": ""
                 },
                 {
-                  "type": "text",
+                  "type": "link",
                   "label": "publication 2",
                   "sourceField": "publications_2",
                   "default": ""
                 },
                 {
-                  "type": "text",
+                  "type": "link",
                   "label": "publication 3",
                   "sourceField": "publications_3",
                   "default": ""
