@@ -26,6 +26,18 @@ class TestPcorGen3Ingest(unittest.TestCase):
 
         pcor_ingest.delete_project(program=program, project_code=project.code)
 
+    def test_delete_nodes(self):
+        """ test delete nodes on existing project """
+        logger.info('test_delete_nodes()')
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "CHORDS"
+        project = PcorIntermediateProjectModel()
+        project.code = "MODIS"
+        ordered_node_list = ['geospatial_data_resource', 'geospatial_tool_resource', 'population_data_resource',
+                             'resource']
+
+        pcor_ingest.delete_nodes(program=program, project=project.code, ordered_node_list=ordered_node_list)
+
     def test_delete_discovery_metadata_with_guid(self):
         # not a real test used to delete discovery entry
         logger.info('test_delete_discovery_metadata_with_guid()')
