@@ -707,3 +707,20 @@ class PcorGen3Ingest:
             submission_status.response_content = json.loads(pcor_error.response.content)
             submission_status.traceback = traceback.format_exc()
             return submission_status
+
+    def delete_nodes(self, program, project, ordered_node_list, batch_size=100, verbose=True):
+        """
+        Delete all records for a list of nodes from a project.
+
+        :param program: The program to delete from.
+        :param project: The project to delete from.
+        :param ordered_node_list: The list of nodes to delete, in reverse graph submission order
+        :param batch_size: how many records to query and delete at a time
+        :param verbose: whether to print progress logs
+        """
+        logger.info("delete_nodes()")
+        sub = Gen3Submission(self.gen3_auth)
+        try:
+            sub.delete_nodes(program, project, ordered_node_list, batch_size, verbose)
+        except Exception as pcor_error:
+            logger.error("error in deletion:%s" % pcor_error)
