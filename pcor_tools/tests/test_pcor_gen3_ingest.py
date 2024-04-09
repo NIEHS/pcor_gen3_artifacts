@@ -1,6 +1,8 @@
 import logging
 import unittest
 
+from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel
+
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from tests import pcor_testing_utilities
 
@@ -14,11 +16,21 @@ logger = logging.getLogger(__name__)
 
 class TestPcorGen3Ingest(unittest.TestCase):
 
+    def test_delete_project(self):
+        """ test delete project on existing project """
+        logger.info('test_delete_project()')
+        pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
+        program = "CHORDS"
+        project = PcorIntermediateProjectModel()
+        project.code = "MODIS"
+
+        pcor_ingest.delete_project(program=program, project_code=project.code)
+
     def test_delete_discovery_metadata_with_guid(self):
         # not a real test used to delete discovery entry
         logger.info('test_delete_discovery_metadata_with_guid()')
 
-        guid = 'b8058b19-46bd-4f7a-bca9-edd30e35c314'  # hardcode entry to be deleted
+        guid = 'ec97f67f-ec59-4859-bdf9-9343122f80cb'  # hardcode entry to be deleted
 
         pcor_ingest = PcorGen3Ingest(pcor_testing_utilities.get_pcor_ingest_configuration())
         actual = pcor_ingest.delete_discovery_metadata_with_guid(guid=guid)
