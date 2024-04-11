@@ -207,7 +207,7 @@ class PcorGen3Ingest:
             discovery.resource_reference_1 = resource.resource_reference[0]
 
         if len(resource.resource_reference) > 1:
-            discovery.resource_reference_2 = resource.resource_reference[2]
+            discovery.resource_reference_2 = resource.resource_reference[1]
         
         discovery.keywords = ','.join(resource.keywords)
         discovery.payment_required = resource.payment_required
