@@ -70,6 +70,23 @@ class PcorGen3Ingest:
         logger.info("program created with id:%s" % program_id)
         return program_id
 
+    def delete_program(self, program):
+        """
+        Delete a program
+        :param program: name of program
+        """
+        logger.info("delete_program()")
+        sub = Gen3Submission(self.gen3_auth)
+        try:
+            logger.info('\n\n\n\n===================Start deleting program====================================')
+            logger.info('deleting program: %s', program)
+            response = sub.delete_program(program)
+            logger.info('response: %s', response)
+            logger.info('\n===================Finished deleting program====================================\n\n\n\n')
+            return response
+        except Exception as pcor_error:
+            logger.error("error, program not found:%s" % pcor_error)
+
     def create_project(self, program, pcor_intermediate_project_model):
         """
         :param program: identifier of the program in Gen3
@@ -84,18 +101,14 @@ class PcorGen3Ingest:
         project_already_exist = self.check_project_exists(existing_projects, project)
         if project_already_exist:
             logger.info('Project already exists: %s', project)
-            logger.info('fetch project details')
-            project_query_result = self.get_individual_project_info(project_code=project)
-            project_id = project_query_result.id
-            return project_id
+            self.resubmission_cleanups(program=program, project=project)
 
-        else:
-            logger.info('Creating project: %s', project)
-            project_json = self.produce_project_json(pcor_intermediate_project_model)
-            response = sub.create_project(quote(program), json.loads(project_json))
-            project_id = response["entities"][0]["id"]
-            logger.info("project_id: %s" % project_id)
-            return project_id
+        logger.info('Creating project: %s', project)
+        project_json = self.produce_project_json(pcor_intermediate_project_model)
+        response = sub.create_project(quote(program), json.loads(project_json))
+        project_id = response["entities"][0]["id"]
+        logger.info("project_id: %s" % project_id)
+        return project_id
 
     def delete_project(self, program, project_code):
         """
@@ -107,9 +120,14 @@ class PcorGen3Ingest:
         sub = Gen3Submission(self.gen3_auth)
 
         try:
+            logger.info('\n\n\n\n===================Start deleting project====================================')
+            logger.info('deleting project: %s', project_code)
             response = sub.delete_project(program, project_code)
-        except requests.exceptions.HTTPError:
-            logger.warn("error, project not found")
+            logger.info('response: %s', response)
+            logger.info('\n===================Finished deleting project====================================\n\n\n\n')
+            return response
+        except Exception as pcor_error:
+            logger.error("error, project not found:%s" % pcor_error)
 
     def create_resource(self, program_name, project_code, resource):
         """
@@ -280,27 +298,28 @@ class PcorGen3Ingest:
 
         # validation check
         existing_discovery_entries = self.get_discovery_entries()
-        discovery_entry_already_exists = self.check_discovery_entry_exists(
+        discovery_entry_already_exists, existing_discovery_entry_guid = self.check_discovery_entry_exists(
             existing_discovery_entries=existing_discovery_entries,
             new_entry=discovery_json)
-        if discovery_entry_already_exists:
-            return 'Discovery entry already exists. Skip creating a new entry...'
-        else:
-            logger.info('Discovery entry does not exists: %s', discovery_json)
-            logger.info('Creating a new entry...')
-            discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
-            logger.info('adding discovery data')
-            metadata = Gen3Metadata(self.gen3_auth)
-            response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
-            ''' cgymeyer submit_mds()
-            metadata = Gen3Expansion(auth_provider=self.gen3_auth,
-                                     submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
-                                     endpoint='https://staging.chordshealth.org/')
-            mds = Gen3Metadata(auth_provider=self.gen3_auth)
-            discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
-            response = metadata.submit_mds(mds=discovery_mds)
-            '''
-            return response
+        if discovery_entry_already_exists and existing_discovery_entry_guid is not None:
+            logger.info('Discovery entry already exists. Recreating...')
+            logger.info('Deleting metadata entry guid: %s' % existing_discovery_entry_guid)
+            self.delete_discovery_metadata_with_guid(existing_discovery_entry_guid)
+
+        logger.info('Creating a new entry...')
+        discoverable_data = dict(_guid_type="discovery_metadata", gen3_discovery=discovery_json)
+        logger.info('adding discovery data')
+        metadata = Gen3Metadata(self.gen3_auth)
+        response = metadata.create(discovery_data.resource_id, discoverable_data, aliases=None, overwrite=True)
+        ''' cgymeyer submit_mds()
+        metadata = Gen3Expansion(auth_provider=self.gen3_auth,
+                                 submission=Gen3Submission('https://staging.chordshealth.org/', self.gen3_auth),
+                                 endpoint='https://staging.chordshealth.org/')
+        mds = Gen3Metadata(auth_provider=self.gen3_auth)
+        discovery_mds = mds.create(discovery_data.resource_id, discoverable_data, overwrite=True)
+        response = metadata.submit_mds(mds=discovery_mds)
+        '''
+        return response
 
     def delete_discovery_metadata_with_guid(self, guid):
         """
@@ -309,21 +328,13 @@ class PcorGen3Ingest:
         :return: Response (just the json for now)
         """
         logger.info("delete_discovery_metadata_with_guid()")
+        logger.info('\n\n\n\n===================Start deleting discovery metadata entry===============================')
         logger.info('guid: %s' % guid)
         metadata = Gen3Metadata(self.gen3_auth)
         response = metadata.delete(guid=guid)
-
+        logger.info('response: %s' % response)
+        logger.info('\n===================Finished deleting discovery metadata entry============================\n\n\n\n')
         return response
-
-    def query_discovery(self, query):
-        """
-        Query discovery metadata given a query
-        """
-        logger.info("query_discovery()")
-        logger.info('query: %s' % query)
-        metadata = Gen3Metadata(self.gen3_auth)
-
-        return
 
     def create_geo_spatial_data_resource(self, program_name, project_code, geo_spatial_data_resource):
         logger.info("create_geo_spatial_data_resource()")
@@ -446,8 +457,6 @@ class PcorGen3Ingest:
         logger.info("rendered: %s" % rendered)
         return rendered
 
-
-
     def produce_pop_data_resource(self, pop_data_resource):
         """
         Render pop_data_resource  as JSON via template
@@ -508,7 +517,7 @@ class PcorGen3Ingest:
     @staticmethod
     def check_discovery_entry_exists(existing_discovery_entries, new_entry):
         """
-        For now, it only checks if name in new_entry already exists we can expand this in future to validate entry updates
+        checks if name/project.name in new_entry already exists we can expand validation in future if needed
         :param existing_discovery_entries:
             Dict{guid: {metadata}}: Dictionary with GUIDs as keys and associated
                 metadata JSON blobs as values
@@ -520,12 +529,14 @@ class PcorGen3Ingest:
         logger.info("check_discovery_exists()")
         new_entry_name = new_entry['name']
         entry_already_exist = False
+        existing_entry_guid = None
         if existing_discovery_entries:
             for entry_guid, existing_entry in existing_discovery_entries.items():
                 temp_entry_name = existing_entry['gen3_discovery']['name']
                 if temp_entry_name == new_entry_name:
                     entry_already_exist = True
-        return entry_already_exist
+                    existing_entry_guid = entry_guid
+        return entry_already_exist, existing_entry_guid
 
     def retrieve_project_files_tsv(self, project, program, node_type, export_file):
         """
@@ -707,3 +718,65 @@ class PcorGen3Ingest:
             submission_status.response_content = json.loads(pcor_error.response.content)
             submission_status.traceback = traceback.format_exc()
             return submission_status
+
+    def delete_nodes(self, program, project, ordered_node_list, batch_size=100, verbose=True):
+        """
+        Delete all records for a list of nodes from a project.
+
+        :param program: The program to delete from.
+        :param project: The project to delete from.
+        :param ordered_node_list: The list of nodes to delete, in reverse graph submission order
+        :param batch_size: how many records to query and delete at a time
+        :param verbose: whether to print progress logs
+        """
+        logger.info("delete_nodes()")
+
+        sub = Gen3Submission(self.gen3_auth)
+        try:
+            logger.info('\n\n\n\n===================Start deleting nodes====================================')
+            sub.delete_nodes(program, project, ordered_node_list, batch_size, verbose)
+            logger.info('\n===================Finished deleting nodes====================================\n\n\n\n')
+        except Exception as pcor_error:
+            logger.error("error in deletion:%s" % pcor_error)
+
+    def resubmission_cleanups(self, program, project):
+        """
+        Clean up the existing project and records before re-submission
+        :param program: identifier of the program in Gen3
+        :param project: project name/code
+        """
+        logger.info('fetch project details')
+        ordered_node_list = ['geospatial_data_resource', 'geospatial_tool_resource', 'population_data_resource',
+                             'resource']
+        self.delete_nodes(program=program, project=project, ordered_node_list=ordered_node_list)
+        self.delete_project(program=program, project_code=project)
+
+    def cleanup_gen3_instance(self, program=None):
+        """
+        This is a helper function to cleanup gen3 instance
+        It will delete all projects and records
+        It will also delete all discovery metadata
+        :param program: program name
+        """
+        logger.info('cleanup_gen3_instance()')
+
+        # get all projects
+        project_list = []
+        existing_projects = self.get_projects(program=program)
+
+        if existing_projects and 'links' in existing_projects:
+            for entry in existing_projects['links']:
+                temp_project = entry.split('/')[-1]
+                project_list.append(temp_project)
+        logger.info("project_list: %s" % project_list)
+
+        # delete all projects and records
+        for project in project_list:
+            self.resubmission_cleanups(program=program, project=project)
+
+        # delete all discovery metadata entries
+        existing_discovery_entries = self.get_discovery_entries()
+        for entry_guid in existing_discovery_entries:
+            self.delete_discovery_metadata_with_guid(entry_guid)
+
+
