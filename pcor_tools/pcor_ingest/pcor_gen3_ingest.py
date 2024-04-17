@@ -220,7 +220,7 @@ class PcorGen3Ingest:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
             discovery.is_citizen_collected = data_resource.includes_citizen_collected
-            discovery.data_formats = data_resource.data_formats
+            discovery.data_formats = ', '.join(data_resource.data_formats) if data_resource.data_formats else ''
 
             if len(data_resource.data_location) > 0:
                 discovery.data_location_1 = data_resource.data_location[0]
