@@ -219,6 +219,7 @@ class PcorGen3Ingest:
             discovery.has_visualization_tool = data_resource.has_visualization_tool
             discovery.is_citizen_collected = data_resource.includes_citizen_collected
             discovery.data_formats = data_resource.data_formats
+
             if len(data_resource.data_location) > 0:
                 discovery.data_location_1 = data_resource.data_location[0]
 
