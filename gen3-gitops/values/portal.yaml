@@ -547,9 +547,13 @@ portal:
             "displayName": "Show Search Filters",
             "filters": [
               {
+                "key": "Domain"
+              },
+              {
                 "key": "Project Sponsor"
               },
               {
+<<<<<<< HEAD
                 "key": "Measures(category)"
               },
               {
@@ -584,6 +588,9 @@ portal:
               },
               {
                 "key": "License Type"
+=======
+                "key": "Variables"
+>>>>>>> 7e3253b (#38 fix search filter ordering)
               }
 
             ]

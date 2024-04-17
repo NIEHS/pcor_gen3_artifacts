@@ -169,43 +169,13 @@
         "displayName": "Show Search Filters",
         "filters": [
           {
+            "key": "Domain"
+          },
+          {
             "key": "Project Sponsor"
           },
           {
-            "key": "Measures(category)"
-          },
-          {
-            "key": "Measures(subcategory 2)"
-          },
-          {
-            "key": "Population Studied"
-          },
-          {
-            "key": "Temporal Resolution"
-          },
-          {
-              "key": "Spatial Resolution"
-          },
-          {
-              "key": "Geometry Type"
-          },
-          {
-              "key": "Access Type"
-          },
-          {
-            "key": "Tool Type"
-          },
-          {
-            "key": "Is Open"
-          },
-          {
-            "key": "Operating System"
-          },
-          {
-            "key": "Language"
-          },
-          {
-            "key": "License Type"
+            "key": "Variables"
           }
 
         ]
