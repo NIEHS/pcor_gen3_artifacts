@@ -82,6 +82,7 @@ properties:
   description:
     description: A text description of the resource.
     type: string
+  
   domain:
     description: Domain of the resource
     type: array
@@ -116,6 +117,26 @@ properties:
     type: array
     items:
       type: string
+  publication_links:
+    description: link for each publication (provisional, mike is testing using the publication node as a more proper approach)
+    type: array
+    items:
+      type: string
+  intended_use:
+    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
+    type: string
+  strengths:
+    description: Key strengths of the dataset for the  uses. This is not intended to be a comprehensive list, but rather to help researchers identify the specific datasets that are best suited to their intended application.
+    type: string
+  limitations:
+    description: Key limitations or considerations for the uses. This is not intended to be a comprehensive list of limitations, but rather to capture any specific limitations noted by data provider as well as commonly recognized limitations associated with that specific data type in environmental health applications.
+    type: string
+  example_applications:
+    description: Example applications (e.g., health cohorts) that have used this dataset and that form the basis for the example uses and metrics in this spreadsheet
+    type: string
+  tools_supporting_uses:
+    description: Available tools (e.g., software, tutorials, code, fact sheets, interactive maps, etc.) that help researchers use the dataset 
+    type: string
   is_static:
     description: yes if the resource is static, no if the resource is expected to be updated in the future
     type: boolean

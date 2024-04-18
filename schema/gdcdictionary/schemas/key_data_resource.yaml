@@ -1,14 +1,14 @@
 $schema: "http://json-schema.org/draft-04/schema#"
 # GeoExposure_Data_Resource
-id: "geospatial_data_resource"
-title: GeospatialDataResource
+id: "key_data_resource"
+title: KeyDataResource
 type: object
 nodeTerms: null
 namespace: http://chordshealth.org/
 category: administrative
 program: '*'
 project: '*'
-description: A collection of geospatial data or resources, can have files attached or may point to an external reference
+description: A key dataset for climate and health
 additionalProperties: false
 submittable: true
 validators: null
@@ -22,7 +22,7 @@ systemProperties:
 
 links:
   - name: resources
-    backref: geospatial_data_resources
+    backref: key_data_resources
     label: is_a_resource_of
     target_type: resource
     multiplicity: one_to_one
@@ -53,7 +53,7 @@ properties:
   type:
     description: The name of the node in the database to be used in queries.
     enum:
-      - geospatial_data_resource
+      - key_data_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
   # data resc props are common
@@ -64,12 +64,12 @@ properties:
     description: Notes on usage of the data, including warnings.
     type: string
   source_name:
-    description: Name of source.
+    description: Name of source. (unused)
     type: array
     items:
       type: string
   update_frequency:
-    description: Frequency of update of the resource.
+    description: Frequency of update of the resource. (unused)
     #nullable: true
     type: string
     #enum:
@@ -80,15 +80,7 @@ properties:
     #  - Quarterly
     # - Annually
     # - Undefined
-  includes_citizen_collected:
-    description: Flag indicating that the data is from citizen science.
-    type: boolean
-  has_api:
-    description: Flag if the resource has an API
-    type: boolean
-  has_visualization_tool:
-    description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
-    type: boolean
+
   # measures is a three-level hierarchy of parent/subcategory/measure to allow easier filtering and grouping
   measures_parent_category:
     description: type of environmental phenomena being observed at the parent concept level
@@ -137,36 +129,10 @@ properties:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
   spatial_coverage:
-    description: Maximum spatial coverage of the data. Is this equivalent to spatial extent? MC
+    description: Maximum spatial coverage of the data.
     type: string
-  spatial_coverage_specific_regions:
-    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
-    type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
-  geometry_type:
-    description: Type of geometric data, the file extension will be different for different types.
-    type: array
-    items:
-      type: string
-  geometry_source:
-    description: Source or provider of the geometry data.
-    type: array
-    items:
-      type: string
   model_methods:
     description: If modeled, type of approach used.
-    type: array
-    items:
-      type: string
-  exposure_media:
-    description: Media that the phenomena is related to.
-    type: array
-    items:
-      type: string
-  geographic_feature:
-    description: The type of geographic feature associated with the data
     type: array
     items:
       type: string
