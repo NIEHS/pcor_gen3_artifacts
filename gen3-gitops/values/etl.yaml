@@ -42,6 +42,7 @@ etl:
         props:
           - name: project_id
           - name: submitter_id
+          - name: intended_use
           - name: has_api
           - name: measures_parent_category
           - name: measures_subcategory_major

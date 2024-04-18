@@ -1,11 +1,6 @@
 global:
   hostname: "localhost"
-<<<<<<< HEAD
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/lara-model/custom_configs/schema.json
-=======
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
->>>>>>> 28ef5c0 (#1 (github_action: Generate gen3 gitops Values) update values in gen3-gitops)
-
 
 sower:
   enabled: false
