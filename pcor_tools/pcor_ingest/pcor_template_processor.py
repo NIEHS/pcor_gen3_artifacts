@@ -141,10 +141,9 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = ', '.join(geo_spatial_resource.spatial_coverage)
                             discovery.geometry_type = ', '.join(geo_spatial_resource.geometry_type)
                             discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
-                            discovery.time_extent_start_year = geo_spatial_resource.time_extent_start_year
-                            discovery.time_extent_end_year = geo_spatial_resource.time_extent_end_year
+                            discovery.time_extent_start = geo_spatial_resource.time_extent_start
+                            discovery.time_extent_end = geo_spatial_resource.time_extent_end
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
-                            discovery.temporal_resolution = ', '.join(geo_spatial_resource.temporal_resolution)
 
                             if geo_spatial_resource.temporal_resolution:
                                 for item in geo_spatial_resource.temporal_resolution:
@@ -246,10 +245,9 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = ', '.join(pop_data_resource.spatial_coverage)
                             discovery.geometry_type = ', '.join(pop_data_resource.geometry_type)
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
-                            discovery.time_extent_start_year = pop_data_resource.time_extent_start_year
-                            discovery.time_extent_end_year = pop_data_resource.time_extent_end_year
+                            discovery.time_extent_start = pop_data_resource.time_extent_start
+                            discovery.time_extent_end = pop_data_resource.time_extent_end
                             discovery.time_available_comment = pop_data_resource.time_available_comment
-                            discovery.temporal_resolution = ', '.join(pop_data_resource.temporal_resolution)
 
                             discovery.comment = pop_data_resource.comments
 
@@ -347,36 +345,6 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
                             discovery.comment = geo_tool_resource.intended_use
                             discovery.tool_type = ', '.join(geo_tool_resource.tool_type) if geo_tool_resource.tool_type else None
-
-                            for item in geo_tool_resource.tool_type:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Tool Type"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
-                            if geo_tool_resource.is_open:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Is Open"
-                                search_filter.value = geo_tool_resource.is_open
-                                discovery.adv_search_filters.append(search_filter)
-
-                            for item in geo_tool_resource.operating_system:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Operating System"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
-                            for item in geo_tool_resource.languages:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Language"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
-                            for item in geo_tool_resource.license_type:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "License Type"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
 
                             logger.info("created discovery: %s" % discovery)
 

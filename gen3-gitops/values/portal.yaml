@@ -787,6 +787,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Time available",
+                      "sourceField": "time_available_comment",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Spatial Resolution",
                       "sourceField": "spatial_resolution",
                       "default": ""

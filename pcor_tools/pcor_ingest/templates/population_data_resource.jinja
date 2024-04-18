@@ -35,19 +35,10 @@
   {% if pop_data_resource.time_extent_end_year %}
       "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
   {% endif %}
-  {% if pop_data_resource.time_extent_end %}
-    "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
-  {% endif %}
-  {% if pop_data_resource.time_extent_end_year %}
-      "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
-  {% endif %}
+
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
-  "temporal_resolution": [
-    {% for entry in pop_data_resource.temporal_resolution %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
+  "spatial_coverage": "{{ pop_data_resource.spatial_coverage }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
   "spatial_coverage": [
     {% for entry in pop_data_resource.spatial_coverage %}

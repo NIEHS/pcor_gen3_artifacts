@@ -209,14 +209,7 @@ class PcorDiscoveryMetadata:
         self.time_extent_start = ""
         self.time_extent_start_year = None
         self.time_extent_end = ""
-        self.time_extent_end_year = None
         self.time_available_comment = ""
-        self.temporal_resolution = []
-        self.exposure_media = []
-        self.measures_parent = []
-        self.measures_subcategory_major = []
-        self.measures_subcategory_major = []
-        self.measures = []
 
 
 class Tag:
@@ -265,7 +258,6 @@ class PcorPopDataResourceModel:
         self.time_extent_start = ""
         self.time_extent_start_year = None
         self.time_extent_end = ""
-        self.time_extent_end_year = None
         self.time_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
