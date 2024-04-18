@@ -117,16 +117,16 @@ properties:
       type: string
   time_extent_start:
     description: Earliest time for the data.
-    type: string
-  time_extent_start_year:
-    description: Earliest time for the data.
-    type: integer
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_start_yyyy:
+    description: Four digit year or null, start of time extent of coverage
+    $ref: "_definitions.yaml#/yyyy"
   time_extent_end:
     description: Latest time for the data.
-    type: string
-  time_extent_end_year:
-    description: Latest time for the data.
-    type: integer
+    $ref: "_definitions.yaml#/datetime"
+  time_extent_end_yyyy:
+    description: Four digit year or null, end of time extent of coverage
+    $ref: "_definitions.yaml#/yyyy"
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
@@ -137,10 +137,8 @@ properties:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
   spatial_coverage:
-    description: Maximum spatial coverage of the data.
-    type: array
-    items:
-      type: string
+    description: Maximum spatial coverage of the data. Is this equivalent to spatial extent? MC
+    type: string
   spatial_coverage_specific_regions:
     description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
     type: array
