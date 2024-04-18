@@ -82,6 +82,7 @@ properties:
   description:
     description: A text description of the resource.
     type: string
+  
   domain:
     description: Domain of the resource
     type: array
