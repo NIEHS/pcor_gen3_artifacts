@@ -51,35 +51,20 @@ properties:
   title:
     type: string
     description: "Title of the publication"
+  full_citation:
+    type: string
+    description: "Full citation"
   internal_id:
     type: string
-  geo:
-    type: string
-  geo_link:
+  link:
     type: string
     description: "GEO Accession link for project level data"
-  pmid:
-    type: string
-  pubmed_link:
-    type: string
-  cebs_acc_no:
-    description: cebs accession number
-    type: string
-  cebs_link:
-    description: cebs accession number
-    type: string
   institution:
     type: string
   author:
     type: string
   co_author:
     type: string
-  chemical:
-    type: string
-    description: "Chemical of interest"
-  species:
-    type: string
-    desription: "Species of interest"
   project_id:
     type: string
   year_published:

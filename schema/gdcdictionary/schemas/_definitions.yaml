@@ -81,6 +81,12 @@ datetime:
   term:
     $ref: "_terms.yaml#/datetime"
 
+year:
+  description: Four digit year (YYYY)
+  oneOf:
+    - type: integer
+    - type: 'null'
+
 file_name:
     type: string
     term:
