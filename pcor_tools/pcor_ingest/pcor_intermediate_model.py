@@ -203,6 +203,7 @@ class PcorDiscoveryMetadata:
         self.spatial_resolution = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
+        self.time_available_comment = ""
 
 
 class Tag:
@@ -250,7 +251,7 @@ class PcorPopDataResourceModel:
         self.has_visualization_tool = False
         self.time_extent_start = ""
         self.time_extent_end = ""
-        self.times_available_comment = ""
+        self.time_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = []

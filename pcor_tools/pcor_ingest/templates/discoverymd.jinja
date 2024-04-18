@@ -48,12 +48,17 @@
   "data_location_1": "{{ discovery.data_location_1 }}",
   "data_location_2": "{{ discovery.data_location_2 }}",
   "data_location_3": "{{ discovery.data_location_3 }}",
+  {% if discovery.type != "GeoExposureTool"  %}
   "data_formats": "{{ discovery.data_formats }}",
+  {% endif %}
+  {% if discovery.type == "GeoExposureTool"  %}
   "tool_type": "{{ discovery.tool_type }}",
+  {% endif %}
   "source_name": "{{ discovery.source_name }}",
   "spatial_coverage": "{{ discovery.spatial_coverage }}",
   "spatial_resolution": "{{ discovery.spatial_resolution }}",
   "time_extent_start": "{{ discovery.time_extent_start }}",
-  "time_extent_end": "{{ discovery.time_extent_end }}"
+  "time_extent_end": "{{ discovery.time_extent_end }}",
+  "time_available_comment": "{{ discovery.time_available_comment }}"
 
 }

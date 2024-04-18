@@ -636,7 +636,7 @@ portal:
                     {
                       "type": "block",
                       "sourceField": "comment",
-                      "default": "n/a"
+                      "default": ""
                     },
                     {
                       "type": "link",
@@ -652,38 +652,21 @@ portal:
                     },
                     {
                       "type": "link",
-                      "label": "publication 1",
+                      "label": "Publication 1",
                       "sourceField": "publications_1",
                       "default": ""
                     },
                     {
                       "type": "link",
-                      "label": "publication 2",
+                      "label": "Publication 2",
                       "sourceField": "publications_2",
                       "default": ""
                     },
                     {
                       "type": "link",
-                      "label": "publication 3",
+                      "label": "Publication 3",
                       "sourceField": "publications_3",
                       "default": ""
-                    }
-                  ]
-                },
-                {
-                  "header": "Project Sponsor",
-                  "fields": [
-                    {
-                      "type": "string",
-                      "label": "Project Sponsor",
-                      "sourceField": "project_sponsor",
-                      "default": "n/a"
-                    },
-                    {
-                      "type": "string",
-                      "label": "Project Sponsor Type",
-                      "sourceField": "project_sponsor_type",
-                      "default": "n/a"
                     }
                   ]
                 },
@@ -703,14 +686,15 @@ portal:
                       "default": "n/a"
                     },
                     {
-                      "type": "link",
-                      "label": "Project Link",
-                      "sourceField": "project_url",
+                      "type": "string",
+                      "label": "Project Sponsor Type",
+                      "sourceField": "project_sponsor_type",
                       "default": "n/a"
                     },
                     {
-                      "type": "text",
-                      "sourceField": "project_description",
+                      "type": "link",
+                      "label": "Project Link",
+                      "sourceField": "project_url",
                       "default": "n/a"
                     }
                   ]
@@ -770,6 +754,12 @@ portal:
                       "type": "text",
                       "label": "Time Extent End",
                       "sourceField": "time_extent_end",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Time available",
+                      "sourceField": "time_available_comment",
                       "default": ""
                     },
                     {
