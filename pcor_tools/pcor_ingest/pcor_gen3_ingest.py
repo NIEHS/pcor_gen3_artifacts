@@ -218,7 +218,7 @@ class PcorGen3Ingest:
             discovery.has_api = data_resource.has_api
             discovery.has_visualization_tool = data_resource.has_visualization_tool
             discovery.is_citizen_collected = data_resource.includes_citizen_collected
-            discovery.data_formats = ', '.join(data_resource.data_formats) if data_resource.data_formats else ''
+            discovery.data_formats = ', '.join(data_resource.data_formats) if data_resource.data_formats else None
 
             if len(data_resource.data_location) > 0:
                 discovery.data_location_1 = data_resource.data_location[0]
@@ -272,11 +272,6 @@ class PcorGen3Ingest:
             search_filter.key = "Domain"
             search_filter.value = item
             discovery.adv_search_filters.append(search_filter)
-
-        #search_filter = AdvSearchFilter()
-        #search_filter.key = "Resource Type"
-        #search_filter.value = resource.resource_type
-        #discovery.adv_search_filters.append(search_filter)
 
         tag = Tag()
         tag.name = resource.resource_type
@@ -433,7 +428,8 @@ class PcorGen3Ingest:
         """
         logger.info("produce_discovery_json()")
         template = self.env.get_template("discoverymd.jinja")
-        rendered = template.render(discovery=discovery_data)
+        rendered = template.render(discovery=discovery_data).replace('"none"', 'null').replace('"None"', 'null').replace('"nan"',
+                                                                                                              'null').replace('""','null')
         return rendered
 
     def produce_geo_spatial_data_resource(self, geo_spatial_data_resource):
