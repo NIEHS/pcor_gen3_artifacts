@@ -71,6 +71,7 @@ authz:
         - name: LANDFIRE
         - name: MODIS
         - name: MTBS
+        - name: NASA-EH
         - name: NDI
         - name: NEPHTN
         - name: NHANES
@@ -160,6 +161,7 @@ authz:
     - /programs/CHORDS/projects/KP
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NASA-EH
     - /programs/CHORDS/projects/NDI
     - /programs/CHORDS/projects/NEPHTN
     - /programs/CHORDS/projects/NHANES
@@ -225,6 +227,7 @@ authz:
     - /programs/CHORDS/projects/LANDFIRE
     - /programs/CHORDS/projects/MODIS
     - /programs/CHORDS/projects/MTBS
+    - /programs/CHORDS/projects/NASA-EH
     - /programs/CHORDS/projects/NDI
     - /programs/CHORDS/projects/NEPHTN
     - /programs/CHORDS/projects/NHANES
