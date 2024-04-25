@@ -142,6 +142,7 @@ class PcorTemplateProcessor:
                             discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
                             discovery.time_extent_start = geo_spatial_resource.time_extent_start
                             discovery.time_extent_end = geo_spatial_resource.time_extent_end
+                            discovery.time_available_comment = geo_spatial_resource.time_available_comment
 
                             for item in geo_spatial_resource.measures:
                                 search_filter = AdvSearchFilter()
@@ -209,6 +210,7 @@ class PcorTemplateProcessor:
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
                             discovery.time_extent_start = pop_data_resource.time_extent_start
                             discovery.time_extent_end = pop_data_resource.time_extent_end
+                            discovery.time_available_comment = pop_data_resource.time_available_comment
 
                             discovery.comment = pop_data_resource.comments
 
@@ -256,7 +258,7 @@ class PcorTemplateProcessor:
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
                             discovery.comment = geo_tool_resource.intended_use
-                            discovery.tool_type = geo_tool_resource.tool_type
+                            discovery.tool_type = ', '.join(geo_tool_resource.tool_type) if geo_tool_resource.tool_type else None
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

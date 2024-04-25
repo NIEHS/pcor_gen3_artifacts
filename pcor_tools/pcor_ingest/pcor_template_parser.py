@@ -423,7 +423,11 @@ class PcorTemplateParser:
         it can be a list/array or string
         """
         if main_prop is not None and other_prop is not None:
-            return main_prop + other_prop
+            combined_prop = main_prop + other_prop
+            if isinstance(combined_prop, str):
+                if "other" in combined_prop.lower():
+                    combined_prop = combined_prop.replace("other", "other, ").replace("Other", "Other, ")
+            return combined_prop
         elif main_prop is None:
             return other_prop
         elif other_prop is None:
