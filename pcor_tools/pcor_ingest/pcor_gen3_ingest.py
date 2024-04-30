@@ -253,34 +253,6 @@ class PcorGen3Ingest:
                     tag.category = "Domain"
                     discovery.tags.append(tag)
 
-        for item in project.project_sponsor:
-            if item:
-                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
-                    continue
-                else:
-                    tag = Tag()
-                    tag.name = item
-                    tag.category = "Project Sponsor"
-                    discovery.tags.append(tag)
-
-        filter_project_sponsor_list = [
-            "United States Forestry Service (USFS)",
-            "United States Department of Agriculture (USDOA)",
-            "United States Department of the Interior (USDOI)",
-            "United States Geological Survey (USGS)",
-            "National Aeronautics and Space Administration (NASA)",
-            "United States Environmental Protection Agency (EPA)",
-            "Department of Homeland Security (USDHS)",
-            "Department of Commerce (USDOC)",
-            "Federal Emergency Management Agency (FEMA)",
-            "National Oceanic and Atmospheric Administration (NOAA)",
-            "Center for Disease Control (CDC)",
-            "Department of Health and Human Services (DHHS)",
-            "Agency for Healthcare Research and Quality (AHRQ)",
-            "United States Census Bureau (US Census)",
-            "National Weather Service (NWS)"
-        ]
-        sponsor_no_match = False
         for sponsor in project.project_sponsor:
             if sponsor in filter_project_sponsor_list:
                 search_filter = AdvSearchFilter()
@@ -305,11 +277,6 @@ class PcorGen3Ingest:
         tag.name = resource.resource_type
         tag.category = "Resource Type"
         discovery.tags.append(tag)
-
-        search_filter = AdvSearchFilter()
-        search_filter.key = "Project"
-        search_filter.value = project.name
-        discovery.adv_search_filters.append(search_filter)
 
         return discovery
 
