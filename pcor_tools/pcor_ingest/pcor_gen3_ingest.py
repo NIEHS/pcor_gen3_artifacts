@@ -253,24 +253,6 @@ class PcorGen3Ingest:
                     tag.category = "Domain"
                     discovery.tags.append(tag)
 
-        filter_project_sponsor_list = [
-            "United States Forestry Service (USFS)",
-            "United States Department of Agriculture (USDOA)",
-            "United States Department of the Interior (USDOI)",
-            "United States Geological Survey (USGS)",
-            "National Aeronautics and Space Administration (NASA)",
-            "United States Environmental Protection Agency (EPA)",
-            "Department of Homeland Security (USDHS)",
-            "Department of Commerce (USDOC)",
-            "Federal Emergency Management Agency (FEMA)",
-            "National Oceanic and Atmospheric Administration (NOAA)",
-            "Center for Disease Control (CDC)",
-            "Department of Health and Human Services (DHHS)",
-            "Agency for Healthcare Research and Quality (AHRQ)",
-            "United States Census Bureau (US Census)",
-            "National Weather Service (NWS)"
-        ]
-        sponsor_no_match = False
         for sponsor in project.project_sponsor:
             if sponsor in filter_project_sponsor_list:
                 search_filter = AdvSearchFilter()
@@ -290,6 +272,11 @@ class PcorGen3Ingest:
             search_filter.key = "Access Type"
             search_filter.value = item
             discovery.adv_search_filters.append(search_filter)
+
+        tag = Tag()
+        tag.name = resource.resource_type
+        tag.category = "Resource Type"
+        discovery.tags.append(tag)
 
         return discovery
 
