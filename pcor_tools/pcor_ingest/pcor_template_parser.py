@@ -424,20 +424,18 @@ class PcorTemplateParser:
         """
         if main_prop is not None and other_prop is not None:
             combined_prop = main_prop + other_prop
-            if isinstance(combined_prop, str):
-                if "other" in combined_prop.lower():
-                    combined_prop = combined_prop.replace("other", "other, ").replace("Other", "Other, ")
+            if "other" in combined_prop:
+                combined_prop.remove('other')
+            if "Other" in combined_prop:
+                combined_prop.remove('Other')
             return combined_prop
         elif main_prop is None:
             return other_prop
         elif other_prop is None:
-            if type(main_prop) is list:
-                if "other" in main_prop:
-                    main_prop.remove('other')
-                if "Other" in main_prop:
-                    main_prop.remove('Other')
-                else:
-                    main_prop = main_prop.replace('other', '').replace('Other', '')
+            if "other" in main_prop:
+                main_prop.remove('other')
+            if "Other" in main_prop:
+                main_prop.remove('Other')
             return main_prop
 
     @staticmethod
