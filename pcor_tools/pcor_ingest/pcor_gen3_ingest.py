@@ -251,16 +251,6 @@ class PcorGen3Ingest:
                     tag.category = "Domain"
                     discovery.tags.append(tag)
 
-        for item in project.project_sponsor:
-            if item:
-                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
-                    continue
-                else:
-                    tag = Tag()
-                    tag.name = item
-                    tag.category = "Project Sponsor"
-                    discovery.tags.append(tag)
-
         for sponsor in project.project_sponsor:
             search_filter = AdvSearchFilter()
             search_filter.key = "Project Sponsor"
@@ -277,11 +267,6 @@ class PcorGen3Ingest:
         tag.name = resource.resource_type
         tag.category = "Resource Type"
         discovery.tags.append(tag)
-
-        search_filter = AdvSearchFilter()
-        search_filter.key = "Project"
-        search_filter.value = project.name
-        discovery.adv_search_filters.append(search_filter)
 
         return discovery
 
