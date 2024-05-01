@@ -371,10 +371,14 @@ portal:
         border-bottom: 3px solid var(--g3-color__bg-coal) !important;
       }
 
-      .discovery-table__row-horizontal-content {
-        
-        background-color: var();
+      .discovery-table-container .discovery-table__expanded-row {
+        border-color: #dfe3e2;
+        background: #dfe3e2;
+        font-size: 12px;
+        padding: 0;
+        border-bottom: 3px solid var(--g3-color__bg-coal);
       }
+
     json: |
       {
       "graphql": {
@@ -553,44 +557,7 @@ portal:
                 "key": "Project Sponsor"
               },
               {
-<<<<<<< HEAD
-                "key": "Measures(category)"
-              },
-              {
-                "key": "Measures(subcategory 2)"
-              },
-              {
-                "key": "Population Studied"
-              },
-              {
-                "key": "Temporal Resolution"
-              },
-              {
-                  "key": "Spatial Resolution"
-              },
-              {
-                  "key": "Geometry Type"
-              },
-              {
-                  "key": "Access Type"
-              },
-              {
-                "key": "Tool Type"
-              },
-              {
-                "key": "Is Open"
-              },
-              {
-                "key": "Operating System"
-              },
-              {
-                "key": "Language"
-              },
-              {
-                "key": "License Type"
-=======
                 "key": "Variables"
->>>>>>> 7e3253b (#38 fix search filter ordering)
               }
 
             ]
