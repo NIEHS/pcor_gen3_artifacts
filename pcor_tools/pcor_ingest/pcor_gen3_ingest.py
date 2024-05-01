@@ -207,7 +207,7 @@ class PcorGen3Ingest:
             discovery.resource_reference_1 = resource.resource_reference[0]
 
         if len(resource.resource_reference) > 1:
-            discovery.resource_reference_2 = resource.resource_reference[1]
+            discovery.resource_reference_2 = resource.resource_reference[2]
         
         discovery.keywords = ','.join(resource.keywords)
         discovery.payment_required = resource.payment_required
@@ -251,6 +251,16 @@ class PcorGen3Ingest:
                     tag = Tag()
                     tag.name = item
                     tag.category = "Domain"
+                    discovery.tags.append(tag)
+
+        for item in project.project_sponsor:
+            if item:
+                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
+                    continue
+                else:
+                    tag = Tag()
+                    tag.name = item
+                    tag.category = "Project Sponsor"
                     discovery.tags.append(tag)
 
         filter_project_sponsor_list = [

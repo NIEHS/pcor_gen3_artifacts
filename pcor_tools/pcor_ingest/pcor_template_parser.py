@@ -430,7 +430,7 @@ class PcorTemplateParser:
                 if "Other" in combined_prop:
                     combined_prop.remove('Other')
             else:
-                combined_prop.replace('other', '').replace('Other', '')
+                combined_prop = combined_prop.replace('other', '').replace('Other', '')
             return combined_prop
         elif main_prop is None:
             return other_prop
@@ -441,7 +441,7 @@ class PcorTemplateParser:
                 if "Other" in main_prop:
                     main_prop.remove('Other')
                 else:
-                    main_prop.replace('other', '').replace('Other', '')
+                    main_prop = main_prop.replace('other', '').replace('Other', '')
             return main_prop
 
     @staticmethod
