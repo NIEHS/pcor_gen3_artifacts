@@ -304,11 +304,6 @@ class PcorGen3Ingest:
         tag.category = "Resource Type"
         discovery.tags.append(tag)
 
-        search_filter = AdvSearchFilter()
-        search_filter.key = "Project"
-        search_filter.value = project.name
-        discovery.adv_search_filters.append(search_filter)
-
         return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
