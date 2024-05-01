@@ -236,12 +236,6 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Project Sponsor",
-        "field": "project_sponsor",
-        "errorIfNotAvailable": false,
-        "valueIfNotAvailable": "n/a"
-      },
-      {
         "name": "Domain",
         "field": "domain",
         "errorIfNotAvailable": false,
