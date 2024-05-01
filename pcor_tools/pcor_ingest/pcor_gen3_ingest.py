@@ -204,7 +204,7 @@ class PcorGen3Ingest:
             discovery.resource_reference_1 = resource.resource_reference[0]
 
         if len(resource.resource_reference) > 1:
-            discovery.resource_reference_2 = resource.resource_reference[1]
+            discovery.resource_reference_2 = resource.resource_reference[2]
         
         discovery.keywords = ','.join(resource.keywords)
         discovery.access_type = resource.access_type
@@ -261,10 +261,36 @@ class PcorGen3Ingest:
                     tag.category = "Project Sponsor"
                     discovery.tags.append(tag)
 
+        filter_project_sponsor_list = [
+            "United States Forestry Service (USFS)",
+            "United States Department of Agriculture (USDOA)",
+            "United States Department of the Interior (USDOI)",
+            "United States Geological Survey (USGS)",
+            "National Aeronautics and Space Administration (NASA)",
+            "United States Environmental Protection Agency (EPA)",
+            "Department of Homeland Security (USDHS)",
+            "Department of Commerce (USDOC)",
+            "Federal Emergency Management Agency (FEMA)",
+            "National Oceanic and Atmospheric Administration (NOAA)",
+            "Center for Disease Control (CDC)",
+            "Department of Health and Human Services (DHHS)",
+            "Agency for Healthcare Research and Quality (AHRQ)",
+            "United States Census Bureau (US Census)",
+            "National Weather Service (NWS)"
+        ]
+        sponsor_no_match = False
         for sponsor in project.project_sponsor:
+            if sponsor in filter_project_sponsor_list:
+                search_filter = AdvSearchFilter()
+                search_filter.key = "Project Sponsor"
+                search_filter.value = sponsor
+                discovery.adv_search_filters.append(search_filter)
+            else:
+                sponsor_no_match = True
+        if sponsor_no_match:
             search_filter = AdvSearchFilter()
             search_filter.key = "Project Sponsor"
-            search_filter.value = sponsor
+            search_filter.value = "Other"
             discovery.adv_search_filters.append(search_filter)
 
         for item in resource.domain:
