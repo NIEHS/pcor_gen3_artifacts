@@ -379,13 +379,14 @@ portal:
         text-overflow: ellipsis;
       }
 
-    .discovery-table-container .discovery-table__expanded-row {
-      border-color: #dfe3e2;
-      background: #dfe3e2;
-      font-size: 12px;
-      padding: 0;
-      border-bottom: 3px solid var(--g3-color__bg-coal);
-    }
+      .discovery-table-container .discovery-table__expanded-row {
+        border-color: #dfe3e2;
+        background: #dfe3e2;
+        font-size: 12px;
+        padding: 0;
+        border-bottom: 3px solid var(--g3-color__bg-coal);
+      }
+
     json: |
       {
       "graphql": {
