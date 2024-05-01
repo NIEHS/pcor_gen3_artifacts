@@ -377,7 +377,7 @@ portal:
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;
-    }
+      }
 
     .discovery-table-container .discovery-table__expanded-row {
       border-color: #dfe3e2;
