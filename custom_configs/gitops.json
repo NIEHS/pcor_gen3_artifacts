@@ -208,7 +208,7 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Domains",
+        "name": "Domain",
         "field": "domain",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
