@@ -360,3 +360,8 @@
     padding: 0;
     border-bottom: 3px solid var(--g3-color__bg-coal) !important;
   }
+
+  .discovery-table__row-horizontal-content {
+    
+    background-color: var();
+  }
