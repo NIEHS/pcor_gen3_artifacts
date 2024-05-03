@@ -370,6 +370,11 @@ portal:
         padding: 0;
         border-bottom: 3px solid var(--g3-color__bg-coal) !important;
       }
+
+      .discovery-table__row-horizontal-content {
+        
+        background-color: var();
+      }
     json: |
       {
       "graphql": {
@@ -451,11 +456,6 @@ portal:
               "tooltip": "Query CHORDS Resources with GraphQL."
             },
             {
-              "name": "CHORDS Tools",
-              "link": "/resource-browser",
-              "icon": "query"
-            },
-            {
               "icon": "profile",
               "link": "/identity",
               "color": "#a2a2a2",
@@ -507,27 +507,6 @@ portal:
           }
         ]
       },
-      "resourceBrowser": {
-        "title": "CHORDS Tools and Resources",
-        "description": "A collection of custom jupyter notebooks and other resources",
-        "public": true,
-        "resources": [
-          {
-            "title": "Examples",
-            "category": "Notebooks",
-            "description": "Example literature use cases linking climate and health",
-            "link": "https://niehs.github.io/CHORDSLiteratureExamples/",
-            "imageUrl": "custom/lit.jpeg"
-          },
-          {
-            "title": "Tools",
-            "category": "Tutorial books html",
-            "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
-            "link": "https://niehs.github.io/PCOR_bookdown_tools/",
-            "imageUrl": "custom/chordstk.jpg"
-          }
-        ]
-      },
       "featureFlags": {
         "explorer": true,
         "analysis": false,
@@ -556,7 +535,10 @@ portal:
                 "domain",
                 "keywords",
                 "project_description",
-                "project_sponsor"
+                "project_sponsor",
+                "measures_parent_category",
+                "measures_subcategory_major",
+                "measures_subcategory_minor"
               ]
             },
             "tagSearchDropdown": {
@@ -577,8 +559,36 @@ portal:
                 "key": "Project Sponsor"
               },
               {
-                "key": "Variables"
+                "key": "Measures(category)"
+              },
+              {
+                "key": "Temporal Resolution"
+              },
+              {
+                "key": "Spatial Resolution"
+              },
+              {
+                "key": "Geometry Type"
+              },
+              {
+                "key": "Population Studied"
+              },
+              {
+                "key": "Tool Type"
+              },
+              {
+                "key": "Is Open"
+              },
+              {
+                "key": "Operating System"
+              },
+              {
+                "key": "Language"
+              },
+              {
+                "key": "License Type"
               }
+
             ]
           },
           "tagsColumn": {
@@ -755,6 +765,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Temporal Resolution",
+                      "sourceField": "temporal_resolution",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Time Extent Start",
                       "sourceField": "time_extent_start",
                       "default": ""
@@ -846,11 +862,6 @@ portal:
         },
         "tagCategories": [
           {
-            "name": "Project Sponsor",
-            "color": "rgba(34, 92, 122, 1)",
-            "display": true
-          },
-          {
             "name": "Keyword",
             "color": "rgba(81, 134, 17, 1)",
             "display": true
@@ -866,8 +877,13 @@ portal:
             "display": true
           },
           {
-            "name": "Variables",
+            "name": "Measures(subcategory 1)",
             "color": "rgba(250, 225, 195, 1)",
+            "display": true
+          },
+          {
+            "name": "Measures(subcategory 2)",
+            "color": "rgba(230, 220, 180, 1)",
             "display": true
           }
         ]
