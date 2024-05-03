@@ -146,23 +146,21 @@ class PcorTemplateProcessor:
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
 
                             if geo_spatial_resource.temporal_resolution:
-                                for item in geo_spatial_resource.temporal_resolution:
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Temporal Resolution"
-                                    search_filter.value = item
-                                    discovery.adv_search_filters.append(search_filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = geo_spatial_resource.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
                             if geo_spatial_resource.spatial_resolution:
-                                if geo_spatial_resource.spatial_resolution != "Other":
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Spatial Resolution"
-                                    search_filter.value = geo_spatial_resource.spatial_resolution
-                                    discovery.adv_search_filters.append(search_filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Spatial Resolution"
+                                search_filter.value = geo_spatial_resource.spatial_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
-                            for item in geo_spatial_resource.geometry_type:
+                            if geo_spatial_resource.geometry_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Geometry Type"
-                                search_filter.value = item
+                                search_filter.value = geo_spatial_resource.geometry_type
                                 discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
@@ -173,6 +171,7 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             for item in geo_spatial_resource.measures_subcategory_major:
+
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -182,10 +181,7 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in geo_spatial_resource.measures_subcategory_minor:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Measures(subcategory 2)"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
+
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -249,7 +245,19 @@ class PcorTemplateProcessor:
                             discovery.time_extent_end = pop_data_resource.time_extent_end
                             discovery.time_available_comment = pop_data_resource.time_available_comment
 
+                            if pop_data_resource.geometry_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Geometry Type"
+                                search_filter.value = pop_data_resource.geometry_type
+                                discovery.adv_search_filters.append(search_filter)
+
                             discovery.comment = pop_data_resource.comments
+
+                            if pop_data_resource.spatial_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Spatial Resolution"
+                                search_filter.value = pop_data_resource.spatial_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
                             for item in pop_data_resource.measures_parent:
@@ -268,10 +276,6 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in pop_data_resource.measures_subcategory_minor:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Measures(subcategory 2)"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -293,23 +297,9 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.temporal_resolution:
-                                for item in pop_data_resource.temporal_resolution:
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Temporal Resolution"
-                                    search_filter.value = item
-                                    discovery.adv_search_filters.append(search_filter)
-
-                            if pop_data_resource.spatial_resolution:
-                                if pop_data_resource.spatial_resolution != "Other":
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Spatial Resolution"
-                                    search_filter.value = pop_data_resource.spatial_resolution
-                                    discovery.adv_search_filters.append(search_filter)
-
-                            for item in pop_data_resource.geometry_type:
                                 search_filter = AdvSearchFilter()
-                                search_filter.key = "Geometry Type"
-                                search_filter.value = item
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = pop_data_resource.temporal_resolution
                                 discovery.adv_search_filters.append(search_filter)
 
                             logger.info("created discovery: %s" % discovery)
@@ -345,6 +335,36 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
                             discovery.comment = geo_tool_resource.intended_use
                             discovery.tool_type = ', '.join(geo_tool_resource.tool_type) if geo_tool_resource.tool_type else None
+
+                            for item in pop_data_resource.geo_tool_resource.tool_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Tool Type"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            if geo_tool_resource.is_open:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Is Open"
+                                search_filter.value = geo_tool_resource.is_open
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in pop_data_resource.geo_tool_resource.operating_system:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Operating System"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in pop_data_resource.geo_tool_resource.languages:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Language"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in pop_data_resource.geo_tool_resource.license_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "License Type"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
 
                             logger.info("created discovery: %s" % discovery)
 
