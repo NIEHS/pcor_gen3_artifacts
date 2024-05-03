@@ -135,7 +135,7 @@ class PcorGeospatialDataResourceModel:
         self.data_location = []
         self.measures_parent = []
         self.measures_subcategory_major = []
-        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
         self.measures = []
         self.measurement_method = []
         self.time_extent_start = ""
@@ -200,10 +200,17 @@ class PcorDiscoveryMetadata:
         self.tool_type = []
         self.source_name = ""
         self.spatial_coverage = ""
+        self.geometry_type = ""
         self.spatial_resolution = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
+        self.temporal_resolution = ""
+        self.exposure_media = []
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_major = []
+        self.measures = []
 
 
 class Tag:
