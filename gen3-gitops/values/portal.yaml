@@ -476,6 +476,21 @@ portal:
               "tooltip": "Query CHORDS Resources with GraphQL."
             },
             {
+              "icon": "profile",
+              "link": "/identity",
+              "color": "#a2a2a2",
+              "name": "Profile"
+            }
+          ]
+        },
+        "topBar": { 
+          "items": [
+            {
+              "icon": "upload",
+              "link": "/submission",
+              "name": "Submit Data"
+            },
+            {
               "link": "https://gen3.org/resources/user/",
               "name": "Documentation"
             },
@@ -563,22 +578,16 @@ portal:
                 "key": "Measures(category)"
               },
               {
-                "key": "Measures(subcategory 2)"
-              },
-              {
-                "key": "Population Studied"
-              },
-              {
                 "key": "Temporal Resolution"
               },
               {
-                  "key": "Spatial Resolution"
+                "key": "Spatial Resolution"
               },
               {
-                  "key": "Geometry Type"
+                "key": "Geometry Type"
               },
               {
-                  "key": "Access Type"
+                "key": "Population Studied"
               },
               {
                 "key": "Tool Type"
@@ -778,6 +787,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Time Extent Start",
+                      "sourceField": "time_extent_start",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Time Extent Start Year",
                       "sourceField": "time_extent_start_year",
                       "default": ""
@@ -882,6 +897,11 @@ portal:
           {
             "name": "Domain",
             "color": "rgba(122, 83, 34, 1)",
+            "display": true
+          },
+          {
+            "name": "Measures(subcategory 1)",
+            "color": "rgba(250, 225, 195, 1)",
             "display": true
           },
           {
