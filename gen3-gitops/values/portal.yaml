@@ -553,9 +553,6 @@ portal:
             "displayName": "Show Search Filters",
             "filters": [
               {
-                "key": "Domain"
-              },
-              {
                 "key": "Project Sponsor"
               },
               {
@@ -653,7 +650,7 @@ portal:
                   ]
                 },
                 {
-                  "header": "Details",
+                  "header": "Reference",
                   "fields": [
                     {
                       "type": "block",
