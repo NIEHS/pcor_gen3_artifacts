@@ -175,9 +175,6 @@
         "displayName": "Show Search Filters",
         "filters": [
           {
-            "key": "Domain"
-          },
-          {
             "key": "Project Sponsor"
           },
           {
@@ -275,7 +272,7 @@
               ]
             },
             {
-              "header": "Details",
+              "header": "Reference",
               "fields": [
                 {
                   "type": "block",
