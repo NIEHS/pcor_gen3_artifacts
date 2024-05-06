@@ -284,6 +284,7 @@ class PcorGen3Ingest:
             search_filter.key = "Project Sponsor"
             search_filter.value = "Other"
             discovery.adv_search_filters.append(search_filter)
+            
         return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
