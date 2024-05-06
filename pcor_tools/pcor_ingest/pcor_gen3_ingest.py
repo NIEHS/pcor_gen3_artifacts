@@ -267,17 +267,6 @@ class PcorGen3Ingest:
             search_filter.value = "Other"
             discovery.adv_search_filters.append(search_filter)
 
-        for item in resource.access_type:
-            search_filter = AdvSearchFilter()
-            search_filter.key = "Access Type"
-            search_filter.value = item
-            discovery.adv_search_filters.append(search_filter)
-
-        tag = Tag()
-        tag.name = resource.resource_type
-        tag.category = "Resource Type"
-        discovery.tags.append(tag)
-
         return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
