@@ -171,7 +171,6 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             for item in geo_spatial_resource.measures_subcategory_major:
-
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -181,7 +180,6 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in geo_spatial_resource.measures_subcategory_minor:
-
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
