@@ -4,6 +4,7 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 
 logger = logging.getLogger(__name__)
 
+
 class MeasuresArrays:
     """
     contains a set of measures and the associated rollups
@@ -14,6 +15,7 @@ class MeasuresArrays:
         self.measures_subcategories_major = []
         self.measures_subcategories_minor = []
         self.measures_parents = []
+
 
 class PcorIntermediateProgramModel:
     """
