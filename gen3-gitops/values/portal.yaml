@@ -550,9 +550,6 @@ portal:
             "displayName": "Show Search Filters",
             "filters": [
               {
-                "key": "Domain"
-              },
-              {
                 "key": "Project Sponsor"
               },
               {
