@@ -158,9 +158,10 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             if geo_spatial_resource.geometry_type:
+                                for item in geo_spatial_resource.geometry_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Geometry Type"
-                                search_filter.value = geo_spatial_resource.geometry_type
+                                search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
@@ -180,6 +181,10 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in geo_spatial_resource.measures_subcategory_minor:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Measures(subcategory 2)"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -274,6 +279,10 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in pop_data_resource.measures_subcategory_minor:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Measures(subcategory 2)"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
