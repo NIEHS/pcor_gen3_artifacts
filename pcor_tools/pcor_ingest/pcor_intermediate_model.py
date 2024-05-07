@@ -143,7 +143,7 @@ class PcorGeospatialDataResourceModel:
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
-        self.temporal_resolution = ""
+        self.temporal_resolution = []
         self.spatial_resolution = ""
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = ""
@@ -201,8 +201,8 @@ class PcorDiscoveryMetadata:
         self.data_formats = []
         self.tool_type = []
         self.source_name = ""
-        self.spatial_coverage = ""
-        self.geometry_type = ""
+        self.spatial_coverage = []
+        self.geometry_type = []
         self.spatial_resolution = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
