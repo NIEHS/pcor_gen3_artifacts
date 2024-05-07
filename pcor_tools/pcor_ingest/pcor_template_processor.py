@@ -145,23 +145,25 @@ class PcorTemplateProcessor:
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
 
                             if geo_spatial_resource.temporal_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Temporal Resolution"
-                                search_filter.value = geo_spatial_resource.temporal_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                               for item in geo_spatial_resource.temporal_resolution:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Temporal Resolution"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
 
-                            if geo_spatial_resource.spatial_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Spatial Resolution"
-                                search_filter.value = geo_spatial_resource.spatial_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                            if geo_spatial_resource.spatial_resolution: # for
+                                for item in geo_spatial_resource.spatial_resolution:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Spatial Resolution"
+                                    search_filter.value = geo_spatial_resource.item
+                                    discovery.adv_search_filters.append(search_filter)
 
-                            if geo_spatial_resource.geometry_type:
+                            if geo_spatial_resource.geometry_type: #?
                                 for item in geo_spatial_resource.geometry_type:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Geometry Type"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Geometry Type"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
                             for item in geo_spatial_resource.measures_parent:
