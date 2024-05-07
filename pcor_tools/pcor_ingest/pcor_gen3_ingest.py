@@ -251,16 +251,6 @@ class PcorGen3Ingest:
                     tag.category = "Domain"
                     discovery.tags.append(tag)
 
-        for item in project.project_sponsor:
-            if item:
-                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
-                    continue
-                else:
-                    tag = Tag()
-                    tag.name = item
-                    tag.category = "Project Sponsor"
-                    discovery.tags.append(tag)
-
         filter_project_sponsor_list = [
             "United States Forestry Service (USFS)",
             "United States Department of Agriculture (USDOA)",
@@ -292,17 +282,6 @@ class PcorGen3Ingest:
             search_filter.key = "Project Sponsor"
             search_filter.value = "Other"
             discovery.adv_search_filters.append(search_filter)
-
-        for item in resource.domain:
-            search_filter = AdvSearchFilter()
-            search_filter.key = "Domain"
-            search_filter.value = item
-            discovery.adv_search_filters.append(search_filter)
-
-        tag = Tag()
-        tag.name = resource.resource_type
-        tag.category = "Resource Type"
-        discovery.tags.append(tag)
 
         return discovery
 

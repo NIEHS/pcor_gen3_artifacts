@@ -4,6 +4,7 @@ ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
 
 logger = logging.getLogger(__name__)
 
+
 class MeasuresArrays:
     """
     contains a set of measures and the associated rollups
@@ -14,6 +15,7 @@ class MeasuresArrays:
         self.measures_subcategories_major = []
         self.measures_subcategories_minor = []
         self.measures_parents = []
+
 
 class PcorIntermediateProgramModel:
     """
@@ -135,13 +137,13 @@ class PcorGeospatialDataResourceModel:
         self.data_location = []
         self.measures_parent = []
         self.measures_subcategory_major = []
-        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
         self.measures = []
         self.measurement_method = []
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
-        self.temporal_resolution = ""
+        self.temporal_resolution = []
         self.spatial_resolution = ""
         self.spatial_coverage = ""
         self.spatial_coverage_specific_regions = ""
@@ -199,11 +201,18 @@ class PcorDiscoveryMetadata:
         self.data_formats = []
         self.tool_type = []
         self.source_name = ""
-        self.spatial_coverage = ""
+        self.spatial_coverage = []
+        self.geometry_type = []
         self.spatial_resolution = ""
         self.time_extent_start = ""
         self.time_extent_end = ""
         self.time_available_comment = ""
+        self.temporal_resolution = ""
+        self.exposure_media = []
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_major = []
+        self.measures = []
 
 
 class Tag:

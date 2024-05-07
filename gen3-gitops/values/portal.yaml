@@ -456,11 +456,6 @@ portal:
               "tooltip": "Query CHORDS Resources with GraphQL."
             },
             {
-              "name": "CHORDS Tools",
-              "link": "/resource-browser",
-              "icon": "query"
-            },
-            {
               "icon": "profile",
               "link": "/identity",
               "color": "#a2a2a2",
@@ -512,27 +507,6 @@ portal:
           }
         ]
       },
-      "resourceBrowser": {
-        "title": "CHORDS Tools and Resources",
-        "description": "A collection of custom jupyter notebooks and other resources",
-        "public": true,
-        "resources": [
-          {
-            "title": "Examples",
-            "category": "Notebooks",
-            "description": "Example literature use cases linking climate and health",
-            "link": "https://niehs.github.io/CHORDSLiteratureExamples/",
-            "imageUrl": "custom/lit.jpeg"
-          },
-          {
-            "title": "Tools",
-            "category": "Tutorial books html",
-            "description": "The CHORDS Toolkit for Health and Geospatial Exposures Research.",
-            "link": "https://niehs.github.io/PCOR_bookdown_tools/",
-            "imageUrl": "custom/chordstk.jpg"
-          }
-        ]
-      },
       "featureFlags": {
         "explorer": true,
         "analysis": false,
@@ -561,7 +535,10 @@ portal:
                 "domain",
                 "keywords",
                 "project_description",
-                "project_sponsor"
+                "project_sponsor",
+                "measures_parent_category",
+                "measures_subcategory_major",
+                "measures_subcategory_minor"
               ]
             },
             "tagSearchDropdown": {
@@ -576,14 +553,33 @@ portal:
             "displayName": "Show Search Filters",
             "filters": [
               {
-                "key": "Domain"
-              },
-              {
                 "key": "Project Sponsor"
               },
               {
-                "key": "Variables"
+                "key": "Measures(category)"
+              },
+              {
+                "key": "Measures(subcategory 2)"
+              },
+              {
+                "key": "Population Studied"
+              },
+              {
+                "key": "Tool Type"
+              },
+              {
+                "key": "Is Open"
+              },
+              {
+                "key": "Operating System"
+              },
+              {
+                "key": "Language"
+              },
+              {
+                "key": "License Type"
               }
+
             ]
           },
           "tagsColumn": {
@@ -645,7 +641,7 @@ portal:
                   ]
                 },
                 {
-                  "header": "Details",
+                  "header": "Reference",
                   "fields": [
                     {
                       "type": "block",
@@ -760,6 +756,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Temporal Resolution",
+                      "sourceField": "temporal_resolution",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Time Extent Start",
                       "sourceField": "time_extent_start",
                       "default": ""
@@ -786,6 +788,12 @@ portal:
                       "type": "text",
                       "label": "Spatial Coverage",
                       "sourceField": "spatial_coverage",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Geometry Type",
+                      "sourceField": "geometry_type",
                       "default": ""
                     }
                   ]
@@ -851,11 +859,6 @@ portal:
         },
         "tagCategories": [
           {
-            "name": "Project Sponsor",
-            "color": "rgba(34, 92, 122, 1)",
-            "display": true
-          },
-          {
             "name": "Keyword",
             "color": "rgba(81, 134, 17, 1)",
             "display": true
@@ -866,13 +869,13 @@ portal:
             "display": true
           },
           {
-            "name": "Resource Type",
-            "color": "rgba(153, 200, 224, 1)",
+            "name": "Measures(subcategory 1)",
+            "color": "rgba(250, 225, 195, 1)",
             "display": true
           },
           {
-            "name": "Variables",
-            "color": "rgba(250, 225, 195, 1)",
+            "name": "Measures(subcategory 2)",
+            "color": "rgba(230, 220, 180, 1)",
             "display": true
           }
         ]
