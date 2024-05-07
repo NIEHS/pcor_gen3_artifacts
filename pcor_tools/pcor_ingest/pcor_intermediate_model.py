@@ -203,8 +203,8 @@ class PcorDiscoveryMetadata:
         self.data_formats = []
         self.tool_type = []
         self.source_name = ""
-        self.spatial_coverage = ""
-        self.geometry_type = ""
+        self.spatial_coverage = []
+        self.geometry_type = []
         self.spatial_resolution = ""
         self.time_extent_start = ""
         self.time_extent_start_year = None
