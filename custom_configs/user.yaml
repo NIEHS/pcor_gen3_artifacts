@@ -49,7 +49,9 @@ authz:
         - name: AQPathfinder
         - name: AQS
         - name: BenMAP-CE
+        - name: BiodiversityEcoPathfinder
         - name: CDC-ATSDR
+        - name: CDC-ATSDR-SVI
         - name: CSL
         - name: CRE-032224
         - name: CRE
@@ -59,6 +61,7 @@ authz:
         - name: EPA-AirNow
         - name: EPA-EnviroAtlas
         - name: EPA-SS
+        - name: ExtremeHeatPathfinder
         - name: FireWeather
         - name: FIRMS
         - name: GHGPathfinder
@@ -140,7 +143,9 @@ authz:
     - /programs/CHORDS/projects/AQPathfinder
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
+    - /programs/CHORDS/projects/BiodiversityEcoPathfinder
     - /programs/CHORDS/projects/CDC-ATSDR
+    - /programs/CHORDS/projects/CDC-ATSDR-SVI
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE-032224
     - /programs/CHORDS/projects/CRE
@@ -150,6 +155,7 @@ authz:
     - /programs/CHORDS/projects/EPA-AirNow
     - /programs/CHORDS/projects/EPA-EnviroAtlas
     - /programs/CHORDS/projects/EPA-SS
+    - /programs/CHORDS/projects/ExtremeHeatPathfinder
     - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/GHGPathfinder
@@ -205,7 +211,9 @@ authz:
     - /programs/CHORDS/projects/AQPathfinder
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
+    - /programs/CHORDS/projects/BiodiversityEcoPathfinder
     - /programs/CHORDS/projects/CDC-ATSDR
+    - /programs/CHORDS/projects/CDC-ATSDR-SVI
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE-032224
     - /programs/CHORDS/projects/CRE
@@ -215,6 +223,7 @@ authz:
     - /programs/CHORDS/projects/EPA-AirNow
     - /programs/CHORDS/projects/EPA-EnviroAtlas
     - /programs/CHORDS/projects/EPA-SS
+    - /programs/CHORDS/projects/ExtremeHeatPathfinder
     - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/GHGPathfinder
