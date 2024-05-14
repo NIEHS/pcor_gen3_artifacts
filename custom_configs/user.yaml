@@ -49,7 +49,8 @@ authz:
         - name: AQ-Pathfinder
         - name: AQS
         - name: BenMAP-CE
-        - name: BioEco-Pathfinder
+        - name: BiodiversityEcoPathfinder
+        - name: CDC-ATSDR
         - name: CDC-ATSDR-SVI
         - name: CSL
         - name: CRE
@@ -57,6 +58,11 @@ authz:
         - name: EJI
         - name: EnviroAtlas
         - name: EJScreen
+        - name: EPA-AirNow
+        - name: EPA-EnviroAtlas
+        - name: EPA-SS
+        - name: ExtremeHeatPathfinder
+        - name: FireWeather
         - name: FIRMS
         - name: FireWeather
         - name: GHG-Pathfinder
@@ -137,7 +143,8 @@ authz:
     - /programs/CHORDS/projects/AQ-Pathfinder
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
-    - /programs/CHORDS/projects/BioEco-Pathfinder
+    - /programs/CHORDS/projects/BiodiversityEcoPathfinder
+    - /programs/CHORDS/projects/CDC-ATSDR
     - /programs/CHORDS/projects/CDC-ATSDR-SVI
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE
@@ -145,6 +152,11 @@ authz:
     - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EnviroAtlas
     - /programs/CHORDS/projects/EJScreen
+    - /programs/CHORDS/projects/EPA-AirNow
+    - /programs/CHORDS/projects/EPA-EnviroAtlas
+    - /programs/CHORDS/projects/EPA-SS
+    - /programs/CHORDS/projects/ExtremeHeatPathfinder
+    - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/GHG-Pathfinder
@@ -199,7 +211,8 @@ authz:
     - /programs/CHORDS/projects/AQ-Pathfinder
     - /programs/CHORDS/projects/AQS
     - /programs/CHORDS/projects/BenMAP-CE
-    - /programs/CHORDS/projects/BioEco-Pathfinder
+    - /programs/CHORDS/projects/BiodiversityEcoPathfinder
+    - /programs/CHORDS/projects/CDC-ATSDR
     - /programs/CHORDS/projects/CDC-ATSDR-SVI
     - /programs/CHORDS/projects/CSL
     - /programs/CHORDS/projects/CRE
@@ -207,6 +220,11 @@ authz:
     - /programs/CHORDS/projects/EJI
     - /programs/CHORDS/projects/EnviroAtlas
     - /programs/CHORDS/projects/EJScreen
+    - /programs/CHORDS/projects/EPA-AirNow
+    - /programs/CHORDS/projects/EPA-EnviroAtlas
+    - /programs/CHORDS/projects/EPA-SS
+    - /programs/CHORDS/projects/ExtremeHeatPathfinder
+    - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/FIRMS
     - /programs/CHORDS/projects/FireWeather
     - /programs/CHORDS/projects/GHG-Pathfinder
