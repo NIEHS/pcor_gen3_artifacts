@@ -374,6 +374,7 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             logger.info("created discovery: %s" % discovery)
+
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 

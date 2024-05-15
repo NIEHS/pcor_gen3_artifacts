@@ -188,7 +188,7 @@ class PcorGen3Ingest:
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
         discovery.type = resource.resource_type
-        discovery.domain = ','.join(resource.domain)
+        discovery.domain = ', '.join(resource.domain)
         discovery.publications = resource.publications
 
         if len(resource.publications) > 0:
@@ -293,6 +293,12 @@ class PcorGen3Ingest:
         """
 
         logger.info("decorate_resc_with_discovery()")
+        # remove Other tag if it exists
+
+        for tag in discovery_data.tags:
+            if tag.name == 'Other':
+                discovery_data.tags.remove(tag)
+
         json_string = self.produce_discovery_json(discovery_data)
         logger.debug("json_string: %s" % json_string)
         discovery_json = json.loads(json_string)
