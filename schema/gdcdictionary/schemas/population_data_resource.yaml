@@ -104,7 +104,9 @@ properties:
     type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data.
-    type: string
+    type: array
+    items:
+      type: string
   spatial_coverage_specific_regions:
     description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
     type: array
