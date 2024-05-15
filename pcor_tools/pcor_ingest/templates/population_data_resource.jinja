@@ -36,12 +36,7 @@
       "time_extent_end_yyyy": {{ pop_data_resource.time_extent_end_yyyy }},
   {% endif %}
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
-  "temporal_resolution": [
-    {% for entry in pop_data_resource.temporal_resolution %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
   "spatial_coverage": [
     {% for entry in pop_data_resource.spatial_coverage %}
