@@ -232,7 +232,7 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Domain",
+        "name": "Domains",
         "field": "domain",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
@@ -547,7 +547,6 @@
           "domain",
           "keywords",
           "intended_use",
-          "measures_parent_category",
           "measures",
           "time_extent_start",
           "time_extent_end",
@@ -655,7 +654,6 @@
           "domain",
           "keywords",
           "intended_use",
-          "measures_parent_category",
           "measures",
           "time_extent_start",
           "time_extent_end",
