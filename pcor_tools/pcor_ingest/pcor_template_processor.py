@@ -343,7 +343,7 @@ class PcorTemplateProcessor:
                             discovery.comment = geo_tool_resource.intended_use
                             discovery.tool_type = ', '.join(geo_tool_resource.tool_type) if geo_tool_resource.tool_type else None
 
-                            for item in pop_data_resource.geo_tool_resource.tool_type:
+                            for item in geo_tool_resource.tool_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Tool Type"
                                 search_filter.value = item
@@ -355,19 +355,19 @@ class PcorTemplateProcessor:
                                 search_filter.value = geo_tool_resource.is_open
                                 discovery.adv_search_filters.append(search_filter)
 
-                            for item in pop_data_resource.geo_tool_resource.operating_system:
+                            for item in geo_tool_resource.operating_system:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Operating System"
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
-                            for item in pop_data_resource.geo_tool_resource.languages:
+                            for item in geo_tool_resource.languages:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Language"
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
-                            for item in pop_data_resource.geo_tool_resource.license_type:
+                            for item in geo_tool_resource.license_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "License Type"
                                 search_filter.value = item
