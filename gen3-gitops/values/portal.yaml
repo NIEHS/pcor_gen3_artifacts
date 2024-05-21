@@ -1123,6 +1123,7 @@ portal:
             "fields": [
               "project_sponsor",
               "project_sponsor_type",
+              "resource_name",
               "domain",
               "keywords",
               "access_type",
