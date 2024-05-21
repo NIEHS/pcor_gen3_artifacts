@@ -541,7 +541,6 @@
         "fields": [
           "project_sponsor",
           "resource_name",
-          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
@@ -648,7 +647,6 @@
         "fields": [
           "project_sponsor",
           "resource_name",
-          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
