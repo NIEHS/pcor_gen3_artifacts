@@ -177,10 +177,13 @@ class PcorGen3Ingest:
         discovery.project_url = project.project_url
         discovery.project_description = project.description
 
+        '''
         if discovery.project_name == resource.name:
             discovery.name = resource.name
         else:
             discovery.name = discovery.project_name + ":" + resource.name
+        '''
+        discovery.name = resource.long_name
 
         discovery.payment_required = resource.payment_required
         discovery.verification_datetime = resource.verification_datetime
@@ -188,7 +191,7 @@ class PcorGen3Ingest:
         discovery.resource_id = resource.id
         discovery.resource_url = resource.resource_url
         discovery.type = resource.resource_type
-        discovery.domain = ','.join(resource.domain)
+        discovery.domain = ', '.join(resource.domain)
         discovery.publications = resource.publications
 
         if len(resource.publications) > 0:
@@ -293,6 +296,12 @@ class PcorGen3Ingest:
         """
 
         logger.info("decorate_resc_with_discovery()")
+        # remove Other tag if it exists
+
+        for tag in discovery_data.tags:
+            if tag.name == 'Other':
+                discovery_data.tags.remove(tag)
+
         json_string = self.produce_discovery_json(discovery_data)
         logger.debug("json_string: %s" % json_string)
         discovery_json = json.loads(json_string)

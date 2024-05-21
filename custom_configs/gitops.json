@@ -42,7 +42,7 @@
     "homepageHref": "https://chords.niehs.nih.gov/",
     "index": {
       "introduction": {
-        "heading": "CHORDS - Climate and Health Outcomes Research Data Systems",
+        "heading": "CHORDS - Climate and Health Outcomes Research Data Systems Catalog",
         "text": "The CHORDS project aims to build and strengthen data infrastructure for patient-centered outcomes research on climate change and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes. The project also provides analytical and educational resources that will allow not only researchers, but also health practitioners, public health officials, and communities to assess the health effects associated with climate-related events, create and evaluate evidence-based interventions to protect communities, and anticipate and respond to potential adverse health outcomes resulting from these events.​",
         "link": "/submission"
       },
@@ -65,19 +65,6 @@
           "tooltip": "Fine grained search and discovery for specific resource types."
         },
         {
-          "icon": "dictionary",
-          "link": "/DD",
-          "color": "#a2a2a2",
-          "name": "Dictionary",
-          "tooltip": "The CHORDS Catalog employs a data model to power queries and data submissions. Study the dictionary to send GraphQL queries or format your data submissions."
-        },
-        {
-          "name": "Catalog Query",
-          "link": "/query",
-          "icon": "query",
-          "tooltip": "Query CHORDS Resources with GraphQL."
-        },
-        {
           "icon": "profile",
           "link": "/identity",
           "color": "#a2a2a2",
@@ -93,6 +80,19 @@
           "name": "Submit Data"
         },
         {
+          "icon": "dictionary",
+          "link": "/DD",
+          "color": "#a2a2a2",
+          "name": "Dictionary",
+          "tooltip": "The CHORDS Catalog employs a data model to power queries and data submissions. Study the dictionary to send GraphQL queries or format your data submissions."
+        },
+        {
+          "name": "Catalog Query",
+          "link": "/query",
+          "icon": "query",
+          "tooltip": "Query CHORDS Resources with GraphQL."
+        },
+        {
           "link": "https://gen3.org/resources/user/",
           "name": "Documentation"
         },
@@ -100,7 +100,6 @@
           "link": "https://www.niehs.nih.gov/research/programs/chords",
           "name": "About"
         }
-
       ]
   },
     "useProfileDropdown": false,
@@ -232,7 +231,7 @@
         "valueIfNotAvailable": "n/a"
       },
       {
-        "name": "Domain",
+        "name": "Domains",
         "field": "domain",
         "errorIfNotAvailable": false,
         "valueIfNotAvailable": "n/a"
@@ -542,12 +541,10 @@
         "fields": [
           "project_sponsor",
           "resource_name",
-          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
           "intended_use",
-          "measures_parent_category",
           "measures",
           "time_extent_start",
           "time_extent_end",
@@ -650,12 +647,10 @@
         "fields": [
           "project_sponsor",
           "resource_name",
-          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
           "intended_use",
-          "measures_parent_category",
           "measures",
           "time_extent_start",
           "time_extent_end",

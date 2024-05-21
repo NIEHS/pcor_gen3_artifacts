@@ -121,9 +121,9 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         temp_spatial_resolution_other = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.spatial_resolution= PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
                     elif template_df.iat[j, 0] == 'spatial_coverage':
-                        geo_resource.spatial_coverage = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.spatial_coverage = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
-                        geo_resource.spatial_coverage_specific_regions = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.spatial_coverage_specific_regions = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_bounding_box':
                         geo_resource.spatial_bounding_box = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geometry_type':

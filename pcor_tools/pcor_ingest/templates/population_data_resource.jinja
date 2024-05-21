@@ -44,8 +44,13 @@
 
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
   "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
-  "spatial_coverage": "{{ pop_data_resource.spatial_coverage }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
+  "spatial_coverage": [
+    {% for entry in pop_data_resource.spatial_coverage %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "spatial_coverage_specific_regions": [
     {% for entry in pop_data_resource.spatial_coverage_specific_regions %}
         "{{ entry }}"
