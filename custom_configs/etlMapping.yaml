@@ -32,7 +32,7 @@ mappings:
       - name: operating_system
       - name: languages
     parent_props:
-      - path: resources[resource_name:long_name, resource_description:description, domain, keywords, access_type, payment_required].projects[project_sponsor, project_sponsor_type]
+      - path: resources[resource_name:long_name, domain, keywords, access_type, payment_required].projects[project_sponsor, project_sponsor_type]
   - name: chordstaging_population_data_resource
     doc_type: population_data_resource
     type: aggregator
