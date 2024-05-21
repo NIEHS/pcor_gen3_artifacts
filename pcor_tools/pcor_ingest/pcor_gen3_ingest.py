@@ -177,10 +177,13 @@ class PcorGen3Ingest:
         discovery.project_url = project.project_url
         discovery.project_description = project.description
 
+        '''
         if discovery.project_name == resource.name:
             discovery.name = resource.name
         else:
             discovery.name = discovery.project_name + ":" + resource.name
+        '''
+        discovery.name = resource.long_name
 
         discovery.payment_required = resource.payment_required
         discovery.verification_datetime = resource.verification_datetime
