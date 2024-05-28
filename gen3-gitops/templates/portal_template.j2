@@ -1,9 +1,10 @@
 portal:
   enabled: true
 {%- if aws_staging %}
+  replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
-    tag: 2023.12
+    tag: 2024.05
     #repository: quay.io/cdis/data-portal-prebuilt
     #tag: caninedc.org-feat-pr_comment
 {% endif %}
