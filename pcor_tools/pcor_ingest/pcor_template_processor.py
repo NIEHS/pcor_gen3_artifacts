@@ -145,26 +145,23 @@ class PcorTemplateProcessor:
                             discovery.time_extent_end = geo_spatial_resource.time_extent_end
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
 
-                            #if geo_spatial_resource.temporal_resolution:
-                            #   for item in geo_spatial_resource.temporal_resolution:
-                            #        search_filter = AdvSearchFilter()
-                            #        search_filter.key = "Temporal Resolution"
-                            #        search_filter.value = item
-                            #        discovery.adv_search_filters.append(search_filter)
+                            if geo_spatial_resource.temporal_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = geo_spatial_resource.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
-                           # if geo_spatial_resource.spatial_resolution: # for
-                           #     for item in geo_spatial_resource.spatial_resolution:
-                           #         search_filter = AdvSearchFilter()
-                           #        search_filter.key = "Spatial Resolution"
-                           #         search_filter.value = geo_spatial_resource.item
-                           #         discovery.adv_search_filters.append(search_filter)
+                            if geo_spatial_resource.spatial_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Spatial Resolution"
+                                search_filter.value = geo_spatial_resource.spatial_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
-                            #if geo_spatial_resource.geometry_type: #?
-                            #    for item in geo_spatial_resource.geometry_type:
-                            #        search_filter = AdvSearchFilter()
-                            #        search_filter.key = "Geometry Type"
-                            #        search_filter.value = item
-                            #        discovery.adv_search_filters.append(search_filter)
+                            for item in geo_spatial_resource.geometry_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Geometry Type"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
                             for item in geo_spatial_resource.measures_parent:
@@ -250,19 +247,7 @@ class PcorTemplateProcessor:
                             discovery.time_extent_end = pop_data_resource.time_extent_end
                             discovery.time_available_comment = pop_data_resource.time_available_comment
 
-                            if pop_data_resource.geometry_type:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Geometry Type"
-                                search_filter.value = pop_data_resource.geometry_type
-                                discovery.adv_search_filters.append(search_filter)
-
                             discovery.comment = pop_data_resource.comments
-
-                            if pop_data_resource.spatial_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Spatial Resolution"
-                                search_filter.value = pop_data_resource.spatial_resolution
-                                discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
                             for item in pop_data_resource.measures_parent:
@@ -305,11 +290,23 @@ class PcorTemplateProcessor:
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
-                            #if pop_data_resource.temporal_resolution:
-                            #    search_filter = AdvSearchFilter()
-                            #    search_filter.key = "Temporal Resolution"
-                            #    search_filter.value = pop_data_resource.temporal_resolution
-                            #    discovery.adv_search_filters.append(search_filter)
+                            if pop_data_resource.temporal_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = pop_data_resource.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
+
+                            if pop_data_resource.spatial_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Spatial Resolution"
+                                search_filter.value = pop_data_resource.spatial_resolution
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in pop_data_resource.geometry_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Geometry Type"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)

@@ -1,5 +1,4 @@
 global:
-{%- if aws_staging %}
   dev: false
   # uncomment once we cutover, so we can use shared ALB
   #environment: "unfunded"
@@ -107,11 +106,7 @@ wts:
     dbcreds: "chords_chords-wts-db-creds"
   enabled: false
 
-{% else %}
-  hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
-{% endif %}
 sower:
   enabled: false
 
