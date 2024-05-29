@@ -210,7 +210,6 @@ class PcorGen3Ingest:
             discovery.resource_reference_2 = resource.resource_reference[2]
         
         discovery.keywords = ','.join(resource.keywords)
-        discovery.access_type = resource.access_type
         discovery.payment_required = resource.payment_required
         discovery.created_datetime = resource.created_datetime
         discovery.updated_datetime = resource.updated_datetime
@@ -284,6 +283,12 @@ class PcorGen3Ingest:
             search_filter = AdvSearchFilter()
             search_filter.key = "Project Sponsor"
             search_filter.value = "Other"
+            discovery.adv_search_filters.append(search_filter)
+
+        for item in resource.access_type:
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Access Type"
+            search_filter.value = item
             discovery.adv_search_filters.append(search_filter)
 
         return discovery
