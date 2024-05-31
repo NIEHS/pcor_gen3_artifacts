@@ -118,16 +118,16 @@ properties:
   # do we need the start and end or just the year? TODO 
   time_extent_start:
     description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_extent_start_yyyy:
-    description: Four digit year or null, start of time extent of coverage
-    $ref: "_definitions.yaml#/year"
+    type: string
+  time_extent_start_year:
+    description: Earliest time for the data.
+    type: integer
   time_extent_end:
     description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
-  time_extent_end_yyyy:
-    description: Four digit year or null, end of time extent of coverage
-    $ref: "_definitions.yaml#/year"
+    type: string
+  time_extent_end_year:
+    description: Latest time for the data.
+    type: integer
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
