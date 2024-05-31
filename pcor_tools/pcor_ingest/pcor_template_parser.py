@@ -445,7 +445,7 @@ class PcorTemplateParser:
             return main_prop
 
     @staticmethod
-    def formate_date_time(date_str):
+    def format_date_time(date_str):
         """
         returns a formatted date time string
         """
