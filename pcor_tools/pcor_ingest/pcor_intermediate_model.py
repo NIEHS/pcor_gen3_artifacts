@@ -263,7 +263,9 @@ class PcorPopDataResourceModel:
         self.has_api = False
         self.has_visualization_tool = False
         self.time_extent_start = ""
+        self.time_extent_start_year = None
         self.time_extent_end = ""
+        self.time_extent_end_year = None
         self.time_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
