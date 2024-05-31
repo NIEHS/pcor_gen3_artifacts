@@ -445,9 +445,25 @@ class PcorTemplateParser:
             return main_prop
 
     @staticmethod
-    def formate_date_time(string):
-        if not string:
+    def formate_date_time(date_str):
+        """
+        returns a formatted date time string
+        """
+        if not date_str:
             return ""
+        if not isinstance(date_str, str):
+            date_str = str(date_str)
+
+        for fmt in ("%Y", "%m/%Y", "%d/%m/%Y"):
+            try:
+                parsed_date = datetime.strptime(str(date_str), fmt)
+                formatted_date = str(parsed_date.strftime("%Y-%m-%dT%H:%M:%S+00:00"))
+                return formatted_date
+            except ValueError:
+                continue
+        raise ValueError(f"Date string '{date_str}' is not in a recognized format")
+
+        """
         # use dummy
         date_string = '2023/01/01T12:00:00Z'
         datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")
@@ -467,3 +483,4 @@ class PcorTemplateParser:
             return modified_string
         '''
         return formatted_datetime
+        """
