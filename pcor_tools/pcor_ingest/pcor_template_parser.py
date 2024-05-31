@@ -456,13 +456,13 @@ class PcorTemplateParser:
         if date_str.lower() == "current":
             current_date = datetime.now()
             formatted_date = 'Current'
-            year = current_date.year
-            return formatted_date, year
+            #year = current_date.year
+            return formatted_date, 'Current'
 
-        for fmt in ("%Y", "%m/%Y", "%d/%m/%Y"):
+        for fmt in ("%Y", "%m/%Y", "%m/%d/%Y"):
             try:
                 parsed_date = datetime.strptime(str(date_str), fmt)
-                formatted_date = str(parsed_date.strftime("%Y-%m-%dT%H:%M:%S+00:00"))
+                formatted_date = str(parsed_date.strftime("%Y-%m-%d"))
                 year = parsed_date.year
                 return formatted_date, year
             except ValueError:
