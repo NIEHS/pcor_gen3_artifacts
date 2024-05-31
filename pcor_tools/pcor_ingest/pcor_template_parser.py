@@ -466,3 +466,12 @@ class PcorTemplateParser:
         logger.warning(f"Date string {date_str} is not in a recognized format")
         return None
 
+        if match:
+            year = int(match.group(1))
+            # Replace the matched year with a formatted datetime string
+            datetime_str = datetime(year, 1, 1).strftime("%Y-%m-%d %H:%M:%S")
+            modified_string = string[:match.start()] + datetime_str + string[match.end():]
+            return modified_string
+        '''
+        return formatted_datetime
+        """
