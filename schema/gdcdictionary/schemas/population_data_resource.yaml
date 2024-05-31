@@ -86,10 +86,16 @@ properties:
   # additional properties to describe the dataset
   time_extent_start:
     description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
+    type: string
+  time_extent_start_year:
+    description: Earliest time for the data.
+    type: integer
   time_extent_end:
     description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
+    type: string
+  time_extent_end_year:
+    description: Latest time for the data.
+    type: integer
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
