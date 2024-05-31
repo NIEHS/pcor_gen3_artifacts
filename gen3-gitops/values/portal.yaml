@@ -768,14 +768,14 @@ portal:
                     },
                     {
                       "type": "text",
-                      "label": "Time Extent Start",
-                      "sourceField": "time_extent_start",
+                      "label": "Time Extent Start Year",
+                      "sourceField": "time_extent_start_year",
                       "default": ""
                     },
                     {
                       "type": "text",
-                      "label": "Time Extent End",
-                      "sourceField": "time_extent_end",
+                      "label": "Time Extent End Year",
+                      "sourceField": "time_extent_end_year",
                       "default": ""
                     },
                     {
