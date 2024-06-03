@@ -396,7 +396,7 @@ class PcorTemplateParser:
             if not value:
                 return None
             # escape double quotes inside string
-            value = re.sub(r'\d\.\s+', '', value)
+            #value = re.sub(r'\d\.\s+', '', value)
             value = re.sub(r'[•●]\s+', '', value)
             if escape_new_line:
                 value = re.sub(r'\n', '\\\\n', value)
