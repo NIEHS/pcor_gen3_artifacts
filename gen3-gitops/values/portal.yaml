@@ -931,8 +931,8 @@ portal:
               "keywords",
               "intended_use",
               "measures",
-              "time_extent_start",
-              "time_extent_end",
+              "time_extent_start_year",
+              "time_extent_end_year",
               "spatial_coverage",
               "spatial_coverage_specific_regions",
               "resource_url"
@@ -1037,8 +1037,8 @@ portal:
               "keywords",
               "intended_use",
               "measures",
-              "time_extent_start",
-              "time_extent_end",
+              "time_extent_start_year",
+              "time_extent_end_year",
               "spatial_coverage",
               "spatial_coverage_specific_regions",
               "resource_url"
