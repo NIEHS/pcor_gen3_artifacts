@@ -29,19 +29,12 @@
   {% else %}
        "has_visualization_tool": false,
   {% endif %}
-
-  {% if not pop_data_resource.time_extent_start %}
-      "time_extent_start": null,
-  {% else %}
-      "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
+   {% if pop_data_resource.time_extent_start  %}
+    "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
   {% endif %}
-
-   {% if not pop_data_resource.time_extent_end %}
-      "time_extent_end": null,
-  {% else %}
-      "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
+  {% if pop_data_resource.time_extent_end %}
+    "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
   {% endif %}
-
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
   "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",

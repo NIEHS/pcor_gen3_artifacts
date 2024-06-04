@@ -141,8 +141,8 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = ', '.join(geo_spatial_resource.spatial_coverage)
                             discovery.geometry_type = ', '.join(geo_spatial_resource.geometry_type)
                             discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
-                            discovery.time_extent_start = geo_spatial_resource.time_extent_start
-                            discovery.time_extent_end = geo_spatial_resource.time_extent_end
+                            discovery.time_extent_start_year = geo_spatial_resource.time_extent_start_year
+                            discovery.time_extent_end_year = geo_spatial_resource.time_extent_end_year
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
 
                             if geo_spatial_resource.temporal_resolution:
@@ -243,8 +243,8 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = ', '.join(pop_data_resource.spatial_coverage)
                             discovery.geometry_type = ', '.join(pop_data_resource.geometry_type)
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
-                            discovery.time_extent_start = pop_data_resource.time_extent_start
-                            discovery.time_extent_end = pop_data_resource.time_extent_end
+                            discovery.time_extent_start_year = pop_data_resource.time_extent_start_year
+                            discovery.time_extent_end_year = pop_data_resource.time_extent_end_year
                             discovery.time_available_comment = pop_data_resource.time_available_comment
 
                             discovery.comment = pop_data_resource.comments

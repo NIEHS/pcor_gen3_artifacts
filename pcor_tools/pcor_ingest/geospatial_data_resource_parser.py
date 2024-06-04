@@ -106,11 +106,11 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         geo_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if geo_resource.time_extent_start is not None:
-                            geo_resource.time_extent_start = self.formate_date_time(geo_resource.time_extent_start)
+                            geo_resource.time_extent_start, geo_resource.time_extent_start_year = PcorTemplateParser.format_date_time(geo_resource.time_extent_start)
                     elif template_df.iat[j, 0] == 'time_extent_end':
                         geo_resource.time_extent_end = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if geo_resource.time_extent_end is not None:
-                            geo_resource.time_extent_end = self.formate_date_time(geo_resource.time_extent_end)
+                            geo_resource.time_extent_end, geo_resource.time_extent_end_year = PcorTemplateParser.format_date_time(geo_resource.time_extent_end)
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
