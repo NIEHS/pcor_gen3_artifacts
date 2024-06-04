@@ -32,8 +32,14 @@
    {% if pop_data_resource.time_extent_start  %}
     "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
   {% endif %}
+  {% if pop_data_resource.time_extent_end_year %}
+      "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
+  {% endif %}
   {% if pop_data_resource.time_extent_end %}
     "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
+  {% endif %}
+  {% if pop_data_resource.time_extent_end_year %}
+      "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
   {% endif %}
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
   "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
