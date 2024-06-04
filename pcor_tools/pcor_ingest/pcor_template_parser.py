@@ -456,8 +456,8 @@ class PcorTemplateParser:
         if date_str.lower() == "current":
             current_date = datetime.now()
             formatted_date = 'Current'
-            #year = current_date.year
-            return formatted_date, 'Current'
+            year = current_date.year
+            return formatted_date, year
 
         for fmt in ("%Y", "%m/%Y", "%m/%d/%Y"):
             try:
