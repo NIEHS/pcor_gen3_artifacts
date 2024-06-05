@@ -7,7 +7,9 @@ etl:
   tube:
     image:
       repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-      tag: 2024.05
+      #tag: 2024.05
+      # patch to flatten nested array
+      tag: "1.0.4"
   esEndpoint: elasticsearch
 
   etlMapping:
@@ -25,8 +27,8 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start
-          - name: time_extent_end
+          - name: time_extent_start_year
+          - name: time_extent_end_year
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
@@ -59,8 +61,8 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start
-          - name: time_extent_end
+          - name: time_extent_start_year
+          - name: time_extent_end_year
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
