@@ -775,14 +775,14 @@ portal:
                     },
                     {
                       "type": "text",
-                      "label": "Time Extent Start",
-                      "sourceField": "time_extent_start",
+                      "label": "Time Extent Start Year",
+                      "sourceField": "time_extent_start_year",
                       "default": ""
                     },
                     {
                       "type": "text",
-                      "label": "Time Extent End",
-                      "sourceField": "time_extent_end",
+                      "label": "Time Extent End Year",
+                      "sourceField": "time_extent_end_year",
                       "default": ""
                     },
                     {
@@ -938,8 +938,8 @@ portal:
               "keywords",
               "intended_use",
               "measures",
-              "time_extent_start",
-              "time_extent_end",
+              "time_extent_start_year",
+              "time_extent_end_year",
               "spatial_coverage",
               "spatial_coverage_specific_regions",
               "resource_url"
@@ -1044,8 +1044,8 @@ portal:
               "keywords",
               "intended_use",
               "measures",
-              "time_extent_start",
-              "time_extent_end",
+              "time_extent_start_year",
+              "time_extent_end_year",
               "spatial_coverage",
               "spatial_coverage_specific_regions",
               "resource_url"
