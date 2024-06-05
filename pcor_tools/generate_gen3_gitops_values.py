@@ -19,11 +19,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Set the flag to True for AWS Staging(gen3-gitops)
-AWS_STAGING_FLAG = True
+AWS_STAGING_FLAG = False
 
 # Get the directory path of the custom_configs
 custom_configs_path = '../custom_configs'
-gen3_gitops_values_path = '../gen3-gitops/aws_values_06_05'
+gen3_gitops_values_path = '../gen3-gitops/values'
 gen3_gitops_templates_path = '../gen3-gitops/templates'
 
 # Load the Jinja2 environment with the script directory as the template folder
