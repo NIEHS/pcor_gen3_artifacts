@@ -837,7 +837,7 @@ portal:
                       "default": "n/a"
                     },
                     {
-                      "type": "text",
+                      "type": "link",
                       "label": "Resource Use Agreement",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
