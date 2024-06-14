@@ -211,7 +211,7 @@ class PcorDiscoveryMetadata:
         self.time_extent_end = ""
         self.time_extent_end_year = None
         self.time_available_comment = ""
-        self.temporal_resolution = ""
+        self.temporal_resolution = []
         self.exposure_media = []
         self.measures_parent = []
         self.measures_subcategory_major = []
@@ -269,6 +269,7 @@ class PcorPopDataResourceModel:
         self.time_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
+        self.temporal_resolution = []
         self.spatial_coverage_specific_regions = []
         self.geometry_type = []
         self.geometry_source = []
