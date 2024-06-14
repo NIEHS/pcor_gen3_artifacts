@@ -144,12 +144,14 @@ class PcorTemplateProcessor:
                             discovery.time_extent_start_year = geo_spatial_resource.time_extent_start_year
                             discovery.time_extent_end_year = geo_spatial_resource.time_extent_end_year
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
+                            discovery.temporal_resolution = ', '.join(geo_spatial_resource.temporal_resolution)
 
                             if geo_spatial_resource.temporal_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Temporal Resolution"
-                                search_filter.value = geo_spatial_resource.temporal_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                                for item in geo_spatial_resource.temporal_resolution:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Temporal Resolution"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
 
                             if geo_spatial_resource.spatial_resolution:
                                 search_filter = AdvSearchFilter()
@@ -246,6 +248,7 @@ class PcorTemplateProcessor:
                             discovery.time_extent_start_year = pop_data_resource.time_extent_start_year
                             discovery.time_extent_end_year = pop_data_resource.time_extent_end_year
                             discovery.time_available_comment = pop_data_resource.time_available_comment
+                            discovery.temporal_resolution = ', '.join(pop_data_resource.temporal_resolution)
 
                             discovery.comment = pop_data_resource.comments
 
@@ -291,10 +294,11 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.temporal_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Temporal Resolution"
-                                search_filter.value = pop_data_resource.temporal_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                                for item in pop_data_resource.temporal_resolution:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Temporal Resolution"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.spatial_resolution:
                                 search_filter = AdvSearchFilter()

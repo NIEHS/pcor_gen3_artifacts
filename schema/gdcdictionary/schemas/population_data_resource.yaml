@@ -101,7 +101,9 @@ properties:
     type: string
   temporal_resolution:
     description: Frequency of time points.
-    type: string
+    type: array
+    items:
+      type: string
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string
