@@ -97,8 +97,15 @@ properties:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
   temporal_resolution:
+<<<<<<< HEAD
     description: Frequency of time points. This is the finest resolution
     type: string
+=======
+    description: Frequency of time points.
+    type: array
+    items:
+      type: string
+>>>>>>> d0fc055 ( #40 update temporal_resolution)
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string

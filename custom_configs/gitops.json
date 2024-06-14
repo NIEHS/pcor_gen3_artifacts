@@ -403,12 +403,6 @@
                 },
                 {
                   "type": "text",
-                  "label": "Temporal Resolution",
-                  "sourceField": "temporal_resolution",
-                  "default": ""
-                },
-                {
-                  "type": "text",
                   "label": "Time Extent Start Year",
                   "sourceField": "time_extent_start_year",
                   "default": ""
@@ -429,6 +423,12 @@
                   "type": "text",
                   "label": "Spatial Resolution",
                   "sourceField": "spatial_resolution",
+                  "default": ""
+                },
+                {
+                  "type": "text",
+                  "label": "Temporal Resolution",
+                  "sourceField": "temporal_resolution",
                   "default": ""
                 },
                 {
