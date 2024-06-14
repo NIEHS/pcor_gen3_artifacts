@@ -1,6 +1,10 @@
 global:
   hostname: "localhost"
+<<<<<<< HEAD
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/lara-model/custom_configs/schema.json
+=======
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/40-update-temporal_resolution/custom_configs/schema.json
+>>>>>>> d0fc055 ( #40 update temporal_resolution)
 
 
 sower:
