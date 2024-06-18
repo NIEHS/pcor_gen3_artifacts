@@ -817,6 +817,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Temporal Resolution",
+                      "sourceField": "temporal_resolution",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Spatial Coverage",
                       "sourceField": "spatial_coverage",
                       "default": ""
