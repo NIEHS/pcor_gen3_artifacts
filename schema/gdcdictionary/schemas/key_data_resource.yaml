@@ -107,15 +107,9 @@ properties:
     type: array
     items:
       type: string
-  time_extent_start:
-    description: Earliest time for the data.
-    $ref: "_definitions.yaml#/datetime"
   time_extent_start_yyyy:
     description: Four digit year or null, start of time extent of coverage
     $ref: "_definitions.yaml#/yyyy"
-  time_extent_end:
-    description: Latest time for the data.
-    $ref: "_definitions.yaml#/datetime"
   time_extent_end_yyyy:
     description: Four digit year or null, end of time extent of coverage
     $ref: "_definitions.yaml#/yyyy"
@@ -131,11 +125,19 @@ properties:
   spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: string
+  geometry_type:
+    description: Type of geometric data, the file extension will be different for different types.
+    type: array
+    items:
+      type: string
   model_methods:
     description: If modeled, type of approach used.
     type: array
     items:
       type: string
+  metrics_derived_from_data_set:
+    description: Example indivdiual level exposure metrics derived from dataset
+    type: string
   data_formats:
     description: Format of data in the collection
     type: array
