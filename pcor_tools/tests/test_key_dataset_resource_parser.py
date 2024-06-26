@@ -18,7 +18,7 @@ class TestKeyDatasetResourceParser(unittest.TestCase):
         test_ss_path = 'test_resources/key-datasets-sample.xlsx'
         actual = []
         parser = KeyDatasetResourceParser(pcor_testing_utilities.get_pcor_ingest_configuration())
-        actual = parser.parse(test_ss_path, actual)
+        parser.parse(test_ss_path, actual)
         logger.info("parse_result: %s" % actual)
         self.assertIsNotNone(actual)
 
