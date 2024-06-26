@@ -13,7 +13,7 @@ from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
-    PcorSubmissionInfoModel
+    PcorSubmissionInfoModel, PcorKeyDatasetModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
@@ -62,6 +62,7 @@ class KeyDatasetResourceParser():
         result = PcorProcessResult()
         submission = PcorSubmissionInfoModel()
         submission.curator_email = self.pcor_ingest_configuration.submitter_email
+        submission.template_source = template_absolute_path
         result.model_data["submission"] = submission
 
         if not submission.curator_email:
@@ -84,8 +85,49 @@ class KeyDatasetResourceParser():
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
+            #result.project_guid = project.submitter_id
+            result.project_code = project.code
             result.model_data["project"] = project
+
+            # Resource and Key Dataset
+
+            resource = PcorIntermediateResourceModel()
+            resource.resource_type = "Data Resource"
+            key_data_resource = PcorKeyDatasetModel()
+            key_data_resource.display_type = "KeyDataset"
+
+            # dataset name (6)
+            resource.name = PcorTemplateParser.sanitize_column(df.iat[i, 6])
+            resource.short_name = resource.name
+            resource.long_name = resource.name
+
+            # key variables (7) - discarded for measures
+
+            # measures (8)
+
+            measures = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 8])
+            measures_rollup = self.pcor_measures_rollup.process_measures(measures)
+            key_data_resource.measures = measures_rollup.measures
+            key_data_resource.measures_parent = measures_rollup.measures_parents
+            key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+            key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
+
+
+
+
+
+
+
+
+
+
+
+            result.resource_guid = resource.submitter_id
+            result.resource_name = resource.name
+
+            result.model_data["resource"] = resource
+            result.model_data["key_dataset"] = key_data_resource
+
+
             results.append(result)
-
-
 
