@@ -48,7 +48,7 @@ properties:
   state:
     $ref: "_definitions.yaml#/state"
   submitter_id:
-    description: A human-readable identifier for the study's record in the database. It can be used in place of the UUID for identifying or recalling a record.
+    description: A human-readable identifier for the record in the database. It can be used in place of the UUID for identifying or recalling a record.
     type: string
   type:
     description: The name of the node in the database to be used in queries.

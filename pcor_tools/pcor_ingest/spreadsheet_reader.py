@@ -3,6 +3,7 @@ import warnings
 import pandas as pd
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.geospatial_data_resource_parser import GeoSpatialDataResourceParser
+from pcor_ingest.key_dataset_resource_parser import KeyDatasetResourceParser
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.population_data_resource_parser import PopulationDataResourceParser
 from pcor_ingest.geospatial_tool_resource_parser import GeoSpatialToolResourceParser
@@ -15,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class PcorSpreadsheeetReader:
+class PcorSpreadsheetReader:
     """
     Represents the main reader of pcor spreadsheet templates, given a location,
     finds pcor templates and creates a parser appropriate to each template type. The
@@ -65,6 +66,7 @@ class PcorSpreadsheeetReader:
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser(pcor_ingest_configuration)
         self.parsers["population_data_resource"] = PopulationDataResourceParser(pcor_ingest_configuration)
         self.parsers["geospatial_tool_resource"] = GeoSpatialToolResourceParser(pcor_ingest_configuration)
+        self.parsers["key_dataset"] = KeyDatasetResourceParser(pcor_ingest_configuration)
         self.result_handler = PcorReporter(pcor_ingest_configuration)
 
     def process_template_instance(self, template_absolute_path, result):
