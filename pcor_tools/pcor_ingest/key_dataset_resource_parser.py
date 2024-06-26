@@ -49,7 +49,7 @@ class KeyDatasetResourceParser():
         # spreadsheet
 
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=0, engine='openpyxl')
+        df = pd.read_excel(template_absolute_path, sheet_name=1, engine='openpyxl')
 
         ss_rows = df.shape[0]
         logging.debug("iterate looking for the start of the data")
@@ -68,7 +68,7 @@ class KeyDatasetResourceParser():
             logging.error("no curator email in pcor ingest configuration")
             raise Exception("no curator email in pcor ingest configuration")
 
-        for i in range([2, ss_rows]):
+        for i in range(2, ss_rows):
 
             # Program
 
