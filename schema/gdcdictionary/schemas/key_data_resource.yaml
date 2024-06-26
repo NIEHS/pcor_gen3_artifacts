@@ -68,19 +68,6 @@ properties:
     type: array
     items:
       type: string
-  update_frequency:
-    description: Frequency of update of the resource. (unused)
-    #nullable: true
-    type: string
-    #enum:
-    #  - Continuous
-    #  - Hourly
-    #  - Daily
-    #  - Monthly
-    #  - Quarterly
-    # - Annually
-    # - Undefined
-
   # measures is a three-level hierarchy of parent/subcategory/measure to allow easier filtering and grouping
   measures_parent_category:
     description: type of environmental phenomena being observed at the parent concept level
@@ -136,7 +123,7 @@ properties:
     items:
       type: string
   metrics_derived_from_data_set:
-    description: Example indivdiual level exposure metrics derived from dataset
+    description: Example individual level exposure metrics derived from dataset
     type: string
   data_formats:
     description: Format of data in the collection
