@@ -301,7 +301,6 @@ class PcorGeoToolModel:
         self.resource_id = ""
         self.resource_submitter_id = ""
         self.created_datetime = ""
-        self.submitter_id = ""
         self.updated_datetime = ""
         self.tool_type = []
         self.operating_system = []
@@ -310,3 +309,38 @@ class PcorGeoToolModel:
         self.intended_use = ""
         self.is_open = False
         self.suggested_audience = []
+
+
+class PcorKeyDatasetModel:
+    """
+    Represents a key dataset subtype
+    """
+
+    def __init__(self):
+        self.pcor_intermediate_resource_model = None
+        self.project_id = ""
+        self.project_submitter_id = ""
+        self.resource_id = ""
+        self.resource_submitter_id = ""
+        self.created_datetime = ""
+        self.submitter_id = ""
+        self.updated_datetime = ""
+        self.display_type = ""
+        self.comments = ""
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
+        self.measures = []
+        self.time_extent_start = ""
+        self.time_extent_end = ""
+        self.time_available_comment = ""
+        self.temporal_resolution = ""
+        self.spatial_resolution = ""
+        self.spatial_coverage = ""
+        self.geometry_type = []
+        self.model_methods = []
+        self.metrics_derived_from_data_set = ""
+        self.data_formats = []
+        self.data_location = []
+
+
