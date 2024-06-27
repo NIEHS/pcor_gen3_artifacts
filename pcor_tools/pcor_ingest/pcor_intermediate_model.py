@@ -91,6 +91,11 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
+        self.intended_use = ""
+        self.strengths = ""
+        self.limitations = ""
+        self.example_applications = ""
+        self.tools_supporting_uses = ""
 
 
 class SubmitResponse:
