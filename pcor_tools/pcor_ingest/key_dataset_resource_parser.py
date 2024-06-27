@@ -139,13 +139,35 @@ class KeyDatasetResourceParser():
             # spatial resolution (17)
             key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 17])
 
+            # temporal extent begin (21)
+            key_data_resource.time_extent_start = PcorTemplateParser.sanitize_column(df.iat[i, 21])
+
+            # temporal extent end (22)
+            key_data_resource.time_extent_end = PcorTemplateParser.sanitize_column(df.iat[i, 22])
+
+            # suggested uses (27)
+            resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 27])
+
+            # example individual level metrics (28)
+            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 28])
+
+            # strengths (29)
+            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 29])
+
+            # limitations (30)
+            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 30])
+
+            # example apps (31)
+            resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 31])
+
+            # tools supporting use (32)
+            resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 32])
 
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
 
             result.model_data["resource"] = resource
             result.model_data["key_dataset"] = key_data_resource
-
 
             results.append(result)
 
