@@ -36,6 +36,15 @@ class KeyDatasetResourceParser():
         self.yyyy_pattern = r"\b(\d{4})\b"
         self.pcor_ingest_configuration = pcor_ingest_configuration
 
+    @staticmethod
+    def make_complex_array_from_pubs(value):
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+        temp_list = []
+        if clean_value:
+            temp_list = [line.strip() for line in str(clean_value).split(';')]
+
+        return temp_list
+
     def parse(self, template_absolute_path, results):
         """
                Parse a spreadsheet template for a file at a given absolute path
@@ -112,14 +121,23 @@ class KeyDatasetResourceParser():
             key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
             key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
+            # format (11)
 
+            key_data_resource.data_formats = PcorTemplateParser.make_array(
+                PcorTemplateParser.sanitize_column(df.iat[i, 11]))
 
+            # data access url (12)
+            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 12])
 
+            # publications (13) [try delimit by ;]
 
+            resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 13])
 
+            # spatial extent (14)
+            key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 14])
 
-
-
+            # spatial resolution (17)
+            key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 17])
 
 
             result.resource_guid = resource.submitter_id

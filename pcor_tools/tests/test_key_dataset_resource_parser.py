@@ -22,6 +22,11 @@ class TestKeyDatasetResourceParser(unittest.TestCase):
         logger.info("parse_result: %s" % actual)
         self.assertIsNotNone(actual)
 
+    def test_parse_pubs(self):
+        pubs = "Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 inst3_3d_aer_Nv: 3d, 3-Hourly, Instantaneous, Model-Level, Assimilation, Aerosol Mixing Ratio V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), [Accessed: https://doi.org/10.5067/LTVB4GPCOTK2]; Gelaro, R., McCarty, W., Suárez, M. J., Todling, R., Molod, A., Takacs, L., ... & Zhao, B. (2017). The modern-era retrospective analysis for research and applications, version 2 (MERRA-2). Journal of climate, 30(14), 5419-5454."
+        actual = KeyDatasetResourceParser.make_complex_array_from_pubs(pubs)
+        self.assertEqual(2, len(actual))
+
 
 if __name__ == '__main__':
     unittest.main()
