@@ -128,8 +128,6 @@ class LoaderKeyDatasetsSpreadsheet:
                     pcor_error.message = str(e)
                     result.errors.append(pcor_error)
 
-
-
         if any_error:
             pass
             # processed folder
