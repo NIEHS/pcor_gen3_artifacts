@@ -96,6 +96,12 @@ class KeyDatasetResourceParser():
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
             #result.project_guid = project.submitter_id
             result.project_code = project.code
+            if project.submitter_id == "" or project.submitter_id is None:
+                project.submitter_id = str(uuid.uuid4())
+            if project.code == "" or project.code is None:
+                project.code = str(uuid.uuid4())
+            if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
+                project.dbgap_accession_number = project.submitter_id
             result.model_data["project"] = project
 
             # Resource and Key Dataset
@@ -162,6 +168,9 @@ class KeyDatasetResourceParser():
 
             # tools supporting use (32)
             resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 32])
+
+            if resource.submitter_id is None or resource.submitter_id == '':
+                resource.submitter_id = str(uuid.uuid4())
 
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
