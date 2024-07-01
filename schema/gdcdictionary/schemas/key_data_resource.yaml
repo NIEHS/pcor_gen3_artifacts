@@ -38,9 +38,9 @@ uniqueKeys:
   - [project_id, submitter_id]
 
 properties:
-  #system properties, do not change or remove:
+  #system properties, do not change or remove, this is initial 1.5 testing for key dataset load
   created_datetime:
-    $ref: "_definitions.yaml#/datetime"
+    $ref: "_definitions.yaml#/datetime"   
   id:
     $ref: "_definitions.yaml#/UUID"
   project_id:

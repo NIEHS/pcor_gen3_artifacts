@@ -10,7 +10,7 @@ project
 resc_short_name
 
 ## mappings from spreadsheet
-
+    
 dataset_name -> resc.long_name and resc.name
 resource_type -> Key Data Resource?
 domains -> resource.domain
