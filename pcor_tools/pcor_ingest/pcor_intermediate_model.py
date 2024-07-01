@@ -51,6 +51,7 @@ class PcorIntermediateProjectModel:
         self.id = ""
         self.name = ""
         self.short_name = ""
+        self.submitter_id = ""
         self.project_sponsor = []
         self.project_sponsor_type = []
         self.project_url = ""
