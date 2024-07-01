@@ -56,38 +56,38 @@ class LoaderKeyDatasetsSpreadsheet:
         logger.info('process_load()')
         logger.info('file_path dir: %s ' % file_path)
         file_name = os.path.abspath(file_path)
-        work_dir = file_name.parent()
+        work_dir = os.path.dirname(file_name)
         logger.info('work_dir dir: %s ' % work_dir)
         logger.info('file_path: %s' % file_path)
-        self.validate_sub_folders(work_dir=work_dir)
+        #self.validate_sub_folders(work_dir=work_dir)
 
         file = os.path.basename(file_path)
 
-        if file.endswith('.xlsm'):
+        if file.endswith('.xlsx'):
             logger.info('Spreadsheet found: %s' % file)
         else:
             raise Exception("input is not a valid spreadsheet type")
 
         # new folder
-        file_path = os.path.join(self.workspace_new_folder_path, file)
-        new_file_name = LoaderKeyDatasetsSpreadsheet.add_timestamp_to_file(file)
-        processing_file_path = self.workspace_processing_folder_path + '/' + new_file_name
-        logger.info(
-            '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                file, file_path, self.workspace_processing_folder_path))
-        shutil.move(src=file_path, dst=processing_file_path)
+        #file_path = os.path.join(self.workspace_new_folder_path, file)
+        #new_file_name = LoaderKeyDatasetsSpreadsheet.add_timestamp_to_file(file)
+        #processing_file_path = self.workspace_processing_folder_path + '/' + new_file_name
+        #logger.info(
+        #    '\nMoving file: %s \nsrc: %s\ndst: %s' % (
+        #        file, file_path, self.workspace_processing_folder_path))
+        #shutil.move(src=file_path, dst=processing_file_path)
 
         # processing folder
         results = []
 
-        ss_reader = KeyDatasetResourceParser()
+        ss_reader = KeyDatasetResourceParser(self.pcor_ingest_configuration)
 
         any_error = False
 
         # parse is going to build an array of results, as the spreadheet contains multiple curated data sets
 
         try:
-            ss_reader.parse(processing_file_path, results)  # took result out and made a param
+            ss_reader.parse(file_path, results)  # took result out and made a param
         except Exception as e:
             logger.error('Error occurred: %s' % str(e))
             any_error = True
@@ -111,9 +111,14 @@ class LoaderKeyDatasetsSpreadsheet:
 
             for result in results:
 
+                if not result.success:
+                    any_error = True
+                    continue
+
                 try:
                     logger.debug("result:{}", result)
                     #process_template.process(result)
+
                 except Exception as e:
                     logger.error('Error occurred: %s' % str(e))
                     result.success = False
@@ -123,30 +128,25 @@ class LoaderKeyDatasetsSpreadsheet:
                     pcor_error.message = str(e)
                     result.errors.append(pcor_error)
 
-                if not result.success:
-                    any_error = True
+
 
         if any_error:
+            pass
             # processed folder
             # result.success --> true
             # result --> move file to processed folder
-            success_path = os.path.join(self.workspace_processed_folder_path,
-                                        os.path.basename(processing_file_path))
-            result.template_current_location = success_path
-            logger.info(
-                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                    new_file_name, processing_file_path, success_path))
-            shutil.move(src=processing_file_path, dst=success_path)
+            #success_path = os.path.join(self.workspace_processed_folder_path,
+            #                            os.path.basename(processing_file_path))
+            #result.template_current_location = success_path
+            #logger.info(
+            #    '\nMoving file: %s \nsrc: %s\ndst: %s' % (
+            #        new_file_name, processing_file_path, success_path))
+            #shutil.move(src=processing_file_path, dst=success_path)
         else:
             # failed folder
             # result.success --> false
             # result --> move file to failed folder
-            failed_path = os.path.join(self.workspace_failed_folder_path,
-                                       os.path.basename(processing_file_path))
-            logger.info(
-                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                    new_file_name, processing_file_path, failed_path))
-            shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
+            failed_path = os.path.join(file_path)
             result.template_current_location = failed_path
 
         for result in results:
