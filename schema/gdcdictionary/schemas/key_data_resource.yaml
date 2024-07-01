@@ -96,10 +96,10 @@ properties:
       type: string
   time_extent_start_yyyy:
     description: Four digit year or null, start of time extent of coverage
-    $ref: "_definitions.yaml#/yyyy"
+    $ref: "_definitions.yaml#/year"
   time_extent_end_yyyy:
     description: Four digit year or null, end of time extent of coverage
-    $ref: "_definitions.yaml#/yyyy"
+    $ref: "_definitions.yaml#/year"
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
