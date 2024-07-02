@@ -1,0 +1,30 @@
+{
+  "publications": null, 
+  "resource_id": null, 
+  "is_static": null, 
+  "resource_url": null, 
+  "access_type": null, 
+  "project_id": null, 
+  "verification_datetime": null, 
+  "*name": null, 
+  "example_applications": null, 
+  "short_name": null, 
+  "tools_supporting_uses": null, 
+  "domain": null, 
+  "*type": "resource", 
+  "long_name": null, 
+  "limitations": null, 
+  "keywords": null, 
+  "description": null, 
+  "*projects": {
+    "code": null
+  }, 
+  "resource_use_agreement": null, 
+  "publication_links": null, 
+  "resource_reference": null, 
+  "intended_use": null, 
+  "*submitter_id": null, 
+  "strengths": null, 
+  "*resource_type": null, 
+  "payment_required": null
+}

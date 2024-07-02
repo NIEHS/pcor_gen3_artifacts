@@ -111,13 +111,13 @@ class LoaderKeyDatasetsSpreadsheet:
 
             for result in results:
 
-                if not result.success:
+                if not result.success: # skip things that didn't parse
                     any_error = True
                     continue
 
                 try:
                     logger.debug("result:{}", result)
-                    #process_template.process(result)
+                    process_template.process(result)
 
                 except Exception as e:
                     logger.error('Error occurred: %s' % str(e))
@@ -127,25 +127,6 @@ class LoaderKeyDatasetsSpreadsheet:
                     pcor_error.key = ""
                     pcor_error.message = str(e)
                     result.errors.append(pcor_error)
-
-        if any_error:
-            pass
-            # processed folder
-            # result.success --> true
-            # result --> move file to processed folder
-            #success_path = os.path.join(self.workspace_processed_folder_path,
-            #                            os.path.basename(processing_file_path))
-            #result.template_current_location = success_path
-            #logger.info(
-            #    '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-            #        new_file_name, processing_file_path, success_path))
-            #shutil.move(src=processing_file_path, dst=success_path)
-        else:
-            # failed folder
-            # result.success --> false
-            # result --> move file to failed folder
-            failed_path = os.path.join(file_path)
-            result.template_current_location = failed_path
 
         for result in results:
             self.pcor_reporter.report(result)
