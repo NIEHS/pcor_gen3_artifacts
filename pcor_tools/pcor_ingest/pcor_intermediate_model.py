@@ -323,8 +323,7 @@ class PcorKeyDatasetModel:
 
     def __init__(self):
         self.pcor_intermediate_resource_model = None
-        self.project_id = ""
-        self.project_submitter_id = ""
+
         self.resource_id = ""
         self.resource_submitter_id = ""
         self.created_datetime = ""

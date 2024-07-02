@@ -377,6 +377,100 @@ class PcorTemplateProcessor:
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 
+                        if 'key_dataset' in model_data.keys():
+                            logger.info('process:: adding key dataset')
+                            key_dataset = model_data['key_dataset']
+                            key_dataset.resource_id = resource_submit_status.id
+                            key_dataset.resource_submitter_id = resource.submitter_id
+                            key_dataset.submitter_id = resource.submitter_id
+
+                            self.pcor_ingest.create_key_dataset(
+                                program_name=program.name,
+                                project_code=project.code,
+                                key_dataset=key_dataset
+                            )
+
+                            if not resource_submit_status.success:
+                                logger.error("creation of key_dataset failed, bailing: %s"
+                                             % resource_submit_status)
+                                parsed_data.success = False
+                                parsed_data.message = resource_submit_status.response.text
+                                parsed_data.errors += resource_submit_status.errors
+                                parsed_data.path_url = resource_submit_status.path_url
+                                parsed_data.response_content = resource_submit_status.response_content
+                                parsed_data.request_content = resource_submit_status.request_content
+                                return
+
+                            resource.resource_type = model_data['key_dataset'].display_type
+
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
+                            discovery.comment = key_dataset.comment
+
+                            discovery.spatial_coverage = ', '.join(key_dataset.spatial_coverage)
+                            discovery.geometry_type = ', '.join(key_dataset.geometry_type)
+                            discovery.spatial_resolution = key_dataset.spatial_resolution
+                            discovery.time_extent_start_year = key_dataset.time_extent_start_year
+                            discovery.time_extent_end_year = key_dataset.time_extent_end_year
+                            discovery.time_available_comment = key_dataset.time_available_comment
+
+                            if key_dataset.temporal_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = key_dataset.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
+
+                            if key_dataset.spatial_resolution:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Spatial Resolution"
+                                search_filter.value = key_dataset.spatial_resolution
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in geo_spatial_resource.geometry_type:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Geometry Type"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            # measures parent category
+                            for item in key_dataset.measures_parent:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Measures(category)"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            for item in key_dataset.measures_subcategory_major:
+                                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
+                                    pass
+                                else:
+                                    tag = Tag()
+                                    tag.name = item
+                                    tag.category = "Measures(subcategory 1)"
+                                    discovery.tags.append(tag)
+
+                            for item in key_dataset.measures_subcategory_minor:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Measures(subcategory 2)"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+                                if PcorGen3Ingest.check_tag_present(item, discovery.tags):
+                                    pass
+                                else:
+                                    tag = Tag()
+                                    tag.name = item
+                                    tag.category = "Measures(subcategory 2)"
+                                    discovery.tags.append(tag)
+
+                            for item in key_dataset.measures:
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Measures"
+                                search_filter.value = item
+                                discovery.adv_search_filters.append(search_filter)
+
+                            logger.info("created discovery: %s" % discovery)
+
+                            discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
+                            logger.info("discovery_result: %s" % discovery_result)
+
         except requests.HTTPError as exception:
             logger.error('unexpected Error occurred: %s' % str(exception))
             parsed_data.success = False

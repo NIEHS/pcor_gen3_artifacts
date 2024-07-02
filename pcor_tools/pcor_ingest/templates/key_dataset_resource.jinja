@@ -1,0 +1,80 @@
+{
+  "measures": [
+    {% for entry in key_dataset_resource.measures %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  {% if key_dataset_resource.time_extent_end %}
+    "time_extent_end_yyyy": {{ key_dataset_resource.time_extent_end }},
+  {% endif %}
+
+  "metrics_derived_from_data_set": "{{ key_dataset_resource.metrics_derived_from_data_set }}",
+
+  "geometry_type": [
+    {% for entry in key_dataset_resource.geometry_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  "time_available_comment": "{{ key_dataset_resource.time_available_comment }}",
+  "measures_parent_category":  [
+    {% for entry in key_dataset_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  "display_type": "KeyDataResource",
+
+  "measures_subcategory_minor": [
+    {% for entry in key_dataset_resource.measures_subcategory_minor %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+
+  "comments": "{{ key_dataset_resource.comments }}",
+  "measurement_method": [],
+
+  "measures_subcategory_major": [
+    {% for entry in key_dataset_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  "spatial_resolution":  "{{ key_dataset_resource.spatial_resolution }}",
+  "temporal_resolution": "{{ key_dataset_resource.temporal_resolution }}",
+  "*type": "key_data_resource", 
+
+  {% if key_dataset_resource.time_extent_start %}
+    "time_extent_start_yyyy": {{ key_dataset_resource.time_extent_start }},
+  {% endif %}
+
+  "spatial_coverage": "{{ key_dataset_resource.spatial_coverage }}",
+  "*resources": {
+     "submitter_id": "{{ key_dataset_resource.resource_submitter_id }}"
+  },
+
+  "data_formats": [
+    {% for entry in key_dataset_resource.data_formats %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  "data_location": [
+    {% for entry in key_dataset_resource.data_location %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  "source_name": "null",
+  "*submitter_id": "{{ key_dataset_resource.submitter_id }}",
+  "model_methods": []
+}
