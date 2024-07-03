@@ -404,13 +404,13 @@ class PcorTemplateProcessor:
                             resource.resource_type = model_data['key_dataset'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
-                            discovery.comment = key_dataset.comment
+                            discovery.comment = key_dataset.comments
 
                             discovery.spatial_coverage = ', '.join(key_dataset.spatial_coverage)
                             discovery.geometry_type = ', '.join(key_dataset.geometry_type)
                             discovery.spatial_resolution = key_dataset.spatial_resolution
-                            discovery.time_extent_start_year = key_dataset.time_extent_start_year
-                            discovery.time_extent_end_year = key_dataset.time_extent_end_year
+                            discovery.time_extent_start_year = key_dataset.time_extent_start
+                            discovery.time_extent_end_year = key_dataset.time_extent_end
                             discovery.time_available_comment = key_dataset.time_available_comment
 
                             if key_dataset.temporal_resolution:
@@ -425,7 +425,7 @@ class PcorTemplateProcessor:
                                 search_filter.value = key_dataset.spatial_resolution
                                 discovery.adv_search_filters.append(search_filter)
 
-                            for item in geo_spatial_resource.geometry_type:
+                            for item in key_dataset.geometry_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Geometry Type"
                                 search_filter.value = item
