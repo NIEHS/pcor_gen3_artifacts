@@ -68,17 +68,17 @@ class KeyDatasetResourceParser():
             logger.info("no data to process")
             sys.exit(0)
 
-        result = PcorProcessResult()
-        submission = PcorSubmissionInfoModel()
-        submission.curator_email = self.pcor_ingest_configuration.submitter_email
-        submission.template_source = template_absolute_path
-        result.model_data["submission"] = submission
-
-        if not submission.curator_email:
-            logging.error("no curator email in pcor ingest configuration")
-            raise Exception("no curator email in pcor ingest configuration")
-
         for i in range(2, ss_rows):
+
+            result = PcorProcessResult()
+            submission = PcorSubmissionInfoModel()
+            submission.curator_email = self.pcor_ingest_configuration.submitter_email
+            submission.template_source = template_absolute_path
+            result.model_data["submission"] = submission
+
+            if not submission.curator_email:
+                logging.error("no curator email in pcor ingest configuration")
+                raise Exception("no curator email in pcor ingest configuration")
 
             # Program
 
