@@ -393,6 +393,11 @@ portal:
             "graphql": "_geospatial_tool_resource_count",
             "name": "Geospatial Tool Resource",
             "plural": "Geospatial Tool Resources"
+          },
+          {
+            "graphql": "_key_data_resource_count",
+            "name": "Key Dataset",
+            "plural": "Key Datasets"
           }
         ],
         "chartCounts": [
@@ -410,6 +415,11 @@ portal:
             "graphql": "_geospatial_tool_resource_count",
             "name": "Geospatial Tool Resource",
             "plural": "Geospatial Tool Resources"
+          },
+          {
+            "graphql": "_key_data_resource_count",
+            "name": "Key Dataset",
+            "plural": "Key Datasets"
           }
         ],
         "projectDetails": "boardCounts",
@@ -1101,6 +1111,12 @@ portal:
             "accessibleValidationField": "project_id"
           }
         },
+
+
+
+
+
+
         {
           "tabTitle": "Geospatial Tool Resources",
           "charts": {
@@ -1195,7 +1211,128 @@ portal:
             ],
             "accessibleValidationField": "project_id"
           }
+        },
+
+
+
+        {
+          "tabTitle": "Key Data Resources",
+          "charts": {
+            "project_sponsor": {
+              "chartType": "count",
+              "title": "Project Sponsor"
+            }
+          },
+          "filters": {
+            "tabs": [
+              {
+                "title": "Search Facets",
+                "fields": [
+                  "project_sponsor",
+                  "project_sponsor_type",
+                  "keywords",
+                  "measures_parent_category",
+                  "measures_subcategory_major",
+                  "time_extent_start_yyyy",
+                  "time_extent_end_yyyy",
+                  "temporal_resolution",
+                  "spatial_resolution",
+                  "spatial_coverage",
+                  "geometry_type",
+                  "model_methods",
+                  "data_formats"
+                ]
+              }
+            ]
+          },
+          "table": {
+            "enabled": true,
+            "fields": [
+              "project_sponsor",
+              "resource_name",
+              "resource_description",
+              "keywords",
+              "comments",
+              "metrics_derived_from_data_set",
+              "data_formats",
+              "data_location"
+              
+            ],
+            "linkFields": [
+              "data_location"
+            ]
+          },
+          "dropdowns": {
+            "download-table": {
+              "title": "Download Dataset Table"
+            }
+          },
+          "buttons": [
+            {
+              "enabled": true,
+              "type": "data-json",
+              "title": "JSON",
+              "dropdownId": "download-table",
+              "leftIcon": "datafile",
+              "rightIcon": "download",
+              "fileName": "datasets_table.json"
+            },
+            {
+              "enabled": true,
+              "type": "data-tsv",
+              "title": "TSV",
+              "dropdownId": "download-table",
+              "leftIcon": "datafile",
+              "rightIcon": "download",
+              "fileName": "datasets_table.tsv"
+            },
+            {
+              "enabled": true,
+              "type": "data-csv",
+              "title": "CSV",
+              "dropdownId": "download-table",
+              "leftIcon": "datafile",
+              "rightIcon": "download",
+              "fileName": "datasets_table.csv"
+            }
+          ],
+          "loginForDownload": true,
+          "guppyConfig": {
+            "dataType": "key_data_resource",
+            "nodeCountTitle": "Key Data Resources",
+            "fieldMapping": [
+              {
+                "field": "project_id",
+                "name": "Dataset ID"
+              },
+              {
+                "field": "submitter_id",
+                "name": "Dataset Name"
+              }
+            ],
+            "accessibleFieldCheckList": [
+              "project_id"
+            ],
+            "accessibleValidationField": "project_id"
+          }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ],
       "connectSrcCSPWhitelist": [
         "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://rstudio.niehs.nih.gov"
