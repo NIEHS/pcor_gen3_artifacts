@@ -841,8 +841,6 @@
       }
     },
 
-
-
     {
       "tabTitle": "Key Data Resources",
       "charts": {
@@ -944,22 +942,6 @@
         "accessibleValidationField": "project_id"
       }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   ],
   "connectSrcCSPWhitelist": [
