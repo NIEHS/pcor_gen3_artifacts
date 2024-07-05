@@ -1213,8 +1213,6 @@ portal:
           }
         },
 
-
-
         {
           "tabTitle": "Key Data Resources",
           "charts": {
@@ -1316,22 +1314,6 @@ portal:
             "accessibleValidationField": "project_id"
           }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       ],
       "connectSrcCSPWhitelist": [
