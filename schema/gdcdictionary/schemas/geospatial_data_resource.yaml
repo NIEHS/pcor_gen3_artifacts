@@ -115,6 +115,7 @@ properties:
     type: array
     items:
       type: string
+  # do we need the start and end or just the year? TODO 
   time_extent_start:
     description: Earliest time for the data.
     $ref: "_definitions.yaml#/datetime"
