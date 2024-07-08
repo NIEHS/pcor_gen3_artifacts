@@ -138,7 +138,7 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
                                                                                         geo_spatial_resource)
                             discovery.comment = geo_spatial_resource.comments
-                            discovery.spatial_coverage = ', '.join(geo_spatial_resource.spatial_coverage)
+                            discovery.spatial_coverage = geo_spatial_resource.spatial_coverage
                             discovery.geometry_type = ', '.join(geo_spatial_resource.geometry_type)
                             discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
                             discovery.time_extent_start_year = geo_spatial_resource.time_extent_start_year
@@ -240,7 +240,7 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
                                                                                         pop_data_resource)
 
-                            discovery.spatial_coverage = ', '.join(pop_data_resource.spatial_coverage)
+                            discovery.spatial_coverage = pop_data_resource.spatial_coverage
                             discovery.geometry_type = ', '.join(pop_data_resource.geometry_type)
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
                             discovery.time_extent_start_year = pop_data_resource.time_extent_start_year
@@ -406,7 +406,7 @@ class PcorTemplateProcessor:
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
                             discovery.comment = key_dataset.comments
 
-                            discovery.spatial_coverage = ', '.join(key_dataset.spatial_coverage)
+                            discovery.spatial_coverage = key_dataset.spatial_coverage
                             discovery.geometry_type = ', '.join(key_dataset.geometry_type)
                             discovery.spatial_resolution = key_dataset.spatial_resolution
                             discovery.time_extent_start_year = key_dataset.time_extent_start
