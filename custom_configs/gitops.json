@@ -734,11 +734,6 @@
       }
     },
 
-
-
-
-
-
     {
       "tabTitle": "Geospatial Tool Resources",
       "charts": {
@@ -834,7 +829,6 @@
         "accessibleValidationField": "project_id"
       }
     },
-
     {
       "tabTitle": "Key Data Resources",
       "charts": {

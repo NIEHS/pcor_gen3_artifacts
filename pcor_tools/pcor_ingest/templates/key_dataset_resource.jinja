@@ -74,7 +74,13 @@
     {% endfor %}
   ],
 
-  "source_name": "null",
+  "source_name": [
+    {% for entry in key_dataset_resource.source_name %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
   "*submitter_id": "{{ key_dataset_resource.submitter_id }}",
   "model_methods": []
 }

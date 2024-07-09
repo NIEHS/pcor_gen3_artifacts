@@ -319,7 +319,7 @@ class PcorTemplateProcessor:
                             geo_tool_resource.resource_submitter_id = resource.submitter_id
                             geo_tool_resource.submitter_id = resource.submitter_id
 
-                            self.pcor_ingest.create_geo_spatial_tool_resource(
+                            resource_submit_status = self.pcor_ingest.create_geo_spatial_tool_resource(
                                 program_name=program.name,
                                 project_code=project.code,
                                 geo_spatial_tool_resource=geo_tool_resource
@@ -384,7 +384,7 @@ class PcorTemplateProcessor:
                             key_dataset.resource_submitter_id = resource.submitter_id
                             key_dataset.submitter_id = resource.submitter_id
 
-                            self.pcor_ingest.create_key_dataset(
+                            resource_submit_status = self.pcor_ingest.create_key_dataset(
                                 program_name=program.name,
                                 project_code=project.code,
                                 key_dataset=key_dataset
