@@ -51,7 +51,7 @@ class LoaderKeyDatasetsSpreadsheet:
 
     def process_load(self, file_path=None):
         """
-        Load a spreadsheet template
+        Load a spreadsheet template for key datasets
         """
         logger.info('process_load()')
         logger.info('file_path dir: %s ' % file_path)
