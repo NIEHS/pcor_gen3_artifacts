@@ -2,6 +2,7 @@ global:
   hostname: "localhost"
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/lara-model/custom_configs/schema.json
 
+
 sower:
   enabled: false
 
