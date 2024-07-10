@@ -782,7 +782,7 @@ portal:
                     {
                       "type": "text",
                       "label": "Time Extent Start Year",
-                      "sourceField": "time_extent_start_yyy",
+                      "sourceField": "time_extent_start_yyyy",
                       "default": ""
                     },
                     {
