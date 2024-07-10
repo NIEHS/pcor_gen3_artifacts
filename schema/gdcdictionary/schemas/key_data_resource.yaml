@@ -135,6 +135,16 @@ properties:
     type: array
     items:
       type: string
+  dataset_publications:
+    description: list of publications describing the specific key dataset, distinct from resource-wide publications
+    type: array
+    items:
+      type: string
+  dataset_publication_links:
+    description: link for each publication (provisional, mike is testing using the publication node as a more proper approach), distinct from resource-wide publications
+    type: array
+    items:
+      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
