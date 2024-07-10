@@ -3,10 +3,12 @@ import os
 import time
 import shutil
 from datetime import datetime
+
+from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
+
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
-from pcor_ingest.spreadsheet_reader import PcorSpreadsheeetReader
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -74,7 +76,7 @@ class LoaderSpreadsheet:
             result = PcorProcessResult()
             result.template_source = file_path
             result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
-            ss_reader = PcorSpreadsheeetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
+            ss_reader = PcorSpreadsheetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
 
             try:
                 result = ss_reader.process_template_instance(processing_file_path,

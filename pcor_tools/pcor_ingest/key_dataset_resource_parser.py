@@ -116,11 +116,18 @@ class KeyDatasetResourceParser():
             resource.short_name = resource.name
             resource.long_name = resource.name
 
-            # key variables (7) - discarded for measures
+            # domain (7)
 
-            # measures (8)
+            resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 7])
 
-            measures = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 8])
+            # resource summary (8)
+
+            resource.description = PcorTemplateParser.sanitize_column(df.iat[i, 8])
+            key_data_resource.comments = resource.description
+
+            # measures (10)
+
+            measures = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 10])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
             key_data_resource.measures = measures_rollup.measures
             key_data_resource.measures_parent = measures_rollup.measures_parents
