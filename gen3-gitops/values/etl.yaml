@@ -14,8 +14,8 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start_year
-          - name: time_extent_end_year
+          - name: time_extent_start_yyyy
+          - name: time_extent_end_yyyy
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
@@ -48,8 +48,8 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start_year
-          - name: time_extent_end_year
+          - name: time_extent_start_yyyy
+          - name: time_extent_end_yyyy
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage

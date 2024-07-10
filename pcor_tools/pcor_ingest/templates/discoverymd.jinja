@@ -58,11 +58,11 @@
   "source_name": "{{ discovery.source_name }}",
   "spatial_coverage": "{{ discovery.spatial_coverage }}",
   "spatial_resolution": "{{ discovery.spatial_resolution }}",
-  {% if discovery.time_extent_start_year %}
-      "time_extent_start_year": {{ discovery.time_extent_start_year }},
+  {% if discovery.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ discovery.time_extent_start_yyyy }},
   {% endif %}
-  {% if discovery.time_extent_end_year %}
-      "time_extent_end_year": {{ discovery.time_extent_end_year }},
+  {% if discovery.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ discovery.time_extent_end_yyyy }},
   {% endif %}
   {% if discovery.temporal_resolution %}
       "temporal_resolution": "{{ discovery.temporal_resolution }}",

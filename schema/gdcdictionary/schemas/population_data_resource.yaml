@@ -81,31 +81,18 @@ properties:
     description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
     type: boolean
   # additional properties to describe the dataset
-  time_extent_start:
-    description: Earliest time for the data.
-    type: string
-  time_extent_start_year:
+  time_extent_start_yyyy:
     description: Earliest time for the data.
     type: integer
-  time_extent_end:
-    description: Latest time for the data.
-    type: string
-  time_extent_end_year:
+  time_extent_end_yyyy:
     description: Latest time for the data.
     type: integer
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
   temporal_resolution:
-<<<<<<< HEAD
     description: Frequency of time points. This is the finest resolution
     type: string
-=======
-    description: Frequency of time points.
-    type: array
-    items:
-      type: string
->>>>>>> d0fc055 ( #40 update temporal_resolution)
   spatial_resolution:
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
     type: string

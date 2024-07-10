@@ -12,8 +12,8 @@ mappings:
       - name: measures_subcategory_major
       - name: measures_subcategory_minor
       - name: measures
-      - name: time_extent_start_year
-      - name: time_extent_end_year
+      - name: time_extent_start_yyyy
+      - name: time_extent_end_yyyy
       - name: temporal_resolution
       - name: spatial_resolution
       - name: spatial_coverage
@@ -46,8 +46,8 @@ mappings:
       - name: measures_subcategory_major
       - name: measures_subcategory_minor
       - name: measures
-      - name: time_extent_start_year
-      - name: time_extent_end_year
+      - name: time_extent_start_yyyy
+      - name: time_extent_end_yyyy
       - name: temporal_resolution
       - name: spatial_resolution
       - name: spatial_coverage
@@ -60,7 +60,6 @@ mappings:
       - name: model_methods
       - name: population_studied
     parent_props:
-<<<<<<< HEAD
       - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type, intended_use, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
   - name: chordstaging_key_dataset_resource
     doc_type: key_data_resource
@@ -88,6 +87,3 @@ mappings:
       - name: data_location
     parent_props:
       - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type, intended_use, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
-=======
-      - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type].projects[project_sponsor, project_sponsor_type]
->>>>>>> d0fc055 ( #40 update temporal_resolution)
