@@ -141,8 +141,8 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = geo_spatial_resource.spatial_coverage
                             discovery.geometry_type = ', '.join(geo_spatial_resource.geometry_type)
                             discovery.spatial_resolution = geo_spatial_resource.spatial_resolution
-                            discovery.time_extent_start_year = geo_spatial_resource.time_extent_start_year
-                            discovery.time_extent_end_year = geo_spatial_resource.time_extent_end_year
+                            discovery.time_extent_start_yyyy = geo_spatial_resource.time_extent_start_yyyy
+                            discovery.time_extent_end_yyyy = geo_spatial_resource.time_extent_end_yyyy
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
                             discovery.temporal_resolution = ', '.join(geo_spatial_resource.temporal_resolution)
 
@@ -241,8 +241,8 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = pop_data_resource.spatial_coverage
                             discovery.geometry_type = ', '.join(pop_data_resource.geometry_type)
                             discovery.spatial_resolution = pop_data_resource.spatial_resolution
-                            discovery.time_extent_start_year = pop_data_resource.time_extent_start_year
-                            discovery.time_extent_end_year = pop_data_resource.time_extent_end_year
+                            discovery.time_extent_start_yyyy = pop_data_resource.time_extent_start_yyyy
+                            discovery.time_extent_end_yyyy = pop_data_resource.time_extent_end_yyyy
                             discovery.time_available_comment = pop_data_resource.time_available_comment
                             discovery.temporal_resolution = ', '.join(pop_data_resource.temporal_resolution)
 
@@ -405,8 +405,8 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = key_dataset.spatial_coverage
                             discovery.geometry_type = ', '.join(key_dataset.geometry_type)
                             discovery.spatial_resolution = key_dataset.spatial_resolution
-                            discovery.time_extent_start_year = key_dataset.time_extent_start
-                            discovery.time_extent_end_year = key_dataset.time_extent_end
+                            discovery.time_extent_start_yyyy = key_dataset.time_extent_yyyy
+                            discovery.time_extent_end_yyyy = key_dataset.time_extent_end_yyyy
                             discovery.time_available_comment = key_dataset.time_available_comment
 
                             if key_dataset.temporal_resolution:

@@ -445,42 +445,22 @@ class PcorTemplateParser:
             return main_prop
 
     @staticmethod
-    def formate_date_time(date_str):
+    def format_date_time(date_str):
         """
-        returns a formatted date time string
+        returns a numeric yyyy
         """
         if not date_str:
             return ""
-        if not isinstance(date_str, str):
-            date_str = str(date_str)
+
+        if date_str == 'current' or date_str == 'Current':
+            return datetime.now().year
 
         for fmt in ("%Y", "%m/%Y", "%d/%m/%Y"):
             try:
                 parsed_date = datetime.strptime(str(date_str), fmt)
-                formatted_date = str(parsed_date.strftime("%Y-%m-%dT%H:%M:%S+00:00"))
+                formatted_date = str(parsed_date.strftime("%Y"))
                 return formatted_date
             except ValueError:
                 continue
         raise ValueError(f"Date string '{date_str}' is not in a recognized format")
 
-        """
-        # use dummy
-        date_string = '2023/01/01T12:00:00Z'
-        datetime_obj = datetime.strptime(date_string, "%Y/%m/%dT%H:%M:%SZ")
-        formatted_datetime = datetime_obj.strftime('%Y-%m-%dT%H:%M:%S+00:00')
-        '''
-        # Regular expression pattern to match "yyyy"
-        pattern = r"\b(\d{4})\b"
-
-        # Find the year in the string
-        match = re.search(pattern, string)
-
-        if match:
-            year = int(match.group(1))
-            # Replace the matched year with a formatted datetime string
-            datetime_str = datetime(year, 1, 1).strftime("%Y-%m-%d %H:%M:%S")
-            modified_string = string[:match.start()] + datetime_str + string[match.end():]
-            return modified_string
-        '''
-        return formatted_datetime
-        """

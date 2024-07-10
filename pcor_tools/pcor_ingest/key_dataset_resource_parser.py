@@ -153,10 +153,13 @@ class KeyDatasetResourceParser():
             key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 17])
 
             # temporal extent begin (21)
-            key_data_resource.time_extent_start = PcorTemplateParser.sanitize_column(df.iat[i, 21])
+            time_extent_begin = PcorTemplateParser.sanitize_column(df.iat[i, 21])
+            if time_extent_begin is not None:
+                key_data_resource.time_extent_begin_yyyy = str(self.format_date_time(time_extent_begin))
 
             # temporal extent end (22)
-            key_data_resource.time_extent_end = PcorTemplateParser.sanitize_column(df.iat[i, 22])
+            time_extent_end = PcorTemplateParser.sanitize_column(df.iat[i, 22])
+            key_data_resource.time_extent_end_yyyy = str(self.format_date_time(time_extent_end))
 
             # suggested uses (27)
             resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 27])

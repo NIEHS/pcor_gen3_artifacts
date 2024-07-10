@@ -6,8 +6,8 @@
     {% endfor %}
   ],
 
-  {% if key_dataset_resource.time_extent_end %}
-    "time_extent_end_yyyy": {{ key_dataset_resource.time_extent_end }},
+  {% if key_dataset_resource.time_extent_end_yyyy %}
+    "time_extent_end_yyyy": {{ key_dataset_resource.time_extent_end_yyyy }},
   {% endif %}
 
   "metrics_derived_from_data_set": "{{ key_dataset_resource.metrics_derived_from_data_set }}",
@@ -51,8 +51,8 @@
   "temporal_resolution": "{{ key_dataset_resource.temporal_resolution }}",
   "*type": "key_data_resource", 
 
-  {% if key_dataset_resource.time_extent_start %}
-    "time_extent_start_yyyy": {{ key_dataset_resource.time_extent_start }},
+  {% if key_dataset_resource.time_extent_start_yyyy %}
+    "time_extent_start_yyyy": {{ key_dataset_resource.time_extent_start_yyyy }},
   {% endif %}
 
   "spatial_coverage": "{{ key_dataset_resource.spatial_coverage }}",

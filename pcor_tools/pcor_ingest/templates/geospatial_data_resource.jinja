@@ -54,17 +54,11 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  {% if geo_spatial_data_resource.time_extent_start  %}
-    "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
+  {% if geo_spatial_data_resource.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ geo_spatial_data_resource.time_extent_start_yyyy }},
   {% endif %}
-  {% if geo_spatial_data_resource.time_extent_start_year %}
-      "time_extent_start_year": {{ geo_spatial_data_resource.time_extent_start_year }},
-  {% endif %}
-  {% if geo_spatial_data_resource.time_extent_end %}
-    "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
-  {% endif %}
-  {% if geo_spatial_data_resource.time_extent_end_year %}
-      "time_extent_end_year": {{ geo_spatial_data_resource.time_extent_end_year }},
+  {% if geo_spatial_data_resource.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ geo_spatial_data_resource.time_extent_end_yyyy }},
   {% endif %}
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
   "temporal_resolution": [
