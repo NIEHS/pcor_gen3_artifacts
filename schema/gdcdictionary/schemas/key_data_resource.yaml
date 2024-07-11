@@ -1,5 +1,5 @@
 $schema: "http://json-schema.org/draft-04/schema#"
-# GeoExposure_Data_Resource
+# key_data_resource
 id: "key_data_resource"
 title: KeyDataResource
 type: object
