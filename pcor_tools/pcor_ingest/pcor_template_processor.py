@@ -154,10 +154,11 @@ class PcorTemplateProcessor:
                                     discovery.adv_search_filters.append(search_filter)
 
                             if geo_spatial_resource.spatial_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Spatial Resolution"
-                                search_filter.value = geo_spatial_resource.spatial_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                                if geo_spatial_resource.spatial_resolution != "Other":
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Spatial Resolution"
+                                    search_filter.value = geo_spatial_resource.spatial_resolution
+                                    discovery.adv_search_filters.append(search_filter)
 
                             for item in geo_spatial_resource.geometry_type:
                                 search_filter = AdvSearchFilter()
@@ -301,10 +302,11 @@ class PcorTemplateProcessor:
                                     discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.spatial_resolution:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Spatial Resolution"
-                                search_filter.value = pop_data_resource.spatial_resolution
-                                discovery.adv_search_filters.append(search_filter)
+                                if pop_data_resource.spatial_resolution != "Other":
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Spatial Resolution"
+                                    search_filter.value = pop_data_resource.spatial_resolution
+                                    discovery.adv_search_filters.append(search_filter)
 
                             for item in pop_data_resource.geometry_type:
                                 search_filter = AdvSearchFilter()
