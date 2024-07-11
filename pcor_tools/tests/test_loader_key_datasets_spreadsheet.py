@@ -21,5 +21,6 @@ class TestLoaderKeyDatasetsSpreadsheet(unittest.TestCase):
         results = loader.process_load(test_ss_path)
         self.assertIsNotNone(results)
 
+
 if __name__ == '__main__':
     unittest.main()
