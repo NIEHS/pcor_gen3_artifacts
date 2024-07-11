@@ -462,5 +462,7 @@ class PcorTemplateParser:
                 return formatted_date
             except ValueError:
                 continue
-        raise ValueError(f"Date string '{date_str}' is not in a recognized format")
+
+        logger.warning(f"Date string {date_str} is not in a recognized format")
+        return None
 

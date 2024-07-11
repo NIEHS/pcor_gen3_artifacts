@@ -155,11 +155,12 @@ class KeyDatasetResourceParser():
             # temporal extent begin (21)
             time_extent_begin = PcorTemplateParser.sanitize_column(df.iat[i, 21])
             if time_extent_begin is not None:
-                key_data_resource.time_extent_begin_yyyy = str(self.format_date_time(time_extent_begin))
+                key_data_resource.time_extent_begin_yyyy = str(PcorTemplateParser.format_date_time(time_extent_begin))
 
             # temporal extent end (22)
             time_extent_end = PcorTemplateParser.sanitize_column(df.iat[i, 22])
-            key_data_resource.time_extent_end_yyyy = str(self.format_date_time(time_extent_end))
+            if time_extent_end is not None:
+                key_data_resource.time_extent_end_yyyy = str(PcorTemplateParser.format_date_time(time_extent_end))
 
             # suggested uses (27)
             resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 27])
