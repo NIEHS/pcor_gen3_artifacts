@@ -115,7 +115,7 @@ properties:
     type: array
     items:
       type: string
-   time_extent_start_yyyy:
+  time_extent_start_yyyy:
     description: Earliest time for the data.
     type: integer
   time_extent_end_yyyy:
