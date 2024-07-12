@@ -306,7 +306,6 @@ class PcorGeoToolModel:
         self.operating_system = []
         self.languages = []
         self.license_type = []
-        self.intended_use = ""
         self.is_open = False
         self.suggested_audience = []
 
