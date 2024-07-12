@@ -70,26 +70,11 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.update_frequency = PcorTemplateParser.camel_case_it(
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
-                        geo_resource.includes_citizen_collected = \
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(geo_resource.includes_citizen_collected).lower() == 'no' or str(
-                                geo_resource.includes_citizen_collected).lower() == 'none':
-                            geo_resource.includes_citizen_collected = False
-                        if str(geo_resource.includes_citizen_collected).lower() == 'yes':
-                            geo_resource.includes_citizen_collected = True
+                        geo_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
-                        geo_resource.has_api = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(geo_resource.has_api).lower() == 'no' or str(geo_resource.has_api).lower() == 'none':
-                            geo_resource.has_api = False
-                        if str(geo_resource.has_api).lower() == 'yes':
-                            geo_resource.has_api = True
+                        geo_resource.has_api = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
-                        geo_resource.has_visualization_tool = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(geo_resource.has_visualization_tool).lower() == 'no' or \
-                                str(geo_resource.has_visualization_tool).lower() == 'none':
-                            geo_resource.has_visualization_tool = False
-                        if str(geo_resource.has_visualization_tool).lower() == 'yes':
-                            geo_resource.has_visualization_tool = True
+                        geo_resource.has_visualization_tool = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
                         measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
@@ -104,16 +89,9 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         temp_measurement_method_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         geo_resource.measurement_method = PcorTemplateParser.combine_prop(geo_resource.measurement_method, temp_measurement_method_other)
                     elif template_df.iat[j, 0] == 'time_extent_start':
-                        time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if time_extent_start is not None:
-                            geo_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(time_extent_start)
+                         geo_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_extent_end':
-                        geo_resource.time_extent_end = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if geo_resource.time_extent_end is not None:
-                            if geo_resource.time_extent_end.lower() == "current":
-                                geo_resource.time_extent_end = 'Current'
-                            else:
-                                geo_resource.time_extent_end = str(self.formate_date_time(geo_resource.time_extent_end))
+                        geo_resource.time_extent_end = PcorTemplateParser.format_date_time(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':

@@ -268,7 +268,7 @@ class PcorTemplateParser:
                         elif field_name == 'access_type':
                             resource.access_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         elif field_name == 'payment_required':
-                            resource.payment_required = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            resource.payment_required = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                         elif field_name == 'date_added':
                             resource.created_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'date_updated':
@@ -282,11 +282,7 @@ class PcorTemplateParser:
                         elif field_name == 'publications':
                            resource.publications = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
                         elif field_name == 'is_static':
-                            resource.is_static = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                            if str(resource.is_static).lower() == 'no':
-                                resource.is_static = False
-                            elif str(resource.is_static).lower() == 'yes':
-                                resource.is_static = True
+                            resource.is_static = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                         elif field_name == 'Data_Resource' or field_name == 'Tool_Resource':
                             # validate needed props and guid assignment
                             if resource.submitter_id is None or resource.submitter_id == '':
@@ -389,6 +385,17 @@ class PcorTemplateParser:
         return result
 
     @staticmethod
+    def sanitize_boolean(val):
+        val = PcorTemplateParser.sanitize_column(val)
+        if val:
+            if val.lower() == 'no' or val.lower() == 'none' or val.lower() == 'false':
+                val = False
+            elif val.lower() == 'yes' or val.lower == 'true':
+                val = True
+
+        return val
+
+    @staticmethod
     def sanitize_column(value, escape_new_line=True):
         if isinstance(value, str):
             if value.lower() == 'none':
@@ -446,11 +453,13 @@ class PcorTemplateParser:
 
     @staticmethod
     def format_date_time(date_str):
+
+        date_str = PcorTemplateParser.sanitize_column(date_str)
         """
         returns a numeric yyyy
         """
         if not date_str:
-            return ""
+            return None
 
         if date_str == 'current' or date_str == 'Current':
             return datetime.now().year

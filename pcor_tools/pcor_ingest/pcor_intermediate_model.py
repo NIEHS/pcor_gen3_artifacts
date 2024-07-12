@@ -132,7 +132,6 @@ class PcorGeospatialDataResourceModel:
         # data resc props are common
         self.display_type = ""
         self.comments = ""
-        self.intended_use = ""
         self.source_name = ""
         self.update_frequency = ""
         self.includes_citizen_collected = False

@@ -75,25 +75,11 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'update_frequency':
                         pop_resource.update_frequency = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
-                        pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.includes_citizen_collected).lower() == 'no' or str(
-                                pop_resource.includes_citizen_collected).lower() == 'none':
-                            pop_resource.includes_citizen_collected = False
-                        if str(pop_resource.includes_citizen_collected).lower() == 'yes':
-                            pop_resource.includes_citizen_collected = True
+                        pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
-                        pop_resource.has_api = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.has_api).lower() == 'no' or str(pop_resource.has_api).lower() == 'none':
-                            pop_resource.has_api = False
-                        if str(pop_resource.has_api).lower() == 'yes':
-                            pop_resource.has_api = True
+                        pop_resource.has_api = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
-                        pop_resource.has_visualization_tool = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.has_visualization_tool).lower() == 'no' or str(
-                                pop_resource.has_visualization_tool).lower() == 'none':
-                            pop_resource.has_visualization_tool = False
-                        if str(pop_resource.has_visualization_tool).lower() == 'yes':
-                            pop_resource.has_visualization_tool = True
+                        pop_resource.has_visualization_tool = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
                         pop_resource.exposures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
