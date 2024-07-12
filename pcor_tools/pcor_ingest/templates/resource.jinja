@@ -55,7 +55,13 @@
 
   "intended_use": "{{ resource.intended_use }}",
   "strengths": "{{ resource.strengths }}",
-  "payment_required": "{{ resource.payment_required }}",
+
+   {% if resource.payment_required %}
+      "payment_required": true,
+  {% else %}
+       "payment_required": false,
+  {% endif %}
+
   "limitations": "{{ resource.limitations }}",
 
   "projects": {

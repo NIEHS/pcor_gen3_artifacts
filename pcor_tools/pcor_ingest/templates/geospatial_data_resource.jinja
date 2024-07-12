@@ -3,7 +3,6 @@
   "display_type": "GeoExposureData",
   "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "comments": "{{ geo_spatial_data_resource.comments }}",
-  "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
   "source_name": [
     {% for entry in geo_spatial_data_resource.source_name %}
         "{{ entry }}"
@@ -61,12 +60,7 @@
       "time_extent_end_yyyy": {{ geo_spatial_data_resource.time_extent_end_yyyy }},
   {% endif %}
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
-  "temporal_resolution": [
-  {% for entry in geo_spatial_data_resource.temporal_resolution %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
   "spatial_coverage": [
     {% for entry in geo_spatial_data_resource.spatial_coverage %}

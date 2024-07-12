@@ -81,11 +81,11 @@ class LoaderSpreadsheet:
             try:
                 result = ss_reader.process_template_instance(processing_file_path,
                                                              result)  # took result out and made a param
-
-                # FIXME: right here it picks the parser based on the ss type, but currently the parser is calling processor
-                # do the processing stuff here for a template
-                process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration)
-                process_template.process(result)
+                if not result.success:
+                    logger.warning("unsuccessful parsing, do not process")
+                else:
+                    process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration)
+                    process_template.process(result)
 
             except Exception as e:
                 logger.error('Error occurred: %s' % str(e))
@@ -118,7 +118,7 @@ class LoaderSpreadsheet:
                         new_file_name, processing_file_path, failed_path))
                 shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
                 result.template_current_location = failed_path
-            #self.pcor_reporter.report(result)
+            self.pcor_reporter.report(result)
         else:
             logger.info('Ignore non spreadsheet file: %s' % file)
 

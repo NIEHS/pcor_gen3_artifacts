@@ -407,7 +407,7 @@ class PcorTemplateProcessor:
                             discovery.spatial_coverage = key_dataset.spatial_coverage
                             discovery.geometry_type = ', '.join(key_dataset.geometry_type)
                             discovery.spatial_resolution = key_dataset.spatial_resolution
-                            discovery.time_extent_start_yyyy = key_dataset.time_extent_yyyy
+                            discovery.time_extent_start_yyyy = key_dataset.time_extent_start_yyyy
                             discovery.time_extent_end_yyyy = key_dataset.time_extent_end_yyyy
                             discovery.time_available_comment = key_dataset.time_available_comment
 
