@@ -86,7 +86,7 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'exposure_media':
                         pop_resource.exposure_media = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measures':
-                        measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
+                        measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         measures_rollup = self.pcor_measures_rollup.process_measures(measures)
                         pop_resource.measures = measures_rollup.measures
                         pop_resource.measures_parent = measures_rollup.measures_parents
