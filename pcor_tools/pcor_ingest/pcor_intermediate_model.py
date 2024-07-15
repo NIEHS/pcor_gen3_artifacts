@@ -213,7 +213,7 @@ class PcorDiscoveryMetadata:
         self.time_extent_start_yyyy = None
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
-        self.temporal_resolution = []
+        self.temporal_resolution = ""
         self.exposure_media = []
         self.measures_parent = []
         self.measures_subcategory_major = []
