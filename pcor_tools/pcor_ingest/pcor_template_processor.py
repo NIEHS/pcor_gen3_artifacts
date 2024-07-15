@@ -144,7 +144,7 @@ class PcorTemplateProcessor:
                             discovery.time_extent_start_yyyy = geo_spatial_resource.time_extent_start_yyyy
                             discovery.time_extent_end_yyyy = geo_spatial_resource.time_extent_end_yyyy
                             discovery.time_available_comment = geo_spatial_resource.time_available_comment
-                            discovery.temporal_resolution = ', '.join(geo_spatial_resource.temporal_resolution)
+                            discovery.temporal_resolution = geo_spatial_resource.temporal_resolution
 
                             if geo_spatial_resource.temporal_resolution:
                                 for item in geo_spatial_resource.temporal_resolution:
@@ -245,7 +245,7 @@ class PcorTemplateProcessor:
                             discovery.time_extent_start_yyyy = pop_data_resource.time_extent_start_yyyy
                             discovery.time_extent_end_yyyy = pop_data_resource.time_extent_end_yyyy
                             discovery.time_available_comment = pop_data_resource.time_available_comment
-                            discovery.temporal_resolution = ', '.join(pop_data_resource.temporal_resolution)
+                            discovery.temporal_resolution = pop_data_resource.temporal_resolution
 
                             discovery.comment = pop_data_resource.comments
 
