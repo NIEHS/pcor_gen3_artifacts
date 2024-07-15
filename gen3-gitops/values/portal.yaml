@@ -534,6 +534,7 @@ portal:
               "searchableTextFields": [
                 "project_short_name",
                 "project_name",
+                "project_sponsor",
                 "name",
                 "description",
                 "domain",
@@ -576,15 +577,6 @@ portal:
               },
               {
                 "key": "Population Studied"
-              },
-              {
-                "key": "Temporal Resolution"
-              },
-              {
-                  "key": "Spatial Resolution"
-              },
-              {
-                  "key": "Geometry Type"
               },
               {
                   "key": "Access Type"
