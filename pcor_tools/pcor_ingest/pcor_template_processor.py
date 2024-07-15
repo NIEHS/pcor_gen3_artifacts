@@ -147,11 +147,10 @@ class PcorTemplateProcessor:
                             discovery.temporal_resolution = geo_spatial_resource.temporal_resolution
 
                             if geo_spatial_resource.temporal_resolution:
-                                for item in geo_spatial_resource.temporal_resolution:
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Temporal Resolution"
-                                    search_filter.value = item
-                                    discovery.adv_search_filters.append(search_filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = geo_spatial_resource.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
                             if geo_spatial_resource.spatial_resolution:
                                 if geo_spatial_resource.spatial_resolution != "Other":
@@ -287,11 +286,10 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.temporal_resolution:
-                                for item in pop_data_resource.temporal_resolution:
-                                    search_filter = AdvSearchFilter()
-                                    search_filter.key = "Temporal Resolution"
-                                    search_filter.value = item
-                                    discovery.adv_search_filters.append(search_filter)
+                                search_filter = AdvSearchFilter()
+                                search_filter.key = "Temporal Resolution"
+                                search_filter.value = pop_data_resource.temporal_resolution
+                                discovery.adv_search_filters.append(search_filter)
 
                             if pop_data_resource.spatial_resolution:
                                 if pop_data_resource.spatial_resolution != "Other":
