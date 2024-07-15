@@ -77,7 +77,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.has_visualization_tool = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     # GeoExposure_Data_Resource section
                     elif template_df.iat[j, 0] == 'measures':
-                        measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
+                        measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1]) # got rid of call to make_complex_camel_case_array
                         measures_rollup = self.pcor_measures_rollup.process_measures(measures)
                         geo_resource.measures = measures_rollup.measures
                         geo_resource.measures_parent = measures_rollup.measures_parents
@@ -99,8 +99,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
-                        temp_spatial_resolution_other = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        geo_resource.spatial_resolution = PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
+                        geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        #geo_resource.spatial_resolution = PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         geo_resource.spatial_coverage = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':

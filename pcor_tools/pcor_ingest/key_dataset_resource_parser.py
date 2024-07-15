@@ -127,7 +127,7 @@ class KeyDatasetResourceParser():
 
             # measures (10)
 
-            measures = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 10])
+            measures = PcorTemplateParser.make_complex_array(df.iat[i, 10])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
             key_data_resource.measures = measures_rollup.measures
             key_data_resource.measures_parent = measures_rollup.measures_parents
