@@ -462,6 +462,15 @@ class PcorTemplateProcessor:
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
+                            if len(key_dataset.data_location) > 0:
+                                discovery.data_location_1 = key_dataset.data_location[0]
+
+                            if len(key_dataset.data_location) > 1:
+                                discovery.data_location_2 = key_dataset.data_location[1]
+
+                            if len(key_dataset.data_location) > 2:
+                                discovery.data_location_3 = key_dataset.data_location[2]
+
                             logger.info("created discovery: %s" % discovery)
 
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
