@@ -421,10 +421,10 @@ class PcorTemplateProcessor:
                                 search_filter.value = key_dataset.spatial_resolution
                                 discovery.adv_search_filters.append(search_filter)
 
-                            for item in key_dataset.geometry_type:
+                            if key_dataset.geometry_type:
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Geometry Type"
-                                search_filter.value = item
+                                search_filter.value = key_dataset.geometry_type
                                 discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
