@@ -13,8 +13,10 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start_yyyy
-          - name: time_extent_end_yyyy
+          - name: time_extent_start_year
+            src:  time_extent_start_yyyy
+          - name: time_extent_end_year
+            src:  time_extent_end_yyyy
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
@@ -46,8 +48,10 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start_yyyy
-          - name: time_extent_end_yyyy
+          - name: time_extent_start_year
+            src:  time_extent_start_yyyy
+          - name: time_extent_end_year
+            src:  time_extent_end_yyyy
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
@@ -73,8 +77,10 @@ etl:
           - name: measures_subcategory_major
           - name: measures_subcategory_minor
           - name: measures
-          - name: time_extent_start_yyyy
-          - name: time_extent_end_yyyy
+          - name: time_extent_start_year
+            src:  time_extent_start_yyyy
+          - name: time_extent_end_year
+            src:  time_extent_end_yyyy
           - name: time_available_comment
           - name: temporal_resolution
           - name: spatial_resolution
