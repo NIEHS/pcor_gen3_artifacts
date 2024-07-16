@@ -146,6 +146,10 @@ class KeyDatasetResourceParser():
 
             resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 13])
 
+            # geometry type (15)
+
+            key_data_resource.geometry_type = PcorTemplateParser.sanitize_column(df.iat[i, 15])
+
             # spatial extent (14)
             key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 14])
 
@@ -157,6 +161,9 @@ class KeyDatasetResourceParser():
 
             # temporal extent end (22)
             key_data_resource.time_extent_end_yyyy = str(PcorTemplateParser.format_date_time(df.iat[i, 22]))
+
+            # temporal resolution (24)
+            key_data_resource.temporal_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 24])
 
             # suggested uses (27)
             resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 27])
