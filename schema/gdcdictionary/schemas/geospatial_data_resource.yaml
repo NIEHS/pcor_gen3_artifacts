@@ -116,11 +116,11 @@ properties:
     items:
       type: string
   time_extent_start_yyyy:
-    description: Earliest time for the data.
-    type: integer
+    description: Four digit year or null, start of time extent of coverage
+    $ref: "_definitions.yaml#/year"
   time_extent_end_yyyy:
-    description: Latest time for the data.
-    type: integer
+    description: Four digit year or null, end of time extent of coverage
+    $ref: "_definitions.yaml#/year"
   time_available_comment:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
