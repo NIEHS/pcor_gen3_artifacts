@@ -50,7 +50,7 @@ class PcorMeasuresRollup:
 
         """
         logger.info("measures_rollup_as_dataframe")
-        df = pd.read_excel(self.pcor_ingest_configuration.measures_rollup, sheet_name='MeasuresFullView', engine='openpyxl')
+        df = pd.read_excel(self.pcor_ingest_configuration.measures_rollup, sheet_name='ForExport', engine='openpyxl')
         return df
 
     def build_measures_structure(self):
@@ -70,20 +70,20 @@ class PcorMeasuresRollup:
         ss_rows = df.shape[0]
 
         for i in range(ss_rows):
-            if isinstance(df.iat[i, 4], str):
-                measure = PcorMeasuresRollupStructure(PcorMeasuresRollup.filter_blank_measure(df.iat[i, 1]),
+            if isinstance(df.iat[i, 3], str):
+                measure = PcorMeasuresRollupStructure(PcorMeasuresRollup.filter_blank_measure(df.iat[i, 0]),
+                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 1]),
                                                       PcorMeasuresRollup.filter_blank_measure(df.iat[i, 2]),
-                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 3]),
-                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 4]))
+                                                      PcorMeasuresRollup.filter_blank_measure(df.iat[i, 3]))
                 #logger.info("measure:%s" % measure)
-                measures_dict[PcorMeasuresRollup.filter_blank_measure(df.iat[i, 4])] = measure
+                measures_dict[PcorMeasuresRollup.filter_blank_measure(df.iat[i, 3])] = measure
 
         return measures_dict
 
     @staticmethod
     def filter_blank_measure(measure):
         if isinstance(measure, str):
-            return measure.title()
+            return measure
         else:
             return "Other"
 
@@ -98,7 +98,7 @@ class PcorMeasuresRollup:
         -------
         """
 
-        rollup = self.measures.get(measure.title())
+        rollup = self.measures.get(measure)
 
         if rollup:
             return rollup
@@ -123,7 +123,7 @@ class PcorMeasuresRollup:
         for measure in measures:
 
             if measure not in measures_arrays.measures:
-                measures_arrays.measures.append(measure.title())
+                measures_arrays.measures.append(measure)
                 measure_rollup = self.lookup_measure(measure)
 
                 if measure_rollup.parent not in measures_arrays.measures_parents:

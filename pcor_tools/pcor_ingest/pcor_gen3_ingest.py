@@ -270,7 +270,9 @@ class PcorGen3Ingest:
             "United States Census Bureau (US Census)",
             "National Weather Service (NWS)"
         ]
+
         sponsor_no_match = False
+
         for sponsor in project.project_sponsor:
             if sponsor in filter_project_sponsor_list:
                 search_filter = AdvSearchFilter()
@@ -284,13 +286,7 @@ class PcorGen3Ingest:
             search_filter.key = "Project Sponsor"
             search_filter.value = "Other"
             discovery.adv_search_filters.append(search_filter)
-
-        for item in resource.access_type:
-            search_filter = AdvSearchFilter()
-            search_filter.key = "Access Type"
-            search_filter.value = item
-            discovery.adv_search_filters.append(search_filter)
-
+            
         return discovery
 
     def decorate_resc_with_discovery(self, discovery_data):
@@ -393,6 +389,19 @@ class PcorGen3Ingest:
         logger.info(status)
         return status
 
+    def create_key_dataset(self, program_name, project_code, key_dataset):
+        logger.info("create_key_dataset()")
+
+        pcor_intermediate_project_model = self.pcor_project_model_from_code(project_code)
+        key_dataset.project = pcor_intermediate_project_model
+
+        json_string = self.produce_key_data_resource(key_dataset)
+        logger.info("json_string: %s" % json_string)
+        key_dataset_json = json.loads(json_string)
+        status = self.submit_record(program=program_name, project=project_code, json_data=key_dataset_json)
+        logger.info(status)
+        return status
+
     ############################################
     # json from template methods
     ############################################
@@ -486,6 +495,20 @@ class PcorGen3Ingest:
             .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
+
+    def produce_key_data_resource(self, key_data_resource):
+        """
+        Render key_data_resource  as JSON via template
+        :param pop_data_resource: PcorPopDataResourceModel representing the population data
+        :return: string with resource JSON for loading into Gen3
+        """
+        logger.info("produce_key_data_resource()")
+        template = self.env.get_template("key_dataset_resource.jinja")
+        rendered = template.render(key_dataset_resource=key_data_resource).replace('"none"', 'null') \
+            .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
 
     #############################################
     # supporting methods

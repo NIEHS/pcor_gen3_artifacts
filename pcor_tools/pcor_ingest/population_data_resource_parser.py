@@ -75,32 +75,18 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'update_frequency':
                         pop_resource.update_frequency = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
-                        pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.includes_citizen_collected).lower() == 'no' or str(
-                                pop_resource.includes_citizen_collected).lower() == 'none':
-                            pop_resource.includes_citizen_collected = False
-                        if str(pop_resource.includes_citizen_collected).lower() == 'yes':
-                            pop_resource.includes_citizen_collected = True
+                        pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
-                        pop_resource.has_api = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.has_api).lower() == 'no' or str(pop_resource.has_api).lower() == 'none':
-                            pop_resource.has_api = False
-                        if str(pop_resource.has_api).lower() == 'yes':
-                            pop_resource.has_api = True
+                        pop_resource.has_api = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
-                        pop_resource.has_visualization_tool = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if str(pop_resource.has_visualization_tool).lower() == 'no' or str(
-                                pop_resource.has_visualization_tool).lower() == 'none':
-                            pop_resource.has_visualization_tool = False
-                        if str(pop_resource.has_visualization_tool).lower() == 'yes':
-                            pop_resource.has_visualization_tool = True
+                        pop_resource.has_visualization_tool = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     # Population_Data_Resource section
                     elif template_df.iat[j, 0] == 'exposures':
                         pop_resource.exposures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'exposure_media':
                         pop_resource.exposure_media = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'measures':
-                        measures = PcorTemplateParser.make_complex_camel_case_array(template_df.iat[j, 1])
+                        measures = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         measures_rollup = self.pcor_measures_rollup.process_measures(measures)
                         pop_resource.measures = measures_rollup.measures
                         pop_resource.measures_parent = measures_rollup.measures_parents
@@ -112,17 +98,17 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         temp_outcomes_other = PcorTemplateParser.make_complex_camel_case_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         pop_resource.outcomes = PcorTemplateParser.combine_prop(pop_resource.outcomes, temp_outcomes_other)
                     elif template_df.iat[j, 0] == 'time_extent_start':
-                        pop_resource.time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if pop_resource.time_extent_start is not None:
-                            pop_resource.time_extent_start, pop_resource.time_extent_start_year = PcorTemplateParser.format_date_time(pop_resource.time_extent_start)
+                        time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if time_extent_start is not None:
+                            pop_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(time_extent_start)
                     elif template_df.iat[j, 0] == 'time_extent_end':
-                        pop_resource.time_extent_end = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                        if pop_resource.time_extent_end is not None:
-                            pop_resource.time_extent_end, pop_resource.time_extent_end_year = PcorTemplateParser.format_date_time(pop_resource.time_extent_end)
+                        time_extent_end = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if time_extent_end is not None:
+                            pop_resource.time_extent_end_yyyy = PcorTemplateParser.format_date_time(time_extent_end)
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         pop_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
-                        pop_resource.temporal_resolution = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        pop_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         pop_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':

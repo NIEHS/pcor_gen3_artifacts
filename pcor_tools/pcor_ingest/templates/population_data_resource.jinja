@@ -3,7 +3,6 @@
   "display_type": "PopulationData",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
   "comments": "{{ pop_data_resource.comments }}",
-  "intended_use": "{{ pop_data_resource.intended_use }}",
   "source_name": [
     {% for entry in pop_data_resource.source_name %}
         "{{ entry }}"
@@ -29,25 +28,14 @@
   {% else %}
        "has_visualization_tool": false,
   {% endif %}
-   {% if pop_data_resource.time_extent_start  %}
-    "time_extent_start": "{{ pop_data_resource.time_extent_start }}",
+  {% if pop_data_resource.time_extent_start_yyyy  %}
+    "time_extent_start_yyyy": {{ pop_data_resource.time_extent_start_yyyy }},
   {% endif %}
-  {% if pop_data_resource.time_extent_end_year %}
-      "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
-  {% endif %}
-  {% if pop_data_resource.time_extent_end %}
-    "time_extent_end": "{{ pop_data_resource.time_extent_end }}",
-  {% endif %}
-  {% if pop_data_resource.time_extent_end_year %}
-      "time_extent_end_year": {{ pop_data_resource.time_extent_end_year }},
+  {% if pop_data_resource.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ pop_data_resource.time_extent_end_yyyy }},
   {% endif %}
   "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
-  "temporal_resolution": [
-    {% for entry in pop_data_resource.temporal_resolution %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
   "spatial_coverage": [
     {% for entry in pop_data_resource.spatial_coverage %}

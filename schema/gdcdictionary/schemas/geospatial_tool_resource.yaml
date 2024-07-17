@@ -70,9 +70,6 @@ properties:
     type: array
     items:
       type: string
-  intended_use:
-    description: Narrative that speaks to the how the data can be used in research projects, could include references to good data uses.
-    type: string
   is_open:
     description: is the tool open source
     type: boolean

@@ -51,6 +51,8 @@ class PcorIntermediateProjectModel:
         self.id = ""
         self.name = ""
         self.short_name = ""
+        self.long_name = ""
+        self.submitter_id = ""
         self.project_sponsor = []
         self.project_sponsor_type = []
         self.project_url = ""
@@ -91,6 +93,11 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
+        self.intended_use = ""
+        self.strengths = ""
+        self.limitations = ""
+        self.example_applications = ""
+        self.tools_supporting_uses = ""
 
 
 class SubmitResponse:
@@ -125,7 +132,6 @@ class PcorGeospatialDataResourceModel:
         # data resc props are common
         self.display_type = ""
         self.comments = ""
-        self.intended_use = ""
         self.source_name = ""
         self.update_frequency = ""
         self.includes_citizen_collected = False
@@ -140,10 +146,8 @@ class PcorGeospatialDataResourceModel:
         self.measures_subcategory_minor = []
         self.measures = []
         self.measurement_method = []
-        self.time_extent_start = ""
-        self.time_extent_start_year = None
-        self.time_extent_end = ""
-        self.time_extent_end_year = None
+        self.time_extent_start_yyyy = None
+        self.time_extent_end_yyyy = None
         self.time_available_comment = ""
         self.temporal_resolution = []
         self.spatial_resolution = ""
@@ -206,12 +210,10 @@ class PcorDiscoveryMetadata:
         self.spatial_coverage = []
         self.geometry_type = []
         self.spatial_resolution = ""
-        self.time_extent_start = ""
-        self.time_extent_start_year = None
-        self.time_extent_end = ""
-        self.time_extent_end_year = None
+        self.time_extent_start_yyyy = None
+        self.time_extent_end_yyyy = None
         self.time_available_comment = ""
-        self.temporal_resolution = []
+        self.temporal_resolution = ""
         self.exposure_media = []
         self.measures_parent = []
         self.measures_subcategory_major = []
@@ -262,10 +264,8 @@ class PcorPopDataResourceModel:
         self.includes_citizen_collected = False
         self.has_api = False
         self.has_visualization_tool = False
-        self.time_extent_start = ""
-        self.time_extent_start_year = None
-        self.time_extent_end = ""
-        self.time_extent_end_year = None
+        self.time_extent_start_yyyy = None
+        self.time_extent_end_yyyy = None
         self.time_available_comment = ""
         self.spatial_resolution = ""
         self.spatial_coverage = ""
@@ -301,12 +301,45 @@ class PcorGeoToolModel:
         self.resource_id = ""
         self.resource_submitter_id = ""
         self.created_datetime = ""
-        self.submitter_id = ""
         self.updated_datetime = ""
         self.tool_type = []
         self.operating_system = []
         self.languages = []
         self.license_type = []
-        self.intended_use = ""
         self.is_open = False
         self.suggested_audience = []
+
+
+class PcorKeyDatasetModel:
+    """
+    Represents a key dataset subtype
+    """
+
+    def __init__(self):
+        self.pcor_intermediate_resource_model = None
+        self.resource_id = ""
+        self.resource_submitter_id = ""
+        self.created_datetime = ""
+        self.submitter_id = ""
+        self.updated_datetime = ""
+        self.display_type = ""
+        self.comments = ""
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
+        self.measures = []
+        self.time_extent_start_yyyy = None
+        self.time_extent_end_yyyy = None
+        self.time_available_comment = ""
+        self.temporal_resolution = ""
+        self.spatial_resolution = ""
+        self.spatial_coverage = ""
+        self.geometry_type = []
+        self.model_methods = []
+        self.metrics_derived_from_data_set = ""
+        self.data_formats = []
+        self.data_location = []
+        self.source_name = []
+
+
+

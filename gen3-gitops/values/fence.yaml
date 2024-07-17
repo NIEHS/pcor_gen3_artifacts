@@ -50,13 +50,21 @@ fence:
           subresources:
           - name: projects
             subresources:
+            - name: ACAG
             - name: ACS
+            - name: ADIP
             - name: AirNow
             - name: AQ-Pathfinder
             - name: AQS
             - name: BenMAP-CE
             - name: BioEco-Pathfinder
+<<<<<<< HEAD
             - name: CDC-ATSDR-SVI
+=======
+            - name: CACES
+            - name: CDC-ATSDR-SVI
+            - name: CellularTowers
+>>>>>>> feature/lara-model
             - name: CSL
             - name: CRE
             - name: Dz-Pathfinder
@@ -138,12 +146,20 @@ fence:
         resource_paths:
         - /open
         - /programs/CHORDS/projects/ACS
+        - /programs/CHORDS/projects/ACAG
+        - /programs/CHORDS/projects/ADIP
         - /programs/CHORDS/projects/AirNow
         - /programs/CHORDS/projects/AQ-Pathfinder
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/BioEco-Pathfinder
+<<<<<<< HEAD
         - /programs/CHORDS/projects/CDC-ATSDR-SVI
+=======
+        - /programs/CHORDS/projects/CACES
+        - /programs/CHORDS/projects/CDC-ATSDR-SVI
+        - /programs/CHORDS/projects/CellularTowers
+>>>>>>> feature/lara-model
         - /programs/CHORDS/projects/CSL
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/Dz-Pathfinder
@@ -198,13 +214,21 @@ fence:
         - storage_reader
         - storage_writer
         resource_paths:
+        - /programs/CHORDS/projects/ACAG
         - /programs/CHORDS/projects/ACS
+        - /programs/CHORDS/projects/ADIP
         - /programs/CHORDS/projects/AirNow
         - /programs/CHORDS/projects/AQ-Pathfinder
         - /programs/CHORDS/projects/AQS
         - /programs/CHORDS/projects/BenMAP-CE
         - /programs/CHORDS/projects/BioEco-Pathfinder
+<<<<<<< HEAD
         - /programs/CHORDS/projects/CDC-ATSDR-SVI
+=======
+        - /programs/CHORDS/projects/CACES
+        - /programs/CHORDS/projects/CDC-ATSDR-SVI
+        - /programs/CHORDS/projects/CellularTowers
+>>>>>>> feature/lara-model
         - /programs/CHORDS/projects/CSL
         - /programs/CHORDS/projects/CRE
         - /programs/CHORDS/projects/Dz-Pathfinder

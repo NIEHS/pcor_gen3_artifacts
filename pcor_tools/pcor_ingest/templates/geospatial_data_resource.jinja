@@ -3,7 +3,6 @@
   "display_type": "GeoExposureData",
   "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "comments": "{{ geo_spatial_data_resource.comments }}",
-  "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
   "source_name": [
     {% for entry in geo_spatial_data_resource.source_name %}
         "{{ entry }}"
@@ -54,14 +53,11 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  {% if geo_spatial_data_resource.time_extent_start  %}
-    "time_extent_start": "{{ geo_spatial_data_resource.time_extent_start }}",
+  {% if geo_spatial_data_resource.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ geo_spatial_data_resource.time_extent_start_yyyy }},
   {% endif %}
-  {% if geo_spatial_data_resource.time_extent_start_year %}
-      "time_extent_start_year": {{ geo_spatial_data_resource.time_extent_start_year }},
-  {% endif %}
-  {% if geo_spatial_data_resource.time_extent_end %}
-    "time_extent_end": "{{ geo_spatial_data_resource.time_extent_end }}",
+  {% if geo_spatial_data_resource.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ geo_spatial_data_resource.time_extent_end_yyyy }},
   {% endif %}
   {% if geo_spatial_data_resource.time_extent_end_year %}
       "time_extent_end_year": {{ geo_spatial_data_resource.time_extent_end_year }},
