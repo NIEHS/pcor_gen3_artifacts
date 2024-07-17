@@ -787,6 +787,7 @@ class PcorGen3Ingest:
         """
         logger.info('fetch project details')
         ordered_node_list = ['geospatial_data_resource', 'geospatial_tool_resource', 'population_data_resource',
+                             'key_data_resource',
                              'resource']
         self.delete_nodes(program=program, project=project, ordered_node_list=ordered_node_list)
         self.delete_project(program=program, project_code=project)

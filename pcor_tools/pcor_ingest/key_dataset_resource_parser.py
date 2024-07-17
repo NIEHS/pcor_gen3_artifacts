@@ -148,7 +148,8 @@ class KeyDatasetResourceParser():
 
             # geometry type (15)
 
-            key_data_resource.geometry_type = PcorTemplateParser.sanitize_column(df.iat[i, 15])
+            key_data_resource.geometry_type = \
+                PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 15]))
 
             # spatial extent (14)
             key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 14])

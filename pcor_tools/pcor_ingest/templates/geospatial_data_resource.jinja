@@ -63,12 +63,7 @@
       "time_extent_end_year": {{ geo_spatial_data_resource.time_extent_end_year }},
   {% endif %}
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
-  "temporal_resolution": [
-  {% for entry in geo_spatial_data_resource.temporal_resolution %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
+  "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
   "spatial_coverage": [
     {% for entry in geo_spatial_data_resource.spatial_coverage %}

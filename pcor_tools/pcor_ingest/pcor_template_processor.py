@@ -422,7 +422,7 @@ class PcorTemplateProcessor:
                             discovery.comment = key_dataset.comments
 
                             discovery.spatial_coverage = key_dataset.spatial_coverage
-                            discovery.geometry_type = ', '.join(key_dataset.geometry_type)
+                            discovery.geometry_type = key_dataset.geometry_type
                             discovery.spatial_resolution = key_dataset.spatial_resolution
                             discovery.time_extent_start_yyyy = key_dataset.time_extent_start_yyyy
                             discovery.time_extent_end_yyyy = key_dataset.time_extent_end_yyyy
@@ -441,10 +441,11 @@ class PcorTemplateProcessor:
                                 discovery.adv_search_filters.append(search_filter)
 
                             if key_dataset.geometry_type:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Geometry Type"
-                                search_filter.value = key_dataset.geometry_type
-                                discovery.adv_search_filters.append(search_filter)
+                                for item in key_dataset.geometry_type:
+                                    search_filter = AdvSearchFilter()
+                                    search_filter.key = "Geometry Type"
+                                    search_filter.value = item
+                                    discovery.adv_search_filters.append(search_filter)
 
                             # measures parent category
                             for item in key_dataset.measures_parent:
