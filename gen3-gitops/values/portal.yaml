@@ -567,18 +567,6 @@ portal:
                 "key": "Measures(subcategory 2)"
               },
               {
-<<<<<<< HEAD
-                "key": "Population Studied"
-              },
-              {
-                "key": "Temporal Resolution"
-              },
-              {
-                  "key": "Spatial Resolution"
-              },
-              {
-                  "key": "Geometry Type"
-=======
                 "key": "Temporal Resolution"
               },
               {
@@ -589,7 +577,6 @@ portal:
               },
               {
                 "key": "Population Studied"
->>>>>>> feature/lara-model
               },
               {
                   "key": "Access Type"
@@ -787,21 +774,13 @@ portal:
                     {
                       "type": "text",
                       "label": "Time Extent Start Year",
-<<<<<<< HEAD
-                      "sourceField": "time_extent_start_year",
-=======
                       "sourceField": "time_extent_start_yyyy",
->>>>>>> feature/lara-model
                       "default": ""
                     },
                     {
                       "type": "text",
                       "label": "Time Extent End Year",
-<<<<<<< HEAD
-                      "sourceField": "time_extent_end_year",
-=======
                       "sourceField": "time_extent_end_yyyy",
->>>>>>> feature/lara-model
                       "default": ""
                     },
                     {
