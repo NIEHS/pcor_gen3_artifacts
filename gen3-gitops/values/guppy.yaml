@@ -13,5 +13,7 @@ guppy:
       type: population_data_resource
     - index: chordstaging_geospatial_tool_resource
       type: geospatial_tool_resource
+    - index: chordstaging_key_dataset_resource
+      type: key_data_resource
   configIndex: chordstaging_array-config
   authFilterField: auth_resource_path
