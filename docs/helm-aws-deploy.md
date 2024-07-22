@@ -10,7 +10,7 @@ Note: be sure to check if any values under staging have changed in Chicago, thes
 
 ## Run generate gitops script
 
-With updated jinja templates, we now run the generate gitops values located in pcor tools [here](https://github.com/NIEHS/pcor_gen3_artifacts/blob/main/pcor_tools/generate_helm_values.py)
+With updated jinja templates, we now run the generate gitops values located in pcor tools
 
 On line 22: https://github.com/NIEHS/pcor_gen3_artifacts/blob/develop/pcor_tools/generate_gen3_gitops_values.py#L22
 
