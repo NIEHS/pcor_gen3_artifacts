@@ -1,8 +1,10 @@
 guppy:
   enabled: true
+  dbRestore: false
   image:
-    tag: "feat_es7"
-  esEndpoint: ""
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
+    tag: 2024.05
+  esEndpoint: elasticsearch:9200
 
   indices:
     - index: chordstaging_geospatial_data_resource
