@@ -98,8 +98,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'spatial_resolution_other':
-                        geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    #elif template_df.iat[j, 0] == 'spatial_resolution_other': FIXME: we would need to update model to hold other
+                     #   geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                         #geo_resource.spatial_resolution = PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         geo_resource.spatial_coverage = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))

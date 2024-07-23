@@ -259,8 +259,8 @@ class PcorGen3Ingest:
             "United States Department of the Interior (USDOI)",
             "United States Geological Survey (USGS)",
             "National Aeronautics and Space Administration (NASA)",
-            "United States Environmental Protection Agency (EPA)",
             "Department of Homeland Security (USDHS)",
+            "Centers for Disease Control and Prevention (CDC)",
             "Department of Commerce (USDOC)",
             "Federal Emergency Management Agency (FEMA)",
             "National Oceanic and Atmospheric Administration (NOAA)",
@@ -268,6 +268,7 @@ class PcorGen3Ingest:
             "Department of Health and Human Services (DHHS)",
             "Agency for Healthcare Research and Quality (AHRQ)",
             "United States Census Bureau (US Census)",
+            "Environmental Protection Agency (EPA)",
             "National Weather Service (NWS)"
         ]
 
