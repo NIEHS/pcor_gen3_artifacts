@@ -382,7 +382,10 @@ portal:
         
         background-color: var();
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
     json: |
       {
       "graphql": {

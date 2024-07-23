@@ -59,6 +59,9 @@
   {% if geo_spatial_data_resource.time_extent_end_yyyy %}
       "time_extent_end_yyyy": {{ geo_spatial_data_resource.time_extent_end_yyyy }},
   {% endif %}
+  {% if geo_spatial_data_resource.time_extent_end_year %}
+      "time_extent_end_year": {{ geo_spatial_data_resource.time_extent_end_year }},
+  {% endif %}
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
   "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
   "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
