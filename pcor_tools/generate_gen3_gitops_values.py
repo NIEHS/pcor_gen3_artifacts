@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Set the flag to True for AWS Staging(gen3-gitops)
-AWS_STAGING_FLAG = True
+AWS_STAGING_FLAG = False
 
 # Get the directory path of the custom_configs
 custom_configs_path = '../custom_configs'
