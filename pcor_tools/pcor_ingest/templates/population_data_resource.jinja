@@ -3,6 +3,7 @@
   "display_type": "PopulationData",
   "submitter_id": "{{ pop_data_resource.submitter_id }}",
   "comments": "{{ pop_data_resource.comments }}",
+  "intended_use": "{{ pop_data_resource.intended_use }}",
   "source_name": [
     {% for entry in pop_data_resource.source_name %}
         "{{ entry }}"

@@ -70,6 +70,9 @@ properties:
     type: array
     items:
       type: string
+  intended_use:
+    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
+    type: string
   is_open:
     description: is the tool open source
     type: boolean

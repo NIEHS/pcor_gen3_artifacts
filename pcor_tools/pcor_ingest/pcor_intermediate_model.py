@@ -93,7 +93,6 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.is_static = ""
-        self.intended_use = ""
         self.strengths = ""
         self.limitations = ""
         self.example_applications = ""
@@ -132,6 +131,7 @@ class PcorGeospatialDataResourceModel:
         # data resc props are common
         self.display_type = ""
         self.comments = ""
+        self.intended_use = ""
         self.source_name = ""
         self.update_frequency = ""
         self.includes_citizen_collected = False
@@ -303,6 +303,7 @@ class PcorGeoToolModel:
         self.created_datetime = ""
         self.updated_datetime = ""
         self.tool_type = []
+        self.intended_use = ""
         self.operating_system = []
         self.languages = []
         self.license_type = []

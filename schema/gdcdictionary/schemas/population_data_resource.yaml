@@ -63,6 +63,9 @@ properties:
   comments:
     description: Notes on usage of the data, including warnings.
     type: string
+  intended_use:
+    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
+    type: string
   source_name:
     description: Name of source.
     type: array

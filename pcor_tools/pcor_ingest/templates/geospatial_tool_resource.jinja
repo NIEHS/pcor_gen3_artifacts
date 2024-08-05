@@ -8,6 +8,7 @@
       {{ "," if not loop.last }}
     {% endfor %}
    ],
+  "intended_use": "{{ geo_tool_resource.intended_use }}",
   {% if geo_tool_resource.is_open %}
       "is_open": true,
   {% else %}

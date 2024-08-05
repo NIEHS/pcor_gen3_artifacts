@@ -91,7 +91,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'time_extent_start':
                          geo_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_extent_end':
-                        geo_resource.time_extent_end = PcorTemplateParser.format_date_time(template_df.iat[j, 1])
+                        geo_resource.time_extent_end_yyyy = PcorTemplateParser.format_date_time(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':

@@ -122,9 +122,6 @@ properties:
     type: array
     items:
       type: string
-  intended_use:
-    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
-    type: string
   strengths:
     description: Key strengths of the dataset for the  uses. This is not intended to be a comprehensive list, but rather to help researchers identify the specific datasets that are best suited to their intended application.
     type: string
