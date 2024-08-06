@@ -88,6 +88,57 @@ authz:
         - name: WF-Pathfinder
         - name: WFSmokeExp
         - name: WONDER
+        - name: EPA-AQS-071924
+        - name: FAQSD-071924
+        - name: DeGAUSS-071824
+        - name: CDI-071824
+        - name: TIGER-Line-071824
+        - name: MOD13Q1-071824
+        - name: NLCD-ImAY-071724
+        - name: NLCD-LC-AY-071524
+        - name: CONUS-TC-071524
+        - name: NARR-071524
+        - name: HPMS-071524
+        - name: GMTED2010-071524
+        - name: MOD11A1-071524
+        - name: MOD06_L2-071524 
+        - name: MCD19A2-071524 
+        - name: MOD09GA-071224
+        - name: VNP46A2-07
+        - name: M2I3NVAER-071224
+        - name: M2T1NXAER-071224
+        - name: M2TMNXSLV-071224
+        - name: M2TMNXAER-071224
+        - name: M2TMNXADG-071224
+        - name: M2TMNXCHM-071224
+        - name: M2TMNXFLX-071224
+        - name: M2TMNXINT-071224
+        - name: M2TMNXLND-071224
+        - name: M2TMNXRAD-071224
+        - name: K-GCCM-071224
+        - name: GPW_v4-071224
+        - name: HMS-071224
+        - name: GEOS-CF-071224
+        - name: PRISM-071224
+        - name: L-C2-RSI-071224
+        - name: L-C2-ST-071224
+        - name: GFCC-071224
+        - name: OSM-071124
+        - name: Nightime_Lights_v4-071124
+        - name: LCZ_Map-071124
+        - name: UVE_NA-071124
+        - name: CanClim_NA-071124
+        - name: NLDAS_FORA0125_H-071124
+        - name: NEPHTN-T-071124
+        - name: NEPHTN-P-071124
+        - name: NEPHTN-F-071124
+        - name: GSUHI-071124
+        - name: Storm_Events-0711-24
+        - name: EA-EFM-07112024
+        - name: NFHL-070924
+        - name: NRI-070924
+        - name: AgRisk-070924
+
 
   policies:
   - id: 'mds_admin'
@@ -179,7 +230,58 @@ authz:
     - /programs/CHORDS/projects/WF-Pathfinder
     - /programs/CHORDS/projects/WFSmokeExp
     - /programs/CHORDS/projects/WONDER
-
+    - /programs/CHORDS/projects/EPA-AQS-071924
+    - /programs/CHORDS/projects/FAQSD-071924
+    - /programs/CHORDS/projects/DeGAUSS-071824
+    - /programs/CHORDS/projects/CDI-071824
+    - /programs/CHORDS/projects/TIGER-Line-071824
+    - /programs/CHORDS/projects/MOD13Q1-071824
+    - /programs/CHORDS/projects/MOD13Q1-071824
+    - /programs/CHORDS/projects/NLCD-ImAY-071724
+    - /programs/CHORDS/projects/NLCD-LC-AY-071524
+    - /programs/CHORDS/projects/CONUS-TC-071524
+    - /programs/CHORDS/projects/NARR-071524
+    - /programs/CHORDS/projects/HPMS-071524
+    - /programs/CHORDS/projects/GMTED2010-071524
+    - /programs/CHORDS/projects/MOD11A1-071524
+    - /programs/CHORDS/projects/MOD06_L2-071524
+    - /programs/CHORDS/projects/MCD19A2-071524
+    - /programs/CHORDS/projects/MOD09GA-071224
+    - /programs/CHORDS/projects/VNP46A2-07
+    - /programs/CHORDS/projects/M2I3NVAER-071224
+    - /programs/CHORDS/projects/M2T1NXAER-071224
+    - /programs/CHORDS/projects/M2TMNXSLV-071224
+    - /programs/CHORDS/projects/M2TMNXAER-071224
+    - /programs/CHORDS/projects/M2TMNXADG-071224
+    - /programs/CHORDS/projects/M2TMNXCHM-071224
+    - /programs/CHORDS/projects/M2TMNXFLX-071224
+    - /programs/CHORDS/projects/M2TMNXINT-071224
+    - /programs/CHORDS/projects/M2TMNXLND-071224
+    - /programs/CHORDS/projects/M2TMNXRAD-071224
+    - /programs/CHORDS/projects/K-GCCM-071224
+    - /programs/CHORDS/projects/GPW_v4-071224
+    - /programs/CHORDS/projects/HMS-071224
+    - /programs/CHORDS/projects/GEOS-CF-071224
+    - /programs/CHORDS/projects/PRISM-071224
+    - /programs/CHORDS/projects/L-C2-RSI-071224
+    - /programs/CHORDS/projects/L-C2-ST-071224
+    - /programs/CHORDS/projects/GFCC-071224
+    - /programs/CHORDS/projects/OSM-071124
+    - /programs/CHORDS/projects/Nightime_Lights_v4-071124
+    - /programs/CHORDS/projects/LCZ_Map-071124
+    - /programs/CHORDS/projects/UVE_NA-071124
+    - /programs/CHORDS/projects/CanClim_NA-071124
+    - /programs/CHORDS/projects/NLDAS_FORA0125_H-071124
+    - /programs/CHORDS/projects/NEPHTN-T-071124
+    - /programs/CHORDS/projects/NEPHTN-P-071124
+    - /programs/CHORDS/projects/NEPHTN-F-071124
+    - /programs/CHORDS/projects/GSUHI-071124
+    - /programs/CHORDS/projects/Storm_Events-0711-24
+    - /programs/CHORDS/projects/EA-EFM-07112024
+    - /programs/CHORDS/projects/NFHL-070924
+    - /programs/CHORDS/projects/NRI-070924
+    - /programs/CHORDS/projects/AgRisk-070924
+    
   - id: all_programs_reader
     role_ids:
     - 'guppy_reader'
@@ -244,7 +346,57 @@ authz:
     - /programs/CHORDS/projects/WF-Pathfinder
     - /programs/CHORDS/projects/WFSmokeExp
     - /programs/CHORDS/projects/WONDER
-
+    - /programs/CHORDS/projects/EPA-AQS-071924
+    - /programs/CHORDS/projects/FAQSD-071924
+    - /programs/CHORDS/projects/DeGAUSS-071824
+    - /programs/CHORDS/projects/CDI-071824
+    - /programs/CHORDS/projects/TIGER-Line-071824
+    - /programs/CHORDS/projects/MOD13Q1-071824
+    - /programs/CHORDS/projects/MOD13Q1-071824
+    - /programs/CHORDS/projects/NLCD-ImAY-071724
+    - /programs/CHORDS/projects/NLCD-LC-AY-071524
+    - /programs/CHORDS/projects/CONUS-TC-071524
+    - /programs/CHORDS/projects/NARR-071524
+    - /programs/CHORDS/projects/HPMS-071524
+    - /programs/CHORDS/projects/GMTED2010-071524
+    - /programs/CHORDS/projects/MOD11A1-071524
+    - /programs/CHORDS/projects/MOD06_L2-071524
+    - /programs/CHORDS/projects/MCD19A2-071524
+    - /programs/CHORDS/projects/MOD09GA-071224
+    - /programs/CHORDS/projects/VNP46A2-07
+    - /programs/CHORDS/projects/M2I3NVAER-071224
+    - /programs/CHORDS/projects/M2T1NXAER-071224
+    - /programs/CHORDS/projects/M2TMNXSLV-071224
+    - /programs/CHORDS/projects/M2TMNXAER-071224
+    - /programs/CHORDS/projects/M2TMNXADG-071224
+    - /programs/CHORDS/projects/M2TMNXCHM-071224
+    - /programs/CHORDS/projects/M2TMNXFLX-071224
+    - /programs/CHORDS/projects/M2TMNXINT-071224
+    - /programs/CHORDS/projects/M2TMNXLND-071224
+    - /programs/CHORDS/projects/M2TMNXRAD-071224
+    - /programs/CHORDS/projects/K-GCCM-071224
+    - /programs/CHORDS/projects/GPW_v4-071224
+    - /programs/CHORDS/projects/HMS-071224
+    - /programs/CHORDS/projects/GEOS-CF-071224
+    - /programs/CHORDS/projects/PRISM-071224
+    - /programs/CHORDS/projects/L-C2-RSI-071224
+    - /programs/CHORDS/projects/L-C2-ST-071224
+    - /programs/CHORDS/projects/GFCC-071224
+    - /programs/CHORDS/projects/OSM-071124
+    - /programs/CHORDS/projects/Nightime_Lights_v4-071124
+    - /programs/CHORDS/projects/LCZ_Map-071124
+    - /programs/CHORDS/projects/UVE_NA-071124
+    - /programs/CHORDS/projects/CanClim_NA-071124
+    - /programs/CHORDS/projects/NLDAS_FORA0125_H-071124
+    - /programs/CHORDS/projects/NEPHTN-T-071124
+    - /programs/CHORDS/projects/NEPHTN-P-071124
+    - /programs/CHORDS/projects/NEPHTN-F-071124
+    - /programs/CHORDS/projects/GSUHI-071124
+    - /programs/CHORDS/projects/Storm_Events-0711-24
+    - /programs/CHORDS/projects/EA-EFM-07112024
+    - /programs/CHORDS/projects/NFHL-070924
+    - /programs/CHORDS/projects/NRI-070924
+    - /programs/CHORDS/projects/AgRisk-070924
 
   roles:
   - id: 'mds_user'
