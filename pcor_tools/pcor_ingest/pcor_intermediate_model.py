@@ -92,6 +92,7 @@ class PcorIntermediateResourceModel:
         self.resource_reference = ""
         self.resource_use_agreement = ""
         self.publications = []
+        self.publication_links = []
         self.is_static = ""
         self.strengths = ""
         self.limitations = ""
@@ -193,6 +194,10 @@ class PcorDiscoveryMetadata:
         self.publications_1 = ""
         self.publications_2 = ""
         self.publications_3 = ""
+        self.publication_links = []
+        self.publication_link_1 = ""
+        self.publication_link_2 = ""
+        self.publication_link_3 = ""
         self.access_type = ""
         self.resource_reference_1 = ""
         self.resource_reference_2 = ""

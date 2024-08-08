@@ -111,78 +111,86 @@ class KeyDatasetResourceParser():
             key_data_resource = PcorKeyDatasetModel()
             key_data_resource.display_type = "KeyDataset"
 
-            # dataset name (6)
-            resource.name = PcorTemplateParser.sanitize_column(df.iat[i, 6])
+            # dataset name (9)
+            resource.name = PcorTemplateParser.sanitize_column(df.iat[i, 9])
             resource.short_name = resource.name
             resource.long_name = resource.name
 
-            # domain (7)
+            # domain (10)
 
-            resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 7])
+            resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 10])
 
-            # resource summary (8)
+            # resource summary (11)
 
-            resource.description = PcorTemplateParser.sanitize_column(df.iat[i, 8])
+            resource.description = PcorTemplateParser.sanitize_column(df.iat[i, 11])
             key_data_resource.comments = resource.description
 
-            # measures (10)
+            # keywords (12)
 
-            measures = PcorTemplateParser.make_complex_array(df.iat[i, 10])
+            resource.keywords = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 12])
+
+            # measures (15)
+
+            measures = PcorTemplateParser.make_complex_array(df.iat[i, 15])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
             key_data_resource.measures = measures_rollup.measures
             key_data_resource.measures_parent = measures_rollup.measures_parents
             key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
             key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
-            # format (11)
+            # format (16)
 
             key_data_resource.data_formats = PcorTemplateParser.make_array(
-                PcorTemplateParser.sanitize_column(df.iat[i, 11]))
+                PcorTemplateParser.sanitize_column(df.iat[i, 16]))
 
-            # data access url (12)
-            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 12])
+            # data access url (17)
+            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 17])
 
-            # publications (13) [try delimit by ;]
+            # publications (18) [try delimit by ;]
 
-            resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 13])
+            resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 18])
 
-            # geometry type (15)
+            # publication links (19)
+
+            resource.publication_links = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 19])
+
+            # spatial extent (20)
+            key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 20])
+
+            # geometry type (21)
 
             key_data_resource.geometry_type = \
-                PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 15]))
+                PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 21]))
 
-            # spatial extent (14)
-            key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 14])
+            # spatial resolution (23)
+            key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 23])
 
-            # spatial resolution (17)
-            key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 17])
+            # temporal extent begin (27)
+            key_data_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(df.iat[i, 27])
 
-            # temporal extent begin (21)
-            key_data_resource.time_extent_begin_yyyy = PcorTemplateParser.format_date_time(df.iat[i, 21])
+            # temporal extent end (28)
+            key_data_resource.time_extent_end_yyyy = PcorTemplateParser.format_date_time(df.iat[i, 28])
 
-            # temporal extent end (22)
-            key_data_resource.time_extent_end_yyyy = str(PcorTemplateParser.format_date_time(df.iat[i, 22]))
+            # temporal resolution (30)
+            key_data_resource.temporal_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 30])
 
-            # temporal resolution (24)
-            key_data_resource.temporal_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 24])
+            # suggested uses (33)
+            resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 33])
 
-            # suggested uses (27)
-            resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 27])
+            # example individual level metrics (34)
+            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
-            # example individual level metrics (28)
-            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 28])
+            # strengths (35)
+            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 35])
 
-            # strengths (29)
-            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 29])
+            # limitations (36)
+            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 36])
 
-            # limitations (30)
-            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 30])
+            # example apps (37)
+            resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])
 
-            # example apps (31)
-            resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 31])
-
-            # tools supporting use (32)
-            resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 32])
+            # tools supporting use (38)
+            resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
 
             if resource.submitter_id is None or resource.submitter_id == '':
                 resource.submitter_id = str(uuid.uuid4())
