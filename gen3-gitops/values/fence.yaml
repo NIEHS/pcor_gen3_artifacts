@@ -94,6 +94,19 @@ fence:
             - name: WF-Pathfinder
             - name: WFSmokeExp
             - name: WONDER
+            - name: PM2.5-ACAG-07102024-NA
+            - name: PM2.5-ACAG-07102024-GL
+            - name: CACES-050224
+            - name: ADIP-07102024
+            - name: CellularTowers-07102024
+            - name: SEDAC-07102024
+            - name: TRI-071724
+            - name: CDC-ATSDR-SVI-071924
+            - name: NASA-AQS-PM2.5-071924
+            - name: NASA-AQS-NO2-071924
+            - name: NASA-AQS-O3-071924
+            - name: NASA-AQS-AP-071924
+            - name: OpenAQ-071924
             - name: EPA-AQS-071924
             - name: FAQSD-071924
             - name: DeGAUSS-071824
@@ -236,6 +249,19 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder
         - /programs/CHORDS/projects/WFSmokeExp
         - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/PM2.5-ACAG-07102024-NA
+        - /programs/CHORDS/projects/PM2.5-ACAG-07102024-GL
+        - /programs/CHORDS/projects/CACES-050224
+        - /programs/CHORDS/projects/ADIP-07102024
+        - /programs/CHORDS/projects/CellularTowers-07102024
+        - /programs/CHORDS/projects/SEDAC-07102024
+        - /programs/CHORDS/projects/TRI-071724
+        - /programs/CHORDS/projects/CDC-ATSDR-SVI-071924
+        - /programs/CHORDS/projects/NASA-AQS-PM2.5-071924
+        - /programs/CHORDS/projects/NASA-AQS-NO2-071924
+        - /programs/CHORDS/projects/NASA-AQS-O3-071924
+        - /programs/CHORDS/projects/NASA-AQS-AP-071924
+        - /programs/CHORDS/projects/OpenAQ-071924
         - /programs/CHORDS/projects/EPA-AQS-071924
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/DeGAUSS-071824
@@ -352,6 +378,19 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder
         - /programs/CHORDS/projects/WFSmokeExp
         - /programs/CHORDS/projects/WONDER
+        - /programs/CHORDS/projects/PM2.5-ACAG-07102024-NA
+        - /programs/CHORDS/projects/PM2.5-ACAG-07102024-GL
+        - /programs/CHORDS/projects/CACES-050224
+        - /programs/CHORDS/projects/ADIP-07102024
+        - /programs/CHORDS/projects/CellularTowers-07102024
+        - /programs/CHORDS/projects/SEDAC-07102024
+        - /programs/CHORDS/projects/TRI-071724
+        - /programs/CHORDS/projects/CDC-ATSDR-SVI-071924
+        - /programs/CHORDS/projects/NASA-AQS-PM2.5-071924
+        - /programs/CHORDS/projects/NASA-AQS-NO2-071924
+        - /programs/CHORDS/projects/NASA-AQS-O3-071924
+        - /programs/CHORDS/projects/NASA-AQS-AP-071924
+        - /programs/CHORDS/projects/OpenAQ-071924
         - /programs/CHORDS/projects/EPA-AQS-071924
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/DeGAUSS-071824
