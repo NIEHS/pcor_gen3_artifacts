@@ -428,7 +428,7 @@ portal:
       },
       "components": {
         "appName": "CHORDS",
-        "homepageHref": "https://chords.niehs.nih.gov/",
+        "homepageHref": "https://chordshealth.org/",
         "index": {
           "introduction": {
             "heading": "CHORDS - Climate and Health Outcomes Research Data Systems Catalog",
@@ -679,21 +679,39 @@ portal:
                       "default": ""
                     },
                     {
-                      "type": "link",
+                      "type": "text",
                       "label": "Publication 1",
                       "sourceField": "publications_1",
-                      "default": ""
+                      "default": "n/a"
                     },
                     {
                       "type": "link",
+                      "label": "Publication Link 1",
+                      "sourceField": "publication_link_1",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Publication 2",
                       "sourceField": "publications_2",
                       "default": ""
                     },
                     {
                       "type": "link",
+                      "label": "Publication Link 2",
+                      "sourceField": "publication_link_2",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Publication 3",
                       "sourceField": "publications_3",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Publication Link 3",
+                      "sourceField": "publication_link_3",
                       "default": ""
                     }
                   ]

@@ -199,6 +199,7 @@ class PcorGen3Ingest:
 
         discovery.domain = ', '.join(resource.domain)
         discovery.publications = resource.publications
+        discovery.publication_links = resource.publication_links
 
         if len(resource.publications) > 0:
             discovery.publications_1 = resource.publications[0]
@@ -208,6 +209,15 @@ class PcorGen3Ingest:
 
         if len(resource.publications) > 2:
             discovery.publications_3 = resource.publications[2]
+
+        if len(resource.publication_links) > 0:
+            discovery.publication_link_1 = resource.publication_links[0]
+
+        if len(resource.publication_links) > 1:
+            discovery.publication_link_2 = resource.publication_links[1]
+
+        if len(resource.publication_links) > 2:
+            discovery.publication_link_3 = resource.publication_links[2]
 
         if len(resource.resource_reference) > 0:
             discovery.resource_reference_1 = resource.resource_reference[0]
