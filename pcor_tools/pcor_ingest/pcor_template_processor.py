@@ -211,6 +211,8 @@ class PcorTemplateProcessor:
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
+
+
                                 # remove lowest level measures
                                 #if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                 #    pass
@@ -418,10 +420,11 @@ class PcorTemplateProcessor:
 
                             resource.resource_type = model_data['key_dataset'].display_type
 
-                            discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, None)
+                            discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource,
+                                                                                        key_dataset)
                             discovery.comment = key_dataset.comments
 
-                            discovery.spatial_coverage = ', '.join(key_dataset.spatial_coverage)
+                            discovery.spatial_coverage = key_dataset.spatial_coverage
                             discovery.geometry_type = ', '.join(key_dataset.geometry_type)
                             discovery.spatial_resolution = key_dataset.spatial_resolution
                             discovery.time_extent_start_yyyy = key_dataset.time_extent_start_yyyy
@@ -482,6 +485,8 @@ class PcorTemplateProcessor:
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
 
+                            # FixMe: removing code duplication
+                            """
                             if len(key_dataset.data_location) > 0:
                                 discovery.data_location_1 = key_dataset.data_location[0]
 
@@ -490,6 +495,7 @@ class PcorTemplateProcessor:
 
                             if len(key_dataset.data_location) > 2:
                                 discovery.data_location_3 = key_dataset.data_location[2]
+                            """
 
                             logger.info("created discovery: %s" % discovery)
 
