@@ -49,7 +49,7 @@
     {% for entry in resource.publication_links %}
         "{{ entry }}"
       {{ "," if not loop.last }}
-    {% endfor %}
+     {% endfor %}
    ],
 
   {% if resource.is_static %}

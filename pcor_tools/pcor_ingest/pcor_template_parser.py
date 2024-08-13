@@ -281,6 +281,8 @@ class PcorTemplateParser:
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'publications':
                            resource.publications = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
+                        elif field_name == 'publication_links':
+                            resource.publication_links = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
                         elif field_name == 'is_static':
                             resource.is_static = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                         elif field_name == 'Data_Resource' or field_name == 'Tool_Resource':
