@@ -197,6 +197,11 @@ class PcorGen3Ingest:
             search_filter.value = discovery.type
             discovery.adv_search_filters.append(search_filter)
 
+            tag = Tag()
+            tag.name = discovery.type
+            tag.category = "Resource Type"
+            discovery.tags.append(tag)
+
         discovery.domain = ', '.join(resource.domain)
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
