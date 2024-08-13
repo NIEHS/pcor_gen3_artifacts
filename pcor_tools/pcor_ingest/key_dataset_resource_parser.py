@@ -129,30 +129,30 @@ class KeyDatasetResourceParser():
 
             resource.keywords = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 12])
 
-            # measures (15)
+            # measures (14)
 
-            measures = PcorTemplateParser.make_complex_array(df.iat[i, 15])
+            measures = PcorTemplateParser.make_complex_array(df.iat[i, 14])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
             key_data_resource.measures = measures_rollup.measures
             key_data_resource.measures_parent = measures_rollup.measures_parents
             key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
             key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
-            # format (16)
+            # format (15)
 
             key_data_resource.data_formats = PcorTemplateParser.make_array(
-                PcorTemplateParser.sanitize_column(df.iat[i, 16]))
+                PcorTemplateParser.sanitize_column(df.iat[i, 15]))
 
-            # data access url (17)
-            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 17])
+            # data access url (16)
+            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 16])
 
-            # publications (18) [try delimit by ;]
+            # publications (17) [try delimit by ;]
 
-            resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 18])
+            resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 17])
 
-            # publication links (19)
+            # publication links (18)
 
-            resource.publication_links = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 19])
+            resource.publication_links = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 18])
 
             # spatial extent (20)
             key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 20])
