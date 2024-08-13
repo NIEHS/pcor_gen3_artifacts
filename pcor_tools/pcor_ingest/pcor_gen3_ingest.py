@@ -258,6 +258,13 @@ class PcorGen3Ingest:
 
             discovery.source_name = data_resource.source_name
 
+        for item in resource.access_type:
+            if item:
+                search_filter = AdvSearchFilter()
+                search_filter.key = "Access Type"
+                search_filter.value = item
+                discovery.adv_search_filters.append(search_filter)
+
         # migrate keywords that are available in resource
         for item in resource.keywords:
             if item:
