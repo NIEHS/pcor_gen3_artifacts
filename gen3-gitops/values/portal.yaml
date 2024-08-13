@@ -562,6 +562,9 @@ portal:
                 "key": "Project Sponsor"
               },
               {
+                "key": "Resource Type"
+              },
+              {
                 "key": "Measures(category)"
               },
               {
