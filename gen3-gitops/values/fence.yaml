@@ -157,6 +157,7 @@ fence:
             - name: NFHL-070924
             - name: NRI-070924
             - name: AgRisk-070924
+            - name: NLCD-TC-071524
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -310,6 +311,7 @@ fence:
         - /programs/CHORDS/projects/NFHL-070924
         - /programs/CHORDS/projects/NRI-070924
         - /programs/CHORDS/projects/AgRisk-070924
+        - /programs/CHORDS/projects/NLCD-TC-071524
       - id: all_programs_reader
         role_ids:
         - 'guppy_reader'
@@ -437,6 +439,7 @@ fence:
         - /programs/CHORDS/projects/NFHL-070924
         - /programs/CHORDS/projects/NRI-070924
         - /programs/CHORDS/projects/AgRisk-070924
+        - /programs/CHORDS/projects/NLCD-TC-071524
       roles:
       - id: 'mds_user'
         permissions:
