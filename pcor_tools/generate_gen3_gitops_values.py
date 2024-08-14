@@ -10,6 +10,7 @@
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
+from datetime import datetime
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -20,10 +21,15 @@ logger = logging.getLogger(__name__)
 
 # Set the flag to True for AWS Staging(gen3-gitops)
 AWS_STAGING_FLAG = False
+if AWS_STAGING_FLAG:
+    # Get the current month and day
+    values_current_month_day = datetime.now().strftime("aws_values_%m_%d")
+    gen3_gitops_values_path = os.path.join('../gen3-gitops', values_current_month_day)
+else:
+    gen3_gitops_values_path = '../gen3-gitops/values'
 
 # Get the directory path of the custom_configs
 custom_configs_path = '../custom_configs'
-gen3_gitops_values_path = '../gen3-gitops/values'
 gen3_gitops_templates_path = '../gen3-gitops/templates'
 
 # Load the Jinja2 environment with the script directory as the template folder
@@ -37,6 +43,11 @@ portal_template = env.get_template('portal_template.j2')
 values_template = env.get_template('values_template.j2')
 
 try:
+    # Create a new directory for gen3-gitops values if it does not exist
+    if not os.path.exists(gen3_gitops_values_path):
+        logger.info('Creating a new directory for gen3-gitops values at: %s' % gen3_gitops_values_path)
+        os.makedirs(gen3_gitops_values_path)
+
     # Generate etl.yaml using the content of etlMapping.yaml file
     logger.info('\n\n=====================================================\n\n')
     logger.info('Generate etl.yaml using the content of etlMapping.yaml file')

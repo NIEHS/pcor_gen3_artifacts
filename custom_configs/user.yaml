@@ -114,8 +114,8 @@ authz:
         - name: HPMS-071524
         - name: GMTED2010-071524
         - name: MOD11A1-071524
-        - name: MOD06_L2-071524 
-        - name: MCD19A2-071524 
+        - name: MOD06_L2-071524
+        - name: MCD19A2-071524
         - name: MOD09GA-071224
         - name: VNP46A2-07
         - name: M2I3NVAER-071224

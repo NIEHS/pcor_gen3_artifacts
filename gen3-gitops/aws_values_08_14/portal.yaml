@@ -1,5 +1,12 @@
 portal:
   enabled: true
+  replicaCount: 2
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
+    tag: 2024.05
+    #repository: quay.io/cdis/data-portal-prebuilt
+    #tag: caninedc.org-feat-pr_comment
+
   # Extra images to pull in to serve in portal container
   extraImages:
     - url: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/images/lit.jpeg

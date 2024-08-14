@@ -286,7 +286,7 @@
 
   .nav-bar__link--right {
     border-left: none !important;
-  } 
+  }
 
   .nav-button__icon svg {
     height: 30px !important;
@@ -295,7 +295,7 @@
   .login-page__side-box[style] {
     background-image: none !important;
   }
-  
+
   .nav-bar__link--right:last-child {
     border-right: none !important;
   }
@@ -351,7 +351,7 @@
 
   .discovery-modal__fieldtext {
     text-align: left 9m !important;
-  } 
+  }
 
   .discovery-table__expanded-row {
     border-color: #dfe3e2;
@@ -362,6 +362,6 @@
   }
 
   .discovery-table__row-horizontal-content {
-    
+
     background-color: var();
   }
