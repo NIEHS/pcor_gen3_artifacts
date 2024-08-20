@@ -274,7 +274,7 @@
           "tabName": "Summary",
           "groups": [
             {
-              "header": "Description",
+              "header": "Usage Notes",
               "fields": [
                 {
                   "type": "block",
@@ -285,11 +285,6 @@
             {
               "header": "Reference",
               "fields": [
-                {
-                  "type": "block",
-                  "sourceField": "comment",
-                  "default": ""
-                },
                 {
                   "type": "link",
                   "label": "Reference 1",

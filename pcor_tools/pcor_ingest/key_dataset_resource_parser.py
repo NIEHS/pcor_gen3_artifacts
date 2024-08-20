@@ -177,20 +177,20 @@ class KeyDatasetResourceParser():
             # suggested uses (32)
             resource.intended_use = PcorTemplateParser.sanitize_column(df.iat[i, 32])
 
-            # example individual level metrics (33)
-            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 33])
+            # example individual level metrics (34)
+            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
-            # strengths (34)
-            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 34])
+            # strengths (35)
+            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 35])
 
-            # limitations (35)
-            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 35])
+            # limitations (36)
+            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 36])
 
-            # example apps (36)
-            resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 36])
+            # example apps (37)
+            resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])
 
-            # tools supporting use (37)
-            resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 37])
+            # tools supporting use (38)
+            resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
 
             if resource.submitter_id is None or resource.submitter_id == '':
                 resource.submitter_id = str(uuid.uuid4())
