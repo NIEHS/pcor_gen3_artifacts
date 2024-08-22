@@ -278,7 +278,7 @@
               "fields": [
                 {
                   "type": "block",
-                  "sourceField": "description"
+                  "sourceField": "comment"
                 }
               ]
             },

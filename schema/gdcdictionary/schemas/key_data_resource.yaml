@@ -60,7 +60,7 @@ properties:
   display_type:
     description: Display type of resource
     type: string
-  comments:
+  comments: # FIXME: we're temporarily putting suggested use here, this should be at the resc level - MC
     description: Notes on usage of the data, including warnings.
     type: string
   source_name:
