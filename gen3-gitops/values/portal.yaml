@@ -656,6 +656,15 @@ portal:
               "tabName": "Summary",
               "groups": [
                 {
+                  "header": "Description",
+                  "fields": [
+                    {
+                      "type": "block",
+                      "sourceField": "description"
+                    }
+                  ]
+                },
+                {
                   "header": "Usage Notes",
                   "fields": [
                     {
