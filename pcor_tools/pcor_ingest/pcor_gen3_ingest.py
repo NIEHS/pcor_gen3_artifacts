@@ -207,10 +207,11 @@ class PcorGen3Ingest:
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
 
-        search_filter = AdvSearchFilter()
-        search_filter.key = "Sponsor Type"
-        search_filter.value = discovery.project_sponsor_type
-        discovery.adv_search_filters.append(search_filter)
+        for sponsor_type in discovery.project_sponsor_type:
+            search_filter = AdvSearchFilter()
+            search_filter.key = "Sponsor Type"
+            search_filter.value = sponsor_type
+            discovery.adv_search_filters.append(search_filter)
 
         if len(resource.publications) > 0:
             discovery.publications_1 = resource.publications[0]

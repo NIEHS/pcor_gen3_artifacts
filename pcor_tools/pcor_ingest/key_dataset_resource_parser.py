@@ -94,7 +94,9 @@ class KeyDatasetResourceParser():
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
-            project.project_sponsor_type = PcorTemplateParser.sanitize_column(df.iat[i, 6])
+            project.project_sponsor_type = PcorTemplateParser.make_array(
+                PcorTemplateParser.sanitize_column(df.iat[i, 6]))
+
             #result.project_guid = project.submitter_id
             result.project_code = project.code
             if project.submitter_id == "" or project.submitter_id is None:
@@ -112,24 +114,24 @@ class KeyDatasetResourceParser():
             key_data_resource = PcorKeyDatasetModel()
             key_data_resource.display_type = "KeyDataset"
 
-            # dataset name (6)
-            resource.name = PcorTemplateParser.sanitize_column(df.iat[i, 6])
+            # dataset name K (10)
+            resource.name = PcorTemplateParser.sanitize_column(df.iat[i, 10])
             resource.short_name = resource.name
             resource.long_name = resource.name
 
-            # domain (7)
+            # domain L (11)
 
-            resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 7])
+            resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 11])
 
-            # resource summary (7)
+            # resource summary H (7)
 
             resource.description = PcorTemplateParser.sanitize_column(df.iat[i, 7])
 
-            # keywords (13)
+            # keywords N (13)
 
             resource.keywords = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 13])
 
-            # measures (10)
+            # measures P (15)
 
             measures = PcorTemplateParser.make_complex_array(df.iat[i, 15])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
@@ -138,10 +140,10 @@ class KeyDatasetResourceParser():
             key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
             key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
-            # format (14)
+            # format Q (16)
 
             key_data_resource.data_formats = PcorTemplateParser.make_array(
-                PcorTemplateParser.sanitize_column(df.iat[i, 14]))
+                PcorTemplateParser.sanitize_column(df.iat[i, 16]))
 
             # data access url (17)
             key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 17])
