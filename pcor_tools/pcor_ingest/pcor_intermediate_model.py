@@ -93,6 +93,8 @@ class PcorIntermediateResourceModel:
         self.resource_use_agreement = ""
         self.publications = []
         self.publication_links = []
+        self.project_sponsor = []
+        self.project_sponsor_type = ""
         self.is_static = ""
         self.strengths = ""
         self.limitations = ""

@@ -176,6 +176,7 @@ class PcorGen3Ingest:
         discovery.project_short_name = project.short_name
         discovery.project_url = project.project_url
         discovery.project_description = project.description
+        discovery.project_sponsor_type = project.project_sponsor_type
 
         '''
         if discovery.project_name == resource.name:
@@ -205,6 +206,11 @@ class PcorGen3Ingest:
         discovery.domain = ', '.join(resource.domain)
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
+
+        search_filter = AdvSearchFilter()
+        search_filter.key = "Sponsor Type"
+        search_filter.value = discovery.project_sponsor_type
+        discovery.adv_search_filters.append(search_filter)
 
         if len(resource.publications) > 0:
             discovery.publications_1 = resource.publications[0]
