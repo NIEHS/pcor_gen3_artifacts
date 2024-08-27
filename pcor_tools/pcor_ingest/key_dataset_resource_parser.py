@@ -180,7 +180,7 @@ class KeyDatasetResourceParser():
             key_data_resource.comments = PcorTemplateParser.sanitize_column(df.iat[i, 33])
 
             # example individual level metrics AI (34)
-            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 28])
+            key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
             # strengths AJ (35)
             resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 35])
