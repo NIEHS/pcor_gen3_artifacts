@@ -49,7 +49,7 @@
   },
   "components": {
     "appName": "CHORDS",
-    "homepageHref": "https://chordshealth.org/",
+    "homepageHref": "https://staging.chordshealth.org/",
     "index": {
       "introduction": {
         "heading": "CHORDS - Climate and Health Outcomes Research Data Systems Catalog",
@@ -127,7 +127,7 @@
         "alt": "Center for Translational Data Science at the University of Chicago"
       },
       {
-        "src": "custom/ospcortf_logo.jpg",
+        "src": "custom/images/ospcortf_logo.jpg",
         "href": "https://aspe.hhs.gov/enhancing-patient-centered-outcomes-research-pcor-creating-national-small-area-social-determinants",
         "alt": "Patient-Centered Outcomes Research Trust Fund"
       }

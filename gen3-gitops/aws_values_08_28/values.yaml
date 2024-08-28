@@ -1,5 +1,4 @@
 global:
-{%- if aws_staging %}
   dev: false
   # uncomment once we cutover, so we can use shared ALB
   #environment: "unfunded"
@@ -105,11 +104,7 @@ ambassador:
 wts:
   enabled: false
 
-{% else %}
-  hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
-{% endif %}
 sower:
   enabled: false
 
@@ -130,4 +125,3 @@ etl:
     tube:
       # -- (string) Overrides the image tag whose default is the chart appVersion.
       tag: "1.0.4"
-

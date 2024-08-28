@@ -4,7 +4,7 @@ fence:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: 2024.05
+    tag: 10.2.0
 
   usersync:
      #-- (bool) Whether to run Fence usersync or not.
@@ -32,5 +32,5 @@ fence:
     # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-config"
     fenceConfig: "chordstaging-fence-config"
     # -- (string) Will override the name of the aws secrets manager secret. Default is "Values.global.environment-.Chart.Name-creds"
-    dbcreds: "chords_chords-fence-db-creds"
+    dbcreds: "chords_staging-fence-db-creds"
 {% endif %}

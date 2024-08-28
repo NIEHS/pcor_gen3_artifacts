@@ -57,6 +57,7 @@ jobs:
       - name: Update dictionaryUrl
         run: |
           sed -i -e 's|NIEHS/pcor_gen3_artifacts/develop|NIEHS/pcor_gen3_artifacts/${{ steps.branch-name.outputs.current_branch }}|' gen3-gitops/values/values.yaml
+          sed -i -e 's|custom/images/ospcortf_logo.jpg|custom/ospcortf_logo.jpg|' gen3-gitops/values/portal.yaml
 
       - name: Commit and push changes
         run: |
