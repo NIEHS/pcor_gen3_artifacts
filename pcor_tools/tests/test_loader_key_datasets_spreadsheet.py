@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class TestLoaderKeyDatasetsSpreadsheet(unittest.TestCase):
 
     def test_load(self):
-        test_ss_path = 'test_resources/key-datasets-sample.xlsx'
+        test_ss_path = 'test_resources/CHORDS-key-datasets-list_1.3-catalog-crosswalk.xlsx'
         loader = LoaderKeyDatasetsSpreadsheet(pcor_testing_utilities.get_pcor_ingest_configuration())
         results = loader.process_load(test_ss_path)
         self.assertIsNotNone(results)

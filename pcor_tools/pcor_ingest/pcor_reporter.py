@@ -102,7 +102,7 @@ class PcorReporter():
             logger.info('send_email_report()')
             email_message = MIMEMultipart()
             email_message['From'] = self.pcor_ingest_configuration.mail_from
-            recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov', 'april.graves@nih.gov']
+            recipients = ['mike.conway@nih.gov', 'deep.patel@nih.gov']
             submission = pcor_processing_result.model_data["submission"]
             if submission.curator_email and self.pcor_ingest_configuration.mail_send_curator_email:
                 recipients.append(submission.curator_email)
