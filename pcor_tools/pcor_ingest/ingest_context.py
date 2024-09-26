@@ -21,6 +21,7 @@ class PcorIngestConfiguration:
         self.mail_from = self.pcor_props_dict['mail.from']
         self.measures_rollup = self.pcor_props_dict.get('measures.location')
         self.submitter_email = self.pcor_props_dict.get('submitter.email')
+        self.working_directory = self.pcor_props_dict.get('working.directory')
 
         if not self.pcor_props_dict['mail.send_curator_email'] or str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'no'  or str(self.pcor_props_dict['mail.send_curator_email']).lower() == 'false':
             self.mail_send_curator_email = False

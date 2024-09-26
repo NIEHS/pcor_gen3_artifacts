@@ -34,13 +34,17 @@ class CedarConfig(object):
 
     """ init will load the cedar properties from the provided config file,
     which can be overwritten by a CEDAR_PROPERTIES env variable"""
-    def __init__(self, config_file):
+    def __init__(self, config_file=None):
 
         env_config_file = os.getenv('CEDAR_PROPERTIES')
         if env_config_file:
             self.config_file = env_config_file
         else:
             self.config_file = config_file
+
+        if env_config_file is None:
+            raise Exception("no CEDAR_PROPERTIES or config_file found")
+
         logger.info("loading config file from %s", self.config_file)
         self.cedar_properties = dict_from_props(self.config_file)
 

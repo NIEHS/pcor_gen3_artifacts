@@ -1,4 +1,5 @@
 import logging
+import urllib.parse
 from logging import exception
 
 import requests
@@ -59,11 +60,21 @@ class CedarAccess(object):
 
         """
         logger.info("retrieving resource: %s" % resource_id)
-        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/template-instances/" + template_prefix + resource_id
+        api_url = (self.cedar_config.cedar_properties["cedar_endpoint"] + "/template-instances/" +
+                   urllib.parse.quote_plus(resource_id))
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
         r = requests.get(api_url, headers=headers)
         r_json = r.json()
+
+        try:
+            if r_json["statusCode"] is not 200:
+                raise Exception(r_json["errorMessage"])
+        except KeyError:
+            pass
+
+
+
         logger.debug("r:%s", r_json)
         return r_json
 

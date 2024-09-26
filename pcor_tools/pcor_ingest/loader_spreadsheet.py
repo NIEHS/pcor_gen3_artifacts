@@ -4,6 +4,8 @@ import time
 import shutil
 from datetime import datetime
 
+from pcor_ingest.loader import Loader
+
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
 
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
@@ -18,8 +20,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class LoaderSpreadsheet:
+class LoaderSpreadsheet(Loader):
+
     def __init__(self, pcor_ingest_configuration):
+        super().__init__(pcor_ingest_configuration)
         self.pcor_ingest_configuration = pcor_ingest_configuration
         self.workspace_folder_path = None
         self.workspace_new_folder_path = None
@@ -28,29 +32,9 @@ class LoaderSpreadsheet:
         self.workspace_failed_folder_path = None
         self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
 
-    def validate_sub_folders(self, work_dir=None):
-        # new files folder
-        self.workspace_folder_path = work_dir
-        self.workspace_new_folder_path = os.path.join(self.workspace_folder_path, 'new')
-
-        # when loader is processing the file
-        self.workspace_processing_folder_path = os.path.join(self.workspace_folder_path, 'processing')
-        if not os.path.exists(self.workspace_processing_folder_path):
-            os.mkdir(self.workspace_processing_folder_path)
-
-        # when loader is processing the file successfully
-        self.workspace_processed_folder_path = os.path.join(self.workspace_folder_path, 'processed')
-        if not os.path.exists(self.workspace_processed_folder_path):
-            os.mkdir(self.workspace_processed_folder_path)
-
-        # when loader is processing the file failed
-        self.workspace_failed_folder_path = os.path.join(self.workspace_folder_path, 'failed')
-        if not os.path.exists(self.workspace_failed_folder_path):
-            os.mkdir(self.workspace_failed_folder_path)
-
     def process_load(self, file_path=None):
         """
-        Load a spreadsheet template
+        source of a load is the contents of the Loading directory on Cedar
         """
         logger.info('process_load()')
         logger.info('file_path dir: %s ' % file_path)
