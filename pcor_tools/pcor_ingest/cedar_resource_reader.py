@@ -47,7 +47,9 @@ class CedarResourceParser:
             contents_json = json.loads(f.read())
 
         try:
-            result.model_data["submission"] = self.extract_submission_data(contents_json)
+            submission = CedarResourceParser.extract_submission_data(contents_json)
+            submission.submit_location = template_absolute_path
+            result.model_data["submission"] = submission
         except Exception as err:
             logger.error("exception parsing submission: %s" % str(err))
             result.success = False
@@ -71,7 +73,7 @@ class CedarResourceParser:
             return
 
         try:
-            project = self.extract_project_data(contents_json)
+            project = CedarResourceParser.extract_project_data(contents_json)
             result.model_data["project"] = project
             result.project_guid = project.submitter_id
             result.project_code = project.code
@@ -98,33 +100,81 @@ class CedarResourceParser:
             result.traceback = traceback.format_exc()
 
     @staticmethod
-    def extract_program_data(template_df):
+    def extract_program_data(contents_json):
         """
-        Given a pandas dataframe with the template date, extract out the program related data
-        :param template_df: pandas df of the spreadsheet
-        :return: PcorProgramModel with program data from ss
+        Given a resource, extract out the program related data
+        :param contents_json: json representation of resource
+        :return: PcorProgramModel with program data
         """
 
-        # loop thru the template until the marker 'PROGRAM' is found
-
-        ss_rows = template_df.shape[0]
-        logging.debug("iterate looking for the PROGRAM stanza")
         program = PcorIntermediateProgramModel()
-        for i in range(ss_rows):
-            if template_df.iat[i, 0] == 'Program':
-                logging.debug("found Program")
-                for j in range(i, ss_rows):
-                    # FixMe:  program id is missing in template!
-                    if template_df.iat[j, 0] == 'program id':
-                        program.dbgap_accession_number = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'program_name':
-                        program.name = template_df.iat[j, 1]
-                    elif template_df.iat[j, 0] == 'Project':
-                        # validate needed props
-                        # ToDo: what is assignment logic?
-                        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
-                            program.dbgap_accession_number = program.name
-                        return program
+        program.dbgap_accession_number = contents_json["PROGRAM"]["@id"] # FIXME: add to tpl
+        program.name = contents_json["PROGRAM"]["Program_name"]["@value"]
+        if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
+            program.dbgap_accession_number = program.name
+        return program
 
-        logger.warning("no program found, return null")
-        return None
+    @staticmethod
+    def extract_submission_data(contents_json):
+        """
+        extract the submission related information from the cedar resource
+        :param contents_json: json-ld from cedar
+        :return: PcorSubmissionInfoModel with submission data
+        """
+
+        submission = PcorSubmissionInfoModel()
+
+        submission.curator_name = contents_json["SUBMITTER"]["submitter_name"]["@value"]
+        submission.curator_email = contents_json["SUBMITTER"]["submitter_email"]["@value"]
+        submission.curation_comment = contents_json["SUBMITTER"]["Comment"]["@value"]
+        submission.template_source = contents_json["@id"]
+
+        return submission
+
+    @staticmethod
+    def extract_project_data(contents_json):
+        """
+        extract project related data
+        :param contents_json: json-ld from cedar
+        :return: PcorProjectModel with project data
+        """
+        project = PcorIntermediateProjectModel()
+        project.long_name = contents_json["PROJECT"]["project_name"]["@value"]
+        project.short_name = contents_json["PROJECT"]["project_short_name"]["@value"]
+        # if project_short_name is not empty, use it for project.code
+        if project.short_name:
+            project.name = project.short_name.replace(' ', '').strip()
+            project.code = project.name
+
+        sponsors_in_json = contents_json["PROJECT"]["project_sponsor"]
+        for sponsor in sponsors_in_json:
+            if sponsor["@value"]:
+               project.project_sponsor.append(sponsor["@value"])
+
+        sponsor_other =  contents_json["PROJECT"]["project_sponsor_other"]["@value"]
+        if sponsor_other:
+            project.project_sponsor.append(sponsor_other)
+
+        sponsor_types = contents_json["PROJECT"]["project_sponsor_type"]
+        for type in sponsor_types:
+            if  type["@value"]:
+                project.project_sponsor_type.append(type["@value"])
+        """
+        temp_project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+        project.project_sponsor_type = PcorTemplateParser.combine_prop(project.project_sponsor_type,
+                                                                       temp_project_sponsor_type_other)
+        project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+        project.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+
+        project.date_collected = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+        project.complete = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+        project.availability_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+
+        if project.submitter_id == "" or project.submitter_id is None:
+            project.submitter_id = str(uuid.uuid4())
+        if project.code == "" or project.code is None:
+            project.code = str(uuid.uuid4())
+        if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
+            project.dbgap_accession_number = project.submitter_id
+            """
+        return project
