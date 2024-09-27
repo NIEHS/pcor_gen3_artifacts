@@ -1,6 +1,8 @@
 import logging
 import os
 
+from pcor_ingest.pcor_template_process_result import PcorProcessResult
+
 from pcor_cedar.cedar_access import CedarAccess
 from pcor_ingest.loader import Loader
 
@@ -38,6 +40,54 @@ class LoaderCedar(Loader):
             logger.debug("instance json: %s" % instance_json)
 
 
+    def load_resource(self, resource):
+        logger.info("load resource: %s" % resource)
+        result = PcorProcessResult()
+        result.template_source = resource.folder_id
+        result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
 
+        cedar_reader = PcorSpreadsheetReader(pcor_ingest_configuration=self.pcor_ingest_configuration)
+
+        try:
+            result = ss_reader.process_template_instance(processing_file_path,
+                                                         result)  # took result out and made a param
+            if not result.success:
+                logger.warning("unsuccessful parsing, do not process")
+            else:
+                process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration)
+                process_template.process(result)
+
+        except Exception as e:
+            logger.error('Error occurred: %s' % str(e))
+            result.success = False
+            pcor_error = PcorError()
+            pcor_error.type = ""
+            pcor_error.key = ""
+            pcor_error.message = str(e)
+            result.errors.append(pcor_error)
+
+        if result.success:
+            # processed folder
+            # result.success --> true
+            # result --> move file to processed folder
+            success_path = os.path.join(self.workspace_processed_folder_path,
+                                        os.path.basename(processing_file_path))
+            result.template_current_location = success_path
+            logger.info(
+                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
+                    new_file_name, processing_file_path, success_path))
+            shutil.move(src=processing_file_path, dst=success_path)
+        else:
+            # failed folder
+            # result.success --> false
+            # result --> move file to failed folder
+            failed_path = os.path.join(self.workspace_failed_folder_path,
+                                       os.path.basename(processing_file_path))
+            logger.info(
+                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
+                    new_file_name, processing_file_path, failed_path))
+            shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
+            result.template_current_location = failed_path
+        self.pcor_reporter.report(result)
 
 
