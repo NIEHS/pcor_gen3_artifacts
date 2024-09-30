@@ -83,7 +83,7 @@ class PcorIntermediateResourceModel:
         self.resource_url = ""
         self.description = ""
         self.domain = []
-        self.keywords = "" # collapsed to commas
+        self.keywords = []
         self.access_type = []
         self.payment_required = ""
         self.created_datetime = ""

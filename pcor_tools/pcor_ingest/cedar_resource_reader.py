@@ -8,6 +8,8 @@ import warnings
 import pandas as pd
 from datetime import datetime
 
+from pcor_ingest.pcor_template_parser import PcorTemplateParser
+
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
@@ -88,7 +90,7 @@ class CedarResourceParser:
         result.project_name = result.model_data["project"].name
 
         try:
-            resource = self.extract_resource_data(contents_json)
+            resource = CedarResourceParser.extract_resource_data(contents_json)
             result.model_data["resource"] = resource
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
@@ -159,16 +161,14 @@ class CedarResourceParser:
         for type in sponsor_types:
             if  type["@value"]:
                 project.project_sponsor_type.append(type["@value"])
-        """
-        temp_project_sponsor_type_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
-        project.project_sponsor_type = PcorTemplateParser.combine_prop(project.project_sponsor_type,
-                                                                       temp_project_sponsor_type_other)
-        project.project_url = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-        project.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
 
-        project.date_collected = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-        project.complete = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-        project.availability_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+        sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]["@value"]
+        if sponsor_other:
+            project.project_sponsor_type.append(sponsor_other)
+
+
+        project.project_url = contents_json["PROJECT"]["project_url"]["@value"]
+        #project.description = contents_json["PROJECT"]["project_url"]["@value"] FIXME: missing?
 
         if project.submitter_id == "" or project.submitter_id is None:
             project.submitter_id = str(uuid.uuid4())
@@ -176,5 +176,57 @@ class CedarResourceParser:
             project.code = str(uuid.uuid4())
         if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
             project.dbgap_accession_number = project.submitter_id
-            """
+
         return project
+
+    @staticmethod
+    def extract_resource_data(contents_json):
+        """
+        Given a pandas dataframe with the template date, extract out the resource related data
+        :param template_df: pandas df of the spreadsheet
+        :return: PcorProjectModel with project data from ss
+        """
+
+        resource = PcorIntermediateResourceModel()
+
+       #resource.submitter_id = # not supplied
+        #resource.long_name = contents_json["RESOURCE"]["resource_name"]
+        #resource.short_name = contents_json["RESOURCE"]["resource_name"] # FIXME: unneeded?
+        # cleanup short name and use it as unique resource short name, no special characters or spaces
+        # do not use sanitize_column()
+        resource.name = contents_json["RESOURCE"]["resource_name"]["@value"]
+        resource.resource_type =  contents_json["RESOURCE"]["resource_type"]["@value"]
+        resource.resource_url =  contents_json["RESOURCE"]["resource_url"]["@value"]
+        resource.description = contents_json["RESOURCE"]["resource_description"]["@value"]
+
+        # FIXME: domain is not a multi-entry at this point
+        if contents_json["RESOURCE"]["domain"]["@value"]:
+            resource.domain.append(contents_json["RESOURCE"]["domain"]["@value"])
+
+        if contents_json["RESOURCE"]["domain_other"]["@value"]:
+            resource.domain.append(contents_json["RESOURCE"]["domain_other"]["@value"])
+
+        #FIXME: keywords is not multi-entry at this point
+        if contents_json["RESOURCE"]["keywords"]["@value"]:
+            resource.keywords.append(contents_json["RESOURCE"]["keywords"]["@value"])
+
+        resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
+        # FIXME: payment required an array?
+        #resource.payment_required = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["payment_required"]["@value"])
+        resource.created_datetime = contents_json["RESOURCE"]["date_added"]["@value"]
+        resource.updated_datetime = contents_json["RESOURCE"]["Date_updated"]["@value"]
+        resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"] # FIXME: irregular case
+        resource.resource_reference = contents_json["RESOURCE"]["resource_url"]["@value"]
+        resource.resource_use_agreement = contents_json["RESOURCE"]["resource_use_agreement"]["@value"]
+        #FIXME: publication not an array
+
+        #if contents_json["RESOURCE"]["Publication"]["publication_citation"]["@value"] | contents_json["RESOURCE"]["Publication"]["publication_link"]["@value"]:
+        #    resource.publications.append(contents_json["RESOURCE"]["Publication"]["publication_citation"]["@value"])
+           # resource.publication_links.append(contents_json["RESOURCE"]["Publication"]["publication_link"]["@value"])
+        # FIXME: should not be an array?
+        #resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
+
+        if resource.submitter_id is None or resource.submitter_id == '':
+            resource.submitter_id = str(uuid.uuid4())
+        return resource
+
