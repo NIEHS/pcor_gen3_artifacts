@@ -73,8 +73,6 @@ class CedarAccess(object):
         except KeyError:
             pass
 
-
-
         logger.debug("r:%s", r_json)
         return r_json
 

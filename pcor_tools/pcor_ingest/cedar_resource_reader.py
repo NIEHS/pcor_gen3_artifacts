@@ -101,6 +101,8 @@ class CedarResourceParser:
             result.message = str(err)
             result.traceback = traceback.format_exc()
 
+
+
     @staticmethod
     def extract_program_data(contents_json):
         """
