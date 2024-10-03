@@ -27,5 +27,9 @@ class TestCedarAccess(unittest.TestCase):
             actual = cedar_access.parse_folder_listing(contents_json)
             self.assertIsNotNone(actual)
 
-
+    def test_create_resource(self):
+        cedar_access = CedarAccess()
+        resource_json = cedar_access.produce_geoexposure_json({})
+        actual = cedar_access.create_resource(resource_json)
+        self.assertIsNotNone(actual)
 

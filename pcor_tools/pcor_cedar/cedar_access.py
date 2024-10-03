@@ -1,9 +1,12 @@
 import logging
+import os
 import urllib.parse
 from logging import exception
 
 import requests
 import json
+
+from jinja2 import Environment, FileSystemLoader
 
 from pcor_cedar.cedar_config import CedarConfig
 
@@ -23,7 +26,19 @@ class CedarAccess(object):
     def __init__(self, cedar_file_name=None):
         self.cedar_file_name = cedar_file_name
         self.cedar_config = CedarConfig(cedar_file_name)
+        # Get the directory of the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
 
+        # Set the relative path to your template directory
+        template_rel_path = 'templates'
+
+        # Construct the absolute path to the template directory
+        template_dir = os.path.join(script_dir, template_rel_path)
+
+        # Create a Jinja environment with the FileSystemLoader
+        self.env = Environment(loader=FileSystemLoader(template_dir))
+        logger.debug('template_dir: %s' % template_dir)
+        self.env.filters['jsonify'] = json.dumps
 
     def retrieve_chords_folder_contents(self):
         logger.info("retrieving chords folder contents")
@@ -35,7 +50,7 @@ class CedarAccess(object):
         logger.debug("r:%s", r_json)
         return r_json
 
-    def retrive_loading_contents(self):
+    def retrieve_loading_contents(self):
         logger.info("retrieving loading contents")
 
         loading_folder = self.cedar_config.cedar_properties["loading_folder_id"]
@@ -45,6 +60,16 @@ class CedarAccess(object):
         r = requests.get(api_url, headers=headers)
         r_json = r.json()
         return self.parse_folder_listing(r_json)
+
+    def create_resource(self, resource_json):
+        logger.info("creating resource")
+        cedar_folder = self.cedar_config.cedar_properties["cedar_folder"]
+        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/template-instances?folder_id=" + cedar_folder
+        headers = {"Content-Type": "application/json", "Accept": "application/json",
+                   "Authorization": self.cedar_config.build_request_headers_json()}
+        r = requests.post(api_url, headers=headers, json=json.loads(resource_json))
+        r_json = r.json()
+        return r_json
 
     def retrieve_resource(self, resource_id):
 
@@ -80,6 +105,17 @@ class CedarAccess(object):
         logger.info("parsing folder listing")
         folder = CedarFolder(folder_listing_json)
         return folder
+
+    def produce_geoexposure_json(self, geoexposure_data):
+        """
+       Render discovery data as JSON via template
+       :param discovery_data: PcorDiscoveryMetadata representing the resource data for discovery page
+       :return: string with JSON for loading into Gen3
+       """
+        logger.info("produce_discovery_json()")
+        template = self.env.get_template("cedar_geoexposure_resource.jinja")
+        rendered = template.render(data=geoexposure_data)
+        return rendered
 
 
 class CedarFolder():
