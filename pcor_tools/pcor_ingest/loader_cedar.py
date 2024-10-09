@@ -38,7 +38,7 @@ class LoaderCedar(Loader):
         logger.info('work_dir dir: %s ' % work_dir)
         self.validate_sub_folders(work_dir=work_dir)
         logger.info('Getting listing of cedar resources')
-        loader_collection = self.cedar_access.retrive_loading_contents()
+        loader_collection = self.cedar_access.retrieve_loading_contents()
         for resource in loader_collection.subfolders:
             logger.info("resource: %s" % resource)
             if resource.item_type != 'instance':
@@ -48,6 +48,16 @@ class LoaderCedar(Loader):
             instance_json = self.cedar_access.retrieve_resource(resource.folder_id)
             logger.debug("instance json: %s" % instance_json)
             self.load_resource(instance_json)
+
+    def process_individual_load(self, file_path=None, resource_url=None):
+        logger.info('process_individual_load')
+        logger.info('resource_url: %s' % resource_url)
+        work_dir = os.path.abspath(file_path)
+        logger.info('work_dir dir: %s ' % work_dir)
+        self.validate_sub_folders(work_dir=work_dir)
+        instance_json = self.cedar_access.retrieve_resource(resource_url)
+        logger.debug("instance json: %s" % instance_json)
+        result = self.load_resource(instance_json)
 
 
     def load_resource(self, resource):
@@ -112,6 +122,8 @@ class LoaderCedar(Loader):
             result.template_current_location = failed_path
         self.pcor_reporter.report(result)
         """
+
+        return result
 
     @staticmethod
     def extract_id_for_resource(resource_url):
