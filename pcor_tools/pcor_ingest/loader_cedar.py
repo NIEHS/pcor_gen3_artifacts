@@ -2,10 +2,13 @@ import json
 import logging
 import os
 import re
+import sys
+from optparse import OptionParser
 
 from fastavro import reader
 
 from pcor_ingest.cedar_resource_reader import CedarResourceParser
+from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
 from pcor_cedar.cedar_access import CedarAccess
@@ -141,4 +144,46 @@ class LoaderCedar(Loader):
         else:
             raise ValueError("No GUID in provided URL")
 
-   
+
+def setup_arguments():
+    parser = OptionParser()
+    parser.add_option('-r', "--resource_url", action='store', dest='resource_url', default=None)
+    parser.add_option('-f', "--working_file", action='store', dest='working_file', default=None)
+
+    return parser.parse_args()[0]
+
+def main():
+    logger.info('Main function execution started.')
+    global args
+    args = setup_arguments()
+
+    if "CEDAR_PROPERTIES" not in os.environ:
+        logger.error("CEDAR_PROPERTIES not found in env. System exiting...")
+        sys.exit()
+
+    if "PCOR_GEN3_CONFIG_LOCATION" not in os.environ:
+        logger.error("PCOR_GEN3_CONFIG_LOCATION not found in env. System exiting...")
+        sys.exit()
+
+    resource_url = args.resource_url
+    working_file = args.working_file
+
+    if not os.path.exists(working_file):
+        logger.error('ERROR: working_file does not exist. System will exit now...')
+        sys.exit()
+    else:
+        logger.info('working_file: %s' % working_file)
+
+    logger.info('resource to load :: %s' % resource_url)
+    pcor_ingest_configuration = PcorIngestConfiguration.load_pcor_ingest_configuration_from_env()
+    loader_cedar = LoaderCedar(pcor_ingest_configuration=pcor_ingest_configuration)
+
+    if resource_url is None:
+        return loader_cedar.process_load(working_file)
+    else:
+        return loader_cedar.load_resource(resource_url)
+
+
+
+if __name__ == "__main__":
+    main()
