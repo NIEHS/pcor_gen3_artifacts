@@ -85,7 +85,7 @@ class CedarAccess(object):
 
         """
         logger.info("retrieving resource: %s" % resource_id)
-        api_url = (self.cedar_config.cedar_properties["cedar_endpoint"] + "/template-instances/" +
+        api_url = ("https://repo.metadatacenter.org/template-instances/" +
                    urllib.parse.quote_plus(resource_id))
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
@@ -101,7 +101,8 @@ class CedarAccess(object):
         logger.debug("r:%s", r_json)
         return r_json
 
-    def parse_folder_listing(self, folder_listing_json):
+    @staticmethod
+    def parse_folder_listing(folder_listing_json):
         logger.info("parsing folder listing")
         folder = CedarFolder(folder_listing_json)
         return folder

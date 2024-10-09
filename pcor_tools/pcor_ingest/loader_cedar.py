@@ -45,7 +45,7 @@ class LoaderCedar(Loader):
                 logger.debug('skipping item, not an instance')
                 continue
             logger.info("have an instance")
-            instance_json = self.cedar_access.retrieve_resource(resource.folder_id)
+            instance_json = self.cedar_access.retrieve_resource(LoaderCedar.extract_id_for_resource(resource.folder_id))
             logger.debug("instance json: %s" % instance_json)
             self.load_resource(instance_json)
 
@@ -55,9 +55,10 @@ class LoaderCedar(Loader):
         work_dir = os.path.abspath(file_path)
         logger.info('work_dir dir: %s ' % work_dir)
         self.validate_sub_folders(work_dir=work_dir)
-        instance_json = self.cedar_access.retrieve_resource(resource_url)
+        instance_json = self.cedar_access.retrieve_resource(LoaderCedar.extract_id_for_resource(resource_url))
         logger.debug("instance json: %s" % instance_json)
         result = self.load_resource(instance_json)
+        return result
 
 
     def load_resource(self, resource):
@@ -128,14 +129,16 @@ class LoaderCedar(Loader):
     @staticmethod
     def extract_id_for_resource(resource_url):
         # Regex pattern to match a GUID
-        guid_pattern = r'([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
+        guid_pattern = r'([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'
 
-        # Search for the GUID in the URL
-        match = re.search(guid_pattern, resource_url)
+        # Find all GUIDs in the URL
+        match = re.findall(guid_pattern, resource_url)
 
         # Check if a match was found and output the result
         if match:
-            extracted_guid = match.group(0)
+            extracted_guid = match[0]  # Get the first GUID
             return extracted_guid
         else:
-            raise "no GUID in provided url"
+            raise ValueError("No GUID in provided URL")
+
+   
