@@ -9,6 +9,7 @@ import warnings
 import pandas as pd
 from datetime import datetime
 
+from pcor_ingest.cedar_resource_reader import CedarResourceParser
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
@@ -99,12 +100,7 @@ class KeyDatasetResourceParser():
 
             #result.project_guid = project.submitter_id
             result.project_code = project.code
-            if project.submitter_id == "" or project.submitter_id is None:
-                project.submitter_id = str(uuid.uuid4())
-            if project.code == "" or project.code is None:
-                project.code = str(uuid.uuid4())
-            if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
-                project.dbgap_accession_number = project.submitter_id
+            PcorTemplateParser.process_project_identifiers(project)
             result.model_data["project"] = project
 
             # Resource and Key Dataset

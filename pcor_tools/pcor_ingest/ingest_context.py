@@ -15,7 +15,7 @@ class PcorIngestConfiguration:
         :param pcor_config_file_name: file path to pcor properties file
         """
         self.pcor_config_file_name = pcor_config_file_name
-        self.pcor_props_dict = dict_from_props(self.pcor_config_file_name)
+        self.pcor_props_dict = PcorIngestConfiguration.dict_from_props(self.pcor_config_file_name)
         self.gen3_creds_location = self.pcor_props_dict['gen3.creds.location']
         self.gen3_endpoint = self.pcor_props_dict['gen3.endpoint']
         self.smtp_server = self.pcor_props_dict['smtp.server']

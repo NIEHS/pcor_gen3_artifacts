@@ -136,7 +136,7 @@ class PcorGeospatialDataResourceModel:
         self.comments = ""
         self.intended_use = ""
         self.source_name = ""
-        self.update_frequency = ""
+        self.update_frequency = []
         self.includes_citizen_collected = False
         self.has_api = False
         self.has_visualization_tool = False
@@ -153,8 +153,8 @@ class PcorGeospatialDataResourceModel:
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
         self.temporal_resolution = []
-        self.spatial_resolution = ""
-        self.spatial_coverage = ""
+        self.spatial_resolution = []
+        self.spatial_coverage = []
         self.spatial_coverage_specific_regions = ""
         self.spatial_bounding_box = ""
         self.geometry_type = []

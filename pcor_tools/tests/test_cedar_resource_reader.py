@@ -11,7 +11,7 @@ class TestLoaderCedar(unittest.TestCase):
 
     def test_parse(self):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
-        json_file = 'test_resources/sample_cedar_resc1.json'
+        json_file = 'test_resources/geoexposure.json'
         with open(json_file, 'r') as f:
             contents_json = json.loads(f.read())
 

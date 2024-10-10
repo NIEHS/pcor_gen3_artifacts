@@ -73,16 +73,9 @@ properties:
       type: string
   update_frequency:
     description: Frequency of update of the resource.
-    #nullable: true
-    type: string
-    #enum:
-    #  - Continuous
-    #  - Hourly
-    #  - Daily
-    #  - Monthly
-    #  - Quarterly
-    # - Annually
-    # - Undefined
+    type: array
+    items:
+      type: string
   includes_citizen_collected:
     description: Flag indicating that the data is from citizen science.
     type: boolean

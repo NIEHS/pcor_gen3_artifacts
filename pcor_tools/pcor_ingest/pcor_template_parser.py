@@ -209,12 +209,7 @@ class PcorTemplateParser:
                         project.availability_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'Resource':
                         # validate needed props and guid assignment
-                        if project.submitter_id == "" or project.submitter_id is None:
-                            project.submitter_id = str(uuid.uuid4())
-                        if project.code == "" or project.code is None:
-                            project.code = str(uuid.uuid4())
-                        if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
-                            project.dbgap_accession_number = project.submitter_id
+                        PcorTemplateParser.process_project_identifiers(project)
                         return project
 
         logger.warning("no program found, return null")
@@ -476,3 +471,12 @@ class PcorTemplateParser:
 
         logger.warning(f"Date string {date_str} is not in a recognized format")
         return None
+
+    @staticmethod
+    def process_project_identifiers(project):
+        if project.submitter_id == "" or project.submitter_id is None:
+            project.submitter_id = str(uuid.uuid4())
+        if project.code == "" or project.code is None:
+            project.code = str(uuid.uuid4())
+        if project.dbgap_accession_number == "" or project.dbgap_accession_number is None:
+            project.dbgap_accession_number = project.submitter_id
