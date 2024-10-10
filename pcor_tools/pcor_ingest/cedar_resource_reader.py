@@ -198,11 +198,11 @@ class CedarResourceParser:
         resource.resource_url =  contents_json["RESOURCE"]["resource_url"]["@value"]
         resource.description = contents_json["RESOURCE"]["resource_description"]["@value"]
 
-        for domain in ["RESOURCE"]["domain"]:
+        for domain in contents_json["RESOURCE"]["domain"]:
             if domain["@value"]:
                 resource.domain.append(domain["@value"])
 
-        for domain in ["RESOURCE"]["domain_other"]:
+        for domain in contents_json["RESOURCE"]["domain_other"]:
             if domain["@value"]:
                 resource.domain.append(domain["@value"])
 
@@ -218,10 +218,10 @@ class CedarResourceParser:
         resource.resource_reference = contents_json["RESOURCE"]["resource_reference"]["@value"]
         resource.resource_use_agreement = contents_json["RESOURCE"]["resource_use_agreement"]["@value"]
 
-        for publication_citation in contents_json["RESOURCE"]["publication_citation"]:
+        for publication_citation in contents_json["RESOURCE"]["Publication"]["publication_citation"]:
             resource.publications.append(publication_citation["@value"])
 
-        for publication_link in contents_json["RESOURCE"]["publication_link"]:
+        for publication_link in contents_json["RESOURCE"]["Publication"]["publication_link"]:
             resource.publication_links.append(publication_link["@value"])
 
         for keyword in contents_json["RESOURCE"]["keywords"]:
@@ -251,7 +251,6 @@ class CedarResourceParser:
         geoexposure.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
-        geoexposure.updated = contents_json["DATA RESOURCE"]["update_frequency"]["@value"]
         if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
             geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
                 contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
