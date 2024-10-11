@@ -222,7 +222,7 @@ class CedarResourceParser:
             resource.publications.append(publication_citation["@value"])
 
         for publication_link in contents_json["RESOURCE"]["Publication"]["publication_link"]:
-            resource.publication_links.append(publication_link["@value"])
+            resource.publication_links.append(publication_link["@id"])
 
         for keyword in contents_json["RESOURCE"]["keywords"]:
             if keyword["@value"]:
