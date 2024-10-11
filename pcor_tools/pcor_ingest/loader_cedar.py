@@ -52,19 +52,32 @@ class LoaderCedar(Loader):
             logger.debug("instance json: %s" % instance_json)
             self.load_resource(instance_json)
 
-    def process_individual_load(self, file_path=None, resource_url=None):
+    def process_individual_load(self,resource_url=None):
         logger.info('process_individual_load')
         logger.info('resource_url: %s' % resource_url)
-        work_dir = os.path.abspath(file_path)
-        logger.info('work_dir dir: %s ' % work_dir)
-        self.validate_sub_folders(work_dir=work_dir)
-        instance_json = self.cedar_access.retrieve_resource(LoaderCedar.extract_id_for_resource(resource_url))
-        logger.debug("instance json: %s" % instance_json)
+
+        # write the json to a file in processing and then proceed
+        guid = LoaderCedar.extract_id_for_resource(resource_url)
+        instance_json = self.cedar_access.retrieve_resource(guid)
+
         result = self.load_resource(instance_json)
         return result
 
 
     def load_resource(self, resource):
+
+        """
+        Load the resource in the given cedar json
+        Parameters
+        ----------
+        resource JSON form CEDAR
+
+        Returns
+        -------
+
+        PcorProcessResult
+
+        """
         logger.info("load resource: %s" % resource)
         result = PcorProcessResult()
         #result.template_source = resource.folder_id
@@ -73,9 +86,9 @@ class LoaderCedar(Loader):
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
-            guid = LoaderCedar.extract_id_for_resource(resource["@id"])
+            guid =  LoaderCedar.extract_id_for_resource(resource["@id"])
             logger.debug("writing file for: %s" % guid)
-            with open(self.workspace_folder_path + '/processing/' + guid + '.json', 'w') as f:
+            with open(self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json', 'w') as f:
                 json.dump(resource, f)
 
             logger.debug("file written: %s" % f.name)
@@ -181,7 +194,7 @@ def main():
     if resource_url is None:
         return loader_cedar.process_load(working_file)
     else:
-        return loader_cedar.load_resource(resource_url)
+        return loader_cedar.process_individual_load(resource_url)
 
 
 
