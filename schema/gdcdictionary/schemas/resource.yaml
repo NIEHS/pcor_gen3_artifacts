@@ -106,9 +106,7 @@ properties:
     $ref: "_definitions.yaml#/datetime"
   resource_reference:
     description: how to cite this resource, DOI preferred
-    type: array
-    items:
-      type: string
+    type: string
   resource_use_agreement:
     description: agreement for use of the resource, include a link or full text or both, don't paraphrase
     type: string
