@@ -2,10 +2,13 @@ import json
 import logging
 import os
 import re
+import shutil
 import sys
 from optparse import OptionParser
 
 from fastavro import reader
+from pcor_ingest.pcor_reporter import PcorReporter
+
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 from pcor_ingest.cedar_resource_reader import CedarResourceParser
@@ -32,7 +35,9 @@ class LoaderCedar(Loader):
         self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
         self.reader = CedarResourceParser(pcor_ingest_configuration=self.pcor_ingest_configuration)
-        self.validate_sub_folders(pcor_ingest_configuration.working_folder)
+        self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
+
+        self.validate_sub_folders(pcor_ingest_configuration.working_directory)
         #cedar_folder = pcor_ingest_configuration.working_folder + "/cedar"
         #os.mkdir(cedar_folder)
         #self.cedar_folder = cedar_folder
@@ -85,24 +90,20 @@ class LoaderCedar(Loader):
         #result.template_source = resource.folder_id
         result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
 
-
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
             guid =  LoaderCedar.extract_id_for_resource(resource["@id"])
             logger.debug("writing file for: %s" % guid)
-            with open(self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json', 'w') as f:
+            processing_file_path = self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json'
+            with open(processing_file_path, 'w') as f:
                 json.dump(resource, f)
-
-
 
             logger.debug("file written: %s" % f.name)
 
             # marshal the json data into the intermediate data model
 
             self.reader.parse(f.name, result)
-
-            result = reader.process_template_instance(processing_file_path, result)  # took result out and made a param
 
             if not result.success:
                 logger.warning("unsuccessful parsing, do not process")
@@ -126,9 +127,7 @@ class LoaderCedar(Loader):
             success_path = os.path.join(self.workspace_processed_folder_path,
                                         os.path.basename(processing_file_path))
             result.template_current_location = success_path
-            logger.info(
-                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                    new_file_name, processing_file_path, success_path))
+
             shutil.move(src=processing_file_path, dst=success_path)
         else:
             # failed folder
@@ -136,11 +135,10 @@ class LoaderCedar(Loader):
             # result --> move file to failed folder
             failed_path = os.path.join(self.workspace_failed_folder_path,
                                        os.path.basename(processing_file_path))
-            logger.info(
-                '\nMoving file: %s \nsrc: %s\ndst: %s' % (
-                    new_file_name, processing_file_path, failed_path))
+
             shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
             result.template_current_location = failed_path
+
         self.pcor_reporter.report(result)
 
         return result
