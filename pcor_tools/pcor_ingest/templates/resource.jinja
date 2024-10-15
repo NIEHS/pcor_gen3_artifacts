@@ -29,14 +29,9 @@
     {% endfor %}
   ],
 
-  "resource_reference": [
-    {% for entry in resource.resource_reference %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
   "resource_use_agreement": "{{ resource.resource_use_agreement }}",
+
+  "resource_reference": "{{ resource.resource_reference }}",
 
   "publications":  [
     {% for entry in resource.publications %}

@@ -10,8 +10,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "update_frequency": "{{ geo_spatial_data_resource.update_frequency }}",
-
+  "update_frequency":  [
+    {% for entry in geo_spatial_data_resource.update_frequency %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   {% if geo_spatial_data_resource.includes_citizen_collected %}
       "includes_citizen_collected": true,
   {% else %}
