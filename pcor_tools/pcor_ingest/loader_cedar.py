@@ -6,6 +6,7 @@ import sys
 from optparse import OptionParser
 
 from fastavro import reader
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 from pcor_ingest.cedar_resource_reader import CedarResourceParser
 from pcor_ingest.ingest_context import PcorIngestConfiguration
@@ -31,6 +32,7 @@ class LoaderCedar(Loader):
         self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
         self.reader = CedarResourceParser(pcor_ingest_configuration=self.pcor_ingest_configuration)
+        self.validate_sub_folders(pcor_ingest_configuration.working_folder)
         #cedar_folder = pcor_ingest_configuration.working_folder + "/cedar"
         #os.mkdir(cedar_folder)
         #self.cedar_folder = cedar_folder
@@ -83,6 +85,7 @@ class LoaderCedar(Loader):
         #result.template_source = resource.folder_id
         result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
 
+
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
@@ -91,19 +94,21 @@ class LoaderCedar(Loader):
             with open(self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json', 'w') as f:
                 json.dump(resource, f)
 
+
+
             logger.debug("file written: %s" % f.name)
 
             # marshal the json data into the intermediate data model
 
             self.reader.parse(f.name, result)
 
-           # result = reader.process_template_instance(processing_file_path, result)  # took result out and made a param
-            """
+            result = reader.process_template_instance(processing_file_path, result)  # took result out and made a param
+
             if not result.success:
                 logger.warning("unsuccessful parsing, do not process")
             else:
                 process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration)
-                process_template.process(result)"""
+                process_template.process(result)
 
         except Exception as e:
             logger.error('Error occurred: %s' % str(e))
@@ -113,7 +118,6 @@ class LoaderCedar(Loader):
             pcor_error.key = ""
             pcor_error.message = str(e)
             result.errors.append(pcor_error)
-        """
 
         if result.success:
             # processed folder
@@ -138,7 +142,6 @@ class LoaderCedar(Loader):
             shutil.move(src=processing_file_path, dst=self.workspace_failed_folder_path)
             result.template_current_location = failed_path
         self.pcor_reporter.report(result)
-        """
 
         return result
 

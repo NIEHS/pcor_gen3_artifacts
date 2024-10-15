@@ -158,6 +158,13 @@ fence:
             - name: NRI-070924
             - name: AgRisk-070924
             - name: NLCD-TC-071524
+            - name: Landslide-090624
+            - name: CASTNET-052224
+            - name: NEI-052424
+            - name: Landslide-101424
+            - name: CMAQ-051324
+            - name: BRFSS-092624
+            - name: NHIS-092524
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -312,6 +319,13 @@ fence:
         - /programs/CHORDS/projects/NRI-070924
         - /programs/CHORDS/projects/AgRisk-070924
         - /programs/CHORDS/projects/NLCD-TC-071524
+        - /programs/CHORDS/projects/Landslide-090624
+        - /programs/CHORDS/projects/CASTNET-052224
+        - /programs/CHORDS/projects/NEI-052424
+        - /programs/CHORDS/projects/Landslide-101424
+        - /programs/CHORDS/projects/CMAQ-051324
+        - /programs/CHORDS/projects/BRFSS-092624
+        - /programs/CHORDS/projects/NHIS-092524
       - id: all_programs_reader
         role_ids:
         - 'guppy_reader'
@@ -440,6 +454,13 @@ fence:
         - /programs/CHORDS/projects/NRI-070924
         - /programs/CHORDS/projects/AgRisk-070924
         - /programs/CHORDS/projects/NLCD-TC-071524
+        - /programs/CHORDS/projects/Landslide-090624
+        - /programs/CHORDS/projects/CASTNET-052224
+        - /programs/CHORDS/projects/NEI-052424
+        - /programs/CHORDS/projects/Landslide-101424
+        - /programs/CHORDS/projects/CMAQ-051324
+        - /programs/CHORDS/projects/BRFSS-092624
+        - /programs/CHORDS/projects/NHIS-092524
       roles:
       - id: 'mds_user'
         permissions:
