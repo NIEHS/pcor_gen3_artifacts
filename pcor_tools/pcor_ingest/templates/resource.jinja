@@ -22,15 +22,8 @@
     {% endfor %}
   ],
 
-  "access_type": [
-    {% for entry in resource.access_type %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
+  "access_type": {{   resource.access_type }},
   "resource_use_agreement": "{{ resource.resource_use_agreement }}",
-
   "resource_reference": "{{ resource.resource_reference }}",
 
   "publications":  [
