@@ -106,6 +106,9 @@ class CedarResourceParser:
         if contents_json["GEOEXPOSURE DATA"]:
             geoexposure_data = CedarResourceParser.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
+        if contents_json["POPULATION DATA RESORCE"]:
+            population_data = CedarResourceParser.extract_population_data(contents_json)
+            result.model_data["population_data_resource"] = population_data
 
     @staticmethod
     def extract_program_data(contents_json):
@@ -345,3 +348,31 @@ class CedarResourceParser:
             geoexposure.data_location.append(contents_json["GEOEXPOSURE DATA"]["data_location"]["@value"])
 
         return geoexposure
+
+    @staticmethod
+    def extract_population_data(contents_json):
+        """
+        extract the population related information from the cedar resource
+        :param contents_json: json-ld from cedar
+        :return: PcorGeospatialDataResourceModel
+        """
+
+        # some of the data is under the required DATA RESOURCE stanza
+        if not contents_json["DATA RESOURCE"]:
+            raise Exception("missing DATA RESOURCE information in CEDAR json")
+
+        population = PcorGeospatialDataResourceModel()
+        population.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
+        population.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
+        population.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
+        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
+            population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
+                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
+
+        for update_frequency in contents_json["DATA RESOURCE"]["update_frequency"]:
+            if update_frequency["@value"]:
+                population.update_frequency.append(update_frequency["@value"])
+
+        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
+            population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
+                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
