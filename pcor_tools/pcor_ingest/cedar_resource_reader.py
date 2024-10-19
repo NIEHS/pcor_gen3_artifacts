@@ -211,9 +211,8 @@ class CedarResourceParser:
 
         resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
 
-        if len(contents_json["RESOURCE"]["payment_required"]) > 0:
-                resource.payment_required = PcorTemplateParser.sanitize_boolean(
-                    contents_json["RESOURCE"]["payment_required"][0]["@value"])
+        resource.payment_required = PcorTemplateParser.sanitize_boolean(
+                    contents_json["RESOURCE"]["payment_required"]["@value"])
 
         resource.created_datetime = contents_json["RESOURCE"]["date_added"]["@value"]
         resource.updated_datetime = contents_json["RESOURCE"]["Date_updated"]["@value"]
@@ -231,8 +230,7 @@ class CedarResourceParser:
             if keyword["@value"]:
                 resource.keywords.append(keyword["@value"])
 
-        if len(contents_json["RESOURCE"]["is_static"]) > 0:
-            resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"][0]["@value"])
+        resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
         if resource.submitter_id is None or resource.submitter_id == '':
             resource.submitter_id = str(uuid.uuid4())
@@ -254,25 +252,19 @@ class CedarResourceParser:
         geoexposure.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
-        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
-            geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
+
+        geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
+                contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
 
         for update_frequency in contents_json["DATA RESOURCE"]["update_frequency"]:
             if update_frequency["@value"]:
                 geoexposure.update_frequency.append(update_frequency["@value"])
 
-        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
-            geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
+        geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
+                contents_json["DATA RESOURCE"]["has_api"]["@value"])
 
-        if len(contents_json["DATA RESOURCE"]["has_api"]) > 0:
-            geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_api"][0]["@value"])
-
-        if len(contents_json["DATA RESOURCE"]["has_visualization_tool"]) > 0:
-            geoexposure.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_visualization_tool"][0]["@value"])
+        geoexposure.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
+                contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
 
         for measure in contents_json["GEOEXPOSURE DATA"]["measures"]:
             geoexposure.measures.append(measure["@value"])
