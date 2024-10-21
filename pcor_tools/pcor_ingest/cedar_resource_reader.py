@@ -106,7 +106,7 @@ class CedarResourceParser:
         if contents_json["GEOEXPOSURE DATA"]:
             geoexposure_data = CedarResourceParser.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
-        if contents_json["POPULATION DATA RESORCE"]:
+        if "POPULATION DATA RESORCE" in contents_json:
             population_data = CedarResourceParser.extract_population_data(contents_json)
             result.model_data["population_data_resource"] = population_data
 

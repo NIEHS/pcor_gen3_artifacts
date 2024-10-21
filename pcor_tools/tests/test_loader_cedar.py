@@ -18,7 +18,7 @@ class TestLoaderCedar(unittest.TestCase):
         loaderCedar = LoaderCedar(pcor_ingest_configuration)
         #url = "https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2"
         url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d4112c4b-def3-4770-974a-a564071d99e3?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
-        result = loaderCedar.process_individual_load(pcor_ingest_configuration.working_directory,url)
+        result = loaderCedar.process_individual_load(url)
         self.assertIsNotNone(result)
         self.assertTrue(result.success)
 
