@@ -162,7 +162,7 @@ class PcorGeospatialDataResourceModel:
         self.spatial_resolution_other = []
         self.spatial_coverage = []
         self.spatial_coverage_specific_regions = ""
-        self.spatial_bounding_box = []
+        self.spatial_bounding_box = ""
         self.geometry_type = []
         self.geometry_source = ""
         self.model_methods = []

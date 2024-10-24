@@ -114,7 +114,7 @@ class CedarAccess(object):
        :return: string with JSON for loading into Gen3
        """
         logger.info("produce_discovery_json()")
-        template = self.env.get_template("cedar_geoexposure_resource.jinja")
+        template = self.env.get_template("cedar_geoexposure_resource_150.jinja")
         rendered = template.render(data=geoexposure_data)
         return rendered
 

@@ -50,13 +50,13 @@
       "Comment": "https://schema.metadatacenter.org/properties/1eab1edb-da13-4f29-9b49-e6e10e021d4a"
     },
     "submitter_name": {
-      "@value": "{{ submitter.curator_name }}"
+      "@value": "{{ submission.curator_name }}"
     },
     "submitter_email": {
-      "@value": "{{  submitter.curator_email }}"
+      "@value": "{{  submission.curator_email }}"
     },
     "Comment": {
-      "@value": "{{ submitter.curator_comment }}"
+      "@value": "{{ submission.curator_comment }}"
     },
     "@id": "https://repo.metadatacenter.org/template-element-instances/0c6696ab-5ef7-451b-abdc-bc8c8fb93f9d"
   },
@@ -388,14 +388,10 @@
         {{ "," if not loop.last }}
       {% endfor %}
     ],
-    "spatial_bounding_box": [
-     {% for entry in geospatial_data_resource.spatial_bounding_box %}
-        {
-            "@value": "{{ entry }}"
-        }
-        {{ "," if not loop.last }}
-      {% endfor %}
-    ],
+    "spatial_bounding_box":
+    {
+        "@value": "{{ geospatial_data_resource.spatial_bounding_box }}"
+    },
     "geometry_type": [
      {% for entry in geospatial_data_resource.spatial_coverage_geometry_type %}
             {

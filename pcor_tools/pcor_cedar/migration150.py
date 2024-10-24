@@ -4,6 +4,7 @@ import os
 import sys
 from optparse import OptionParser
 
+from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_access import CedarAccess
@@ -24,6 +25,7 @@ class CedarMigrate150():
     def __init__(self, cedar_config_file):
         self.cedar_config = CedarConfig(cedar_config_file)
         self.cedar_access = CedarAccess()
+        self.cedar_template_processor = CedarTemplateProcessor()
 
     def read_migrate_target(self, url):
         id = LoaderCedar.extract_id_for_resource(url)
@@ -37,8 +39,28 @@ class CedarMigrate150():
         reader.parse(tempfilename, result)
         return result
 
-    def reformat_json(self):
-        pass
+    def reformat_json(self, model_data):
+        """
+        Take the model data and create a json document of the right format
+
+        Parameters
+        ----------
+        model_data : dict with the model data
+
+        Returns
+        -------
+        json string with the new resource
+        """
+        logger.info('reformat_json()')
+        if model_data["geospatial_data_resource"]:
+            logger.info("migrating a geospatial_data_resource")
+        else:
+            raise Exception("not geospatial_data_resource, resource not supported")
+
+        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, "150")
+
+        return json_string
+
 
     def store_migrated(self, migrated_json, cedar_folder):
         pass
