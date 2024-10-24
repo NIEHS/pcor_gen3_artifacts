@@ -1,15 +1,9 @@
 import logging
-import math
-import re
 import sys
-import traceback
 import uuid
-import json
 import warnings
 import pandas as pd
-from datetime import datetime
 
-from pcor_ingest.cedar_resource_reader import CedarResourceParser
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
@@ -33,7 +27,7 @@ class KeyDatasetResourceParser():
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
-        self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration)
+        self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
         self.yyyy_pattern = r"\b(\d{4})\b"
         self.pcor_ingest_configuration = pcor_ingest_configuration
 

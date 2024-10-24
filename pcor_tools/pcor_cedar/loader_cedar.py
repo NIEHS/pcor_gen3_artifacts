@@ -6,12 +6,11 @@ import shutil
 import sys
 from optparse import OptionParser
 
-from fastavro import reader
 from pcor_ingest.pcor_reporter import PcorReporter
 
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
-from pcor_ingest.cedar_resource_reader import CedarResourceParser
+from pcor_cedar.cedar_resource_reader import CedarResourceParser
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -19,7 +18,6 @@ from pcor_cedar.cedar_access import CedarAccess
 from pcor_ingest.loader import Loader
 
 from pcor_cedar.cedar_config import CedarConfig
-from tests.test_pcor_template_processor import pop_data_resource
 
 logging.basicConfig(
     level=logging.DEBUG,
