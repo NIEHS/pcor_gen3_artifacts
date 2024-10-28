@@ -17,7 +17,13 @@ class TestLoaderCedar(unittest.TestCase):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         loaderCedar = LoaderCedar(pcor_ingest_configuration)
         #url = "https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2"
-        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d4112c4b-def3-4770-974a-a564071d99e3?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
+
+        # geo data
+        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d4112c4b-def3-4770-974a-a564071d99e3?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
+
+        # pop data
+        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/79d548ee-5b84-43e6-a8c0-1cdabed02e36?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
+
         result = loaderCedar.process_individual_load(url)
         self.assertIsNotNone(result)
         self.assertTrue(result.success)

@@ -14,7 +14,8 @@ from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
-    PcorSubmissionInfoModel, PcorGeospatialDataResourceModel
+    PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, \
+    PcorPopDataResourceModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -166,9 +167,10 @@ class CedarResourceParser:
             if sponsor["@value"]:
                project.project_sponsor.append(sponsor["@value"])
 
-        sponsor_other =  contents_json["PROJECT"]["project_sponsor_other"]["@value"]
-        if sponsor_other:
-            project.project_sponsor.append(sponsor_other)
+        sponsor_other_list = contents_json["PROJECT"]["project_sponsor_other"]
+        for sponsor_other in sponsor_other_list:
+            if sponsor_other["@value"]:
+                project.project_sponsor.append(sponsor_other)
 
         sponsor_types = contents_json["PROJECT"]["project_sponsor_type"]
         for type in sponsor_types:
@@ -346,25 +348,75 @@ class CedarResourceParser:
         """
         extract the population related information from the cedar resource
         :param contents_json: json-ld from cedar
-        :return: PcorGeospatialDataResourceModel
+        :return: PcorPopDataResourceModel
         """
 
         # some of the data is under the required DATA RESOURCE stanza
         if not contents_json["DATA RESOURCE"]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
-        population = PcorGeospatialDataResourceModel()
+        population = PcorPopDataResourceModel()
         population.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
         population.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         population.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
-        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
-            population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
-
         for update_frequency in contents_json["DATA RESOURCE"]["update_frequency"]:
             if update_frequency["@value"]:
                 population.update_frequency.append(update_frequency["@value"])
+        population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
+            contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
+        population.has_api = PcorTemplateParser.sanitize_boolean(contents_json["DATA RESOURCE"]["has_api"]["@value"])
+        population.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
+            contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
 
-        if len(contents_json["DATA RESOURCE"]["includes_citizen_collected"]) > 0:
-            population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
+        for measure in contents_json["POPULATION DATA"]["measures"]:
+            if measure["@value"]:
+                population.measures.append(measure["@value"])
+        for measure in contents_json["POPULATION DATA"]["measures_other"]:
+            if measure["@value"]:
+                population.measures.append(measure["@value"])
+        population.time_extent_start_yyyy = (
+            PcorTemplateParser.sanitize_column(contents_json["POPULATION DATA"]["time_extent_start"]["@value"]))
+        population.time_extent_end_yyyy = (
+            PcorTemplateParser.sanitize_column(contents_json["POPULATION DATA"]["time_extent_end"]["@value"]))
+        population.time_available_comment = contents_json["POPULATION DATA"]["time_available_comment"]["@value"]
+        for temporal_resolution in contents_json["POPULATION DATA"]["temporal_resolution"]:
+            if temporal_resolution["@value"]:
+                population.temporal_resolution.append(temporal_resolution["@value"])
+        for spatial_resolution in contents_json["POPULATION DATA"]["spatial_resolution"]:
+            if spatial_resolution["@value"]:
+                population.spatial_resolution.append(spatial_resolution["@value"])
+        for spatial_coverage in contents_json["POPULATION DATA"]["spatial_coverage"]:
+            if spatial_coverage["@value"]:
+                population.spatial_coverage.append(spatial_coverage["@value"])
+
+        if contents_json["POPULATION DATA"]["spatial_coverage_specific_regions"]["@value"]:
+            population.spatial_coverage.append(contents_json["POPULATION DATA"]["spatial_coverage_specific_regions"]["@value"])
+        for geometry_type in contents_json["POPULATION DATA"]["geometry_type"]:
+            if geometry_type["@value"]:
+                population.geometry_type.append(geometry_type["@value"])
+        if contents_json["POPULATION DATA"]["geometry_source"]["@value"]:
+            population.geometry_source = contents_json["POPULATION DATA"]["geometry_source"]["@value"]
+        for model_method in contents_json["POPULATION DATA"]["model_methods"]:
+            if model_method["@value"]:
+                population.model_methods.append(model_method["@value"])
+        for population_study in contents_json["POPULATION DATA"]["population_studied"]:
+            if population_study["@value"]:
+                population.population_studied.append(population_study["@value"])
+        if contents_json["POPULATION DATA"]["population_studied_other"]["@value"]:
+            population.population_studied.append(contents_json["POPULATION DATA"]["population_studied_other"]["@value"])
+        for data_format in contents_json["POPULATION DATA"]["data_formats"]:
+            if data_format["@value"]:
+                population.data_formats.append(data_format["@value"])
+        if contents_json["POPULATION DATA"]["data_location"]["@value"]:
+            population.data_location.append(contents_json["POPULATION DATA"]["data_location"]["@value"])
+
+        # Todo: add biospecimens_type to DD
+
+        return population
+
+
+        
+
+        
+
+
