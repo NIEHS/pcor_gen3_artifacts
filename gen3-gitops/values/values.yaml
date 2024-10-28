@@ -1,6 +1,6 @@
 global:
   hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/cedar/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/42-cedar-pop-data/custom_configs/schema.json
 
 
 sower:
