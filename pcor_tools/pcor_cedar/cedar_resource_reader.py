@@ -8,6 +8,9 @@ import warnings
 import pandas as pd
 from datetime import datetime
 
+from pcor_ingest.ingest_context import PcorIngestConfiguration
+
+from pcor_cedar.cedar_config import CedarConfig
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
@@ -30,10 +33,11 @@ class CedarResourceParser:
     A parent class for a parser of a PCOR Cedar for a type
     """
 
-    def __init__(self, pcor_ingest_configuration):
-        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
-        self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration)
+    def __init__(self):
+        self.cedar_config = CedarConfig()
+        self.pcor_measures_rollup = PcorMeasuresRollup(self.cedar_config.cedar_properties["measures.location"])
         self.yyyy_pattern = r"\b(\d{4})\b"
+
 
     def parse(self, template_absolute_path, result):
 

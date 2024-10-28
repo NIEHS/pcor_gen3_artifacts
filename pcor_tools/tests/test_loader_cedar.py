@@ -1,8 +1,6 @@
-import json
 import unittest
 
-from pcor_ingest.loader_cedar import LoaderCedar
-from pcor_cedar.cedar_access import CedarAccess
+from pcor_cedar.loader_cedar import LoaderCedar
 from tests import pcor_testing_utilities
 
 
