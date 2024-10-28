@@ -20,4 +20,8 @@ class TestMigration150(unittest.TestCase):
         json_string = migrator.reformat_json(resource.model_data)
         self.assertIsNotNone(json_string)
 
+    def test_migrate(self):
+        migrate_source = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d4112c4b-def3-4770-974a-a564071d99e3?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fa2fef183-d324-45d9-a9eb-beaf419d321c'
+        migrator = CedarMigrate150(None)
+        migrator.migrate(migrate_source)
 

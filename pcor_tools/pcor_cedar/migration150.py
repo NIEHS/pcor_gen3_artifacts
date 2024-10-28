@@ -37,7 +37,7 @@ class CedarMigrate150():
         reader = CedarResourceParserPre150()
         result = PcorProcessResult()
         reader.parse(tempfilename, result)
-        return result
+        return result.model_data
 
     def reformat_json(self, model_data):
         """
@@ -61,15 +61,29 @@ class CedarMigrate150():
 
         return json_string
 
+    def store_migrated(self, migrated_json):
+        logger.info("store_migrated")
+        migration_folder = self.cedar_config.cedar_properties["migration.folder"]
+        self.cedar_access.create_resource(migrated_json, migration_folder)
 
-    def store_migrated(self, migrated_json, cedar_folder):
-        pass
+    def migrate(self, resource_url):
+        """
+        migrate the source at the given location to the new target format
+        Parameters
+        ----------
+        resource_url url where the resource to migrate can be found
+        cedar_target_url
 
-    def migrate(self, resource_url, cedar_target_url):
-        logger.info('migrate :: %s to %s' % (resource_url, cedar_target_url))
+        Returns
+        -------
+
+        """
+        logger.info('migrate :: %s ' % (resource_url))
         model = self.read_migrate_target(resource_url)
-        migrated_json = self.reformat_json(model) # TODO: add switch for type
-        self.store_migrated(migrated_json, cedar_target_url)
+        # TODO: add annotation to submission comment?
+        migrated_json = self.reformat_json(model)
+        self.store_migrated(migrated_json)
+        # add to local?
 
 
 def setup_arguments():
