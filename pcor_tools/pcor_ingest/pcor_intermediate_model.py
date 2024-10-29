@@ -96,7 +96,6 @@ class PcorIntermediateResourceModel:
         self.resource_reference_link = ""
         self.resource_use_agreement = ""
         self.resource_use_agreement_link = ""
-
         self.publications = []
         self.publication_links = []
         self.project_sponsor = []
@@ -143,7 +142,7 @@ class PcorGeospatialDataResourceModel:
         self.intended_use = ""
         self.source_name = []
         self.update_frequency = []
-        self.update_frequency_other = []
+        self.update_frequency_other = ""
         self.includes_citizen_collected = False
         self.has_api = False
         self.has_visualization_tool = False
@@ -167,7 +166,7 @@ class PcorGeospatialDataResourceModel:
         self.spatial_coverage_specific_regions = []
         self.spatial_bounding_box = []
         self.geometry_type = []
-        self.geometry_source = ""
+        self.geometry_source = []
         self.model_methods = []
         self.model_methods_other = []
         self.exposure_media = []

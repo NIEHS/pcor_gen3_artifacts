@@ -248,9 +248,11 @@
         "resource_use_agreement_link": "https://schema.metadatacenter.org/properties/176d9215-4b01-437d-9520-84a348ff0056"
       },
       "resource_use_agreement": {
-        "@id": "{{ resource.resource_user_agreement }}"
+        "@value": "{{ resource.resource_use_agreement }}"
       },
-      "resource_use_agreement_link": {}
+      "resource_use_agreement_link": {
+            "@id": "{{  resource.resource_use_agreement_link }}"
+      }
     }
   },
   "DATA RESOURCE": {
@@ -265,32 +267,38 @@
       "update_frequency_other": "https://schema.metadatacenter.org/properties/2c2daca1-8bbc-4bda-9d4d-88233afaff87"
     },
     "source_name": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.source_name %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "update_frequency": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.update_frequency %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "includes_citizen_collected": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.includes_citizen_collected }}"
     },
     "has_api": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.has_api }}"
     },
     "has_visualization_tool": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.has_visualization_tool }}"
     },
     "Comments": {
-      "@value": null
+       "@value": "{{ geospatial_data_resource.comments }}"
     },
     "intended_use": {
-      "@value": null
+       "@value": "{{ geospatial_data_resource.intended_use }}"
     },
     "update_frequency_other": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.update_frequency_other }}"
     }
   },
   "GEOEXPOSURE DATA": {
@@ -319,108 +327,165 @@
       "time_available_comment": "https://schema.metadatacenter.org/properties/962d550f-4387-413e-b037-a18f764fa4b6"
     },
     "measures": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.measures %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "measures_other": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.measures_other %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "measurement_method": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.measurement_method %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "time_extent_start": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.time_extent_start_yyyy }}"
     },
     "time_extent_end": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.time_extent_end_yyyy }}"
     },
     "temporal_resolution": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.temporal_resolution %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "spatial_resolution": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_resolution %}
+        {
+            "@value": "{{ entry }}"
+        }
+     {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "spatial_resolution_other": [
-      {
-        "@value": null
-      }
+     {% for entry in geospatial_data_resource.spatial_resolution_other %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "spatial_coverage": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_coverage %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "spatial_coverage_specific_regions": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_coverage_specific_regions %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "spatial_bounding_box": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_bounding_box %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "geometry_type": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_coverage_geometry_type %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "geometry_source": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.spatial_coverage_geometry_source %}
+            {
+                "@value": "{{ entry }}"
+            }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "model_methods": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.model_methods %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "exposure_media": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.exposure_media %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "geographic_feature": [
-      {
-        "@value": null
-      }
+       {% for entry in geospatial_data_resource.geographic_feature %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "geographic_feature_other": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.geographic_feature_other %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "data_formats": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.data_formats %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "measurement_method_other": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.measurement_method_other %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "data_location": [
-      {
-        "@value": null
-      }
+     {% for entry in geospatial_data_resource.data_location %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "model_methods_other": [
-      {
-        "@value": null
-      }
+      {% for entry in geospatial_data_resource.model_methods_other %}
+        {
+            "@value": "{{ entry }}"
+        }
+        {{ "," if not loop.last }}
+      {% endfor %}
     ],
     "time_available_comment": {
-      "@value": null
+      "@value": "{{ geospatial_data_resource.time_available_comment }}"
     }
   }
 }
