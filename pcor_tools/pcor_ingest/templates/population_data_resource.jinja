@@ -10,7 +10,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "update_frequency": "{{ pop_data_resource.update_frequency }}",
+  "update_frequency": [
+    {% for entry in pop_data_resource.update_frequency %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
 
   {% if pop_data_resource.includes_citizen_collected %}
       "includes_citizen_collected": true,
