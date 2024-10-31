@@ -1,6 +1,7 @@
 import json
 import unittest
 
+from pcor_cedar.loader_cedar import LoaderCedar
 from pcor_cedar.cedar_access import CedarAccess
 
 class TestCedarAccess(unittest.TestCase):
@@ -32,4 +33,11 @@ class TestCedarAccess(unittest.TestCase):
         resource_json = cedar_access.produce_geoexposure_json({})
         actual = cedar_access.create_resource(resource_json)
         self.assertIsNotNone(actual)
+
+    def test_rename_resource(self):
+        cedar_access = CedarAccess()
+        test_id = "https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/72db6bb6-b626-4624-97f2-12bb9b714281?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F37c3bdd7-d006-4cc5-8a0a-46e7c256cd95"
+        id = LoaderCedar.extract_id_for_resource(test_id)
+        name = "test name - renamed2"
+        cedar_access.rename_resource(id, name)
 

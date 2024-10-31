@@ -1,6 +1,6 @@
 import unittest
 
-from pcor_cedar.cedar_resource_reader_pre_150 import CedarResourceParserPre150
+from pcor_cedar.cedar_resource_reader_150 import CedarResourceParser150
 from pcor_cedar.migration150 import CedarMigrate150
 from tests import pcor_testing_utilities
 

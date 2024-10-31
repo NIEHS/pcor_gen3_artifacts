@@ -64,6 +64,22 @@ class CedarAccess(object):
             raise Exception(r_json["errorMessage"])
         return r_json
 
+    def rename_resource(self, resource_id, name):
+        logger.info("renaming resource to: %s" % name)
+        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/command/rename-resource"
+        headers = {"Content-Type": "application/json", "Accept": "application/json",
+                   "Authorization": self.cedar_config.build_request_headers_json()}
+        rename_json = self.cedar_template_processor.produce_rename_resource(resource_id, name)
+
+        r = requests.post(api_url, headers=headers, json=json.loads(rename_json))
+        r_json = r.json()
+
+        if r.status_code not in [200, 201]:
+            logger.error("failed to create resource: %s" % r_json["errorMessage"])
+            raise Exception(r_json["errorMessage"])
+        return r_json
+
+
     def retrieve_resource(self, resource_id):
 
         """

@@ -40,6 +40,24 @@ class CedarTemplateProcessor:
         logger.debug('template_dir: %s' % template_dir)
         self.env.filters['jsonify'] = json.dumps
 
+    def produce_rename_resource(self, id, name):
+        """
+        Create the call to rename a resource
+        Parameters
+        ----------
+        id the id of the resoure
+        name the new name
+
+        Returns
+        -------
+        json for the api call
+        """
+        logger.info("processing rename resource for id: %s and name: %s" % (id, name))
+        template = self.env.get_template("resource_rename.jinja")
+        rendered = template.render(id = id, name = name)
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
 
     def produce_geospatial_cedar_instance(self, model, version_tag):
         """

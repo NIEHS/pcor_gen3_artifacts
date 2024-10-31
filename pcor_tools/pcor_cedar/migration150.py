@@ -8,7 +8,7 @@ from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_access import CedarAccess
-from pcor_cedar.cedar_resource_reader_pre_150 import CedarResourceParserPre150
+from pcor_cedar.cedar_resource_reader_150 import CedarResourceParser150
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.loader_cedar import LoaderCedar
@@ -34,7 +34,7 @@ class CedarMigrate150():
         with open(tempfilename, "w") as f:
             json.dump(resource_json,f)
 
-        reader = CedarResourceParserPre150()
+        reader = CedarResourceParser150()
         result = PcorProcessResult()
         reader.parse(tempfilename, result)
         return result.model_data
@@ -64,7 +64,8 @@ class CedarMigrate150():
     def store_migrated(self, migrated_json):
         logger.info("store_migrated")
         migration_folder = self.cedar_config.cedar_properties["migration.folder"]
-        self.cedar_access.create_resource(migrated_json, migration_folder)
+        r_json = self.cedar_access.create_resource(migrated_json, migration_folder)
+        return r_json["@id"]
 
     def migrate(self, resource_url):
         """
@@ -82,8 +83,11 @@ class CedarMigrate150():
         model = self.read_migrate_target(resource_url)
         # TODO: add annotation to submission comment?
         migrated_json = self.reformat_json(model)
-        self.store_migrated(migrated_json)
-        # add to local?
+
+        id = LoaderCedar.extract_id_for_resource(self.store_migrated(migrated_json))
+        model_json = json.loads(migrated_json)
+        name = model_json["RESOURCE"]["resource_name"]["@value"]
+        self.cedar_access.rename_resource(id, name)
 
 
 def setup_arguments():
