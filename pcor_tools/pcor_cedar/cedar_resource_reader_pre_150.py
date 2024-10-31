@@ -305,7 +305,10 @@ class CedarResourceParserPre150:
         if contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"]:
             geoexposure.spatial_coverage.append(contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"])
 
-        geoexposure.spatial_bounding_box = contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]["@value"]
+        if contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]["@value"]:
+            geoexposure.spatial_bounding_box.append(
+                contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]["@value"])
+
 
         for geometry_type in contents_json["GEOEXPOSURE DATA"]["geometry_type"]:
             if geometry_type["@value"]:

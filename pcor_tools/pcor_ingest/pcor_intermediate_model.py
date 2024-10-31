@@ -150,6 +150,7 @@ class PcorGeospatialDataResourceModel:
         # additional properties to describe the dataset
         self.data_formats = []
         self.data_location = []
+        self.data_link = [] # new
         self.measures_parent = []
         self.measures_subcategory_major = []
         self.measures_subcategory_minor = []
@@ -160,6 +161,7 @@ class PcorGeospatialDataResourceModel:
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
         self.temporal_resolution = []
+        self.temporal_resolution_other = [] #new
         self.spatial_resolution = []
         self.spatial_resolution_other = []
         self.spatial_coverage = []
@@ -167,6 +169,7 @@ class PcorGeospatialDataResourceModel:
         self.spatial_bounding_box = []
         self.geometry_type = []
         self.geometry_source = []
+        self.geometry_source_other = [] # new
         self.model_methods = []
         self.model_methods_other = []
         self.exposure_media = []

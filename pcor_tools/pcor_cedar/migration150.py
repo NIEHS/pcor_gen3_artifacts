@@ -57,7 +57,7 @@ class CedarMigrate150():
         else:
             raise Exception("not geospatial_data_resource, resource not supported")
 
-        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, "150")
+        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, "151")
 
         return json_string
 

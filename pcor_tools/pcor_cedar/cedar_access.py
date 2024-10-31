@@ -57,7 +57,11 @@ class CedarAccess(object):
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
         r = requests.post(api_url, headers=headers, json=json.loads(resource_json))
+        logger.debug("r:%s", r)
         r_json = r.json()
+        if r.status_code not in [200, 201]:
+            logger.error("failed to create resource: %s" % r_json["errorMessage"])
+            raise Exception(r_json["errorMessage"])
         return r_json
 
     def retrieve_resource(self, resource_id):
@@ -82,7 +86,8 @@ class CedarAccess(object):
         r_json = r.json()
 
         try:
-            if r_json["statusCode"] is not 200:
+            if r_json["statusCode"] != 200:
+                logger.error("failed to retrieve resource: %s" % r_json["errorMessage"])
                 raise Exception(r_json["errorMessage"])
         except KeyError:
             pass
