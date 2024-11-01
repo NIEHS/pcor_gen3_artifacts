@@ -77,9 +77,14 @@ class CedarMigrate150():
 
         Returns
         -------
-
+        string with the name of the migrated resource
         """
         logger.info('migrate :: %s ' % (resource_url))
+
+        if not resource_url:
+            logger.exception("No resource url specified")
+            raise Exception("no resource_url specified for migration")
+
         model = self.read_migrate_target(resource_url)
         # TODO: add annotation to submission comment?
         migrated_json = self.reformat_json(model)
@@ -88,35 +93,6 @@ class CedarMigrate150():
         model_json = json.loads(migrated_json)
         name = model_json["RESOURCE"]["resource_name"]["@value"]
         self.cedar_access.rename_resource(id, name)
+        return name
 
 
-def setup_arguments():
-    parser = OptionParser()
-    parser.add_option('-r', "--resource_url", action='store', dest='resource_url', default=None)
-    #parser.add_option('-f', "--working_file", action='store', dest='working_file', default=None)
-    parser.add_option('-t', "--cedar_target_url", action='store', dest='cedar_target_url', default=None)
-
-    return parser.parse_args()[0]
-
-def main():
-    logger.info('Main function execution started.')
-    global args
-    args = setup_arguments()
-
-    if "CEDAR_PROPERTIES" not in os.environ:
-        logger.error("CEDAR_PROPERTIES not found in env. System exiting...")
-        sys.exit()
-
-    resource_url = args.resource_url # the resource to migrate, copied from the browser
-    #working_file = args.working_file # scratch local working directory
-    cedar_target_url = args.cedar_target_url # location for migrated file
-
-    logger.info('resource to load :: %s' % resource_url)
-    logger.info('cedar target :: %s' % cedar_target_url)
-
-    migrator = CedarMigrate150()
-
-    return migrator.migrate(resource_url, cedar_target_url)
-
-if __name__ == "__main__":
-    main()
