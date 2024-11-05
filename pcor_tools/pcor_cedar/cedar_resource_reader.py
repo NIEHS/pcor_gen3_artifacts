@@ -158,11 +158,6 @@ class CedarResourceParser:
         project.name = contents_json["PROJECT"]["project_name"]["@value"]
         project.short_name = contents_json["PROJECT"]["project_short_name"]["@value"]
         project.code = contents_json["PROJECT"]["ProjecCode"]["@value"]
-        # TODO: project code handling?
-        # if project_short_name is not empty, use it for project.code
-        #if project.short_name:
-        #    project.name = project.short_name.replace(' ', '').strip()
-        #    project.code = project.name
 
         sponsors_in_json = contents_json["PROJECT"]["project_sponsor"]
         for sponsor in sponsors_in_json:
@@ -179,11 +174,13 @@ class CedarResourceParser:
             if  type["@value"]:
                 project.project_sponsor_type.append(type["@value"])
 
-        sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]["@value"]
-        if sponsor_other:
-            project.project_sponsor_type_other.append(sponsor_other)
+        sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]
+        for type in sponsor_other:
+            if type["@value"]:
+                project.project_sponsor_type_other.append(type["@value"])
 
-        project.project_url = contents_json["PROJECT"]["project_url"]["@value"]
+        project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
+        project.dbgap_accession_number = project.code
         PcorTemplateParser.process_project_identifiers(project)
 
         return project
@@ -214,8 +211,8 @@ class CedarResourceParser:
                 resource.domain_other.append(domain["@value"])
 
         resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
-        resource.created_datetime = contents_json["RESOURCE"]["date_added"]["@value"]
-        resource.updated_datetime = contents_json["RESOURCE"]["Date_updated"]["@value"]
+        resource.created_datetime = contents_json["pav:createdOn"]
+        resource.updated_datetime =  contents_json["pav:lastUpdatedOn"]
         resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
 
         for publication_citation in contents_json["RESOURCE"]["Publication"]["publication_citation"]:
@@ -239,8 +236,11 @@ class CedarResourceParser:
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
-        if resource.submitter_id is None or resource.submitter_id == '':
-            resource.submitter_id = str(uuid.uuid4())
+        if resource.id is None:
+            resource.id = str(uuid.uuid4())
+
+        resource.submitter_id = resource.id
+
         return resource
 
     @staticmethod
@@ -256,7 +256,7 @@ class CedarResourceParser:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
-        geoexposure.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
+        geoexposure.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
 
@@ -267,6 +267,8 @@ class CedarResourceParser:
             if update_frequency["@value"]:
                 geoexposure.update_frequency.append(update_frequency["@value"])
 
+        geoexposure.update_frequency_other = contents_json["DATA RESOURCE"]["update_frequency_other"]["@value"]
+
         geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
                 contents_json["DATA RESOURCE"]["has_api"]["@value"])
 
@@ -274,18 +276,20 @@ class CedarResourceParser:
                 contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
 
         for measure in contents_json["GEOEXPOSURE DATA"]["measures"]:
-            geoexposure.measures.append(measure["@value"])
+            if measure["@value"]:
+                geoexposure.measures.append(measure["@value"])
 
         for measure in contents_json["GEOEXPOSURE DATA"]["measures_other"]:
             if measure["@value"]:
-                geoexposure.measures.append(measure["@value"])
+                geoexposure.measures_other.append(measure["@value"])
 
         for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method"]:
             if measurement_method["@value"]:
                 geoexposure.measurement_method.append(measurement_method["@value"])
 
-        if contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]["@value"]:
-            geoexposure.measurement_method.append( contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]["@value"])
+        for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]:
+            if measurement_method["@value"]:
+                geoexposure.measurement_method_other.append(measurement_method["@value"])
 
         geoexposure.time_extent_start_yyyy = (
             PcorTemplateParser.sanitize_column(contents_json["GEOEXPOSURE DATA"]["time_extent_start"]["@value"]))
@@ -298,33 +302,48 @@ class CedarResourceParser:
             if temporal_resolution["@value"]:
                 geoexposure.temporal_resolution.append(temporal_resolution["@value"])
 
+        for temporal_resolution in contents_json["GEOEXPOSURE DATA"]["temporal_resolution_other"]:
+            if temporal_resolution["@value"]:
+                geoexposure.temporal_resolution_other.append(temporal_resolution["@value"])
+
         for spatial_resolution in contents_json["GEOEXPOSURE DATA"]["spatial_resolution"]:
-            geoexposure.spatial_resolution.append(spatial_resolution["@value"])
+            if spatial_resolution["@value"]:
+                geoexposure.spatial_resolution.append(spatial_resolution["@value"])
 
-        if contents_json["GEOEXPOSURE DATA"]["spatial_resolution_other"]["@value"]:
-            geoexposure.spatial_resolution.append(contents_json["GEOEXPOSURE DATA"]["spatial_resolution_other"]["@value"])
-
-        # FIXME: spatial resolution other not an array
+        for spatial_resolution in contents_json["GEOEXPOSURE DATA"]["spatial_resolution_other"]:
+            if spatial_resolution["@value"]:
+                geoexposure.spatial_resolution_other.append(spatial_resolution["@value"])
 
         for spatial_coverage in contents_json["GEOEXPOSURE DATA"]["spatial_coverage"]:
             if spatial_coverage["@value"]:
                 geoexposure.spatial_coverage.append(spatial_coverage["@value"])
 
+        for spatial_coverage in contents_json["GEOEXPOSURE DATA"]["spatial_coverage_other"]:
+            if spatial_coverage["@value"]:
+                geoexposure.spatial_coverage_other.append(spatial_coverage["@value"])
+
         if contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"]:
             geoexposure.spatial_coverage.append(contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"])
 
-        geoexposure.spatial_bounding_box = contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]["@value"]
+        for box in contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]:
+            if box["@value"]:
+                geoexposure.spatial_bounding_box.append(box["@value"])
 
-        for geometry_type in contents_json["GEOEXPOSURE DATA"]["geometry_type"]:
-            if geometry_type["@value"]:
-                geoexposure.geometry_type.append(geometry_type["@value"])
+        for source in ["GEOEXPOSURE DATA"]["geometry_source"]:
+            if source["@value"]:
+                geoexposure.geometry_source.append(source["@value"])
 
-        if contents_json["GEOEXPOSURE DATA"]["geometry_source"]["@value"]:
-            geoexposure.geometry_source = contents_json["GEOEXPOSURE DATA"]["geometry_source"]["@value"]
+        for source in ["GEOEXPOSURE DATA"]["geometry_source_other"]:
+            if source["@value"]:
+                geoexposure.geometry_source_other.append(source["@value"])
 
         for model_method in contents_json["GEOEXPOSURE DATA"]["model_methods"]:
             if model_method["@value"]:
                 geoexposure.model_methods.append(model_method["@value"])
+
+        for geometry_type in contents_json["GEOEXPOSURE DATA"]["geometry_type"]:
+            if geometry_type["@value"]:
+                geoexposure.geometry_type.append(geometry_type["@value"])
 
         for exposure_media in contents_json["GEOEXPOSURE DATA"]["exposure_media"]:
             if exposure_media["@value"]:
@@ -334,16 +353,20 @@ class CedarResourceParser:
             if geographic_feature["@value"]:
                 geoexposure.geographic_feature.append(geographic_feature["@value"])
 
-        if contents_json["GEOEXPOSURE DATA"]["geographic_feature_other"]["@value"]:
-            geoexposure.geographic_feature.append(
-                contents_json["GEOEXPOSURE DATA"]["geographic_feature_other"]["@value"])
+        for feature in ["GEOEXPOSURE DATA"]["geographic_feature_other"]:
+            if feature["@value"]:
+                geoexposure.geographic_feature_other.append(feature["@value"])
 
         for data_format in contents_json["GEOEXPOSURE DATA"]["data_formats"]:
             if data_format["@value"]:
                 geoexposure.data_formats.append(data_format["@value"])
 
-        # FIXME: is array in model
-        if contents_json["GEOEXPOSURE DATA"]["data_location"]["@value"]:
-            geoexposure.data_location.append(contents_json["GEOEXPOSURE DATA"]["data_location"]["@value"])
+        for data_location in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_location"]:
+            if data_location["@value"]:
+                geoexposure.data_location.append(data_location["@value"])
+
+        for data_location in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_link"]:
+            if data_location["@id"]:
+                geoexposure.data_link.append(data_location["@id"])
 
         return geoexposure

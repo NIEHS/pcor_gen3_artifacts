@@ -85,7 +85,7 @@ class PcorIntermediateResourceModel:
         self.domain_other = []
         self.keywords = []
         self.access_type = ""
-        self.payment_required = ""
+        self.payment_required = False
         self.created_datetime = ""
         self.updated_datetime = ""
         self.verification_datetime = ""
@@ -97,8 +97,8 @@ class PcorIntermediateResourceModel:
         self.publication_links = []
         self.project_sponsor = []
         self.project_sponsor_type = ""
-        self.is_static = ""
-        self.strengths = "" # TODO: the following are from key datasets may consider?
+        self.is_static = False
+        self.strengths = ""
         self.limitations = ""
         self.example_applications = ""
         self.tools_supporting_uses = ""
@@ -147,7 +147,7 @@ class PcorGeospatialDataResourceModel:
         # additional properties to describe the dataset
         self.data_formats = []
         self.data_location = []
-        self.data_link = [] # new
+        self.data_link = []
         self.measures_parent = []
         self.measures_subcategory_major = []
         self.measures_subcategory_minor = []
@@ -159,15 +159,16 @@ class PcorGeospatialDataResourceModel:
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
         self.temporal_resolution = []
-        self.temporal_resolution_other = [] #new
+        self.temporal_resolution_other = []
         self.spatial_resolution = []
         self.spatial_resolution_other = []
         self.spatial_coverage = []
+        self.spatial_coverage_other = []
         self.spatial_coverage_specific_regions = []
         self.spatial_bounding_box = []
         self.geometry_type = []
         self.geometry_source = []
-        self.geometry_source_other = [] # new
+        self.geometry_source_other = []
         self.model_methods = []
         self.model_methods_other = []
         self.exposure_media = []
