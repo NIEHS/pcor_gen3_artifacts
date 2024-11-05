@@ -32,7 +32,7 @@ class LoaderCedar(Loader):
         super().__init__(pcor_ingest_configuration)
         self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
-        self.reader = CedarResourceParser(pcor_ingest_configuration=self.pcor_ingest_configuration)
+        self.reader = CedarResourceParser()
         self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
 
         self.validate_sub_folders(pcor_ingest_configuration.working_directory)
@@ -91,7 +91,7 @@ class LoaderCedar(Loader):
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
-            guid =  LoaderCedar.extract_id_for_resource(resource["@id"])
+            guid = LoaderCedar.extract_id_for_resource(resource["@id"])
             logger.debug("writing file for: %s" % guid)
             processing_file_path = self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json'
             with open(processing_file_path, 'w') as f:
