@@ -138,8 +138,8 @@ class CedarResourceParser:
 
         submission.curator_name = contents_json["SUBMITTER"]["submitter_name"]["@value"]
         submission.curator_email = contents_json["SUBMITTER"]["submitter_email"]["@value"]
-        if contents_json["SUBMITTER"]["Comment"]["@value"]:
-            submission.curation_comment = contents_json["SUBMITTER"]["Comment"]["@value"]
+        if contents_json["SUBMITTER"]["comment"]["@value"]:
+            submission.curation_comment = contents_json["SUBMITTER"]["comment"]["@value"]
 
         submission.curation_comment = submission.curation_comment + "From CEDAR resource at: " + contents_json["@id"]
         submission.template_source = contents_json["@id"]
@@ -154,9 +154,11 @@ class CedarResourceParser:
         :return: PcorProjectModel with project data
         """
         project = PcorIntermediateProjectModel()
-        project.long_name = contents_json["PROJECT"]["project_name"]["@value"]
+        project.id = contents_json["PROJECT"]["ProjecCode"]["@value"]
+        project.name = contents_json["PROJECT"]["project_name"]["@value"]
         project.short_name = contents_json["PROJECT"]["project_short_name"]["@value"]
         project.code = contents_json["PROJECT"]["ProjecCode"]["@value"]
+        # TODO: project code handling?
         # if project_short_name is not empty, use it for project.code
         #if project.short_name:
         #    project.name = project.short_name.replace(' ', '').strip()
@@ -167,9 +169,10 @@ class CedarResourceParser:
             if sponsor["@value"]:
                project.project_sponsor.append(sponsor["@value"])
 
-        sponsor_other =  contents_json["PROJECT"]["project_sponsor_other"]["@value"]
-        if sponsor_other:
-            project.project_sponsor.append(sponsor_other)
+        sponsors_in_json = contents_json["PROJECT"]["project_sponsor_other"]
+        for sponsor in sponsors_in_json:
+            if sponsor["@value"]:
+                project.project_sponsor_other.append(sponsor["@value"])
 
         sponsor_types = contents_json["PROJECT"]["project_sponsor_type"]
         for type in sponsor_types:
@@ -178,7 +181,7 @@ class CedarResourceParser:
 
         sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]["@value"]
         if sponsor_other:
-            project.project_sponsor_type.append(sponsor_other)
+            project.project_sponsor_type_other.append(sponsor_other)
 
         project.project_url = contents_json["PROJECT"]["project_url"]["@value"]
         PcorTemplateParser.process_project_identifiers(project)
@@ -189,17 +192,17 @@ class CedarResourceParser:
     @staticmethod
     def extract_resource_data(contents_json):
         """
-        Given a pandas dataframe with the template date, extract out the resource related data
+        Given CEDAR JSON-LD with the template date, extract out the resource related data
         :param contents_json: cedar json
         :return: PcorResourceModel with resource data
         """
 
         resource = PcorIntermediateResourceModel()
-
+        resource.id =  contents_json["RESOURCE"]["resource_GUID"]["@value"]
+        resource.resource_type =  contents_json["RESOURCE"]["resource_type"]["@value"]
         resource.name = contents_json["RESOURCE"]["resource_name"]["@value"]
         resource.short_name = contents_json["RESOURCE"]["resource_short_name"]["@value"]
-        resource.resource_type =  contents_json["RESOURCE"]["resource_type"]["@value"]
-        resource.resource_url =  contents_json["RESOURCE"]["resource_url"]["@value"]
+        resource.resource_url =  contents_json["RESOURCE"]["resource_url"]["@id"]
         resource.description = contents_json["RESOURCE"]["resource_description"]["@value"]
 
         for domain in contents_json["RESOURCE"]["domain"]:
@@ -208,18 +211,12 @@ class CedarResourceParser:
 
         for domain in contents_json["RESOURCE"]["domain_other"]:
             if domain["@value"]:
-                resource.domain.append(domain["@value"])
+                resource.domain_other.append(domain["@value"])
 
         resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
-
-        resource.payment_required = PcorTemplateParser.sanitize_boolean(
-                    contents_json["RESOURCE"]["payment_required"]["@value"])
-
         resource.created_datetime = contents_json["RESOURCE"]["date_added"]["@value"]
         resource.updated_datetime = contents_json["RESOURCE"]["Date_updated"]["@value"]
         resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
-        resource.resource_reference = contents_json["RESOURCE"]["resource_reference"]["@value"]
-        resource.resource_use_agreement = contents_json["RESOURCE"]["resource_use_agreement"]["@value"]
 
         for publication_citation in contents_json["RESOURCE"]["Publication"]["publication_citation"]:
             resource.publications.append(publication_citation["@value"])
@@ -230,6 +227,15 @@ class CedarResourceParser:
         for keyword in contents_json["RESOURCE"]["keywords"]:
             if keyword["@value"]:
                 resource.keywords.append(keyword["@value"])
+
+        resource.payment_required = PcorTemplateParser.sanitize_boolean(
+                    contents_json["RESOURCE"]["payment_required"]["@value"])
+
+        resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
+        resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
+
+        resource.resource_use_agreement = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
+        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"]["@id"]
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 

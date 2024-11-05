@@ -51,14 +51,12 @@ class PcorIntermediateProjectModel:
         self.id = ""
         self.name = ""
         self.short_name = ""
-        self.long_name = ""
         self.submitter_id = ""
         self.project_sponsor = []
         self.project_sponsor_other = []
         self.project_sponsor_type = []
         self.project_sponsor_type_other = []
         self.project_url = ""
-        self.description = ""
         self.code = ""
         self.availability_mechanism = ""
         self.availability_type = ""
@@ -80,7 +78,6 @@ class PcorIntermediateResourceModel:
         self.submitter_id = ""
         self.name = ""
         self.short_name = ""
-        self.long_name = ""
         self.resource_type = ""
         self.resource_url = ""
         self.description = ""
@@ -101,7 +98,7 @@ class PcorIntermediateResourceModel:
         self.project_sponsor = []
         self.project_sponsor_type = ""
         self.is_static = ""
-        self.strengths = ""
+        self.strengths = "" # TODO: the following are from key datasets may consider?
         self.limitations = ""
         self.example_applications = ""
         self.tools_supporting_uses = ""
