@@ -37,6 +37,10 @@ class CedarMigrate150():
         reader = CedarResourceParser150()
         result = PcorProcessResult()
         reader.parse(tempfilename, result)
+        if not result.success:
+            logger.exception("parsing unsuccessful, error:%s" % result.message)
+            raise Exception("parse error")
+
         return result.model_data
 
     def reformat_json(self, model_data):

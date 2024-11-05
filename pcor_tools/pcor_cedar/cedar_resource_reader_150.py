@@ -165,22 +165,23 @@ class CedarResourceParser150:
             if sponsor["@value"]:
                project.project_sponsor.append(sponsor["@value"])
 
-        sponsor_other =  contents_json["PROJECT"]["project_sponsor_other"]["@value"]
-        if sponsor_other:
-            project.project_sponsor.append(sponsor_other)
+        #sponsor_other =  contents_json["PROJECT"]["project_sponsor_other"]["@value"]
+        #if sponsor_other:
+        #    project.project_sponsor.append(sponsor_other)
+
+        sponsors_in_json = contents_json["PROJECT"]["project_sponsor_other"]
+        for sponsor in sponsors_in_json:
+            if sponsor["@value"]:
+                project.project_sponsor_other.append(sponsor["@value"])
 
         sponsor_types = contents_json["PROJECT"]["project_sponsor_type"]
         for type in sponsor_types:
             if  type["@value"]:
                 project.project_sponsor_type.append(type["@value"])
 
-        sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]["@value"]
-        if sponsor_other:
-            project.project_sponsor_type.append(sponsor_other)
 
-        project.project_url = contents_json["PROJECT"]["project_url"]["@value"]
+        project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
         PcorTemplateParser.process_project_identifiers(project)
-
         return project
 
 
@@ -211,7 +212,7 @@ class CedarResourceParser150:
         resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
 
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
-                    contents_json["RESOURCE"]["payment_required"][0]["@value"])
+                    contents_json["RESOURCE"]["payment_required"]["@value"])
 
         resource.created_datetime = contents_json["RESOURCE"]["date_added"]["@value"]
         resource.updated_datetime = contents_json["RESOURCE"]["Date_updated"]["@value"]
@@ -229,7 +230,7 @@ class CedarResourceParser150:
             if keyword["@value"]:
                 resource.keywords.append(keyword["@value"])
 
-        resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"][0]["@value"])
+        resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
         if resource.submitter_id is None or resource.submitter_id == '':
             resource.submitter_id = str(uuid.uuid4())
@@ -248,22 +249,22 @@ class CedarResourceParser150:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
-        geoexposure.comments = contents_json["DATA RESOURCE"]["comments"]["@value"]
+        geoexposure.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
 
         geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"][0]["@value"])
+                contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
 
         for update_frequency in contents_json["DATA RESOURCE"]["update_frequency"]:
             if update_frequency["@value"]:
                 geoexposure.update_frequency.append(update_frequency["@value"])
 
         geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_api"][0]["@value"])
+                contents_json["DATA RESOURCE"]["has_api"]["@value"])
 
         geoexposure.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_visualization_tool"][0]["@value"])
+                contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
 
         for measure in contents_json["GEOEXPOSURE DATA"]["measures"]:
             geoexposure.measures.append(measure["@value"])
@@ -275,6 +276,10 @@ class CedarResourceParser150:
         for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method"]:
             if measurement_method["@value"]:
                 geoexposure.measurement_method.append(measurement_method["@value"])
+
+        for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]:
+            if measurement_method["@value"]:
+                geoexposure.measurement_method_other.append(measurement_method["@value"])
 
         if contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]["@value"]:
             geoexposure.measurement_method.append( contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]["@value"])

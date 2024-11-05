@@ -157,6 +157,7 @@ class PcorGeospatialDataResourceModel:
         self.measures = []
         self.measures_other = []
         self.measurement_method = []
+        self.measurement_method_other = [] # new
         self.time_extent_start_yyyy = None
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
