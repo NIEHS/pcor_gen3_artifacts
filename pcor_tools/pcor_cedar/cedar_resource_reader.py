@@ -270,6 +270,10 @@ class CedarResourceParser:
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
         geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
 
+        for source in contents_json["DATA RESOURCE"]["source_name"]:
+            if source["@value"]:
+                geoexposure.source_name.append(source["@value"])
+
         geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
                 contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
 
@@ -396,15 +400,21 @@ class CedarResourceParser:
         population = PcorPopDataResourceModel()
         population.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
         population.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
-        population.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
+
+        for source in contents_json["DATA RESOURCE"]["source_name"]:
+            if source["@value"]:
+                population.source_name.append(source["@value"])
+
         for item in contents_json["DATA RESOURCE"]["update_frequency"]:
             if item["@value"]:
                 population.update_frequency.append(item["@value"])
+
         population.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
             contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
         population.has_api = PcorTemplateParser.sanitize_boolean(contents_json["DATA RESOURCE"]["has_api"]["@value"])
         population.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
             contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
+        population.update_frequency_other =  contents_json["DATA RESOURCE"]["update_frequency_other"]["@value"]
 
         # pop data resource
         pop_data_json = contents_json["POPULATION DATA RESORCE"]

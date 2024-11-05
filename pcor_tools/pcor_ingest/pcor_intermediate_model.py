@@ -278,9 +278,9 @@ class PcorPopDataResourceModel:
         self.updated_datetime = ""
         self.comments = ""
         self.intended_use = ""
-        self.source_name = ""
+        self.source_name = [] # array
         self.update_frequency = []
-        self.update_frequency_other = []
+        self.update_frequency_other = ""
         self.includes_citizen_collected = False
         self.has_api = False
         self.has_visualization_tool = False
