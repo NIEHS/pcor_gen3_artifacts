@@ -287,24 +287,35 @@ class PcorPopDataResourceModel:
         self.time_extent_start_yyyy = None
         self.time_extent_end_yyyy = None
         self.time_available_comment = ""
-        self.spatial_resolution = ""
+        self.spatial_resolution = []
+        self.spatial_resolution_other = []
         self.spatial_coverage = []
+        self.spatial_coverage_other = []
         self.temporal_resolution = []
+        self.temporal_resolution_other = []
         self.spatial_coverage_specific_regions = []
         self.geometry_type = []
-        self.geometry_source = ""
+        self.geometry_source = []
         self.vulnerable_population = []
         self.exposures = []
         self.outcomes = []
         self.model_methods = []
+        self.model_methods_other = []
         self.population_studied = []
-        self.exposure_media = []
+        self.population_studied_other = []
         self.measures_parent = []
+        self.exposure_media = []
         self.measures_subcategory_major = []
         self.measures_subcategory_minor = []
         self.measures = []
+        self.measures_other = []
+        self.biospecimens_type = []
+        self.biospecimens = False
+        self.linkable_encounters = False
+        self.individual_level = False
         self.data_formats = []
         self.data_location = []
+        self.data_link = []
 
 
 class PcorGeoToolModel:

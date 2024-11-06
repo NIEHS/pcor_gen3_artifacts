@@ -96,21 +96,28 @@ properties:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
   temporal_resolution:
+    #FixMe: update description
     description: Frequency of time points. This is the finest resolution
-    type: string
+    type: array
+    items:
+      type: string
   spatial_resolution:
+    #FixMe:update description
     description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
+    type: array
+    items:
+      type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: array
     items:
       type: string
-  spatial_coverage_specific_regions:
-    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
-    type: array
-    items:
-      type: string
+# prop no longer used
+#  spatial_coverage_specific_regions:
+#    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
+#    type: array
+#    items:
+#      type: string
   geometry_type:
     description: Type of geometric data, the file extension will be different for different types.
     type: array
@@ -167,11 +174,29 @@ properties:
     type: array
     items:
       type: string
+  biospecimens_type:
+    #FixMe: update description
+    description: Type of biospecimens collected in the study.
+    type: array
+    items:
+      type: string
   data_formats:
     description: Format of data in the collection
     type: array
     items:
       type: string
+  biospecimens:
+    #FixMe: update description
+    description:
+    type: boolean
+  linkable_encounters:
+    #FixMe: update description
+    description:
+    type: boolean
+  individual_level:
+    #FixMe: update description
+    description:
+    type: boolean
   data_location:
     description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
     type: array
