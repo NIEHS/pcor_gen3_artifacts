@@ -26,7 +26,9 @@ logging.basicConfig(
 
 )
 logger = logging.getLogger(__name__)
-
+"""
+Reader of CEDAR template data for version 1_5_1
+"""
 
 class CedarResourceParser:
     """
@@ -247,7 +249,9 @@ class CedarResourceParser:
         resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
         resource.resource_use_agreement = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
-        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"]["@id"]
+
+        # pop data can have an empty {}} with no @id:null
+        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
@@ -466,7 +470,7 @@ class CedarResourceParser:
         population = PcorPopDataResourceModel()
         # data resource
         data_resource = contents_json["DATA RESOURCE"]
-        population.comments = data_resource["comments"]["@value"]
+        population.comments = data_resource["Comments"]["@value"]
         population.intended_use = data_resource["intended_use"]["@value"]
         for item in data_resource["source_name"]:
             if item["@value"]:
@@ -499,60 +503,84 @@ class CedarResourceParser:
             PcorTemplateParser.sanitize_column(pop_data_json["time_extent_end"]["@value"]))
         population.time_available_comment = pop_data_json["time_available_comment"]["@value"]
 
-        for item in pop_data_json["temporal_resolution"]:
-            if item["@value"]:
-                population.temporal_resolution.append(item["@value"])
+        if type(pop_data_json["temporal_resolution"]) in (tuple, list):
+            for item in pop_data_json["temporal_resolution"]:
+                if item["@value"]:
+                    population.temporal_resolution.append(item["@value"])
+        else:
+            population.temporal_resolution.append(pop_data_json["temporal_resolution"]["@value"])
+
         for item in pop_data_json["temporal_resolution_other"]:
             if item["@value"]:
                 population.temporal_resolution_other.append(item["@value"])
-        for item in pop_data_json["spatial_resolution"]:
-            if item["@value"]:
-                population.spatial_resolution.append(item["@value"])
+
+        if type(pop_data_json["spatial_resolution"]) in (tuple, list):
+            for item in pop_data_json["spatial_resolution"]:
+                if item["@value"]:
+                    population.spatial_resolution.append(item["@value"])
+                else:
+                    population.spatial_resolution.append(pop_data_json["spatial_resolution"]["@value"])
+
         for item in pop_data_json["spatial_resolution_other"]:
             if item["@value"]:
                 population.spatial_resolution_other.append(item["@value"])
+
         for item in pop_data_json["spatial_coverage"]:
             if item["@value"]:
                 population.spatial_coverage.append(item["@value"])
+
         for spatial_coverage in pop_data_json["spatial_coverage_other"]:
             if spatial_coverage["@value"]:
                 population.spatial_coverage_other.append(spatial_coverage["@value"])
-        for item in pop_data_json["spatial_coverage_specific regions"]:
-            if item["@value"]:
-                population.spatial_coverage.append(item["@value"])
+        #for item in pop_data_json["spatial_coverage_specific_regions"]:
+        #    if item["@value"]:
+        #        population.spatial_coverage.append(item["@value"])
+
         for item in pop_data_json["geometry_type"]:
             if item["@value"]:
                 population.geometry_type.append(item["@value"])
+
         for item in pop_data_json["geometry_source"]:
             if item["@value"]:
                 population.geometry_source.append(item["@value"])
+
         for item in pop_data_json["model_methods"]:
             if item["@value"]:
                 population.model_methods.append(item["@value"])
+
         for item in pop_data_json["model_methods"]:
             if item["@value"]:
                 population.model_methods_other.append(item["@value"])
+
         for population_study in pop_data_json["population_studied"]:
             if population_study["@value"]:
                 population.population_studied.append(population_study["@value"])
+
         for item in pop_data_json["population_studied_other"]:
             if item["@value"]:
                 population.population_studied_other.append(item["@value"])
+
         for item in pop_data_json["biospecimens_type"]:
             if item["@value"]:
                 population.biospecimens_type.append(item["@value"])
+
         for item in pop_data_json["data_formats"]:
             if item["@value"]:
                 population.data_formats.append(item["@value"])
+
         population.biospecimens = PcorTemplateParser.sanitize_boolean(
             pop_data_json["biospecimens"]["@value"])
-        population.biospecimens = PcorTemplateParser.sanitize_boolean(
+
+        population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
             pop_data_json["linkable_encounters"]["@value"])
-        population.biospecimens = PcorTemplateParser.sanitize_boolean(
+
+        population.individual_level = PcorTemplateParser.sanitize_boolean(
             pop_data_json["individual_level"]["@value"])
+
         for item in pop_data_json["Data Download"]["data_location"]:
             if item["@value"]:
                 population.data_location.append(item["@value"])
+
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 population.data_link.append(item["@id"])
