@@ -334,10 +334,14 @@ class PcorGeoToolModel:
         self.created_datetime = ""
         self.updated_datetime = ""
         self.tool_type = []
+        self.tool_type_other = []
         self.intended_use = ""
         self.operating_system = []
+        self.operating_system_other = [] # new
         self.languages = []
+        self.languages_other = [] # new
         self.license_type = []
+        self.license_type_other = []
         self.is_open = False
         self.suggested_audience = []
 

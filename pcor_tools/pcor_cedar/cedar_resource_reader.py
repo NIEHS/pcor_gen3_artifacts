@@ -18,7 +18,7 @@ from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, \
-    PcorPopDataResourceModel
+    PcorPopDataResourceModel, PcorGeoToolModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -111,9 +111,14 @@ class CedarResourceParser:
         if "GEOEXPOSURE DATA" in contents_json:
             geoexposure_data = CedarResourceParser.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
-        if "POPULATION DATA RESORCE" in contents_json:
+        elif "POPULATION DATA RESORCE" in contents_json:
             population_data = CedarResourceParser.extract_population_data(contents_json)
             result.model_data["population_data_resource"] = population_data
+        elif "TOOL RESOURCE" in contents_json:
+            tool_data = CedarResourceParser.extract_geoexposure_tool_data(contents_json)
+            result.model_data["geospatial_tool_resource"] = tool_data
+        else:
+            raise Exception("unknown data type")
 
     @staticmethod
     def extract_program_data(contents_json):
@@ -384,6 +389,67 @@ class CedarResourceParser:
                 geoexposure.data_link.append(data_location["@id"])
 
         return geoexposure
+
+    @staticmethod
+    def extract_geoexposure_tool_data(contents_json):
+        """
+        extract the geoexposure tool related information from the cedar resource
+        :param contents_json: json-ld from cedar
+        :return: PcorGeospatialDataResourceModel
+        """
+
+        # some of the data is under the required DATA RESOURCE stanza
+        if not contents_json["TOOL RESOURCE"]:
+            raise Exception("missing TOOL RESOURCE information in CEDAR json")
+
+        geotool = PcorGeoToolModel()
+
+        body = contents_json["TOOL RESOURCE"]
+
+        for tool_type in body["tool_type"]:
+            if tool_type["@value"]:
+                geotool.tool_type.append(tool_type["@value"])
+
+        for tool_type in body["tool_type_other"]:
+            if tool_type["@value"]:
+                geotool.tool_type_other.append(tool_type["@value"])
+
+        for os in body["operating_system"]:
+            if os["@value"]:
+                geotool.operating_system.append(os["@value"])
+
+        for os in body["operating_system_other"]:
+            if os["@value"]:
+                geotool.operating_system_other.append(os["@value"])
+
+        for lang in body["languages"]:
+            if lang["@value"]:
+                geotool.languages.append(lang["@value"])
+
+        for lang in body["languages_other"]:
+            if lang["@value"]:
+                geotool.languages_other.append(lang["@value"])
+
+        for license_type in body["license_type"]:
+            if license_type["@value"]:
+                geotool.license_type.append(license_type["@value"])
+
+        for license_type in body["license_type_other"]:
+            if license_type["@value"]:
+                geotool.license_type_other.append(license_type["@value"])
+
+        for aud in body["suggested_audience"]:
+            if aud["@value"]:
+                geotool.suggested_audience.append(aud["@value"])
+
+        geotool.is_open = PcorTemplateParser.sanitize_boolean(
+            body["is_open"]["@value"])
+
+        geotool.intended_use = body["intended_use"]["@value"]
+
+
+        return geotool
+
 
     @staticmethod
     def extract_population_data(contents_json):
