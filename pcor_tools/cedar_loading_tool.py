@@ -53,8 +53,8 @@ def main():
     resource_url = args.resource_url
     directory = args.directory
 
-    ingest_configuration = CedarConfig()
-    cedar_loader = LoaderCedar(ingest_configuration)
+    pcor_ingest_configuration = PcorIngestConfiguration(os.environ.get("PCOR_GEN3_CONFIG_LOCATION"))
+    cedar_loader = LoaderCedar(pcor_ingest_configuration)
     logger.info("loading...")
     cedar_loader.main_load_process(resource_url, directory)
     logger.info("loading complete")
