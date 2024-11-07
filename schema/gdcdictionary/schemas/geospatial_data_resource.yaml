@@ -122,14 +122,12 @@ properties:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
   temporal_resolution:
-    # FixMe:update description
-    description: Frequency of time points. This is the finest resolution
+    description: The highest frequency of time points collection, aggregated lower frequency data might be available as well
     type: array
     items:
       type: string
   spatial_resolution:
-    # FixMe:update description
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
+    description: The highest spatial resolution of the data. If there are multiple resources and determining the highest spatial resolution is impractical, use "Other".
     type: array
     items:
       type: string
@@ -185,8 +183,7 @@ properties:
     items:
       type: string
   data_link:
-    #FixME: add description
-    description:
+    description: URL to online location where data can be downloaded
     type: array
     items:
       type: string

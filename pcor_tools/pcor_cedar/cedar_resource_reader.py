@@ -400,7 +400,7 @@ class CedarResourceParser:
         population = PcorPopDataResourceModel()
         # data resource
         data_resource = contents_json["DATA RESOURCE"]
-        population.comments = data_resource["comments"]["@value"]
+        population.comments = data_resource["Comments"]["@value"]
         population.intended_use = data_resource["intended_use"]["@value"]
         for item in data_resource["source_name"]:
             if item["@value"]:
@@ -414,7 +414,6 @@ class CedarResourceParser:
         population.has_api = PcorTemplateParser.sanitize_boolean(data_resource["has_api"]["@value"])
         population.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
             data_resource["has_visualization_tool"]["@value"])
-
 
         # pop data resource
         pop_data_json = contents_json["POPULATION DATA RESORCE"]
@@ -490,7 +489,6 @@ class CedarResourceParser:
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 population.data_link.append(item["@id"])
-
         return population
 
 
