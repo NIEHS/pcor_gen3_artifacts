@@ -34,12 +34,12 @@ class PcorSubmissionInfoModel:
     """
 
     def __init__(self):
-        self.curator_name = ""
-        self.curator_email = ""
         self.curation_comment = ""
-        self.template_source = ""
-        self.submit_location = ""
+        self.curator_email = ""
+        self.curator_name = ""
         self.submit_final_location = ""
+        self.submit_location = ""
+        self.template_source = ""
 
 
 class PcorIntermediateProjectModel:
@@ -48,21 +48,21 @@ class PcorIntermediateProjectModel:
         self.program = None
         self.program_id = ""
         # project
+        self.availability_mechanism = ""
+        self.availability_type = ""
+        self.code = ""
+        self.complete = ""
+        self.date_collected = ""
+        self.dbgap_accession_number = ""
         self.id = ""
         self.name = ""
-        self.short_name = ""
-        self.submitter_id = ""
         self.project_sponsor = []
         self.project_sponsor_other = []
         self.project_sponsor_type = []
         self.project_sponsor_type_other = []
         self.project_url = ""
-        self.code = ""
-        self.availability_mechanism = ""
-        self.availability_type = ""
-        self.complete = ""
-        self.date_collected = ""
-        self.dbgap_accession_number = ""
+        self.short_name = ""
+        self.submitter_id = ""
 
 
 class PcorIntermediateResourceModel:
@@ -74,34 +74,34 @@ class PcorIntermediateResourceModel:
     def __init__(self):
         self.project = ""
         # resource
-        self.id = ""
-        self.submitter_id = ""
-        self.name = ""
-        self.short_name = ""
-        self.resource_type = ""
-        self.resource_url = ""
+        self.access_type = ""
+        self.created_datetime = ""
         self.description = ""
         self.domain = []
         self.domain_other = []
+        self.example_applications = ""
+        self.id = ""
+        self.is_static = False
         self.keywords = []
-        self.access_type = ""
+        self.limitations = ""
+        self.name = ""
         self.payment_required = False
-        self.created_datetime = ""
-        self.updated_datetime = ""
-        self.verification_datetime = ""
-        self.resource_reference = ""
-        self.resource_reference_link = ""
-        self.resource_use_agreement = ""
-        self.resource_use_agreement_link = ""
-        self.publications = []
-        self.publication_links = []
         self.project_sponsor = []
         self.project_sponsor_type = ""
-        self.is_static = False
+        self.publication_links = []
+        self.publications = []
+        self.resource_reference = ""
+        self.resource_reference_link = ""
+        self.resource_type = ""
+        self.resource_url = ""
+        self.resource_use_agreement = ""
+        self.resource_use_agreement_link = ""
+        self.short_name = ""
         self.strengths = ""
-        self.limitations = ""
-        self.example_applications = ""
+        self.submitter_id = ""
         self.tools_supporting_uses = ""
+        self.updated_datetime = ""
+        self.verification_datetime = ""
 
 
 class SubmitResponse:
@@ -134,49 +134,50 @@ class PcorGeospatialDataResourceModel:
 
     def __init__(self):
         # data resc props are common
-        self.display_type = ""
         self.comments = ""
+        self.display_type = ""
+        self.has_api = False
+        self.has_visualization_tool = False
+        self.includes_citizen_collected = False
         self.intended_use = ""
         self.source_name = []
         self.update_frequency = []
         self.update_frequency_other = ""
-        self.includes_citizen_collected = False
-        self.has_api = False
-        self.has_visualization_tool = False
 
         # additional properties to describe the dataset
+        # FixMe: remove unused props
         self.data_formats = []
-        self.data_location = []
         self.data_link = []
-        self.measures_parent = []
-        self.measures_subcategory_major = []
-        self.measures_subcategory_minor = []
-        self.measures = []
-        self.measures_other = []
-        self.measurement_method = []
-        self.measurement_method_other = [] # new
-        self.time_extent_start_yyyy = None
-        self.time_extent_end_yyyy = None
-        self.time_available_comment = ""
-        self.temporal_resolution = []
-        self.temporal_resolution_other = []
-        self.spatial_resolution = []
-        self.spatial_resolution_other = []
-        self.spatial_coverage = []
-        self.spatial_coverage_other = []
-        self.spatial_coverage_specific_regions = []
-        self.spatial_bounding_box = []
-        self.geometry_type = []
-        self.geometry_source = []
-        self.geometry_source_other = []
-        self.model_methods = []
-        self.model_methods_other = []
+        self.data_location = []
         self.exposure_media = []
         self.geographic_feature = []
         self.geographic_feature_other = []
+        self.geometry_source = []
+        self.geometry_source_other = []
+        self.geometry_type = []
+        self.measurement_method = []
+        self.measurement_method_other = [] # new
+        self.measures = []
+        self.measures_other = []
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
+        self.model_methods = []
+        self.model_methods_other = []
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_submitter_id = ""
+        self.spatial_bounding_box = []
+        self.spatial_coverage = []
+        self.spatial_coverage_other = []
+        self.spatial_coverage_specific_regions = []
+        self.spatial_resolution = []
+        self.spatial_resolution_other = []
+        self.temporal_resolution = []
+        self.temporal_resolution_other = []
+        self.time_available_comment = ""
+        self.time_extent_end_yyyy = None
+        self.time_extent_start_yyyy = None
 
 
 class PcorDiscoveryMetadata:
@@ -185,59 +186,59 @@ class PcorDiscoveryMetadata:
     """
 
     def __init__(self):
-        self.tags = []
+        self.access_type = ""
         self.adv_search_filters = []
-        self.program_name = ""
-        self.project_sponsor = ""
-        self.project_sponsor_type = ""
-        self.project_name = ""
-        self.project_short_name = ""
-        self.project_url = ""
-        self.project_description = ""
+        self.comment = ""  # collapses intended_use and other descriptions
+        self.data_formats = []
+        self.data_location_1 = ""
+        self.data_location_2 = ""
+        self.data_location_3 = ""
+        self.description = ""
+        self.domain = []
+        self.exposure_media = []
+        self.geometry_type = []
+        self.has_api = ""
+        self.has_visualization_tool = ""
+        self.is_citizen_collected = ""
+        self.measures = []
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_major = []
         self.name = ""
         self.payment_required = ""
-        self.verification_datetime = ""
-        self.comment = ""  # collapses intended_use and other descriptions
-        self.description = ""
-        self.update_frequency = []
-        self.resource_id = ""
-        self.resource_url = ""
-        self.type = ""
-        self.domain = []
+        self.program_name = ""
+        self.project_description = ""
+        self.project_name = ""
+        self.project_short_name = ""
+        self.project_sponsor = ""
+        self.project_sponsor_type = ""
+        self.project_url = ""
+        self.publication_link_1 = ""
+        self.publication_link_2 = ""
+        self.publication_link_3 = ""
+        self.publication_links = []
         self.publications = []
         self.publications_1 = ""
         self.publications_2 = ""
         self.publications_3 = ""
-        self.publication_links = []
-        self.publication_link_1 = ""
-        self.publication_link_2 = ""
-        self.publication_link_3 = ""
-        self.access_type = ""
+        self.resource_id = ""
         self.resource_reference_1 = ""
         self.resource_reference_2 = ""
-        self.has_api = ""
-        self.has_visualization_tool = ""
-        self.is_citizen_collected = ""
+        self.resource_url = ""
         self.resource_use_agreement = ""
-        self.data_location_1 = ""
-        self.data_location_2 = ""
-        self.data_location_3 = ""
-        self.variables = []
-        self.data_formats = []
-        self.tool_type = []
         self.source_name = ""
         self.spatial_coverage = []
-        self.geometry_type = []
         self.spatial_resolution = ""
-        self.time_extent_start_yyyy = None
-        self.time_extent_end_yyyy = None
-        self.time_available_comment = ""
+        self.tags = []
         self.temporal_resolution = ""
-        self.exposure_media = []
-        self.measures_parent = []
-        self.measures_subcategory_major = []
-        self.measures_subcategory_major = []
-        self.measures = []
+        self.time_available_comment = ""
+        self.time_extent_end_yyyy = None
+        self.time_extent_start_yyyy = None
+        self.tool_type = []
+        self.type = ""
+        self.update_frequency = []
+        self.variables = []
+        self.verification_datetime = ""
 
 
 class Tag:
@@ -266,56 +267,61 @@ class PcorPopDataResourceModel:
     """
 
     def __init__(self):
+        # data resc props are common
+        self.comments = ""
         self.display_type = ""
+        self.has_api = False
+        self.has_visualization_tool = False
+        self.includes_citizen_collected = False
+        self.intended_use = ""
+        self.source_name = []
+        self.update_frequency = []
+        self.update_frequency_other = ""
+
+        # additional properties to describe the dataset
+        # FixMe: remove unused props
+        self.biospecimens = False
+        self.biospecimens_type = []
+        self.created_datetime = ""
+        self.data_formats = []
+        self.data_link = []
+        self.data_location = []
+        self.exposure_media = []
+        self.exposures = []
+        self.geometry_source = []
+        self.geometry_type = []
+        self.individual_level = False
+        self.intended_use = ""
+        self.linkable_encounters = False
+        self.measures = []
+        self.measures_other = []
+        self.measures_parent = []
+        self.measures_subcategory_major = []
+        self.measures_subcategory_minor = []
+        self.model_methods = []
+        self.model_methods_other = []
+        self.outcomes = []
         self.pcor_intermediate_resource_model = None
-        self.submitter_id = ""
+        self.population_studied = []
+        self.population_studied_other = []
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_id = ""
         self.resource_submitter_id = ""
-        self.created_datetime = ""
-        self.state = ""
-        self.updated_datetime = ""
-        self.comments = ""
-        self.intended_use = ""
-        self.source_name = [] # array
-        self.update_frequency = []
-        self.update_frequency_other = ""
-        self.includes_citizen_collected = False
-        self.has_api = False
-        self.has_visualization_tool = False
-        self.time_extent_start_yyyy = None
-        self.time_extent_end_yyyy = None
-        self.time_available_comment = ""
-        self.spatial_resolution = []
-        self.spatial_resolution_other = []
         self.spatial_coverage = []
         self.spatial_coverage_other = []
+        self.spatial_coverage_specific_regions = []
+        self.spatial_resolution = []
+        self.spatial_resolution_other = []
+        self.state = ""
+        self.submitter_id = ""
         self.temporal_resolution = []
         self.temporal_resolution_other = []
-        self.spatial_coverage_specific_regions = []
-        self.geometry_type = []
-        self.geometry_source = []
+        self.time_available_comment = ""
+        self.time_extent_end_yyyy = None
+        self.time_extent_start_yyyy = None
+        self.updated_datetime = ""
         self.vulnerable_population = []
-        self.exposures = []
-        self.outcomes = []
-        self.model_methods = []
-        self.model_methods_other = []
-        self.population_studied = []
-        self.population_studied_other = []
-        self.measures_parent = []
-        self.exposure_media = []
-        self.measures_subcategory_major = []
-        self.measures_subcategory_minor = []
-        self.measures = []
-        self.measures_other = []
-        self.biospecimens_type = []
-        self.biospecimens = False
-        self.linkable_encounters = False
-        self.individual_level = False
-        self.data_formats = []
-        self.data_location = []
-        self.data_link = []
 
 
 class PcorGeoToolModel:
@@ -324,26 +330,26 @@ class PcorGeoToolModel:
     """
 
     def __init__(self):
-        self.display_type = ""
-        self.pcor_intermediate_resource_model = None
-        self.submitter_id = ""
-        self.project_id = ""
-        self.project_submitter_id = ""
-        self.resource_id = ""
-        self.resource_submitter_id = ""
         self.created_datetime = ""
-        self.updated_datetime = ""
-        self.tool_type = []
-        self.tool_type_other = []
+        self.display_type = ""
         self.intended_use = ""
-        self.operating_system = []
-        self.operating_system_other = [] # new
+        self.is_open = False
         self.languages = []
         self.languages_other = [] # new
         self.license_type = []
         self.license_type_other = []
-        self.is_open = False
+        self.operating_system = []
+        self.operating_system_other = [] # new
+        self.pcor_intermediate_resource_model = None
+        self.project_id = ""
+        self.project_submitter_id = ""
+        self.resource_id = ""
+        self.resource_submitter_id = ""
+        self.submitter_id = ""
         self.suggested_audience = []
+        self.tool_type = []
+        self.tool_type_other = []
+        self.updated_datetime = ""
 
 
 class PcorKeyDatasetModel:
@@ -352,30 +358,52 @@ class PcorKeyDatasetModel:
     """
 
     def __init__(self):
-        self.pcor_intermediate_resource_model = None
-        self.resource_id = ""
-        self.resource_submitter_id = ""
-        self.created_datetime = ""
-        self.submitter_id = ""
-        self.updated_datetime = ""
-        self.display_type = ""
+        # data resc props are common
         self.comments = ""
+        self.display_type = ""
+        self.has_api = False
+        self.has_visualization_tool = False
+        self.includes_citizen_collected = False
+        self.intended_use = ""
+        self.source_name = []
+        self.update_frequency = []
+        self.update_frequency_other = ""
+
+        # additional properties to describe the dataset
+        # FixMe: remove unused props
+        self.created_datetime = ""
+        self.data_formats = []
+        self.data_link = []
+        self.data_location = []
+        self.display_type = ""
+        self.exposure_media = []
+        self.geographic_feature = []
+        self.geographic_feature_other = []
+        self.geometry_source = []
+        self.geometry_source_other = []
+        self.geometry_type = []
+        self.intended_use = ""
+        self.measurement_method = []
+        self.measurement_method_other = []
+        self.measures = []
         self.measures_parent = []
         self.measures_subcategory_major = []
         self.measures_subcategory_minor = []
-        self.measures = []
-        self.time_extent_start_yyyy = None
-        self.time_extent_end_yyyy = None
-        self.time_available_comment = ""
-        self.temporal_resolution = ""
-        self.spatial_resolution = ""
-        self.spatial_coverage = ""
-        self.geometry_type = []
-        self.model_methods = []
         self.metrics_derived_from_data_set = ""
-        self.data_formats = []
-        self.data_location = []
-        self.source_name = []
-
-
-
+        self.model_methods = []
+        self.model_methods_other = []
+        self.pcor_intermediate_resource_model = None
+        self.resource_id = ""
+        self.resource_submitter_id = ""
+        self.spatial_bounding_box = []
+        self.spatial_coverage = []
+        self.spatial_coverage_other = []
+        self.spatial_resolution = []
+        self.spatial_resolution_other = []
+        self.submitter_id = ""
+        self.temporal_resolution = []
+        self.temporal_resolution_other = []
+        self.time_available_comment = ""
+        self.time_extent_end_yyyy = None
+        self.time_extent_start_yyyy = None
+        self.updated_datetime = ""

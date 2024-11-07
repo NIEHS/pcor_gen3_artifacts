@@ -1,24 +1,17 @@
 import logging
-import math
-import re
 import traceback
 import uuid
 import json
 import warnings
-import pandas as pd
-from datetime import datetime
-
-from pcor_ingest.ingest_context import PcorIngestConfiguration
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
-from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, \
-    PcorPopDataResourceModel, PcorGeoToolModel
+    PcorPopDataResourceModel, PcorGeoToolModel, PcorKeyDatasetModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -30,6 +23,7 @@ logger = logging.getLogger(__name__)
 Reader of CEDAR template data for version 1_5_1
 """
 
+
 class CedarResourceParser:
     """
     A parent class for a parser of a PCOR Cedar for a type
@@ -38,8 +32,6 @@ class CedarResourceParser:
     def __init__(self):
         self.cedar_config = CedarConfig()
         self.pcor_measures_rollup = PcorMeasuresRollup(self.cedar_config.cedar_properties["measures.location"])
-        self.yyyy_pattern = r"\b(\d{4})\b"
-
 
     def parse(self, template_absolute_path, result):
 
@@ -119,6 +111,9 @@ class CedarResourceParser:
         elif "TOOL RESOURCE" in contents_json:
             tool_data = CedarResourceParser.extract_geoexposure_tool_data(contents_json)
             result.model_data["geospatial_tool_resource"] = tool_data
+        elif "KEY DATASETS DATA" in contents_json:
+            key_dataset_data = CedarResourceParser.extract_key_dataset_data(contents_json)
+            result.model_data["key_dataset_data"] = key_dataset_data
         else:
             raise Exception("unknown data type")
 
@@ -200,7 +195,6 @@ class CedarResourceParser:
 
         return project
 
-
     @staticmethod
     def extract_resource_data(contents_json):
         """
@@ -227,6 +221,8 @@ class CedarResourceParser:
                 resource.domain_other.append(domain["@value"])
 
         resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
+
+        # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]
         resource.updated_datetime = contents_json["pav:lastUpdatedOn"]
 
@@ -315,9 +311,9 @@ class CedarResourceParser:
                 geoexposure.measurement_method_other.append(measurement_method["@value"])
 
         geoexposure.time_extent_start_yyyy = (
-            PcorTemplateParser.sanitize_column(contents_json["GEOEXPOSURE DATA"]["time_extent_start"]["@value"]))
+            PcorTemplateParser.format_date_time(contents_json["GEOEXPOSURE DATA"]["time_extent_start"]["@value"]))
         geoexposure.time_extent_end_yyyy = (
-            PcorTemplateParser.sanitize_column(contents_json["GEOEXPOSURE DATA"]["time_extent_end"]["@value"]))
+            PcorTemplateParser.format_date_time(contents_json["GEOEXPOSURE DATA"]["time_extent_end"]["@value"]))
 
         geoexposure.time_available_comment = contents_json["GEOEXPOSURE DATA"]["time_available_comment"]["@value"]
 
@@ -454,7 +450,6 @@ class CedarResourceParser:
 
         return geotool
 
-
     @staticmethod
     def extract_population_data(contents_json):
         """
@@ -468,10 +463,9 @@ class CedarResourceParser:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         population = PcorPopDataResourceModel()
+
         # data resource
         data_resource = contents_json["DATA RESOURCE"]
-        population.comments = data_resource["Comments"]["@value"]
-        population.intended_use = data_resource["intended_use"]["@value"]
         for item in data_resource["source_name"]:
             if item["@value"]:
                 population.source_name.append(item["@value"])
@@ -484,6 +478,8 @@ class CedarResourceParser:
         population.has_api = PcorTemplateParser.sanitize_boolean(data_resource["has_api"]["@value"])
         population.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
             data_resource["has_visualization_tool"]["@value"])
+        population.comments = data_resource["Comments"]["@value"]
+        population.intended_use = data_resource["intended_use"]["@value"]
 
         # pop data resource
         pop_data_json = contents_json["POPULATION DATA RESORCE"]
@@ -497,9 +493,9 @@ class CedarResourceParser:
             if item["@value"]:
                 population.measures_other.append(item["@value"])
         population.time_extent_start_yyyy = (
-            PcorTemplateParser.sanitize_column(pop_data_json["time_extent_start"]["@value"]))
+            PcorTemplateParser.format_date_time(pop_data_json["time_extent_start"]["@value"]))
         population.time_extent_end_yyyy = (
-            PcorTemplateParser.sanitize_column(pop_data_json["time_extent_end"]["@value"]))
+            PcorTemplateParser.format_date_time(pop_data_json["time_extent_end"]["@value"]))
         population.time_available_comment = pop_data_json["time_available_comment"]["@value"]
 
         if type(pop_data_json["temporal_resolution"]) in (tuple, list):
@@ -531,9 +527,6 @@ class CedarResourceParser:
         for spatial_coverage in pop_data_json["spatial_coverage_other"]:
             if spatial_coverage["@value"]:
                 population.spatial_coverage_other.append(spatial_coverage["@value"])
-        #for item in pop_data_json["spatial_coverage_specific_regions"]:
-        #    if item["@value"]:
-        #        population.spatial_coverage.append(item["@value"])
 
         for item in pop_data_json["geometry_type"]:
             if item["@value"]:
@@ -542,12 +535,15 @@ class CedarResourceParser:
         for item in pop_data_json["geometry_source"]:
             if item["@value"]:
                 population.geometry_source.append(item["@value"])
+        for item in pop_data_json["geometry_source_other"]:
+            if item["@value"]:
+                population.geometry_source_other.append(item["@value"])
 
         for item in pop_data_json["model_methods"]:
             if item["@value"]:
                 population.model_methods.append(item["@value"])
 
-        for item in pop_data_json["model_methods"]:
+        for item in pop_data_json["model_methods_other"]:
             if item["@value"]:
                 population.model_methods_other.append(item["@value"])
 
@@ -584,6 +580,108 @@ class CedarResourceParser:
             if item["@id"]:
                 population.data_link.append(item["@id"])
         return population
+
+    @staticmethod
+    def extract_key_dataset_data(contents_json):
+        """
+        extract the key dataset related information from the cedar resource
+        :param contents_json: json-ld from cedar
+        :return: PcorPopDataResourceModel
+        """
+
+        # some of the data is under the required DATA RESOURCE stanza
+        if not contents_json["DATA RESOURCE"]:
+            raise Exception("missing DATA RESOURCE information in CEDAR json")
+
+        key_dataset = PcorKeyDatasetModel()
+
+        # data resource
+        data_resource = contents_json["DATA RESOURCE"]
+        for item in data_resource["source_name"]:
+            if item["@value"]:
+                key_dataset.source_name.append(item["@value"])
+        for item in data_resource["update_frequency"]:
+            if item["@value"]:
+                key_dataset.update_frequency.append(item["@value"])
+        key_dataset.update_frequency_other = data_resource["update_frequency_other"]["@value"]
+        key_dataset.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
+            data_resource["includes_citizen_collected"]["@value"])
+        key_dataset.has_api = PcorTemplateParser.sanitize_boolean(data_resource["has_api"]["@value"])
+        key_dataset.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
+            data_resource["has_visualization_tool"]["@value"])
+        key_dataset.comments = data_resource["Comments"]["@value"]
+        key_dataset.intended_use = data_resource["intended_use"]["@value"]
+
+        # Key datasets data
+        key_data_json = contents_json["KEY DATASETS DATA"]
+        for item in key_data_json["measurement_method"]:
+            if item["@value"]:
+                key_dataset.measurement_method.append(item["@value"])
+        for item in key_data_json["measurement_method_other"]:
+            if item["@value"]:
+                key_dataset.measurement_method_other.append(item["@value"])
+        key_dataset.time_extent_start_yyyy = (
+            PcorTemplateParser.format_date_time(key_data_json["time_extent_start"]["@value"]))
+        key_dataset.time_extent_end_yyyy = (
+            PcorTemplateParser.format_date_time(key_data_json["time_extent_end"]["@value"]))
+        key_dataset.time_available_comment = key_data_json["time_available_comment"]["@value"]
+        for item in key_data_json["temporal_resolution"]:
+            if item["@value"]:
+                key_dataset.temporal_resolution.append(item["@value"])
+        for item in key_data_json["temporal_resolution_other"]:
+            if item["@value"]:
+                key_dataset.temporal_resolution_other.append(item["@value"])
+        for item in key_data_json["spatial_resolution"]:
+            if item["@value"]:
+                key_dataset.spatial_resolution.append(item["@value"])
+        for item in key_data_json["spatial_resolution_other"]:
+            if item["@value"]:
+                key_dataset.spatial_resolution_other.append(item["@value"])
+        for item in key_data_json["spatial_coverage"]:
+            if item["@value"]:
+                key_dataset.spatial_coverage.append(item["@value"])
+        for item in key_data_json["spatial_coverage_other"]:
+            if item["@value"]:
+                key_dataset.spatial_coverage_other.append(item["@value"])
+        for item in key_data_json["spatial_bounding_box"]:
+            if item["@value"]:
+                key_dataset.spatial_bounding_box.append(item["@value"])
+        for item in key_data_json["geometry_type"]:
+            if item["@value"]:
+                key_dataset.geometry_type.append(item["@value"])
+        for item in key_data_json["geometry_source"]:
+            if item["@value"]:
+                key_dataset.geometry_source.append(item["@value"])
+        for item in key_data_json["geometry_source_other"]:
+            if item["@value"]:
+                key_dataset.geometry_source_other.append(item["@value"])
+        for item in key_data_json["model_methods"]:
+            if item["@value"]:
+                key_dataset.model_methods.append(item["@value"])
+        for item in key_data_json["model_methods_other"]:
+            if item["@value"]:
+                key_dataset.model_methods_other.append(item["@value"])
+        for item in key_data_json["exposure_media"]:
+            if item["@value"]:
+                key_dataset.exposure_media.append(item["@value"])
+        for item in key_data_json["geographic_feature"]:
+            if item["@value"]:
+                key_dataset.geographic_feature.append(item["@value"])
+        for item in key_data_json["geographic_feature_other"]:
+            if item["@value"]:
+                key_dataset.geographic_feature_other.append(item["@value"])
+        for item in key_data_json["data_formats"]:
+            if item["@value"]:
+                key_dataset.data_formats.append(item["@value"])
+        for item in key_data_json["Data Download"]["data_location"]:
+            if item["@value"]:
+                key_dataset.data_location.append(item["@value"])
+        for item in key_data_json["Data Download"]["data_link"]:
+            if item["@id"]:
+                key_dataset.data_link.append(item["@id"])
+        return key_dataset
+
+
 
 
 

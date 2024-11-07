@@ -127,16 +127,17 @@ properties:
     type: array
     items:
       type: string
-  exposures:
-    description: Substance the population was exposed to (may be missing for non-specific exposure).
-    type: array
-    items:
-      type: string
-  outcomes:
-    description: Health outcome being assessed (may be missing for non-specific exposures).  Note this is the high level outcome, the specific measures will contribute to the outcome.
-    type: array
-    items:
-      type: string
+# prop no longer used
+#  exposures:
+#    description: Substance the population was exposed to (may be missing for non-specific exposure).
+#    type: array
+#    items:
+#      type: string
+#  outcomes:
+#    description: Health outcome being assessed (may be missing for non-specific exposures).  Note this is the high level outcome, the specific measures will contribute to the outcome.
+#    type: array
+#    items:
+#      type: string
   exposure_media:
     description: media that the phenomena is related to
     type: array

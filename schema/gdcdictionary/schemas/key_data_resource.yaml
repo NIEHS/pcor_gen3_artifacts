@@ -56,6 +56,7 @@ properties:
       - key_data_resource
   updated_datetime:
     $ref: "_definitions.yaml#/datetime"
+
   # data resc props are common
   display_type:
     description: Display type of resource
@@ -63,8 +64,81 @@ properties:
   comments: # FIXME: we're temporarily putting suggested use here, this should be at the resc level - MC
     description: Notes on usage of the data, including warnings.
     type: string
+  intended_use:
+    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
+    type: string
   source_name:
-    description: Name of source. (unused)
+    description: Name of source.
+    type: array
+    items:
+      type: string
+  update_frequency:
+    description: Frequency of update of the resource.
+    type: array
+    items:
+      type: string
+  includes_citizen_collected:
+    description: Flag indicating that the data is from citizen science.
+    type: boolean
+  has_api:
+    description: Flag if the resource has an API
+    type: boolean
+  has_visualization_tool:
+    description: Flag if the resource has a graphical user interface, such as a web visualization tool, for viewing the data
+    type: boolean
+
+  # additional properties to describe the dataset
+  time_extent_start_yyyy:
+    description: Four digit year or null, start of time extent of coverage
+    $ref: "_definitions.yaml#/year"
+  time_extent_end_yyyy:
+    description: Four digit year or null, end of time extent of coverage
+    $ref: "_definitions.yaml#/year"
+  time_available_comment:
+    description: Narrative to describe time extent details if multiple exist in the resource.
+    type: string
+  temporal_resolution:
+    description: The highest frequency of time point data collection, aggregated lower frequency data might be available as well
+    type: array
+    items:
+      type: string
+  spatial_resolution:
+    description: The highest spatial resolution of data collection. If there are multiple resources and determining the highest spatial resolution is impractical, use "Other".
+    type: array
+    items:
+      type: string
+  spatial_coverage:
+    description: Maximum spatial coverage of the data; if specific regions, list in next field below
+    type: array
+    items:
+      type: string
+  spatial_bounding_box:
+    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
+    type: array
+    items:
+      type: string
+  geometry_type:
+    description: Type of geometric data, the file extension will be different for different types.
+    type: array
+    items:
+      type: string
+  geometry_source:
+    description: Source or provider of the geometry data.
+    type: array
+    items:
+      type: string
+  exposure_media:
+    description: media that the phenomena is related to
+    type: array
+    items:
+      type: string
+  geographic_feature:
+    description: The type of geographic feature associated with the data
+    type: array
+    items:
+      type: string
+  model_methods:
+    description: If modeled, description of modeling approaches used to generate the data.
     type: array
     items:
       type: string
@@ -94,37 +168,12 @@ properties:
     type: array
     items:
       type: string
-  time_extent_start_yyyy:
-    description: Four digit year or null, start of time extent of coverage
-    $ref: "_definitions.yaml#/year"
-  time_extent_end_yyyy:
-    description: Four digit year or null, end of time extent of coverage
-    $ref: "_definitions.yaml#/year"
-  time_available_comment:
-    description: Narrative to describe time extent details if multiple exist in the resource.
-    type: string
-  temporal_resolution:
-    description: Frequency of time points. This is the finest resolution
-    type: string
-  spatial_resolution:
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
-  spatial_coverage:
-    description: Maximum spatial coverage of the data.
-    type: string
-  geometry_type:
-    description: Type of geometric data, the file extension will be different for different types.
-    type: array
-    items:
-      type: string
-  model_methods:
-    description: If modeled, type of approach used.
-    type: array
-    items:
-      type: string
-  metrics_derived_from_data_set:
-    description: Example individual level exposure metrics derived from dataset
-    type: string
+
+# prop no longer used
+#  metrics_derived_from_data_set:
+#    description: Example individual level exposure metrics derived from dataset
+#    type: string
+
   data_formats:
     description: Format of data in the collection
     type: array
@@ -135,16 +184,22 @@ properties:
     type: array
     items:
       type: string
-  dataset_publications:
-    description: list of publications describing the specific key dataset, distinct from resource-wide publications
+  data_link:
+    description: URL to online location where data can be downloaded
     type: array
     items:
       type: string
-  dataset_publication_links:
-    description: link for each publication (provisional, mike is testing using the publication node as a more proper approach), distinct from resource-wide publications
-    type: array
-    items:
-      type: string
+# prop no longer used
+#  dataset_publications:
+#    description: list of publications describing the specific key dataset, distinct from resource-wide publications
+#    type: array
+#    items:
+#      type: string
+#  dataset_publication_links:
+#    description: link for each publication (provisional, mike is testing using the publication node as a more proper approach), distinct from resource-wide publications
+#    type: array
+#    items:
+#      type: string
   resources:
     description: The resource this dataset belongs to, i.e., a link to the parent node.
     $ref: "_definitions.yaml#/to_many"
