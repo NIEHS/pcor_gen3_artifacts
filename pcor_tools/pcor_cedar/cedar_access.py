@@ -10,6 +10,8 @@ from jinja2 import Environment, FileSystemLoader
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
+import urllib.parse
+
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -39,10 +41,16 @@ class CedarAccess(object):
         logger.debug("r:%s", r_json)
         return r_json
 
-    def retrieve_loading_contents(self):
+    def retrieve_loading_contents(self, cedar_directory=None):
         logger.info("retrieving loading contents")
 
-        loading_folder = self.cedar_config.cedar_properties["loading_folder_id"]
+        if cedar_directory is None:
+            loading_folder = self.cedar_config.cedar_properties["loading_folder_id"]
+        else:
+            loading_folder = cedar_directory
+
+        loading_folder = urllib.parse.quote_plus(loading_folder)
+
         api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/" + loading_folder + "/contents"
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}

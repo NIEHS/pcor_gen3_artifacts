@@ -18,7 +18,7 @@ from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, \
-    PcorPopDataResourceModel
+    PcorPopDataResourceModel, PcorGeoToolModel
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -26,7 +26,9 @@ logging.basicConfig(
 
 )
 logger = logging.getLogger(__name__)
-
+"""
+Reader of CEDAR template data for version 1_5_1
+"""
 
 class CedarResourceParser:
     """
@@ -111,9 +113,14 @@ class CedarResourceParser:
         if "GEOEXPOSURE DATA" in contents_json:
             geoexposure_data = CedarResourceParser.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
-        if "POPULATION DATA RESORCE" in contents_json:
+        elif "POPULATION DATA RESORCE" in contents_json:
             population_data = CedarResourceParser.extract_population_data(contents_json)
             result.model_data["population_data_resource"] = population_data
+        elif "TOOL RESOURCE" in contents_json:
+            tool_data = CedarResourceParser.extract_geoexposure_tool_data(contents_json)
+            result.model_data["geospatial_tool_resource"] = tool_data
+        else:
+            raise Exception("unknown data type")
 
     @staticmethod
     def extract_program_data(contents_json):
@@ -242,7 +249,9 @@ class CedarResourceParser:
         resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
         resource.resource_use_agreement = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
-        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"]["@id"]
+
+        # pop data can have an empty {}} with no @id:null
+        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
@@ -386,6 +395,67 @@ class CedarResourceParser:
         return geoexposure
 
     @staticmethod
+    def extract_geoexposure_tool_data(contents_json):
+        """
+        extract the geoexposure tool related information from the cedar resource
+        :param contents_json: json-ld from cedar
+        :return: PcorGeospatialDataResourceModel
+        """
+
+        # some of the data is under the required DATA RESOURCE stanza
+        if not contents_json["TOOL RESOURCE"]:
+            raise Exception("missing TOOL RESOURCE information in CEDAR json")
+
+        geotool = PcorGeoToolModel()
+
+        body = contents_json["TOOL RESOURCE"]
+
+        for tool_type in body["tool_type"]:
+            if tool_type["@value"]:
+                geotool.tool_type.append(tool_type["@value"])
+
+        for tool_type in body["tool_type_other"]:
+            if tool_type["@value"]:
+                geotool.tool_type_other.append(tool_type["@value"])
+
+        for os in body["operating_system"]:
+            if os["@value"]:
+                geotool.operating_system.append(os["@value"])
+
+        for os in body["operating_system_other"]:
+            if os["@value"]:
+                geotool.operating_system_other.append(os["@value"])
+
+        for lang in body["languages"]:
+            if lang["@value"]:
+                geotool.languages.append(lang["@value"])
+
+        for lang in body["languages_other"]:
+            if lang["@value"]:
+                geotool.languages_other.append(lang["@value"])
+
+        for license_type in body["license_type"]:
+            if license_type["@value"]:
+                geotool.license_type.append(license_type["@value"])
+
+        for license_type in body["license_type_other"]:
+            if license_type["@value"]:
+                geotool.license_type_other.append(license_type["@value"])
+
+        for aud in body["suggested_audience"]:
+            if aud["@value"]:
+                geotool.suggested_audience.append(aud["@value"])
+
+        geotool.is_open = PcorTemplateParser.sanitize_boolean(
+            body["is_open"]["@value"])
+
+        geotool.intended_use = body["intended_use"]["@value"]
+
+
+        return geotool
+
+
+    @staticmethod
     def extract_population_data(contents_json):
         """
         extract the population related information from the cedar resource
@@ -432,60 +502,84 @@ class CedarResourceParser:
             PcorTemplateParser.sanitize_column(pop_data_json["time_extent_end"]["@value"]))
         population.time_available_comment = pop_data_json["time_available_comment"]["@value"]
 
-        for item in pop_data_json["temporal_resolution"]:
-            if item["@value"]:
-                population.temporal_resolution.append(item["@value"])
+        if type(pop_data_json["temporal_resolution"]) in (tuple, list):
+            for item in pop_data_json["temporal_resolution"]:
+                if item["@value"]:
+                    population.temporal_resolution.append(item["@value"])
+        else:
+            population.temporal_resolution.append(pop_data_json["temporal_resolution"]["@value"])
+
         for item in pop_data_json["temporal_resolution_other"]:
             if item["@value"]:
                 population.temporal_resolution_other.append(item["@value"])
-        for item in pop_data_json["spatial_resolution"]:
-            if item["@value"]:
-                population.spatial_resolution.append(item["@value"])
+
+        if type(pop_data_json["spatial_resolution"]) in (tuple, list):
+            for item in pop_data_json["spatial_resolution"]:
+                if item["@value"]:
+                    population.spatial_resolution.append(item["@value"])
+                else:
+                    population.spatial_resolution.append(pop_data_json["spatial_resolution"]["@value"])
+
         for item in pop_data_json["spatial_resolution_other"]:
             if item["@value"]:
                 population.spatial_resolution_other.append(item["@value"])
+
         for item in pop_data_json["spatial_coverage"]:
             if item["@value"]:
                 population.spatial_coverage.append(item["@value"])
+
         for spatial_coverage in pop_data_json["spatial_coverage_other"]:
             if spatial_coverage["@value"]:
                 population.spatial_coverage_other.append(spatial_coverage["@value"])
-        for item in pop_data_json["spatial_coverage_specific regions"]:
-            if item["@value"]:
-                population.spatial_coverage.append(item["@value"])
+        #for item in pop_data_json["spatial_coverage_specific_regions"]:
+        #    if item["@value"]:
+        #        population.spatial_coverage.append(item["@value"])
+
         for item in pop_data_json["geometry_type"]:
             if item["@value"]:
                 population.geometry_type.append(item["@value"])
+
         for item in pop_data_json["geometry_source"]:
             if item["@value"]:
                 population.geometry_source.append(item["@value"])
+
         for item in pop_data_json["model_methods"]:
             if item["@value"]:
                 population.model_methods.append(item["@value"])
+
         for item in pop_data_json["model_methods"]:
             if item["@value"]:
                 population.model_methods_other.append(item["@value"])
+
         for population_study in pop_data_json["population_studied"]:
             if population_study["@value"]:
                 population.population_studied.append(population_study["@value"])
+
         for item in pop_data_json["population_studied_other"]:
             if item["@value"]:
                 population.population_studied_other.append(item["@value"])
+
         for item in pop_data_json["biospecimens_type"]:
             if item["@value"]:
                 population.biospecimens_type.append(item["@value"])
+
         for item in pop_data_json["data_formats"]:
             if item["@value"]:
                 population.data_formats.append(item["@value"])
+
         population.biospecimens = PcorTemplateParser.sanitize_boolean(
             pop_data_json["biospecimens"]["@value"])
-        population.biospecimens = PcorTemplateParser.sanitize_boolean(
+
+        population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
             pop_data_json["linkable_encounters"]["@value"])
-        population.biospecimens = PcorTemplateParser.sanitize_boolean(
+
+        population.individual_level = PcorTemplateParser.sanitize_boolean(
             pop_data_json["individual_level"]["@value"])
+
         for item in pop_data_json["Data Download"]["data_location"]:
             if item["@value"]:
                 population.data_location.append(item["@value"])
+
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 population.data_link.append(item["@id"])
