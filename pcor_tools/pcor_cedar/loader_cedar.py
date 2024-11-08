@@ -41,9 +41,8 @@ class LoaderCedar(Loader):
         #os.mkdir(cedar_folder)
         #self.cedar_folder = cedar_folder
 
-    def process_load_from_cedar_directory(self, directory=None, file_path=None):
-        logger.info('file_path dir: %s ' % file_path)
-        work_dir = os.path.abspath(file_path)
+    def process_load_from_cedar_directory(self, directory=None):
+        work_dir = self.pcor_ingest_configuration.working_directory
         logger.info('work_dir dir: %s ' % work_dir)
         self.validate_sub_folders(work_dir=work_dir)
         logger.info('Getting listing of cedar resources')

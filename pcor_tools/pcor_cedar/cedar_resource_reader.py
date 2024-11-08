@@ -252,7 +252,8 @@ class CedarResourceParser:
                     contents_json["RESOURCE"]["payment_required"]["@value"])
 
         resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
-        resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
+        if contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]:
+            resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
         resource.resource_use_agreement = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
 
