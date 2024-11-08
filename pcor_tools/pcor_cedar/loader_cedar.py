@@ -1,10 +1,10 @@
-import datetime
 import json
 import logging
 import os
 import re
 import shutil
 import sys
+from datetime import datetime
 from optparse import OptionParser
 
 from pcor_ingest.pcor_reporter import PcorReporter
@@ -88,13 +88,14 @@ class LoaderCedar(Loader):
         result = PcorProcessResult()
         #result.template_source = resource.folder_id
         result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
+        guid = LoaderCedar.extract_id_for_resource(resource["@id"])
+
         processing_file_path = LoaderCedar.add_timestamp_to_file(
             self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json')
 
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
-            guid = LoaderCedar.extract_id_for_resource(resource["@id"])
             logger.debug("writing file for: %s" % guid)
             with open(processing_file_path, 'w') as f:
                 json.dump(resource, f)
@@ -165,6 +166,7 @@ class LoaderCedar(Loader):
             return loader_cedar.process_load_from_cedar_directory(directory=directory)
         else:
             logger.error("must add the -r or -d flag for a resc url or a folder url")
+            raise Exception("must add the -r or -d flag for a resc url or a folder url")
 
     @staticmethod
     def extract_id_for_resource(resource_url):
@@ -190,7 +192,7 @@ class LoaderCedar(Loader):
             new_file_name = file_part + '~pcor~' + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.json'
             return new_file_name
         except ValueError:
-            new_file_name = file_name.replace('.xlsm', '~pcor~'
+            new_file_name = file_name.replace('.json', '~pcor~'
                                               + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.json')
             logger.info("new file name:%s" % new_file_name)
             return new_file_name

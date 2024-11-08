@@ -47,6 +47,7 @@ class CedarResourceParser:
         with open(template_absolute_path, 'r') as f:
             contents_json = json.loads(f.read())
 
+        logger.info("submission phase")
         try:
             submission = CedarResourceParser.extract_submission_data(contents_json)
             submission.submit_location = template_absolute_path
@@ -58,6 +59,8 @@ class CedarResourceParser:
             result.traceback = traceback.format_exc()
             result.message = str(err)
             return
+
+        logger.info("program phase")
 
         try:
 
@@ -72,6 +75,8 @@ class CedarResourceParser:
             result.traceback = traceback.format_exc()
             result.message = str(err)
             return
+
+        logger.info("project phase")
 
         try:
             project = CedarResourceParser.extract_project_data(contents_json)
@@ -88,6 +93,8 @@ class CedarResourceParser:
 
         result.project_name = result.model_data["project"].name
 
+        logger.info("resource phase")
+
         try:
             resource = CedarResourceParser.extract_resource_data(contents_json)
             result.model_data["resource"] = resource
@@ -103,12 +110,15 @@ class CedarResourceParser:
         # based on type extract the detailed resource information
 
         if "GEOEXPOSURE DATA" in contents_json:
+            logger.info("geoexposure phase")
             geoexposure_data = CedarResourceParser.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
         elif "POPULATION DATA RESORCE" in contents_json:
+            logger.info("population data phase")
             population_data = CedarResourceParser.extract_population_data(contents_json)
             result.model_data["population_data_resource"] = population_data
         elif "TOOL RESOURCE" in contents_json:
+            logger.info("geo tool phase")
             tool_data = CedarResourceParser.extract_geoexposure_tool_data(contents_json)
             result.model_data["geospatial_tool_resource"] = tool_data
         elif "KEY DATASETS DATA" in contents_json:
@@ -273,7 +283,6 @@ class CedarResourceParser:
         geoexposure = PcorGeospatialDataResourceModel()
         geoexposure.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
-        geoexposure.sources = contents_json["DATA RESOURCE"]["source_name"]["@value"]
 
         for source in contents_json["DATA RESOURCE"]["source_name"]:
             if source["@value"]:
@@ -340,9 +349,6 @@ class CedarResourceParser:
         for spatial_coverage in contents_json["GEOEXPOSURE DATA"]["spatial_coverage_other"]:
             if spatial_coverage["@value"]:
                 geoexposure.spatial_coverage_other.append(spatial_coverage["@value"])
-
-        if contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"]:
-            geoexposure.spatial_coverage.append(contents_json["GEOEXPOSURE DATA"]["spatial_coverage_specific_regions"]["@value"])
 
         for box in contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]:
             if box["@value"]:
