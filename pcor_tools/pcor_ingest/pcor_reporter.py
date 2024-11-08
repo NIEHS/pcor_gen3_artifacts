@@ -29,6 +29,8 @@ class PcorReporter():
         # Get the directory of the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
+        logger.info("script dir: %s" % script_dir)
+
         # Set the relative path to your template directory
         template_rel_path = 'templates'
 
