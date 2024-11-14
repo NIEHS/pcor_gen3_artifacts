@@ -7,11 +7,12 @@ import sys
 from datetime import datetime
 from optparse import OptionParser
 
+from pcor_cedar.cedar_parser_factory import CedarParserFactory
 from pcor_ingest.pcor_reporter import PcorReporter
 
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
-from pcor_cedar.cedar_resource_reader import CedarResourceParser
+from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -29,11 +30,13 @@ logger = logging.getLogger(__name__)
 
 
 class LoaderCedar(Loader):
-    def __init__(self, pcor_ingest_configuration):
+    def __init__(self, pcor_ingest_configuration, cedar_version):
         super().__init__(pcor_ingest_configuration)
         self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
-        self.reader = CedarResourceParser()
+        self.cedar_version = cedar_version
+        reader_factory = CedarParserFactory()
+        self.reader = reader_factory.instance(cedar_version)
         self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
 
         self.validate_sub_folders(pcor_ingest_configuration.working_directory)
@@ -157,12 +160,10 @@ class LoaderCedar(Loader):
         logger.info('resource to load :: %s' % resource_url)
         logger.info('directory: %s' % directory)
 
-        loader_cedar = LoaderCedar(self.pcor_ingest_configuration)
-
         if resource_url:
-            return loader_cedar.process_individual_load_of_cedar_resource_from_url(resource_url=resource_url)
+            return self.process_individual_load_of_cedar_resource_from_url(resource_url=resource_url)
         elif directory:
-            return loader_cedar.process_load_from_cedar_directory(directory=directory)
+            return self.process_load_from_cedar_directory(directory=directory)
         else:
             logger.error("must add the -r or -d flag for a resc url or a folder url")
             raise Exception("must add the -r or -d flag for a resc url or a folder url")

@@ -11,7 +11,7 @@ from pcor_ingest.pcor_reporter import PcorReporter
 
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
-from pcor_cedar.cedar_resource_reader import CedarResourceParser
+from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -33,6 +33,7 @@ def setup_arguments():
     parser = OptionParser()
     parser.add_option('-r', "--resource_url", action='store', dest='resource_url', default=None)
     parser.add_option('-d', "--directory", action='store', dest='directory', default=None)
+    parser.add_option('-v', "--cedar_version", action='store', dest='cedar_version', default="1_5_1")
 
     return parser.parse_args()[0]
 
@@ -52,9 +53,10 @@ def main():
 
     resource_url = args.resource_url
     directory = args.directory
+    cedar_version = args.cedar_version
 
     pcor_ingest_configuration = PcorIngestConfiguration(os.environ.get("PCOR_GEN3_CONFIG_LOCATION"))
-    cedar_loader = LoaderCedar(pcor_ingest_configuration)
+    cedar_loader = LoaderCedar(pcor_ingest_configuration, cedar_version)
     logger.info("loading...")
     cedar_loader.main_load_process(resource_url, directory)
     logger.info("loading complete")

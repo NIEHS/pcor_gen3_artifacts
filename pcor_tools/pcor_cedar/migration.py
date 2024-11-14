@@ -4,11 +4,12 @@ import os
 import sys
 from optparse import OptionParser
 
+from pcor_cedar.cedar_parser_factory import CedarParserFactory
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_access import CedarAccess
-from pcor_cedar.cedar_resource_reader_150 import CedarResourceParser150
+from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.loader_cedar import LoaderCedar
@@ -21,10 +22,20 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class CedarMigrate150():
-    def __init__(self, cedar_config_file):
+class CedarMigrate():
+
+    def __init__(self, cedar_config_file, source_version, target_version):
         self.cedar_config = CedarConfig(cedar_config_file)
         self.cedar_access = CedarAccess()
+
+        if not source_version:
+            raise Exception("Source version is required")
+
+        if not target_version:
+            raise Exception("Target version is required")
+
+        self.source_version = source_version
+        self.target_version = target_version
         self.cedar_template_processor = CedarTemplateProcessor()
 
     def read_migrate_target(self, url):
@@ -34,7 +45,8 @@ class CedarMigrate150():
         with open(tempfilename, "w") as f:
             json.dump(resource_json,f)
 
-        reader = CedarResourceParser150()
+        reader_factory = CedarParserFactory()
+        reader = reader_factory.instance(self.source_version)
         result = PcorProcessResult()
         reader.parse(tempfilename, result)
         if not result.success:

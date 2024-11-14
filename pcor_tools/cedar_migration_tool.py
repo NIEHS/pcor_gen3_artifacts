@@ -12,11 +12,11 @@ import sys
 from optparse import OptionParser
 
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
-from pcor_cedar.migration150 import CedarMigrate150
+from pcor_cedar.migration import CedarMigrate
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_access import CedarAccess
-from pcor_cedar.cedar_resource_reader_150 import CedarResourceParser150
+from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.loader_cedar import LoaderCedar
@@ -56,7 +56,7 @@ def main():
     logger.info('resource to load :: %s' % resource_url)
     #logger.info('cedar target :: %s' % cedar_target_url)
 
-    migrator = CedarMigrate150(cedar_config_file)
+    migrator = CedarMigrate(cedar_config_file)
 
     return migrator.migrate(resource_url)
 

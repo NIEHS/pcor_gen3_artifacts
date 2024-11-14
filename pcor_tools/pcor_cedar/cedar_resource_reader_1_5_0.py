@@ -9,6 +9,7 @@ import pandas as pd
 from datetime import datetime
 
 from pcor_cedar.cedar_config import CedarConfig
+from pcor_cedar.cedar_resource_reader import CedarResourceReader
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -26,15 +27,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class CedarResourceParser150:
+class CedarResourceReader_1_5_0(CedarResourceReader):
     """
     A parent class for a parser of a PCOR Cedar for a type
     """
 
     def __init__(self):
-        self.cedar_config = CedarConfig()
-        self.pcor_measures_rollup = PcorMeasuresRollup(self.cedar_config.cedar_properties["measures.location"])
-        self.yyyy_pattern = r"\b(\d{4})\b"
+        CedarResourceReader.__init__(self)
 
     def parse(self, template_absolute_path, result):
 
@@ -51,7 +50,7 @@ class CedarResourceParser150:
             contents_json = json.loads(f.read())
 
         try:
-            submission = CedarResourceParser150.extract_submission_data(contents_json)
+            submission = CedarResourceReader_1_5_0.extract_submission_data(contents_json)
             submission.submit_location = template_absolute_path
             result.model_data["submission"] = submission
         except Exception as err:
@@ -77,7 +76,7 @@ class CedarResourceParser150:
             return
 
         try:
-            project = CedarResourceParser150.extract_project_data(contents_json)
+            project = CedarResourceReader_1_5_0.extract_project_data(contents_json)
             result.model_data["project"] = project
             result.project_guid = project.submitter_id
             result.project_code = project.code
@@ -92,7 +91,7 @@ class CedarResourceParser150:
         result.project_name = result.model_data["project"].name
 
         try:
-            resource = CedarResourceParser150.extract_resource_data(contents_json)
+            resource = CedarResourceReader_1_5_0.extract_resource_data(contents_json)
             result.model_data["resource"] = resource
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
@@ -106,7 +105,7 @@ class CedarResourceParser150:
         # based on type extract the detailed resource information
 
         if contents_json["GEOEXPOSURE DATA"]:
-            geoexposure_data = CedarResourceParser150.extract_geoexposure_data(contents_json)
+            geoexposure_data = CedarResourceReader_1_5_0.extract_geoexposure_data(contents_json)
             result.model_data["geospatial_data_resource"] = geoexposure_data
 
     @staticmethod
