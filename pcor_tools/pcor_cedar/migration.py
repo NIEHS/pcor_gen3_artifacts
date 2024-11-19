@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 class CedarMigrate():
 
-    def __init__(self, cedar_config_file, source_version, target_version):
-        self.cedar_config = CedarConfig(cedar_config_file)
+    def __init__(self, source_version=None, target_version=None):
+        self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
 
         if not source_version:
@@ -73,7 +73,7 @@ class CedarMigrate():
         else:
             raise Exception("not geospatial_data_resource, resource not supported")
 
-        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, "151")
+        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, self.target_version)
 
         return json_string
 
