@@ -13,7 +13,7 @@ class TestLoaderCedar(unittest.TestCase):
 
     def test_load_individual_resource(self):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
-        loaderCedar = LoaderCedar(pcor_ingest_configuration)
+        loaderCedar = LoaderCedar(pcor_ingest_configuration=pcor_ingest_configuration, cedar_version='1_5_0')
         #url = "https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2"
 
         # geo data
