@@ -230,7 +230,7 @@ class CedarResourceReader:
             if domain["@value"]:
                 resource.domain_other.append(domain["@value"])
 
-        resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
+        resource.access_type.append(contents_json["RESOURCE"]["access_type"]["@value"])
 
         # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]

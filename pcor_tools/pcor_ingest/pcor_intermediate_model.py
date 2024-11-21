@@ -74,7 +74,7 @@ class PcorIntermediateResourceModel:
     def __init__(self):
         self.project = ""
         # resource
-        self.access_type = ""
+        self.access_type = []
         self.created_datetime = ""
         self.description = ""
         self.domain = []
@@ -94,6 +94,7 @@ class PcorIntermediateResourceModel:
         self.resource_reference_link = ""
         self.resource_type = ""
         self.resource_url = ""
+        self.resource_version = "" # TODO: new
         self.resource_use_agreement = ""
         self.resource_use_agreement_link = ""
         self.short_name = ""

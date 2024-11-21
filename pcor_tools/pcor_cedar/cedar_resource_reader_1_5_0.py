@@ -220,11 +220,13 @@ class CedarResourceReader_1_5_0(CedarResourceReader):
 
         for domain in contents_json["RESOURCE"]["domain_other"]:
             if domain["@value"]:
-                resource.domain.append(domain["@value"])
+                resource.domain_other.append(domain["@value"])
 
-        resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
-        # in 1_5_0 this appears as a list item
-
+        if type(contents_json["RESOURCE"]["access_type"]) in (tuple, list):
+            for access_type in contents_json["RESOURCE"]["access_type"]:
+                resource.access_type.append(access_type["@value"]) # TODO: changed to array
+        else:
+            resource.access_type.append(contents_json["RESOURCE"]["access_type"]["@value"])
 
         if type(contents_json["RESOURCE"]["payment_required"]) in (tuple, list):
             resource.payment_required = PcorTemplateParser.sanitize_boolean(

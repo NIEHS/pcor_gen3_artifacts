@@ -230,7 +230,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if domain["@value"]:
                 resource.domain_other.append(domain["@value"])
 
-        resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
+        for access_type in contents_json["RESOURCE"]["access_type"]:
+            resource.access_type.append(access_type["@value"]) # TODO: changed to array
 
         # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]
@@ -261,6 +262,9 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
+
+        resource.resource_version = resource.verification_datetime = contents_json["RESOURCE"]["resource_version"]["@value"]
+
 
         if resource.id is None:
             resource.id = str(uuid.uuid4())
