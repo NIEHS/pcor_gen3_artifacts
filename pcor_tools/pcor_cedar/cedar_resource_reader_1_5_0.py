@@ -166,7 +166,7 @@ class CedarResourceReader_1_5_0(CedarResourceReader):
         :return: PcorProjectModel with project data
         """
         project = PcorIntermediateProjectModel()
-        project.long_name = contents_json["PROJECT"]["project_name"]["@value"]
+        project.name = contents_json["PROJECT"]["project_name"]["@value"]
         project.short_name = contents_json["PROJECT"]["project_short_name"]["@value"]
         project.code = contents_json["PROJECT"]["ProjecCode"]["@value"]
 
@@ -179,6 +179,7 @@ class CedarResourceReader_1_5_0(CedarResourceReader):
             project.project_sponsor.append(contents_json["PROJECT"]["project_sponsor"]["@value"])
 
         if type(contents_json["PROJECT"]["project_sponsor_other"]) in (tuple, list):
+            json_val = contents_json["PROJECT"]["project_sponsor_other"]
             for val in json_val:
                 if val["@value"]:
                     project.project_sponsor_other.append(val["@value"])
@@ -399,12 +400,19 @@ class CedarResourceReader_1_5_0(CedarResourceReader):
             if data_format["@value"]:
                 geoexposure.data_formats.append(data_format["@value"])
 
-
         if type(contents_json["GEOEXPOSURE DATA"]["data_location"]) in (tuple, list):
             for location in contents_json["GEOEXPOSURE DATA"]["data_location"]:
-                geoexposure.data_location.append(location["@value"])
+                val = location["@value"]
+                if CedarResourceReader.validate_url(val):
+                    geoexposure.data_link.append(val)
+                else:
+                    geoexposure.data_location.append(val)
         else:
-            geoexposure.data_location.append(contents_json["GEOEXPOSURE DATA"]["data_location"]["@value"])
+            val = contents_json["GEOEXPOSURE DATA"]["data_location"]["@value"]
+            if CedarResourceReader.validate_url(val):
+                geoexposure.data_link.append(val)
+            else:
+                geoexposure.data_location.append(val)
 
         return geoexposure
 

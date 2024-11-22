@@ -620,7 +620,7 @@
       },
       "data_link": [
          {%  if geospatial_data_resource.data_link|length == 0 %}
-            { "@id": "http://www.nih.gov" }
+            { "@id": "http://nolink" }
         {%  else %}
              {% for entry in geospatial_data_resource.data_link %}
                 {

@@ -5,6 +5,7 @@ import traceback
 import uuid
 import json
 import warnings
+import validators
 import pandas as pd
 from datetime import datetime
 
@@ -686,3 +687,7 @@ class CedarResourceReader:
             if item["@id"]:
                 key_dataset.data_link.append(item["@id"])
         return key_dataset
+
+    @staticmethod
+    def validate_url(url_string):
+        return validators.url(url_string)
