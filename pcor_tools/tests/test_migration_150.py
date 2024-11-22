@@ -20,8 +20,13 @@ class TestMigration150(unittest.TestCase):
         json_string = migrator.reformat_json(resource.model_data)
         self.assertIsNotNone(json_string)
 
-    def test_migrate(self):
+    def test_migrate_geoexposure(self):
         migrate_source = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/71aaeb38-6abe-49d1-be4a-0fb168459a5c?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fa2fef183-d324-45d9-a9eb-beaf419d321c'
+        migrator = CedarMigrate('1_5_0', '1_5_1')
+        migrator.migrate(migrate_source)
+
+    def test_migrate_geotool(self):
+        migrate_source = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d94ddad0-171c-40b6-afaf-a6c5b7a406a4?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fa2fef183-d324-45d9-a9eb-beaf419d321c'
         migrator = CedarMigrate('1_5_0', '1_5_1')
         migrator.migrate(migrate_source)
 
