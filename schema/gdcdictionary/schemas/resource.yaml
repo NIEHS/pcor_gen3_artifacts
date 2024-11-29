@@ -98,7 +98,9 @@ properties:
       type: string
   access_type:
      description: type of resource access
-     type: string
+     type: array
+     items:
+       type: string
   payment_required:
     description: Indicate whether resource is free or fee based
     type: boolean

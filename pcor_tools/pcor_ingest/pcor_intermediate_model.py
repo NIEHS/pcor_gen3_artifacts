@@ -34,12 +34,17 @@ class PcorSubmissionInfoModel:
     """
 
     def __init__(self):
+        # props in CEDAR template
         self.curation_comment = ""
         self.curator_email = ""
         self.curator_name = ""
-        self.submit_final_location = ""
-        self.submit_location = ""
+
+        # additional props
         self.template_source = ""
+        self.submit_location = ""
+
+        # FixMe: remove unused props
+        self.submit_final_location = ""
 
 
 class PcorIntermediateProjectModel:
@@ -74,7 +79,7 @@ class PcorIntermediateResourceModel:
     def __init__(self):
         self.project = ""
         # resource
-        self.access_type = ""
+        self.access_type = []
         self.created_datetime = ""
         self.description = ""
         self.domain = []
@@ -123,7 +128,10 @@ class PcorProgramModel:
     """
 
     def __init__(self):
+        # props in CEDAR template
         self.name = ""
+
+        # additional props
         self.dbgap_accession_number = ""
 
 
@@ -148,7 +156,7 @@ class PcorGeospatialDataResourceModel:
         # FixMe: remove unused props
         self.data_formats = []
         self.data_link = []
-        self.data_location = []
+        self.data_location_text = []
         self.exposure_media = []
         self.geographic_feature = []
         self.geographic_feature_other = []
@@ -285,10 +293,11 @@ class PcorPopDataResourceModel:
         self.created_datetime = ""
         self.data_formats = []
         self.data_link = []
-        self.data_location = []
+        self.data_location_text = []
         self.exposure_media = []
         self.exposures = []
         self.geometry_source = []
+        self.geometry_source_other = []
         self.geometry_type = []
         self.individual_level = False
         self.intended_use = ""
@@ -374,7 +383,7 @@ class PcorKeyDatasetModel:
         self.created_datetime = ""
         self.data_formats = []
         self.data_link = []
-        self.data_location = []
+        self.data_location_text = []
         self.display_type = ""
         self.exposure_media = []
         self.geographic_feature = []
@@ -383,9 +392,12 @@ class PcorKeyDatasetModel:
         self.geometry_source_other = []
         self.geometry_type = []
         self.intended_use = ""
+        self.license_type = []
+        self.license_type_other = []
         self.measurement_method = []
         self.measurement_method_other = []
         self.measures = []
+        self.measures_other = []
         self.measures_parent = []
         self.measures_subcategory_major = []
         self.measures_subcategory_minor = []
@@ -400,10 +412,23 @@ class PcorKeyDatasetModel:
         self.spatial_coverage_other = []
         self.spatial_resolution = []
         self.spatial_resolution_other = []
+        self.spatial_resolution_all_available = []
+        self.spatial_resolution_all_other_available = []
+        self.spatial_resolution_comment = ''
         self.submitter_id = ""
         self.temporal_resolution = []
         self.temporal_resolution_other = []
+        self.temporal_resolution_all_available = []
+        self.temporal_resolution_all_other_available = []
+        self.temporal_resolution_comment = ''
         self.time_available_comment = ""
         self.time_extent_end_yyyy = None
         self.time_extent_start_yyyy = None
         self.updated_datetime = ""
+        self.use_suggested = []
+        self.use_suggested_other = []
+        self.use_strengths = []
+        self.use_limitations = []
+        self.use_example_application_link = []
+        self.use_example_application_text = []
+        self.use_example_metrics = []
