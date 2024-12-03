@@ -102,11 +102,27 @@ properties:
     type: array
     items:
       type: string
+  temporal_resolution_all_available:
+    description: All available temporal resolutions (i.e., scale or frequency) of the dataset, such as daily or annual, selected from a CV.
+    type: array
+    items:
+      type: string
+  temporal_resolution_comment:
+    description: Any relevant details describing the temporal resolution of the dataset, e.g., differences in temporal resolution among variables or climatology variables (20-year hourly data averages)
+    type: string
   spatial_resolution:
     description: The highest spatial resolution of data collection. If there are multiple resources and determining the highest spatial resolution is impractical, use "Other".
     type: array
     items:
       type: string
+  spatial_resolution_all_available:
+    description: All available horizontal spatial resolutions of the dataset, such as 1-km grid or ZIP codes, from CV. Use "Other" for spatial resolutions not included in the CV.
+    type: array
+    items:
+      type: string
+  spatial_resolution_comment:
+    description: Any other relevant details describing the spatial resolution of the dataset, such as variable spatial resolution (e.g., nested grids), or grids with less common geometry (hexagonal grid, 0.5 degree x 0.625 degree, etc.).
+    type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data; if specific regions, list in next field below
     type: array
@@ -179,13 +195,48 @@ properties:
     type: array
     items:
       type: string
-  data_location:
+  data_location_text:
     description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
     type: array
     items:
       type: string
   data_link:
     description: URL to online location where data can be downloaded
+    type: array
+    items:
+      type: string
+  license_type:
+    description: License needed for using the dataset.
+    type: array
+    items:
+      type: string
+  use_suggested:
+    description: Suggested, intended, or applied use(s) in environmental and public health research based on example use applications and the data-provider's documentation on intended uses. (# = preferred).
+    type: array
+    items:
+      type: string
+  use_strengths:
+    description: Key strengths of the dataset for the suggested use(s).
+    type: array
+    items:
+      type: string
+  use_limitations:
+    description: Key limitations or restrictions for the suggested use(s).
+    type: array
+    items:
+      type: string
+  use_example_application_link:
+    description: The URL corresponding to each example application to document specific data use (if available) and/or the homepage.
+    type: array
+    items:
+      type: string
+  use_example_application_text:
+    description: Examples of applications (e.g., health cohorts) that have used the dataset and are the basis for the example uses, metrics, and key variables. (# - preferred data).
+    type: array
+    items:
+      type: string
+  use_example_metrics:
+    description: Example metrics derived from example applications, that can be calculated using the dataset to assess individuals' (e.g., patients, health cohort participants) environmental exposures based on geocoded addresses and time period of exposure.
     type: array
     items:
       type: string

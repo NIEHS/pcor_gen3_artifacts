@@ -214,12 +214,12 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         resource = PcorIntermediateResourceModel()
-        resource.id =  contents_json["RESOURCE"]["resource_GUID"]["@value"]
-        resource.resource_type =  contents_json["RESOURCE"]["resource_type"]["@value"]
+        resource.id = contents_json["RESOURCE"]["resource_GUID"]["@value"]
+        resource.resource_type = contents_json["RESOURCE"]["resource_type"]["@value"]
         resource.name = contents_json["RESOURCE"]["resource_name"]["@value"]
         resource.short_name = contents_json["RESOURCE"]["resource_short_name"]["@value"]
 
-        resource.resource_url =  contents_json["RESOURCE"]["resource_url"]["@id"]
+        resource.resource_url = contents_json["RESOURCE"]["resource_url"]["@id"]
         resource.description = contents_json["RESOURCE"]["resource_description"]["@value"]
 
         for domain in contents_json["RESOURCE"]["domain"]:
@@ -230,8 +230,9 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if domain["@value"]:
                 resource.domain_other.append(domain["@value"])
 
-        for access_type in contents_json["RESOURCE"]["access_type"]:
-            resource.access_type.append(access_type["@value"]) # TODO: changed to array
+        for item in contents_json["RESOURCE"]["access_type"]:
+            if item["@value"]:
+                resource.access_type.append(item["@value"])
 
         # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]
@@ -264,7 +265,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
 
         resource.resource_version = resource.verification_datetime = contents_json["RESOURCE"]["resource_version"]["@value"]
-
 
         if resource.id is None:
             resource.id = str(uuid.uuid4())
@@ -391,13 +391,13 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if data_format["@value"]:
                 geoexposure.data_formats.append(data_format["@value"])
 
-        for data_location in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_location"]:
-            if data_location["@value"]:
-                geoexposure.data_location.append(data_location["@value"])
+        for item in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_location_text"]:
+            if item["@value"]:
+                geoexposure.data_location_text.append(item["@value"])
 
-        for data_location in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_link"]:
-            if data_location["@id"]:
-                geoexposure.data_link.append(data_location["@id"])
+        for item in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_link"]:
+            if item["@id"]:
+                geoexposure.data_link.append(item["@id"])
 
         return geoexposure
 
@@ -494,6 +494,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         # pop data resource
         pop_data_json = contents_json["POPULATION DATA RESORCE"]
+        population.individual_level = PcorTemplateParser.sanitize_boolean(
+            pop_data_json["individual_level"]["@value"])
         for item in pop_data_json["exposure_media"]:
             if item["@value"]:
                 population.exposure_media.append(item["@value"])
@@ -590,6 +592,14 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 population.data_link.append(item["@id"])
+
+        population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
+            pop_data_json["linkable_encounters"]["@value"])
+
+        for item in pop_data_json["biospecimens_type"]:
+            if item["@value"]:
+                population.biospecimens_type.append(item["@value"])
+
         return population
 
     @staticmethod
@@ -625,6 +635,12 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         # Key datasets data
         key_data_json = contents_json["KEY DATASETS DATA"]
+        for item in key_data_json["measures"]:
+            if item["@value"]:
+                key_dataset.measures.append(item["@value"])
+        for item in key_data_json["Measures_other"]:
+            if item["@value"]:
+                key_dataset.measures_other.append(item["@value"])
         for item in key_data_json["measurement_method"]:
             if item["@value"]:
                 key_dataset.measurement_method.append(item["@value"])
@@ -642,12 +658,26 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for item in key_data_json["temporal_resolution_other"]:
             if item["@value"]:
                 key_dataset.temporal_resolution_other.append(item["@value"])
+        for item in key_data_json["temporal_resolution_all_available"]:
+            if item["@value"]:
+                key_dataset.temporal_resolution_all_available.append(item["@value"])
+        for item in key_data_json["temporal_resolution_all_other_available"]:
+            if item["@value"]:
+                key_dataset.temporal_resolution_all_other_available.append(item["@value"])
+        key_dataset.temporal_resolution_comment = key_data_json["temporal_resolution_comment"]["@value"]
         for item in key_data_json["spatial_resolution"]:
             if item["@value"]:
                 key_dataset.spatial_resolution.append(item["@value"])
         for item in key_data_json["spatial_resolution_other"]:
             if item["@value"]:
                 key_dataset.spatial_resolution_other.append(item["@value"])
+        for item in key_data_json["spatial_resolution_all_available"]:
+            if item["@value"]:
+                key_dataset.spatial_resolution_all_available.append(item["@value"])
+        for item in key_data_json["spatial_resolution_all_other_available"]:
+            if item["@value"]:
+                key_dataset.spatial_resolution_all_other_available.append(item["@value"])
+        key_dataset.spatial_resolution_comment = key_data_json["spatial_resolution_comment"]["@value"]
         for item in key_data_json["spatial_coverage"]:
             if item["@value"]:
                 key_dataset.spatial_coverage.append(item["@value"])
@@ -684,12 +714,40 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for item in key_data_json["data_formats"]:
             if item["@value"]:
                 key_dataset.data_formats.append(item["@value"])
-        for item in key_data_json["Data Download"]["data_location"]:
+        for item in key_data_json["Data Download"]["data_location_text"]:
             if item["@value"]:
                 key_dataset.data_location.append(item["@value"])
         for item in key_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 key_dataset.data_link.append(item["@id"])
+        for item in key_data_json["license_type"]:
+            if item["@value"]:
+                key_dataset.license_type.append(item["@value"])
+        for item in key_data_json["license_type_other"]:
+            if item["@value"]:
+                key_dataset.license_type_other.append(item["@value"])
+        for item in key_data_json["use_suggested"]:
+            if item["@value"]:
+                key_dataset.use_suggested.append(item["@value"])
+        for item in key_data_json["use_suggested_other"]:
+            if item["@value"]:
+                key_dataset.use_suggested_other.append(item["@value"])
+
+        for item in key_data_json["use_limitations"]:
+            if item["@value"]:
+                key_dataset.use_limitations.append(item["@value"])
+        for item in key_data_json["Example Application"]["use_example_application_link"]:
+            if item["@value"]:
+                key_dataset.use_example_application_link.append(item["@value"])
+        for item in key_data_json["Example Application"]["Use_example_application_text"]:
+            if item["@value"]:
+                key_dataset.use_example_application_text.append(item["@value"])
+        for item in key_data_json["use_strengths"]:
+            if item["@value"]:
+                key_dataset.use_strengths.append(item["@value"])
+        for item in key_data_json["use_example_metrics"]:
+            if item["@value"]:
+                key_dataset.use_example_metrics.append(item["@value"])
         return key_dataset
 
 

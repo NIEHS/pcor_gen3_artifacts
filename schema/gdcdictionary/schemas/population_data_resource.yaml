@@ -193,7 +193,7 @@ properties:
   individual_level:
     description: Does resource provide individual human (patient/volunteer) data
     type: boolean
-  data_location:
+  data_location_text:
     description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
     type: array
     items:
