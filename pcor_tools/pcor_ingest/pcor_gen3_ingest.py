@@ -175,7 +175,6 @@ class PcorGen3Ingest:
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
         discovery.project_url = project.project_url
-        discovery.project_description = project.description
         discovery.project_sponsor_type = project.project_sponsor_type
 
         '''
@@ -184,7 +183,7 @@ class PcorGen3Ingest:
         else:
             discovery.name = discovery.project_name + ":" + resource.name
         '''
-        discovery.name = resource.long_name
+        discovery.name = project.short_name
 
         discovery.payment_required = resource.payment_required
         discovery.verification_datetime = resource.verification_datetime
@@ -231,12 +230,14 @@ class PcorGen3Ingest:
         if len(resource.publication_links) > 2:
             discovery.publication_link_3 = resource.publication_links[2]
 
-        if len(resource.resource_reference) > 0:
+        '''
+        if resource.resource_reference:
             discovery.resource_reference_1 = resource.resource_reference[0]
 
         if len(resource.resource_reference) > 1:
             discovery.resource_reference_2 = resource.resource_reference[2]
-        
+        '''
+
         discovery.keywords = ','.join(resource.keywords)
         discovery.payment_required = resource.payment_required
         discovery.created_datetime = resource.created_datetime
@@ -253,15 +254,52 @@ class PcorGen3Ingest:
                 discovery.is_citizen_collected = data_resource.includes_citizen_collected
             if hasattr(data_resource, 'data_formats'):
                 discovery.data_formats = ', '.join(data_resource.data_formats) if data_resource.data_formats else None
+            if hasattr(data_resource, 'spatial_resolution'):
+                discovery.spatial_resolution = ', '.join(data_resource.spatial_resolution) if data_resource.spatial_resolution else None
+                for item in data_resource.spatial_resolution:
+                    if data_resource.spatial_resolution:
+                        if data_resource.spatial_resolution != "Other":
+                            search_filter = AdvSearchFilter()
+                            search_filter.key = "Spatial Resolution"
+                            search_filter.value = item
+                            discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'spatial_coverage'):
+                discovery.spatial_coverage = ', '.join(data_resource.spatial_coverage) if data_resource.spatial_coverage else None
+            if hasattr(data_resource, 'temporal_resolution'):
+                discovery.temporal_resolution = ', '.join(data_resource.temporal_resolution) if data_resource.temporal_resolution else None
+                for item in data_resource.temporal_resolution:
+                    if data_resource.temporal_resolution:
+                        if data_resource.temporal_resolution != "Other":
+                            search_filter = AdvSearchFilter()
+                            search_filter.key = "Temporal Resolution"
+                            search_filter.value = item
+                            discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'geometry_type'):
+                discovery.geometry_type = ', '.join(data_resource.geometry_type) if data_resource.geometry_type else None
+                for item in data_resource.geometry_type:
+                    search_filter = AdvSearchFilter()
+                    search_filter.key = "Geometry Type"
+                    search_filter.value = item
+                    discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'tool_type'):
+                discovery.tool_type = ', '.join(data_resource.tool_type) if data_resource.tool_type else None
+            if hasattr(data_resource, 'comments'):
+                discovery.comments = data_resource.comments if data_resource.comments else None
+            if hasattr(data_resource, 'time_extent_start_yyyy'):
+                discovery.time_extent_start_yyyy = data_resource.time_extent_start_yyyy if data_resource.time_extent_start_yyyy else None
+            if hasattr(data_resource, 'time_extent_end_yyyy'):
+                discovery.time_extent_end_yyyy = data_resource.time_extent_end_yyyy if data_resource.time_extent_end_yyyy else None
+            if hasattr(data_resource, 'time_available_comment'):
+                discovery.time_available_comment = data_resource.time_available_comment if data_resource.time_available_comment else None
 
-            if len(data_resource.data_location) > 0:
-                discovery.data_location_1 = data_resource.data_location[0]
+            if len(data_resource.data_location_text) > 0:
+                discovery.data_location_text_1 = data_resource.data_location_text[0]
 
-            if len(data_resource.data_location) > 1:
-                discovery.data_location_2 = data_resource.data_location[1]
+            if len(data_resource.data_location_text) > 1:
+                discovery.data_location_text_2 = data_resource.data_location_text[1]
 
-            if len(data_resource.data_location) > 2:
-                discovery.data_location_3 = data_resource.data_location[2]
+            if len(data_resource.data_location_text) > 2:
+                discovery.data_location_text_3 = data_resource.data_location_text[2]
 
             discovery.source_name = data_resource.source_name
 

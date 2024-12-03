@@ -24,7 +24,6 @@ logger = logging.getLogger(__name__)
 Reader of CEDAR template data for version 1_5_1
 """
 
-
 class CedarResourceReader_1_5_1(CedarResourceReader):
     """
     A parent class for a parser of a PCOR Cedar for a type
@@ -285,6 +284,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
+        geoexposure.display_type = 'GeoExposureData'
         geoexposure.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
         geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
 
@@ -413,6 +413,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing TOOL RESOURCE information in CEDAR json")
 
         geotool = PcorGeoToolModel()
+        geotool.display_type = 'GeoExposureTool'
 
         body = contents_json["TOOL RESOURCE"]
 
@@ -473,6 +474,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         population = PcorPopDataResourceModel()
+        population.display_type = 'PopulationData'
 
         # data resource
         data_resource = contents_json["DATA RESOURCE"]
@@ -614,6 +616,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         key_dataset = PcorKeyDatasetModel()
+        key_dataset.display_type = 'KeyDataset'
 
         # data resource
         data_resource = contents_json["DATA RESOURCE"]
