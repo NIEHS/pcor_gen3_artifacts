@@ -5,6 +5,7 @@ import traceback
 import uuid
 import json
 import warnings
+import validators
 import pandas as pd
 from datetime import datetime
 
@@ -230,7 +231,7 @@ class CedarResourceReader:
             if domain["@value"]:
                 resource.domain_other.append(domain["@value"])
 
-        resource.access_type = contents_json["RESOURCE"]["access_type"]["@value"]
+        resource.access_type.append(contents_json["RESOURCE"]["access_type"]["@value"])
 
         # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]
@@ -686,3 +687,7 @@ class CedarResourceReader:
             if item["@id"]:
                 key_dataset.data_link.append(item["@id"])
         return key_dataset
+
+    @staticmethod
+    def validate_url(url_string):
+        return validators.url(url_string)

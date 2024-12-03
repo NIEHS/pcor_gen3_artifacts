@@ -199,6 +199,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
         project.dbgap_accession_number = project.code
 
+        project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
+
         PcorTemplateParser.process_project_identifiers(project)
 
         return project
@@ -260,6 +262,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
 
         resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
+
+        resource.resource_version = resource.verification_datetime = contents_json["RESOURCE"]["resource_version"]["@value"]
 
         if resource.id is None:
             resource.id = str(uuid.uuid4())
@@ -420,8 +424,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if tool_type["@value"]:
                 geotool.tool_type_other.append(tool_type["@value"])
 
-        geotool.intended_use = body["intended_use"]["@value"]
-
         for os in body["operating_system"]:
             if os["@value"]:
                 geotool.operating_system.append(os["@value"])
@@ -452,6 +454,10 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         geotool.is_open = PcorTemplateParser.sanitize_boolean(
             body["is_open"]["@value"])
+
+        geotool.intended_use = body["intended_use"]["@value"]
+
+
         return geotool
 
     @staticmethod
@@ -561,13 +567,26 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if item["@value"]:
                 population.population_studied_other.append(item["@value"])
 
+        for item in pop_data_json["biospecimens_type"]:
+            if item["@value"]:
+                population.biospecimens_type.append(item["@value"])
+
         for item in pop_data_json["data_formats"]:
             if item["@value"]:
                 population.data_formats.append(item["@value"])
 
-        for item in pop_data_json["Data Download"]["data_location_text"]:
+        population.biospecimens = PcorTemplateParser.sanitize_boolean(
+            pop_data_json["biospecimens"]["@value"])
+
+        population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
+            pop_data_json["linkable_encounters"]["@value"])
+
+        population.individual_level = PcorTemplateParser.sanitize_boolean(
+            pop_data_json["individual_level"]["@value"])
+
+        for item in pop_data_json["Data Download"]["data_location"]:
             if item["@value"]:
-                population.data_location_text.append(item["@value"])
+                population.data_location.append(item["@value"])
 
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
@@ -575,9 +594,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
             pop_data_json["linkable_encounters"]["@value"])
-
-        population.biospecimens = PcorTemplateParser.sanitize_boolean(
-            pop_data_json["biospecimens"]["@value"])
 
         for item in pop_data_json["biospecimens_type"]:
             if item["@value"]:
@@ -699,7 +715,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 key_dataset.data_formats.append(item["@value"])
         for item in key_data_json["Data Download"]["data_location_text"]:
             if item["@value"]:
-                key_dataset.data_location_text.append(item["@value"])
+                key_dataset.data_location.append(item["@value"])
         for item in key_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 key_dataset.data_link.append(item["@id"])

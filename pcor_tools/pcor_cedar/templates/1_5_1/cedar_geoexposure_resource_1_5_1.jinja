@@ -58,7 +58,7 @@
     "comment": {
        "@value": "{{ submission.curator_comment }}"
     },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/de3f8e77-3ffe-4ffc-bdce-4920e820e218"
+    "@id": "https://repo.metadatacenter.org/template-element-instances/e4467151-11a2-4e80-a39f-4c0a3e7d3edb"
   },
   "PROGRAM": {
     "@context": {
@@ -67,7 +67,7 @@
     "Program_name": {
       "@value": "CHORDS"
     },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/1f710b5c-f1cf-4ebc-8383-684c692dcf23"
+    "@id": "https://repo.metadatacenter.org/template-element-instances/0c9e1038-adbe-44a7-8478-6f795ea0541b"
   },
   "PROJECT": {
     "@context": {
@@ -118,7 +118,7 @@
         {% endif %}
     ],
     "project_sponsor_type": [
-       {%  if project.project_sponsor_type|length == 0 %}
+     {%  if project.project_sponsor_type|length == 0 %}
             { "@value": null }
         {%  else %}
             {% for entry in project.project_sponsor_type %}
@@ -142,9 +142,9 @@
         {% endif %}
     ],
     "project_url": {
-         "@id": "{{ project.project_url }}"
+        "@id": "{{ project.project_url }}"
     },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/ab9c60d0-9737-42bb-b506-5dc725d35ed7"
+    "@id": "https://repo.metadatacenter.org/template-element-instances/fbba98ba-2983-416d-8336-f6a255c7ccd6"
   },
   "RESOURCE": {
     "@context": {
@@ -165,7 +165,8 @@
       "payment_required": "https://schema.metadatacenter.org/properties/4dfcf4d7-57cd-4af0-8146-0e30e2300e2e",
       "is_static": "https://schema.metadatacenter.org/properties/1fc3039a-b4e6-4c0a-82e0-839a8ce204d4",
       "Resource Reference_150": "https://schema.metadatacenter.org/properties/40d516a3-c2e7-48c9-a47a-1d86962656f0",
-      "Resource Use Agreement_150": "https://schema.metadatacenter.org/properties/de892817-974c-4e6e-9cf8-c82d5c53d71a"
+      "Resource Use Agreement_150": "https://schema.metadatacenter.org/properties/de892817-974c-4e6e-9cf8-c82d5c53d71a",
+      "resource_version": "https://schema.metadatacenter.org/properties/ff394466-be17-43d0-8a96-0734a14c9fa2"
     },
     "resource_GUID": {
        "@value": "{{ resource.id }}"
@@ -177,7 +178,7 @@
       "@value": "{{ resource.resource_type }}"
     },
     "domain": [
-        {%  if resource.domain|length == 0 %}
+       {%  if resource.domain|length == 0 %}
             { "@value": null }
         {%  else %}
             {% for entry in resource.domain %}
@@ -189,7 +190,7 @@
         {% endif %}
     ],
     "domain_other": [
-     {%  if resource.domain_other|length == 0 %}
+       {%  if resource.domain_other|length == 0 %}
             { "@value": null }
         {%  else %}
             {% for entry in resource.domain_other %}
@@ -200,9 +201,18 @@
             {% endfor %}
         {% endif %}
     ],
-    "access_type": {
-        "@value": "{{ resource.access_type }}"
-    },
+    "access_type": [
+     {%  if resource.access_type|length == 0 %}
+            { "@value": null }
+        {%  else %}
+            {% for entry in resource.access_type %}
+                    {
+                        "@value": "{{ entry }}"
+                    }
+                    {{ "," if not loop.last }}
+            {% endfor %}
+        {% endif %}
+    ],
     "date_added": {
       "@value": "{{ resource.created_datetime }}"
     },
@@ -230,7 +240,7 @@
           {% endif %}
       ],
       "publication_citation": [
-          {%  if resource.publications|length == 0 %}
+        {%  if resource.publications|length == 0 %}
                 { "@value": null }
             {%  else %}
 
@@ -242,13 +252,13 @@
                 {% endfor %}
             {% endif %}
       ],
-      "@id": "https://repo.metadatacenter.org/template-element-instances/51335b81-79c0-4244-a446-5375e422631d"
+      "@id": "https://repo.metadatacenter.org/template-element-instances/e1dd8e12-db03-4f34-a018-3ed5dff3e8a6"
     },
     "resource_short_name": {
       "@value": "{{ resource.short_name }}"
     },
     "keywords": [
-        {%  if resource.keywords|length == 0 %}
+     {%  if resource.keywords|length == 0 %}
             { "@value": null }
          {%  else %}
              {% for entry in resource.keywords %}
@@ -259,7 +269,7 @@
               {% endfor %}
         {% endif %}
     ],
-    "resource_url": {
+     "resource_url": {
            "@id": "{{ resource.resource_url }}"
     },
     "resource_description": {
@@ -279,15 +289,14 @@
       "resource_reference": {
          "@value": "{{  resource.resource_reference }}"
       },
-      "resource_reference_link":
-
+       "resource_reference_link": {
             {%  if resource.resource_reference_link == "" %}
-                {"@id": "http://nolink"},
+                "@id": "http://nolink"
             {% else %}
-                  {"@id": "{{ resource.resource_reference_link }}",
+                  "@id": "{{ resource.resource_reference_link }}"
             {%  endif %}
-
-      "@id": "https://repo.metadatacenter.org/template-element-instances/91a9d726-fcaa-4940-babf-811b97a957b9"
+        },
+      "@id": "https://repo.metadatacenter.org/template-element-instances/3906602c-9ec1-4a43-bb25-014bb7444604"
     },
     "Resource Use Agreement_150": {
       "@context": {
@@ -297,15 +306,17 @@
       "resource_use_agreement": {
         "@value": "{{ resource.resource_use_agreement }}"
       },
-      "resource_use_agreement_link":
-            {%  if resource.resource_use_agreement_link == "" %}
+      "resource_use_agreement_link":   {%  if resource.resource_use_agreement_link == "" %}
                 {"@id": "http://nolink"},
             {% else %}
                   {"@id": "{{ resource.resource_use_agreement_link }}",
             {%  endif %}
-      "@id": "https://repo.metadatacenter.org/template-element-instances/2ff5f771-3e58-43f7-add5-b2473936add1"
+      "@id": "https://repo.metadatacenter.org/template-element-instances/76e2863d-a6e6-4283-8534-b384ce930fbc"
     },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/b7851732-aafe-466c-974c-00f6f8699d06"
+    "resource_version": {
+        "@value": "{{ resource.resource_version }}"
+    },
+    "@id": "https://repo.metadatacenter.org/template-element-instances/2359f1b7-bcaa-432a-bf13-b293bac78377"
   },
   "DATA RESOURCE": {
     "@context": {
@@ -319,7 +330,7 @@
       "update_frequency_other": "https://schema.metadatacenter.org/properties/2c2daca1-8bbc-4bda-9d4d-88233afaff87"
     },
     "source_name": [
-       {%  if geospatial_data_resource.source_name|length == 0 %}
+      {%  if geospatial_data_resource.source_name|length == 0 %}
             { "@value": null }
             {%  else %}
               {% for entry in geospatial_data_resource.source_name %}
@@ -331,7 +342,7 @@
         {% endif %}
     ],
     "update_frequency": [
-       {%  if geospatial_data_resource.update_frequency|length == 0 %}
+      {%  if geospatial_data_resource.update_frequency|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in geospatial_data_resource.update_frequency %}
@@ -360,7 +371,7 @@
     "update_frequency_other": {
       "@value": "{{ geospatial_data_resource.update_frequency_other }}"
     },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/8e4e5d22-25c5-4dee-8a8c-1e48b9c3a256"
+    "@id": "https://repo.metadatacenter.org/template-element-instances/8f2af0d8-a7c0-4fe0-89b6-4940864d1c78"
   },
   "GEOEXPOSURE DATA": {
     "@context": {
@@ -402,7 +413,7 @@
         {% endif %}
     ],
     "measures_other": [
-     {%  if geospatial_data_resource.measures_other|length == 0 %}
+       {%  if geospatial_data_resource.measures_other|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in geospatial_data_resource.measures_other %}
@@ -414,7 +425,7 @@
         {% endif %}
     ],
     "measurement_method": [
-       {%  if geospatial_data_resource.measurement_method|length == 0 %}
+      {%  if geospatial_data_resource.measurement_method|length == 0 %}
             { "@value": null }
         {%  else %}
               {% for entry in geospatial_data_resource.measurement_method %}
@@ -444,7 +455,7 @@
         {% endif %}
     ],
     "spatial_resolution": [
-       {%  if geospatial_data_resource.spatial_resolution|length == 0 %}
+      {%  if geospatial_data_resource.spatial_resolution|length == 0 %}
             { "@value": null }
         {%  else %}
               {% for entry in geospatial_data_resource.spatial_resolution %}
@@ -456,7 +467,7 @@
         {% endif %}
     ],
     "spatial_resolution_other": [
-      {%  if geospatial_data_resource.spatial_resolution_other|length == 0 %}
+       {%  if geospatial_data_resource.spatial_resolution_other|length == 0 %}
             { "@value": null }
         {%  else %}
              {% for entry in geospatial_data_resource.spatial_resolution_other %}
@@ -468,7 +479,7 @@
         {% endif %}
     ],
     "spatial_coverage": [
-       {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
+      {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.spatial_coverage %}
@@ -480,7 +491,7 @@
         {% endif %}
     ],
     "spatial_bounding_box": [
-       {%  if geospatial_data_resource.spatial_bounding_box|length == 0 %}
+      {%  if geospatial_data_resource.spatial_bounding_box|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.spatial_bounding_box %}
@@ -492,7 +503,7 @@
         {% endif %}
     ],
     "geometry_type": [
-      {%  if geospatial_data_resource.spatial_coverage_geometry_type|length == 0 %}
+       {%  if geospatial_data_resource.spatial_coverage_geometry_type|length == 0 %}
             { "@value": null }
         {%  else %}
               {% for entry in geospatial_data_resource.spatial_coverage_geometry_type %}
@@ -504,7 +515,7 @@
         {% endif %}
     ],
     "geometry_source": [
-       {%  if geospatial_data_resource.spatial_coverage_geometry_source|length == 0 %}
+     {%  if geospatial_data_resource.spatial_coverage_geometry_source|length == 0 %}
             { "@value": null }
         {%  else %}
               {% for entry in geospatial_data_resource.spatial_coverage_geometry_source %}
@@ -528,7 +539,7 @@
         {% endif %}
     ],
     "exposure_media": [
-      {%  if geospatial_data_resource.exposure_media|length == 0 %}
+       {%  if geospatial_data_resource.exposure_media|length == 0 %}
             { "@value": null }
          {%  else %}
            {% for entry in geospatial_data_resource.exposure_media %}
@@ -540,7 +551,7 @@
          {% endif %}
     ],
     "geographic_feature": [
-      {%  if geospatial_data_resource.geographic_feature|length == 0 %}
+       {%  if geospatial_data_resource.geographic_feature|length == 0 %}
             { "@value": null }
          {%  else %}
            {% for entry in geospatial_data_resource.geographic_feature %}
@@ -552,7 +563,7 @@
         {% endif %}
     ],
     "geographic_feature_other": [
-     {%  if geospatial_data_resource.geographic_feature_other|length == 0 %}
+        {%  if geospatial_data_resource.geographic_feature_other|length == 0 %}
             { "@value": null }
          {%  else %}
           {% for entry in geospatial_data_resource.geographic_feature_other %}
@@ -564,7 +575,7 @@
         {% endif %}
     ],
     "data_formats": [
-     {%  if geospatial_data_resource.data_formats|length == 0 %}
+      {%  if geospatial_data_resource.data_formats|length == 0 %}
         { "@value": null }
      {%  else %}
           {% for entry in geospatial_data_resource.data_formats %}
@@ -576,7 +587,7 @@
      {% endif %}
     ],
     "measurement_method_other": [
-        {%  if geospatial_data_resource.measurement_method_other|length == 0 %}
+     {%  if geospatial_data_resource.measurement_method_other|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.measurement_method_other %}
@@ -588,7 +599,7 @@
         {% endif %}
     ],
     "model_methods_other": [
-      {%  if geospatial_data_resource.model_methods_other|length == 0 %}
+       {%  if geospatial_data_resource.model_methods_other|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.model_methods_other %}
@@ -604,11 +615,23 @@
     },
     "Data Download": {
       "@context": {
-        "data_location": "https://schema.metadatacenter.org/properties/2184be3f-99e9-455c-879d-6e73b9c6b226",
-        "data_link": "https://schema.metadatacenter.org/properties/6df21615-8115-4b9e-a74d-598f98bc753f"
+        "data_link": "https://schema.metadatacenter.org/properties/6df21615-8115-4b9e-a74d-598f98bc753f",
+        "data_location_text": "https://schema.metadatacenter.org/properties/2184be3f-99e9-455c-879d-6e73b9c6b226"
       },
-      "data_location": [
-        {%  if geospatial_data_resource.data_location|length == 0 %}
+      "data_link": [
+         {%  if geospatial_data_resource.data_link|length == 0 %}
+            { "@id": "http://nolink" }
+        {%  else %}
+             {% for entry in geospatial_data_resource.data_link %}
+                {
+                    "@id": "{{ entry }}"
+                }
+                {{ "," if not loop.last }}
+              {% endfor %}
+        {% endif %}
+      ],
+      "b": [
+         {%  if geospatial_data_resource.data_location|length == 0 %}
             { "@value": null }
         {%  else %}
              {% for entry in geospatial_data_resource.data_location %}
@@ -619,22 +642,10 @@
               {% endfor %}
         {% endif %}
       ],
-      "data_link": [
-        {%  if geospatial_data_resource.data_link|length == 0 %}
-            { "@id": "http://www.nih.gov" }
-        {%  else %}
-             {% for entry in geospatial_data_resource.data_link %}
-                {
-                    "@id": "{{ entry }}"
-                }
-                {{ "," if not loop.last }}
-              {% endfor %}
-        {% endif %}
-      ],
-      "@id": "https://repo.metadatacenter.org/template-element-instances/70761264-f52c-4d53-935e-5c76dad336b8"
+      "@id": "https://repo.metadatacenter.org/template-element-instances/ca724a39-2cd8-4ab5-a694-9d1f55ef821d"
     },
     "spatial_coverage_other": [
-       {%  if geospatial_data_resource.spatial_coverage_specific_regions|length == 0 %}
+      {%  if geospatial_data_resource.spatial_coverage_specific_regions|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.spatial_coverage_specific_regions %}
@@ -658,7 +669,7 @@
         {% endif %}
     ],
     "temporal_resolution_other": [
-      {%  if geospatial_data_resource.temporal_resolution_other|length == 0 %}
+     {%  if geospatial_data_resource.temporal_resolution_other|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.temporal_resolution_other %}
@@ -669,14 +680,14 @@
           {% endfor %}
         {% endif %}
     ],
-    "@id": "https://repo.metadatacenter.org/template-element-instances/f7f93219-2f73-43f9-b741-bf87939a7fe2"
+    "@id": "https://repo.metadatacenter.org/template-element-instances/4c028e10-1f7e-49b4-8d7a-d0d86e25e318"
   },
   "schema:isBasedOn": "https://repo.metadatacenter.org/templates/ce1436c0-2847-490b-9604-cb20a8602e84",
   "schema:name": "GeoExposure_Data_1.5.1_Template metadata",
-  "schema:description": "151 Geoexposure template",
-  "pav:createdOn": "2024-10-30T12:29:00-07:00",
+  "schema:description": "Generated from pipeline",
+  "pav:createdOn": "2024-11-20T11:56:06-08:00",
   "pav:createdBy": "https://metadatacenter.org/users/a76d649e-812a-4da2-8323-cb569b2346c1",
-  "pav:lastUpdatedOn": "2024-10-30T12:29:00-07:00",
+  "pav:lastUpdatedOn": "2024-11-20T11:56:06-08:00",
   "oslc:modifiedBy": "https://metadatacenter.org/users/a76d649e-812a-4da2-8323-cb569b2346c1",
   "@id": null
 }

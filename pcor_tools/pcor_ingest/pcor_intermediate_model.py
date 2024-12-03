@@ -99,6 +99,7 @@ class PcorIntermediateResourceModel:
         self.resource_reference_link = ""
         self.resource_type = ""
         self.resource_url = ""
+        self.resource_version = "" # TODO: new
         self.resource_use_agreement = ""
         self.resource_use_agreement_link = ""
         self.short_name = ""
