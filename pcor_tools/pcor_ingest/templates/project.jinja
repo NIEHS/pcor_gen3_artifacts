@@ -1,9 +1,8 @@
 {
   "type": "project",
-  "code": "{{ model.code }}",
   "name": "{{ model.name }}",
   "short_name": "{{ model.short_name }}",
-  "long_name": "{{model.long_name}}",
+  "code": "{{ model.code }}",
   "project_sponsor": [
     {% for entry in model.project_sponsor %}
         "{{ entry }}"
@@ -17,6 +16,5 @@
     {% endfor %}
   ],
   "project_url": "{{ model.project_url }}",
-  "description": "{{ model.description }}",
   "dbgap_accession_number": "{{ model.dbgap_accession_number }}"
 }

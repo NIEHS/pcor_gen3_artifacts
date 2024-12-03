@@ -29,6 +29,8 @@ class PcorReporter():
         # Get the directory of the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
+        logger.info("script dir: %s" % script_dir)
+
         # Set the relative path to your template directory
         template_rel_path = 'templates'
 
@@ -46,12 +48,13 @@ class PcorReporter():
         :return: void
         """
 
-        if pcor_processing_result.success:
-            msg = self.produce_html_success_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
-        else:
-            msg = self.produce_html_error_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
+        if self.pcor_ingest_configuration.mail_send_curator_email:
+            if pcor_processing_result.success:
+                msg = self.produce_html_success_report(pcor_processing_result)
+                self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
+            else:
+                msg = self.produce_html_error_report(pcor_processing_result)
+                self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
 
     def produce_html_error_report(self, pcor_processing_result):
 

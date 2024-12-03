@@ -1,6 +1,6 @@
 global:
   hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/cedar/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/43-model-1_5_1/custom_configs/schema.json
 
 
 sower:
@@ -23,3 +23,7 @@ etl:
     tube:
       # -- (string) Overrides the image tag whose default is the chart appVersion.
       tag: "1.0.4"
+
+indexd:
+  image:
+  tag: "2023.01"

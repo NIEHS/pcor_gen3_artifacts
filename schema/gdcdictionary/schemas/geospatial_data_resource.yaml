@@ -71,6 +71,7 @@ properties:
     type: array
     items:
       type: string
+  # FixMe: need to convert string to DateTime format
   update_frequency:
     description: Frequency of update of the resource.
     type: array
@@ -121,24 +122,31 @@ properties:
     description: Narrative to describe time extent details if multiple exist in the resource.
     type: string
   temporal_resolution:
-    description: Frequency of time points. This is the finest resolution
-    type: string
+    description: The highest frequency of time points collection, aggregated lower frequency data might be available as well
+    type: array
+    items:
+      type: string
   spatial_resolution:
-    description: the highest spatial resolution of the data.  May be a specific distance measure using SI units for distance (e.g., 5km) or from a controlled vocabulary.
-    type: string
+    description: The highest spatial resolution of the data. If there are multiple resources and determining the highest spatial resolution is impractical, use "Other".
+    type: array
+    items:
+      type: string
   spatial_coverage:
     description: Maximum spatial coverage of the data.
     type: array
     items:
       type: string
-  spatial_coverage_specific_regions:
-    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
+# prop no longer used
+#  spatial_coverage_specific_regions:
+#    description: use the format of region type following by specific regions; can be the list of polygon points as latitude, longitude pairs, e.g., (35.747959044325775, -79.1347487705657), (35.68524059497995, -79.13732369118568)
+#    type: array
+#    items:
+#      type: string
+  spatial_bounding_box:
+    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
     type: array
     items:
       type: string
-  spatial_bounding_box:
-    description: boundary coordinates for the geographical region (should be included in the model spatial metadata)
-    type: string
   geometry_type:
     description: Type of geometric data, the file extension will be different for different types.
     type: array
@@ -169,8 +177,13 @@ properties:
     type: array
     items:
       type: string
-  data_location:
+  data_location_text:
     description: A list of locations for data files, such as a ftp site, an Amazon S3 bucket, or a URL.
+    type: array
+    items:
+      type: string
+  data_link:
+    description: URL to online location where data can be downloaded
     type: array
     items:
       type: string

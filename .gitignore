@@ -374,6 +374,9 @@ MigrationBackup/
 
 
 .venv
+.newenv
+.test
+*.spec
 *.swp
 .idea
 pcor_tools/tests/test_resources/*.json

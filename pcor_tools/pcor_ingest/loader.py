@@ -27,7 +27,7 @@ class Loader:
         logger.info('file_path dir: %s ' % file_path)
         if loader_type is not None:
             loader_type = self.loaders[loader_type]
-            loader_type.process_load(file_path=file_path)
+            loader_type.process_load_from_cedar_directory(file_path=file_path)
         else:
             logger.info('No loader found!')
             logger.info('loader_type is a required argument. Type can be ("spreadsheet" or "cedar")')

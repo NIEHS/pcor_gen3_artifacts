@@ -1,8 +1,6 @@
-import json
 import unittest
 
-from pcor_ingest.loader_cedar import LoaderCedar
-from pcor_cedar.cedar_access import CedarAccess
+from pcor_cedar.loader_cedar import LoaderCedar
 from tests import pcor_testing_utilities
 
 
@@ -11,14 +9,23 @@ class TestLoaderCedar(unittest.TestCase):
     def test_load(self):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         loaderCedar = LoaderCedar(pcor_ingest_configuration)
-        loaderCedar.process_load(pcor_ingest_configuration.working_directory)
+        loaderCedar.process_load_from_cedar_directory(pcor_ingest_configuration.working_directory)
 
     def test_load_individual_resource(self):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
-        loaderCedar = LoaderCedar(pcor_ingest_configuration)
+        loaderCedar = LoaderCedar(pcor_ingest_configuration=pcor_ingest_configuration, cedar_version='1_5_1')
         #url = "https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2"
-        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/d4112c4b-def3-4770-974a-a564071d99e3?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
-        result = loaderCedar.process_individual_load(pcor_ingest_configuration.working_directory,url)
+
+        # geo data
+        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/af8c98c7-37bb-4063-8a16-aa7eada27118?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+
+        # pop data
+        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/cc12b782-c07b-4ef9-9755-6556ff671473?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+
+        # geo tool
+        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/87f92251-8f16-4709-814b-bc567505f301?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+
+        result = loaderCedar.process_individual_load_of_cedar_resource_from_url(url)
         self.assertIsNotNone(result)
         self.assertTrue(result.success)
 

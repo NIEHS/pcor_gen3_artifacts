@@ -694,7 +694,6 @@ class PcorGen3Ingest:
            project_sponsor
            project_sponsor_type
            project_url
-           description
            dbgap_accession_number
          }}
        }}
@@ -715,7 +714,6 @@ class PcorGen3Ingest:
             project.sponsor = result["data"]["project"][0]["project_sponsor"]
             project.sponsor_type = result["data"]["project"][0]["project_sponsor_type"]
             project.project_url = result["data"]["project"][0]["project_url"]
-            project.description = result["data"]["project"][0]["description"]
             project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
             project.id = result["data"]["project"][0]["id"]
             return project

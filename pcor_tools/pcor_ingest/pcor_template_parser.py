@@ -29,7 +29,7 @@ class PcorTemplateParser:
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
-        self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration)
+        self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
         self.yyyy_pattern = r"\b(\d{4})\b"
 
     def parse(self, template_absolute_path, result):
@@ -188,6 +188,7 @@ class PcorTemplateParser:
                             project.code = project.name
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                    # FixMe: do not collapse 'other' into the main prop
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
                         temp_project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         project.project_sponsor = PcorTemplateParser.combine_prop(project.project_sponsor, temp_project_sponsor_other)
@@ -255,6 +256,7 @@ class PcorTemplateParser:
                             resource.description = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'domain':
                             resource.domain = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        # FixMe: do not collapse 'other' into the main prop
                         elif field_name == 'domain_other':
                             temp_domain_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                             resource.domain = PcorTemplateParser.combine_prop(resource.domain, temp_domain_other)
