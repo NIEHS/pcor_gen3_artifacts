@@ -66,6 +66,8 @@ properties:
   date_collected:
     description: The date or date range in which the project data was collected.
     type: string
+
+  # use program_code value
   dbgap_accession_number:
     type: string
     description: The dbgap accession number provided for the project.
@@ -149,9 +151,10 @@ properties:
     type: string
     description: Short display name/brief description for the project.
 
-  long_name:
-    type: string
-    description: Display name/brief description for the project. # TOREVIEW
+# no long name prop
+#  long_name:
+#    type: string
+#    description: Display name/brief description for the project. # TOREVIEW
 
   project_sponsor:
     description: the name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department or consortium name.
@@ -173,9 +176,12 @@ properties:
   project_url:
     description: URL for the project
     type: string
-  description:
-    description: Description of the project
-    type: string
+
+  # currently not use
+  #description:
+  #  description: Description of the project
+  #  type: string
+
   programs:
     $ref: "_definitions.yaml#/to_one"
     description: >

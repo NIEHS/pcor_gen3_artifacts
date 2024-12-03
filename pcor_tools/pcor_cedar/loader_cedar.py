@@ -4,14 +4,15 @@ import os
 import re
 import shutil
 import sys
+from datetime import datetime
 from optparse import OptionParser
 
-from fastavro import reader
+from pcor_cedar.cedar_parser_factory import CedarParserFactory
 from pcor_ingest.pcor_reporter import PcorReporter
 
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
-from pcor_ingest.cedar_resource_reader import CedarResourceParser
+from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
@@ -19,7 +20,6 @@ from pcor_cedar.cedar_access import CedarAccess
 from pcor_ingest.loader import Loader
 
 from pcor_cedar.cedar_config import CedarConfig
-from tests.test_pcor_template_processor import pop_data_resource
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -30,11 +30,13 @@ logger = logging.getLogger(__name__)
 
 
 class LoaderCedar(Loader):
-    def __init__(self, pcor_ingest_configuration):
+    def __init__(self, pcor_ingest_configuration, cedar_version):
         super().__init__(pcor_ingest_configuration)
         self.cedar_config = CedarConfig()
         self.cedar_access = CedarAccess()
-        self.reader = CedarResourceParser(pcor_ingest_configuration=self.pcor_ingest_configuration)
+        self.cedar_version = cedar_version
+        reader_factory = CedarParserFactory()
+        self.reader = reader_factory.instance(cedar_version)
         self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
 
         self.validate_sub_folders(pcor_ingest_configuration.working_directory)
@@ -42,13 +44,12 @@ class LoaderCedar(Loader):
         #os.mkdir(cedar_folder)
         #self.cedar_folder = cedar_folder
 
-    def process_load(self, file_path=None):
-        logger.info('file_path dir: %s ' % file_path)
-        work_dir = os.path.abspath(file_path)
+    def process_load_from_cedar_directory(self, directory=None):
+        work_dir = self.pcor_ingest_configuration.working_directory
         logger.info('work_dir dir: %s ' % work_dir)
         self.validate_sub_folders(work_dir=work_dir)
         logger.info('Getting listing of cedar resources')
-        loader_collection = self.cedar_access.retrieve_loading_contents()
+        loader_collection = self.cedar_access.retrieve_loading_contents(directory)
         for resource in loader_collection.subfolders:
             logger.info("resource: %s" % resource)
             if resource.item_type != 'instance':
@@ -59,7 +60,7 @@ class LoaderCedar(Loader):
             logger.debug("instance json: %s" % instance_json)
             self.load_resource(instance_json)
 
-    def process_individual_load(self,resource_url=None):
+    def process_individual_load_of_cedar_resource_from_url(self, resource_url=None):
         logger.info('process_individual_load')
         logger.info('resource_url: %s' % resource_url)
 
@@ -89,13 +90,15 @@ class LoaderCedar(Loader):
         result = PcorProcessResult()
         #result.template_source = resource.folder_id
         result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
+        guid = LoaderCedar.extract_id_for_resource(resource["@id"])
+
+        processing_file_path = LoaderCedar.add_timestamp_to_file(
+            self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json')
 
         try:
 
             # bring the resource down to cedar_staging, use the guid as the file name
-            guid =  LoaderCedar.extract_id_for_resource(resource["@id"])
             logger.debug("writing file for: %s" % guid)
-            processing_file_path = self.pcor_ingest_configuration.working_directory + '/processing/' + guid + '.json'
             with open(processing_file_path, 'w') as f:
                 json.dump(resource, f)
 
@@ -143,6 +146,27 @@ class LoaderCedar(Loader):
 
         return result
 
+    def main_load_process(self, resource_url=None, directory=None):
+
+        file_path = self.pcor_ingest_configuration.working_directory
+
+        if not os.path.exists(file_path):
+            logger.error('ERROR: working_file does not exist. System will exit now...')
+            sys.exit()
+        else:
+            logger.info('file_path: %s' % file_path)
+
+        logger.info('resource to load :: %s' % resource_url)
+        logger.info('directory: %s' % directory)
+
+        if resource_url:
+            return self.process_individual_load_of_cedar_resource_from_url(resource_url=resource_url)
+        elif directory:
+            return self.process_load_from_cedar_directory(directory=directory)
+        else:
+            logger.error("must add the -r or -d flag for a resc url or a folder url")
+            raise Exception("must add the -r or -d flag for a resc url or a folder url")
+
     @staticmethod
     def extract_id_for_resource(resource_url):
         # Regex pattern to match a GUID
@@ -158,46 +182,16 @@ class LoaderCedar(Loader):
         else:
             raise ValueError("No GUID in provided URL")
 
-
-def setup_arguments():
-    parser = OptionParser()
-    parser.add_option('-r', "--resource_url", action='store', dest='resource_url', default=None)
-    parser.add_option('-f', "--working_file", action='store', dest='working_file', default=None)
-
-    return parser.parse_args()[0]
-
-def main():
-    logger.info('Main function execution started.')
-    global args
-    args = setup_arguments()
-
-    if "CEDAR_PROPERTIES" not in os.environ:
-        logger.error("CEDAR_PROPERTIES not found in env. System exiting...")
-        sys.exit()
-
-    if "PCOR_GEN3_CONFIG_LOCATION" not in os.environ:
-        logger.error("PCOR_GEN3_CONFIG_LOCATION not found in env. System exiting...")
-        sys.exit()
-
-    resource_url = args.resource_url
-    working_file = args.working_file
-
-    if not os.path.exists(working_file):
-        logger.error('ERROR: working_file does not exist. System will exit now...')
-        sys.exit()
-    else:
-        logger.info('working_file: %s' % working_file)
-
-    logger.info('resource to load :: %s' % resource_url)
-    pcor_ingest_configuration = PcorIngestConfiguration.load_pcor_ingest_configuration_from_env()
-    loader_cedar = LoaderCedar(pcor_ingest_configuration=pcor_ingest_configuration)
-
-    if resource_url is None:
-        return loader_cedar.process_load(working_file)
-    else:
-        return loader_cedar.process_individual_load(resource_url)
-
-
-
-if __name__ == "__main__":
-    main()
+    @staticmethod
+    def add_timestamp_to_file(file_name):
+        # test1~pcor~_23_06_29_124427.json
+        try:
+            idx = file_name.index('~pcor~')
+            file_part = file_name[0:idx]
+            new_file_name = file_part + '~pcor~' + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.json'
+            return new_file_name
+        except ValueError:
+            new_file_name = file_name.replace('.json', '~pcor~'
+                                              + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.json')
+            logger.info("new file name:%s" % new_file_name)
+            return new_file_name
