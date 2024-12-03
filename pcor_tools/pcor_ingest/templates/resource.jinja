@@ -12,10 +12,20 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "access_type": "{{ resource.access_type }}",
+  "access_type":  [
+    {% for entry in resource.access_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+{% if resource.resource_reference_link %}
+      "resource_reference_link": "{{ resource.resource_reference_link }}",
+{% endif %}
   "publications":  [
     {% for entry in resource.publications %}
-        "{{ entry }}"
+        {% if entry %}
+          "{{ entry }}"
+        {% endif %}
       {{ "," if not loop.last }}
     {% endfor %}
   ],
