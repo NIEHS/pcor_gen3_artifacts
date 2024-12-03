@@ -23,3 +23,7 @@ etl:
     tube:
       # -- (string) Overrides the image tag whose default is the chart appVersion.
       tag: "1.0.4"
+
+indexd:
+  image:
+  tag: "2023.01"
