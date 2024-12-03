@@ -235,7 +235,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         # FixMe: need to convert string to DateTime format
         resource.created_datetime = contents_json["pav:createdOn"]
         resource.updated_datetime = contents_json["pav:lastUpdatedOn"]
-
         resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
 
         for publication_citation in contents_json["RESOURCE"]["Publication"]["publication_citation"]:
