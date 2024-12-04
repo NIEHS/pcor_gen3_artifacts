@@ -292,16 +292,18 @@ class PcorGen3Ingest:
             if hasattr(data_resource, 'time_available_comment'):
                 discovery.time_available_comment = data_resource.time_available_comment if data_resource.time_available_comment else None
 
-            if len(data_resource.data_location_text) > 0:
-                discovery.data_location_text_1 = data_resource.data_location_text[0]
+            if hasattr(data_resource, 'data_location_text'):
+                if len(data_resource.data_location_text) > 0:
+                    discovery.data_location_text_1 = data_resource.data_location_text[0]
 
-            if len(data_resource.data_location_text) > 1:
-                discovery.data_location_text_2 = data_resource.data_location_text[1]
+                if len(data_resource.data_location_text) > 1:
+                    discovery.data_location_text_2 = data_resource.data_location_text[1]
 
-            if len(data_resource.data_location_text) > 2:
-                discovery.data_location_text_3 = data_resource.data_location_text[2]
+                if len(data_resource.data_location_text) > 2:
+                    discovery.data_location_text_3 = data_resource.data_location_text[2]
 
-            discovery.source_name = data_resource.source_name
+            if hasattr(data_resource, 'source_name'):
+                discovery.source_name = data_resource.source_name if data_resource.source_name else None
 
         for item in resource.access_type:
             if item:

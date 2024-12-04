@@ -251,7 +251,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
                     contents_json["RESOURCE"]["payment_required"]["@value"])
 
-        resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
+        #FIXME sanatize string quotes
+        #resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
         if contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]:
             resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
@@ -586,20 +587,13 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         population.individual_level = PcorTemplateParser.sanitize_boolean(
             pop_data_json["individual_level"]["@value"])
 
-        for item in pop_data_json["Data Download"]["data_location"]:
+        for item in pop_data_json["Data Download"]["data_location_text"]:
             if item["@value"]:
-                population.data_location.append(item["@value"])
+                population.data_location_text.append(item["@value"])
 
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 population.data_link.append(item["@id"])
-
-        population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
-            pop_data_json["linkable_encounters"]["@value"])
-
-        for item in pop_data_json["biospecimens_type"]:
-            if item["@value"]:
-                population.biospecimens_type.append(item["@value"])
 
         return population
 
