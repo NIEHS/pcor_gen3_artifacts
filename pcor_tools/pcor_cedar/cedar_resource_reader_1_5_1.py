@@ -4,6 +4,7 @@ import uuid
 import json
 import warnings
 
+from build.lib.pcor_ingest.pcor_reporter import PcorReporter
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_resource_reader import CedarResourceReader
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
@@ -38,6 +39,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         # example path /deep/documents/foo.xls
         logger.info("parse()")
 
+
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
@@ -47,9 +49,30 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         with open(template_absolute_path, 'r') as f:
             contents_json = json.loads(f.read())
 
+        is_key_dataset = "KEY DATASETS DATA_151" in contents_json
+
+        submission_key = "SUBMITTER"
+        program_key = "PROGRAM"
+        project_key = "PROJECT"
+        resource_key = "RESOURCE"
+        data_resource_key = "DATA_RESOURCE"
+        geoexposure_key = "GEOEXPOSURE DATA"
+        geoexposure_tool_key = "TOOL RESOURCE"
+        population_key = "POPULATION DATA RESORCE"
+        key_dataset_key = "KEY DATASETS DATA_151"
+
+
+        if is_key_dataset:
+            submission_key = "SUBMITTER_151"
+            program_key = "PROGRAM_151"
+            project_key = "PROJECT_151"
+            resource_key = "RESOURCE_151"
+            data_resource_key = "KD_DATA RESOURCE_151"
+
+
         logger.info("submission phase")
         try:
-            submission = CedarResourceReader_1_5_1.extract_submission_data(contents_json)
+            submission = CedarResourceReader_1_5_1.extract_submission_data(contents_json, key=submission_key)
             submission.submit_location = template_absolute_path
             result.model_data["submission"] = submission
         except Exception as err:
@@ -64,7 +87,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         try:
 
-            program = self.extract_program_data(contents_json)
+            program = self.extract_program_data(contents_json, key=program_key)
             result.model_data["program"] = program
             result.program_name = program.name
 
@@ -79,7 +102,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         logger.info("project phase")
 
         try:
-            project = CedarResourceReader_1_5_1.extract_project_data(contents_json)
+            project = CedarResourceReader_1_5_1.extract_project_data(contents_json, key=project_key)
             result.model_data["project"] = project
             result.project_guid = project.submitter_id
             result.project_code = project.code
@@ -96,7 +119,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         logger.info("resource phase")
 
         try:
-            resource = CedarResourceReader_1_5_1.extract_resource_data(contents_json)
+            resource = CedarResourceReader_1_5_1.extract_resource_data(contents_json, key=resource_key)
             result.model_data["resource"] = resource
             result.resource_guid = resource.submitter_id
             result.resource_name = resource.name
@@ -111,24 +134,24 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         if "GEOEXPOSURE DATA" in contents_json:
             logger.info("geoexposure phase")
-            geoexposure_data = CedarResourceReader_1_5_1.extract_geoexposure_data(contents_json)
+            geoexposure_data = CedarResourceReader_1_5_1.extract_geoexposure_data(contents_json, data_resource_key=data_resource_key, key=geoexposure_key)
             result.model_data["geospatial_data_resource"] = geoexposure_data
         elif "POPULATION DATA RESORCE" in contents_json:
             logger.info("population data phase")
-            population_data = CedarResourceReader_1_5_1.extract_population_data(contents_json)
+            population_data = CedarResourceReader_1_5_1.extract_population_data(contents_json, data_resource_key=data_resource_key, key=population_key)
             result.model_data["population_data_resource"] = population_data
         elif "TOOL RESOURCE" in contents_json:
             logger.info("geo tool phase")
-            tool_data = CedarResourceReader_1_5_1.extract_geoexposure_tool_data(contents_json)
+            tool_data = CedarResourceReader_1_5_1.extract_geoexposure_tool_data(contents_json, data_resource_key=data_resource_key, key=geoexposure_tool_key)
             result.model_data["geospatial_tool_resource"] = tool_data
-        elif "KEY DATASETS DATA" in contents_json:
-            key_dataset_data = CedarResourceReader_1_5_1.extract_key_dataset_data(contents_json)
+        elif "KEY DATASETS DATA_151" in contents_json:
+            key_dataset_data = CedarResourceReader_1_5_1.extract_key_dataset_data(contents_json, data_resource_key=data_resource_key, key=key_dataset_key)
             result.model_data["key_dataset_data"] = key_dataset_data
         else:
             raise Exception("unknown data type")
 
     @staticmethod
-    def extract_program_data(contents_json):
+    def extract_program_data(contents_json, key='PROGRAM'):
         """
         Given a resource, extract out the program related data
         :param contents_json: json representation of resource
@@ -136,14 +159,14 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         program = PcorIntermediateProgramModel()
-        program.dbgap_accession_number = contents_json["PROGRAM"]["@id"] # FIXME: add to tpl
-        program.name = contents_json["PROGRAM"]["Program_name"]["@value"]
+        program.dbgap_accession_number = contents_json[key]["@id"] # FIXME: add to tpl
+        program.name = contents_json[key]["Program_name"]["@value"]
         if program.dbgap_accession_number == "" or program.dbgap_accession_number is None:
             program.dbgap_accession_number = program.name
         return program
 
     @staticmethod
-    def extract_submission_data(contents_json):
+    def extract_submission_data(contents_json, key='SUBMITTER'):
         """
         extract the submission related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -152,10 +175,10 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
         submission = PcorSubmissionInfoModel()
 
-        submission.curator_name = contents_json["SUBMITTER"]["submitter_name"]["@value"]
-        submission.curator_email = contents_json["SUBMITTER"]["submitter_email"]["@value"]
-        if contents_json["SUBMITTER"]["comment"]["@value"]:
-            submission.curation_comment = contents_json["SUBMITTER"]["comment"]["@value"]
+        submission.curator_name = contents_json[key]["submitter_name"]["@value"]
+        submission.curator_email = contents_json[key]["submitter_email"]["@value"]
+        if contents_json[key]["comment"]["@value"]:
+            submission.curation_comment = contents_json[key]["comment"]["@value"]
 
         submission.curation_comment = submission.curation_comment + "From CEDAR resource at: " + contents_json["@id"]
         submission.template_source = contents_json["@id"]
@@ -163,50 +186,50 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return submission
 
     @staticmethod
-    def extract_project_data(contents_json):
+    def extract_project_data(contents_json, key='PROJECT'):
         """
         extract project related data
         :param contents_json: json-ld from cedar
         :return: PcorProjectModel with project data
         """
         project = PcorIntermediateProjectModel()
-        project.id = contents_json["PROJECT"]["ProjecCode"]["@value"]
-        project.name = contents_json["PROJECT"]["project_name"]["@value"]
-        project.short_name = contents_json["PROJECT"]["project_short_name"]["@value"]
-        project.code = contents_json["PROJECT"]["ProjecCode"]["@value"]
+        project.id = contents_json[key]["ProjecCode"]["@value"]
+        project.name = contents_json[key]["project_name"]["@value"]
+        project.short_name = contents_json[key]["project_short_name"]["@value"]
+        project.code = contents_json[key]["ProjecCode"]["@value"]
 
-        sponsors_in_json = contents_json["PROJECT"]["project_sponsor"]
+        sponsors_in_json = contents_json[key]["project_sponsor"]
         for sponsor in sponsors_in_json:
             if sponsor["@value"]:
                project.project_sponsor.append(sponsor["@value"])
 
-        sponsors_in_json = contents_json["PROJECT"]["project_sponsor_other"]
+        sponsors_in_json = contents_json[key]["project_sponsor_other"]
         for sponsor in sponsors_in_json:
             if sponsor["@value"]:
                 project.project_sponsor_other.append(sponsor["@value"])
 
 
-        sponsor_types = contents_json["PROJECT"]["project_sponsor_type"]
+        sponsor_types = contents_json[key]["project_sponsor_type"]
         for item in sponsor_types:
             if item["@value"]:
                 project.project_sponsor_type.append(item["@value"])
 
-        sponsor_other = contents_json["PROJECT"]["project_sponsor_type_other"]
+        sponsor_other = contents_json[key]["project_sponsor_type_other"]
         for type in sponsor_other:
             if type["@value"]:
                 project.project_sponsor_type_other.append(type["@value"])
 
-        project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
+        project.project_url = contents_json[key]["project_url"]["@id"]
         project.dbgap_accession_number = project.code
 
-        project.project_url = contents_json["PROJECT"]["project_url"]["@id"]
+        project.project_url = contents_json[key]["project_url"]["@id"]
 
         PcorTemplateParser.process_project_identifiers(project)
 
         return project
 
     @staticmethod
-    def extract_resource_data(contents_json):
+    def extract_resource_data(contents_json, key='RESOURCE'):
         """
         Given CEDAR JSON-LD with the template date, extract out the resource related data
         :param contents_json: cedar json
@@ -214,23 +237,23 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         resource = PcorIntermediateResourceModel()
-        resource.id = contents_json["RESOURCE"]["resource_GUID"]["@value"]
-        resource.resource_type = contents_json["RESOURCE"]["resource_type"]["@value"]
-        resource.name = contents_json["RESOURCE"]["resource_name"]["@value"]
-        resource.short_name = contents_json["RESOURCE"]["resource_short_name"]["@value"]
+        resource.id = contents_json[key]["resource_GUID"]["@value"]
+        resource.resource_type = contents_json[key]["resource_type"]["@value"]
+        resource.name = contents_json[key]["resource_name"]["@value"]
+        resource.short_name = contents_json[key]["resource_short_name"]["@value"]
 
-        resource.resource_url = contents_json["RESOURCE"]["resource_url"]["@id"]
-        resource.description = contents_json["RESOURCE"]["resource_description"]["@value"]
+        resource.resource_url = contents_json[key]["resource_url"]["@id"]
+        resource.description = contents_json[key]["resource_description"]["@value"]
 
-        for domain in contents_json["RESOURCE"]["domain"]:
+        for domain in contents_json[key]["domain"]:
             if domain["@value"]:
                 resource.domain.append(domain["@value"])
 
-        for domain in contents_json["RESOURCE"]["domain_other"]:
+        for domain in contents_json[key]["domain_other"]:
             if domain["@value"]:
                 resource.domain_other.append(domain["@value"])
 
-        for item in contents_json["RESOURCE"]["access_type"]:
+        for item in contents_json[key]["access_type"]:
             if item["@value"]:
                 resource.access_type.append(item["@value"])
 
@@ -238,33 +261,33 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.created_datetime = contents_json["pav:createdOn"]
         resource.updated_datetime = contents_json["pav:lastUpdatedOn"]
 
-        resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
+        resource.verification_datetime = contents_json[key]["date_verified"]["@value"]
 
-        for publication_citation in contents_json["RESOURCE"]["Publication"]["publication_citation"]:
+        for publication_citation in contents_json[key]["Publication"]["publication_citation"]:
             resource.publications.append(publication_citation["@value"])
 
-        for publication_link in contents_json["RESOURCE"]["Publication"]["publication_link"]:
+        for publication_link in contents_json[key]["Publication"]["publication_link"]:
             resource.publication_links.append(publication_link["@id"])
 
-        for keyword in contents_json["RESOURCE"]["keywords"]:
+        for keyword in contents_json[key]["keywords"]:
             if keyword["@value"]:
                 resource.keywords.append(keyword["@value"])
 
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
-                    contents_json["RESOURCE"]["payment_required"]["@value"])
+                    contents_json[key]["payment_required"]["@value"])
 
-        resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
-        if contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]:
-            resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
+        resource.resource_reference = contents_json[key]["Resource Reference_150"]["resource_reference"]["@value"]
+        if contents_json[key]["Resource Reference_150"]["resource_reference_link"]:
+            resource.resource_reference_link = contents_json[key]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
-        resource.resource_use_agreement = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
+        resource.resource_use_agreement = contents_json[key]["Resource Use Agreement_150"]["resource_use_agreement"]["@value"]
 
         # pop data can have an empty {}} with no @id:null
-        resource.resource_use_agreement_link = contents_json["RESOURCE"]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
+        resource.resource_use_agreement_link = contents_json[key]["Resource Use Agreement_150"]["resource_use_agreement_link"].get("@id")
 
-        resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json["RESOURCE"]["is_static"]["@value"])
+        resource.is_static = PcorTemplateParser.sanitize_boolean(contents_json[key]["is_static"]["@value"])
 
-        resource.resource_version = resource.verification_datetime = contents_json["RESOURCE"]["resource_version"]["@value"]
+        resource.resource_version = resource.verification_datetime = contents_json[key]["resource_version"]["@value"]
 
         if resource.id is None:
             resource.id = str(uuid.uuid4())
@@ -274,7 +297,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return resource
 
     @staticmethod
-    def extract_geoexposure_data(contents_json):
+    def extract_geoexposure_data(contents_json, data_source_key="DATA_RESOURCE", key="GEOEXPOSURE DATA"):
         """
         extract the geoexposure related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -282,127 +305,127 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json["DATA RESOURCE"]:
+        if not contents_json[data_source_key]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
-        geoexposure.comments = contents_json["DATA RESOURCE"]["Comments"]["@value"]
-        geoexposure.intended_use = contents_json["DATA RESOURCE"]["intended_use"]["@value"]
+        geoexposure.comments = contents_json[data_source_key]["Comments"]["@value"]
+        geoexposure.intended_use = contents_json[data_source_key]["intended_use"]["@value"]
 
-        for source in contents_json["DATA RESOURCE"]["source_name"]:
+        for source in contents_json[data_source_key]["source_name"]:
             if source["@value"]:
                 geoexposure.source_name.append(source["@value"])
 
         geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["includes_citizen_collected"]["@value"])
+                contents_json[data_source_key]["includes_citizen_collected"]["@value"])
 
-        for update_frequency in contents_json["DATA RESOURCE"]["update_frequency"]:
+        for update_frequency in contents_json[data_source_key]["update_frequency"]:
             if update_frequency["@value"]:
                 geoexposure.update_frequency.append(update_frequency["@value"])
 
-        geoexposure.update_frequency_other = contents_json["DATA RESOURCE"]["update_frequency_other"]["@value"]
+        geoexposure.update_frequency_other = contents_json[data_source_key]["update_frequency_other"]["@value"]
 
         geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_api"]["@value"])
+                contents_json[data_source_key]["has_api"]["@value"])
 
         geoexposure.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
-                contents_json["DATA RESOURCE"]["has_visualization_tool"]["@value"])
+                contents_json[data_source_key]["has_visualization_tool"]["@value"])
 
-        for measure in contents_json["GEOEXPOSURE DATA"]["measures"]:
+        for measure in contents_json[key]["measures"]:
             if measure["@value"]:
                 geoexposure.measures.append(measure["@value"])
 
-        for measure in contents_json["GEOEXPOSURE DATA"]["measures_other"]:
+        for measure in contents_json[key]["measures_other"]:
             if measure["@value"]:
                 geoexposure.measures_other.append(measure["@value"])
 
-        for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method"]:
+        for measurement_method in contents_json[key]["measurement_method"]:
             if measurement_method["@value"]:
                 geoexposure.measurement_method.append(measurement_method["@value"])
 
-        for measurement_method in contents_json["GEOEXPOSURE DATA"]["measurement_method_other"]:
+        for measurement_method in contents_json[key]["measurement_method_other"]:
             if measurement_method["@value"]:
                 geoexposure.measurement_method_other.append(measurement_method["@value"])
 
         geoexposure.time_extent_start_yyyy = (
-            PcorTemplateParser.format_date_time(contents_json["GEOEXPOSURE DATA"]["time_extent_start"]["@value"]))
+            PcorTemplateParser.format_date_time(contents_json[key]["time_extent_start"]["@value"]))
         geoexposure.time_extent_end_yyyy = (
-            PcorTemplateParser.format_date_time(contents_json["GEOEXPOSURE DATA"]["time_extent_end"]["@value"]))
+            PcorTemplateParser.format_date_time(contents_json[key]["time_extent_end"]["@value"]))
 
-        geoexposure.time_available_comment = contents_json["GEOEXPOSURE DATA"]["time_available_comment"]["@value"]
+        geoexposure.time_available_comment = contents_json[key]["time_available_comment"]["@value"]
 
-        for temporal_resolution in contents_json["GEOEXPOSURE DATA"]["temporal_resolution"]:
+        for temporal_resolution in contents_json[key]["temporal_resolution"]:
             if temporal_resolution["@value"]:
                 geoexposure.temporal_resolution.append(temporal_resolution["@value"])
 
-        for temporal_resolution in contents_json["GEOEXPOSURE DATA"]["temporal_resolution_other"]:
+        for temporal_resolution in contents_json[key]["temporal_resolution_other"]:
             if temporal_resolution["@value"]:
                 geoexposure.temporal_resolution_other.append(temporal_resolution["@value"])
 
-        for spatial_resolution in contents_json["GEOEXPOSURE DATA"]["spatial_resolution"]:
+        for spatial_resolution in contents_json[key]["spatial_resolution"]:
             if spatial_resolution["@value"]:
                 geoexposure.spatial_resolution.append(spatial_resolution["@value"])
 
-        for spatial_resolution in contents_json["GEOEXPOSURE DATA"]["spatial_resolution_other"]:
+        for spatial_resolution in contents_json[key]["spatial_resolution_other"]:
             if spatial_resolution["@value"]:
                 geoexposure.spatial_resolution_other.append(spatial_resolution["@value"])
 
-        for spatial_coverage in contents_json["GEOEXPOSURE DATA"]["spatial_coverage"]:
+        for spatial_coverage in contents_json[key]["spatial_coverage"]:
             if spatial_coverage["@value"]:
                 geoexposure.spatial_coverage.append(spatial_coverage["@value"])
 
-        for spatial_coverage in contents_json["GEOEXPOSURE DATA"]["spatial_coverage_other"]:
+        for spatial_coverage in contents_json[key]["spatial_coverage_other"]:
             if spatial_coverage["@value"]:
                 geoexposure.spatial_coverage_other.append(spatial_coverage["@value"])
 
-        for box in contents_json["GEOEXPOSURE DATA"]["spatial_bounding_box"]:
+        for box in contents_json[key]["spatial_bounding_box"]:
             if box["@value"]:
                 geoexposure.spatial_bounding_box.append(box["@value"])
 
-        for source in contents_json["GEOEXPOSURE DATA"]["geometry_source"]:
+        for source in contents_json[key]["geometry_source"]:
             if source["@value"]:
                 geoexposure.geometry_source.append(source["@value"])
 
-        for source in contents_json["GEOEXPOSURE DATA"]["geometry_source_other"]:
+        for source in contents_json[key]["geometry_source_other"]:
             if source["@value"]:
                 geoexposure.geometry_source_other.append(source["@value"])
 
-        for model_method in contents_json["GEOEXPOSURE DATA"]["model_methods"]:
+        for model_method in contents_json[key]["model_methods"]:
             if model_method["@value"]:
                 geoexposure.model_methods.append(model_method["@value"])
 
-        for geometry_type in contents_json["GEOEXPOSURE DATA"]["geometry_type"]:
+        for geometry_type in contents_json[key]["geometry_type"]:
             if geometry_type["@value"]:
                 geoexposure.geometry_type.append(geometry_type["@value"])
 
-        for exposure_media in contents_json["GEOEXPOSURE DATA"]["exposure_media"]:
+        for exposure_media in contents_json[key]["exposure_media"]:
             if exposure_media["@value"]:
                 geoexposure.exposure_media.append(exposure_media["@value"])
 
-        for geographic_feature in contents_json["GEOEXPOSURE DATA"]["geographic_feature"]:
+        for geographic_feature in contents_json[key]["geographic_feature"]:
             if geographic_feature["@value"]:
                 geoexposure.geographic_feature.append(geographic_feature["@value"])
 
-        for feature in contents_json["GEOEXPOSURE DATA"]["geographic_feature_other"]:
+        for feature in contents_json[key]["geographic_feature_other"]:
             if feature["@value"]:
                 geoexposure.geographic_feature_other.append(feature["@value"])
 
-        for data_format in contents_json["GEOEXPOSURE DATA"]["data_formats"]:
+        for data_format in contents_json[key]["data_formats"]:
             if data_format["@value"]:
                 geoexposure.data_formats.append(data_format["@value"])
 
-        for item in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_location_text"]:
+        for item in contents_json[key]["Data Download"]["data_location_text"]:
             if item["@value"]:
                 geoexposure.data_location_text.append(item["@value"])
 
-        for item in contents_json["GEOEXPOSURE DATA"]["Data Download"]["data_link"]:
+        for item in contents_json[key]["Data Download"]["data_link"]:
             if item["@id"]:
                 geoexposure.data_link.append(item["@id"])
 
         return geoexposure
 
     @staticmethod
-    def extract_geoexposure_tool_data(contents_json):
+    def extract_geoexposure_tool_data(contents_json,data_source_key="DATA_RESOURCE", key="GEOEXPOSURE DATA"):
         """
         extract the geoexposure tool related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -410,12 +433,12 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json["TOOL RESOURCE"]:
+        if not contents_json[key]:
             raise Exception("missing TOOL RESOURCE information in CEDAR json")
 
         geotool = PcorGeoToolModel()
 
-        body = contents_json["TOOL RESOURCE"]
+        body = contents_json[key]
 
         for tool_type in body["tool_type"]:
             if tool_type["@value"]:
@@ -462,7 +485,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return geotool
 
     @staticmethod
-    def extract_population_data(contents_json):
+    def extract_population_data(contents_json, data_source_key="DATA_RESOURCE", key="POPULATION DATA RESORCE"):
         """
         extract the population related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -470,13 +493,13 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json["DATA RESOURCE"]:
+        if not contents_json[data_source_key]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         population = PcorPopDataResourceModel()
 
         # data resource
-        data_resource = contents_json["DATA RESOURCE"]
+        data_resource = contents_json[data_source_key]
         for item in data_resource["source_name"]:
             if item["@value"]:
                 population.source_name.append(item["@value"])
@@ -603,7 +626,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return population
 
     @staticmethod
-    def extract_key_dataset_data(contents_json):
+    def extract_key_dataset_data(contents_json, data_resource_key="DATA_RESOURCE", key="KEY DATASETS DATA"):
         """
         extract the key dataset related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -611,13 +634,13 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json["DATA RESOURCE"]:
+        if not contents_json[data_resource_key]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         key_dataset = PcorKeyDatasetModel()
 
         # data resource
-        data_resource = contents_json["DATA RESOURCE"]
+        data_resource = contents_json[data_resource_key]
         for item in data_resource["source_name"]:
             if item["@value"]:
                 key_dataset.source_name.append(item["@value"])
@@ -634,7 +657,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         key_dataset.intended_use = data_resource["intended_use"]["@value"]
 
         # Key datasets data
-        key_data_json = contents_json["KEY DATASETS DATA"]
+        key_data_json = contents_json[key]
         for item in key_data_json["measures"]:
             if item["@value"]:
                 key_dataset.measures.append(item["@value"])
