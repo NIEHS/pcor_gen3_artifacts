@@ -415,13 +415,13 @@ class PcorKeyDatasetModel:
         self.spatial_bounding_box = []
         self.spatial_coverage = []
         self.spatial_coverage_other = []
-        self.spatial_resolution = ""
+        self.spatial_resolution = [] # string in model converted in array to normalize
         self.spatial_resolution_other = []
         self.spatial_resolution_all_available = []
         self.spatial_resolution_all_other_available = []
         self.spatial_resolution_comment = ''
         self.submitter_id = ""
-        self.temporal_resolution = ""
+        self.temporal_resolution = [] # string in model but normalize to array
         self.temporal_resolution_other = []
         self.temporal_resolution_all_available = []
         self.temporal_resolution_all_other_available = []
@@ -437,7 +437,10 @@ class PcorKeyDatasetModel:
         self.use_limitations = []
         self.use_example_application_link = []
         self.use_example_application_text = []
+        self.use_tool_link = []
+        self.use_tools_text = []
         self.use_strengths = []
         self.use_limitations = []
         self.use_example_metrics = []
+        self.suggested_audience = []
 

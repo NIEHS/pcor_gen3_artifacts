@@ -25,7 +25,6 @@ logger = logging.getLogger(__name__)
 Reader of CEDAR template data for version 1_5_1
 """
 
-
 class CedarResourceReader_1_5_1(CedarResourceReader):
     """
     A parent class for a parser of a PCOR Cedar for a type
@@ -262,7 +261,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.updated_datetime = contents_json["pav:lastUpdatedOn"]
 
         resource.verification_datetime = contents_json[key]["date_verified"]["@value"]
-        resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
+        resource.verification_datetime = contents_json[key]["date_verified"]["@value"]
 
         for publication_citation in contents_json[key]["Publication"]["publication_citation"]:
             resource.publications.append(publication_citation["@value"])
@@ -654,8 +653,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         key_dataset.has_api = PcorTemplateParser.sanitize_boolean(data_resource["has_api"]["@value"])
         key_dataset.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
             data_resource["has_visualization_tool"]["@value"])
-        key_dataset.comments = data_resource["Comments"]["@value"]
-        key_dataset.intended_use = data_resource["intended_use"]["@value"]
+        #key_dataset.comments = data_resource["Comments"]["@value"] # FIXME:  comments left off of key dataset data resource
+        #key_dataset.intended_use = data_resource["intended_use"]["@value"] # FIXME: intended use left off of key dataset data resc
 
         # Key datasets data
         key_data_json = contents_json[key]
@@ -676,9 +675,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         key_dataset.time_extent_end_yyyy = (
             PcorTemplateParser.format_date_time(key_data_json["time_extent_end"]["@value"]))
         key_dataset.time_available_comment = key_data_json["time_available_comment"]["@value"]
-        for item in key_data_json["temporal_resolution"]:
-            if item["@value"]:
-                key_dataset.temporal_resolution.append(item["@value"])
+        if key_data_json["temporal_resolution"]["@value"]:
+                key_dataset.temporal_resolution.append(key_data_json["temporal_resolution"]["@value"])
         for item in key_data_json["temporal_resolution_other"]:
             if item["@value"]:
                 key_dataset.temporal_resolution_other.append(item["@value"])
@@ -689,9 +687,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if item["@value"]:
                 key_dataset.temporal_resolution_all_other_available.append(item["@value"])
         key_dataset.temporal_resolution_comment = key_data_json["temporal_resolution_comment"]["@value"]
-        for item in key_data_json["spatial_resolution"]:
-            if item["@value"]:
-                key_dataset.spatial_resolution.append(item["@value"])
+        if key_data_json["spatial_resolution"]["@value"]:
+                key_dataset.spatial_resolution.append(key_data_json["spatial_resolution"]["@value"])
         for item in key_data_json["spatial_resolution_other"]:
             if item["@value"]:
                 key_dataset.spatial_resolution_other.append(item["@value"])
@@ -740,7 +737,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 key_dataset.data_formats.append(item["@value"])
         for item in key_data_json["Data Download"]["data_location_text"]:
             if item["@value"]:
-                key_dataset.data_location.append(item["@value"])
+                key_dataset.data_location_text.append(item["@value"])
         for item in key_data_json["Data Download"]["data_link"]:
             if item["@id"]:
                 key_dataset.data_link.append(item["@id"])
@@ -756,22 +753,48 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for item in key_data_json["use_suggested_other"]:
             if item["@value"]:
                 key_dataset.use_suggested_other.append(item["@value"])
-
         for item in key_data_json["use_limitations"]:
             if item["@value"]:
                 key_dataset.use_limitations.append(item["@value"])
-        for item in key_data_json["Example Application"]["use_example_application_link"]:
+
+        for item in key_data_json["use_key_variables"]:
             if item["@value"]:
+                key_dataset.use_key_variables.append(item["@value"])
+
+        for item in key_data_json["suggested_audience"]:
+            if item["@value"]:
+                key_dataset.suggested_audience.append(item["@value"])
+
+        for item in key_data_json["Dataset Tools"]["use_tool_link"]:
+            if item["@id"]:
+                key_dataset.use_tool_link.append(item["@id"])
+        for item in key_data_json["Dataset Tools"]["use_tools_text"]:
+            if item["@value"]:
+                key_dataset.use_tools_text.append(item["@value"])
+
+        for item in key_data_json["Example Application"]["use_example_application_link"]:
+            if item["@value"]: # FIXME: link uses value not id - mcc
                 key_dataset.use_example_application_link.append(item["@value"])
         for item in key_data_json["Example Application"]["Use_example_application_text"]:
             if item["@value"]:
                 key_dataset.use_example_application_text.append(item["@value"])
+
         for item in key_data_json["use_strengths"]:
             if item["@value"]:
                 key_dataset.use_strengths.append(item["@value"])
+
+        for item in key_data_json["use_limitations"]:
+            if item["@value"]:
+                key_dataset.use_limitations.append(item["@value"])
+
         for item in key_data_json["use_example_metrics"]:
             if item["@value"]:
                 key_dataset.use_example_metrics.append(item["@value"])
+
+
+
+
+
         return key_dataset
 
 
