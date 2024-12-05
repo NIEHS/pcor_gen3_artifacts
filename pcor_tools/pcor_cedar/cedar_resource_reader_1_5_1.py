@@ -262,6 +262,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.updated_datetime = contents_json["pav:lastUpdatedOn"]
 
         resource.verification_datetime = contents_json[key]["date_verified"]["@value"]
+        resource.verification_datetime = contents_json["RESOURCE"]["date_verified"]["@value"]
 
         for publication_citation in contents_json[key]["Publication"]["publication_citation"]:
             resource.publications.append(publication_citation["@value"])

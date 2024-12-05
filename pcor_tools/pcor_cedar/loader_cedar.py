@@ -111,8 +111,9 @@ class LoaderCedar(Loader):
             if not result.success:
                 logger.warning("unsuccessful parsing, do not process")
             else:
-                process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration)
+                process_template = PcorTemplateProcessor(pcor_ingest_configuration=self.pcor_ingest_configuration) # FIXME: temp mute
                 process_template.process(result)
+                pass
 
         except Exception as e:
             logger.error('Error occurred: %s' % str(e))

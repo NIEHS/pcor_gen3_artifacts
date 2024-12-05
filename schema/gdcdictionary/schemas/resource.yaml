@@ -110,6 +110,9 @@ properties:
   resource_reference:
     description: how to cite this resource, DOI preferred
     type: string
+  resource_reference_link:
+    description: URL to online information about how to cite the resource.
+    type: string
   resource_use_agreement:
     description: agreement for use of the resource, include a link or full text or both, don't paraphrase
     type: string
@@ -130,19 +133,19 @@ properties:
     description: yes if the resource is static, no if the resource is expected to be updated in the future
     type: boolean
 
-  # props to be used by key datasets
-  strengths:
-    description: Key strengths of the dataset for the  uses. This is not intended to be a comprehensive list, but rather to help researchers identify the specific datasets that are best suited to their intended application.
-    type: string
-  limitations:
-    description: Key limitations or considerations for the uses. This is not intended to be a comprehensive list of limitations, but rather to capture any specific limitations noted by data provider as well as commonly recognized limitations associated with that specific data type in environmental health applications.
-    type: string
-  example_applications:
-    description: Example applications (e.g., health cohorts) that have used this dataset and that form the basis for the example uses and metrics in this spreadsheet
-    type: string
-  tools_supporting_uses:
-    description: Available tools (e.g., software, tutorials, code, fact sheets, interactive maps, etc.) that help researchers use the dataset 
-    type: string
+# props to be used by key datasets
+#  strengths:
+#    description: Key strengths of the dataset for the  uses. This is not intended to be a comprehensive list, but rather to help researchers identify the specific datasets that are best suited to their intended application.
+#    type: string
+#  limitations:
+#    description: Key limitations or considerations for the uses. This is not intended to be a comprehensive list of limitations, but rather to capture any specific limitations noted by data provider as well as commonly recognized limitations associated with that specific data type in environmental health applications.
+#    type: string
+#  example_applications:
+#    description: Example applications (e.g., health cohorts) that have used this dataset and that form the basis for the example uses and metrics in this spreadsheet
+#    type: string
+#  tools_supporting_uses:
+#    description: Available tools (e.g., software, tutorials, code, fact sheets, interactive maps, etc.) that help researchers use the dataset
+#    type: string
 
   projects:
     description: The code of the project that this dataset belongs to, i.e., a link to the parent node.
