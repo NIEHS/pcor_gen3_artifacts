@@ -38,7 +38,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         # example path /deep/documents/foo.xls
         logger.info("parse()")
 
-
         """
         Parse a spreadsheet template for a file at a given absolute path
         :param template_absolute_path: absolute path to the template file
@@ -276,7 +275,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
                     contents_json[key]["payment_required"]["@value"])
 
-        resource.resource_reference = contents_json[key]["Resource Reference_150"]["resource_reference"]["@value"]
+        resource.resource_reference = PcorTemplateParser.sanitize_column(contents_json[key]["Resource Reference_150"]["resource_reference"]["@value"])
         if contents_json[key]["Resource Reference_150"]["resource_reference_link"]:
             resource.resource_reference_link = contents_json[key]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
@@ -309,6 +308,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
+        geoexposure.display_type = 'GeoExposureData'
         geoexposure.comments = contents_json[data_resource_key]["Comments"]["@value"]
         geoexposure.intended_use = contents_json[data_resource_key]["intended_use"]["@value"]
 
@@ -437,6 +437,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing TOOL RESOURCE information in CEDAR json")
 
         geotool = PcorGeoToolModel()
+        geotool.display_type = 'GeoExposureTool'
 
         body = contents_json[key]
 
@@ -497,6 +498,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         population = PcorPopDataResourceModel()
+        population.display_type = 'PopulationData'
 
         # data resource
         data_resource = contents_json[data_resource_key]
@@ -638,6 +640,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         key_dataset = PcorKeyDatasetModel()
+        key_dataset.display_type = 'KeyDataset'
 
         # data resource
         data_resource = contents_json[data_resource_key]

@@ -320,7 +320,6 @@ class PcorPopDataResourceModel:
         self.resource_submitter_id = ""
         self.spatial_coverage = []
         self.spatial_coverage_other = []
-        self.spatial_coverage_specific_regions = []
         self.spatial_resolution = []
         self.spatial_resolution_other = []
         self.state = ""
