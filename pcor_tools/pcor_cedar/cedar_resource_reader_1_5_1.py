@@ -251,8 +251,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
                     contents_json["RESOURCE"]["payment_required"]["@value"])
 
-        #FIXME sanatize string quotes
-        #resource.resource_reference = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"]
+        # FIXME sanatize string quotes
+        resource.resource_reference = PcorTemplateParser.sanitize_column(contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference"]["@value"])
         if contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]:
             resource.resource_reference_link = contents_json["RESOURCE"]["Resource Reference_150"]["resource_reference_link"]["@id"]
 
