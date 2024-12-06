@@ -1,6 +1,6 @@
 global:
   hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/feature/46-parse-and-load-key-datasets-1_5_1/custom_configs/schema.json
 
 
 sower:

@@ -34,51 +34,7 @@
   {% else %}
        "has_visualization_tool": false,
   {% endif %}
-  {% if pop_data_resource.time_extent_start_yyyy  %}
-    "time_extent_start_yyyy": {{ pop_data_resource.time_extent_start_yyyy }},
-  {% endif %}
-  {% if pop_data_resource.time_extent_end_yyyy %}
-      "time_extent_end_yyyy": {{ pop_data_resource.time_extent_end_yyyy }},
-  {% endif %}
-  "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
-  "temporal_resolution": "{{ pop_data_resource.temporal_resolution }}",
-  "spatial_resolution": "{{ pop_data_resource.spatial_resolution }}",
-  "spatial_coverage": [
-    {% for entry in pop_data_resource.spatial_coverage %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "spatial_coverage_specific_regions": [
-    {% for entry in pop_data_resource.spatial_coverage_specific_regions %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "geometry_type": [
-    {% for entry in pop_data_resource.geometry_type %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "geometry_source": [
-    {% for entry in pop_data_resource.geometry_source %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "population_studied": [
-    {% for pop_entry in pop_data_resource.population_studied %}
-        "{{ pop_entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "exposures":  [
-        {% for exposure in pop_data_resource.exposures  %}
-            "{{ exposure }}"
-          {{ "," if not loop.last }}
-        {% endfor %}
-  ],
+  "individual_level": "{{ pop_data_resource.individual_level }}",
   "exposure_media":  [
         {% for media in pop_data_resource.exposure_media  %}
             "{{ media }}"
@@ -109,11 +65,42 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "outcomes":  [
-        {% for outcome in pop_data_resource.outcomes  %}
-            "{{ outcome }}"
-          {{ "," if not loop.last }}
-        {% endfor %}
+  {% if pop_data_resource.time_extent_start_yyyy  %}
+    "time_extent_start_yyyy": {{ pop_data_resource.time_extent_start_yyyy }},
+  {% endif %}
+  {% if pop_data_resource.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ pop_data_resource.time_extent_end_yyyy }},
+  {% endif %}
+  "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
+  "temporal_resolution": [
+    {% for entry in pop_data_resource.temporal_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_resolution": [
+    {% for entry in pop_data_resource.spatial_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_coverage": [
+    {% for entry in pop_data_resource.spatial_coverage %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_type": [
+    {% for entry in pop_data_resource.geometry_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_source": [
+    {% for entry in pop_data_resource.geometry_source %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
   ],
   "model_methods":  [
         {% for entry in pop_data_resource.model_methods  %}
@@ -121,14 +108,47 @@
             {{ "," if not loop.last }}
         {% endfor %}
    ],
+  "population_studied": [
+    {% for pop_entry in pop_data_resource.population_studied %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "biospecimens_type": [
+    {% for pop_entry in pop_data_resource.biospecimens_type %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "data_formats": [
     {% for entry in pop_data_resource.data_formats %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "data_location": [
-    {% for entry in pop_data_resource.data_location %}
+  {% if pop_data_resource.biospecimens %}
+      "biospecimens": true,
+  {% else %}
+       "biospecimens": false,
+  {% endif %}
+  {% if pop_data_resource.linkable_encounters %}
+      "linkable_encounters": true,
+  {% else %}
+       "linkable_encounters": false,
+  {% endif %}
+  {% if pop_data_resource.individual_level %}
+      "individual_level": true,
+  {% else %}
+       "individual_level": false,
+  {% endif %}
+  "data_location_text": [
+    {% for entry in pop_data_resource.data_location_text %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_link": [
+    {% for entry in pop_data_resource.data_link %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}

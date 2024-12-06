@@ -46,3 +46,16 @@ class TestLoaderCedar(unittest.TestCase):
         self.assertTrue(result.success)
         self.assertIsNotNone(result.model_data["geospatial_tool_resource"])
 
+
+    def test_parse_key_dataset(self):
+        pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
+        json_file = 'test_resources/key_datasets_151.json'
+        with open(json_file, 'r') as f:
+            contents_json = json.loads(f.read())
+
+        reader = CedarResourceReader_1_5_1()
+        result = PcorProcessResult()
+        reader.parse(json_file, result)
+        self.assertTrue(result.success)
+        self.assertIsNotNone(result.model_data["key_dataset_data"])
+
