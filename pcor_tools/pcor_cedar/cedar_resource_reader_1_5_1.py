@@ -54,7 +54,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         program_key = "PROGRAM"
         project_key = "PROJECT"
         resource_key = "RESOURCE"
-        data_resource_key = "DATA_RESOURCE"
+        data_resource_key = "DATA RESOURCE"
         geoexposure_key = "GEOEXPOSURE DATA"
         geoexposure_tool_key = "TOOL RESOURCE"
         population_key = "POPULATION DATA RESORCE"
@@ -297,7 +297,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return resource
 
     @staticmethod
-    def extract_geoexposure_data(contents_json, data_source_key="DATA_RESOURCE", key="GEOEXPOSURE DATA"):
+    def extract_geoexposure_data(contents_json, data_resource_key="DATA RESOURCE", key="GEOEXPOSURE DATA"):
         """
         extract the geoexposure related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -305,31 +305,31 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json[data_source_key]:
+        if not contents_json[data_resource_key]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         geoexposure = PcorGeospatialDataResourceModel()
-        geoexposure.comments = contents_json[data_source_key]["Comments"]["@value"]
-        geoexposure.intended_use = contents_json[data_source_key]["intended_use"]["@value"]
+        geoexposure.comments = contents_json[data_resource_key]["Comments"]["@value"]
+        geoexposure.intended_use = contents_json[data_resource_key]["intended_use"]["@value"]
 
-        for source in contents_json[data_source_key]["source_name"]:
+        for source in contents_json[data_resource_key]["source_name"]:
             if source["@value"]:
                 geoexposure.source_name.append(source["@value"])
 
         geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
-                contents_json[data_source_key]["includes_citizen_collected"]["@value"])
+                contents_json[data_resource_key]["includes_citizen_collected"]["@value"])
 
-        for update_frequency in contents_json[data_source_key]["update_frequency"]:
+        for update_frequency in contents_json[data_resource_key]["update_frequency"]:
             if update_frequency["@value"]:
                 geoexposure.update_frequency.append(update_frequency["@value"])
 
-        geoexposure.update_frequency_other = contents_json[data_source_key]["update_frequency_other"]["@value"]
+        geoexposure.update_frequency_other = contents_json[data_resource_key]["update_frequency_other"]["@value"]
 
         geoexposure.has_api = PcorTemplateParser.sanitize_boolean(
-                contents_json[data_source_key]["has_api"]["@value"])
+                contents_json[data_resource_key]["has_api"]["@value"])
 
         geoexposure.has_visualization_tool = PcorTemplateParser.sanitize_boolean(
-                contents_json[data_source_key]["has_visualization_tool"]["@value"])
+                contents_json[data_resource_key]["has_visualization_tool"]["@value"])
 
         for measure in contents_json[key]["measures"]:
             if measure["@value"]:
@@ -425,7 +425,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return geoexposure
 
     @staticmethod
-    def extract_geoexposure_tool_data(contents_json,data_source_key="DATA_RESOURCE", key="GEOEXPOSURE DATA"):
+    def extract_geoexposure_tool_data(contents_json,data_resource_key="DATA_RESOURCE", key="GEOEXPOSURE DATA"):
         """
         extract the geoexposure tool related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -485,7 +485,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         return geotool
 
     @staticmethod
-    def extract_population_data(contents_json, data_source_key="DATA_RESOURCE", key="POPULATION DATA RESORCE"):
+    def extract_population_data(contents_json, data_resource_key="DATA_RESOURCE", key="POPULATION DATA RESORCE"):
         """
         extract the population related information from the cedar resource
         :param contents_json: json-ld from cedar
@@ -493,13 +493,13 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
 
         # some of the data is under the required DATA RESOURCE stanza
-        if not contents_json[data_source_key]:
+        if not contents_json[data_resource_key]:
             raise Exception("missing DATA RESOURCE information in CEDAR json")
 
         population = PcorPopDataResourceModel()
 
         # data resource
-        data_resource = contents_json[data_source_key]
+        data_resource = contents_json[data_resource_key]
         for item in data_resource["source_name"]:
             if item["@value"]:
                 population.source_name.append(item["@value"])
@@ -608,9 +608,9 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         population.individual_level = PcorTemplateParser.sanitize_boolean(
             pop_data_json["individual_level"]["@value"])
 
-        for item in pop_data_json["Data Download"]["data_location"]:
+        for item in pop_data_json["Data Download"]["data_location_text"]:
             if item["@value"]:
-                population.data_location.append(item["@value"])
+                population.data_location_text.append(item["@value"])
 
         for item in pop_data_json["Data Download"]["data_link"]:
             if item["@id"]:
