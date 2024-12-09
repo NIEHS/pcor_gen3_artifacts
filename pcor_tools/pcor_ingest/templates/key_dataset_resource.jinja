@@ -1,86 +1,63 @@
 {
-  "measures": [
-    {% for entry in key_dataset_resource.measures %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  {% if key_dataset_resource.time_extent_end_yyyy %}
-    "time_extent_end_yyyy": {{ key_dataset_resource.time_extent_end_yyyy }},
+ {% if key_data_resource.has_visualization_tool %}
+      "has_visualization_tool": true,
+  {% else %}
+       "has_visualization_tool": false,
   {% endif %}
 
-  "metrics_derived_from_data_set": "{{ key_dataset_resource.metrics_derived_from_data_set }}",
-
-  "geometry_type": [
-    {% for entry in key_dataset_resource.geometry_type %}
+ "measures_subcategory_minor": [
+    {% for entry in key_data_resource.measures_subcategory_minor %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
-  "time_available_comment": "{{ key_dataset_resource.time_available_comment }}",
-  "measures_parent_category":  [
-    {% for entry in key_dataset_resource.measures_parent %}
+  "model_methods": [
+    {% for entry in key_data_resource.model_methods %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
+
   ],
-
-  "display_type": "KeyDataResource",
-
-  "measures_subcategory_minor": [
-    {% for entry in key_dataset_resource.measures_subcategory_minor %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-
-  "comments": "{{ key_dataset_resource.comments }}",
-  "measurement_method": [],
-
-  "measures_subcategory_major": [
-    {% for entry in key_dataset_resource.measures_subcategory_major %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "spatial_resolution":  "{{ key_dataset_resource.spatial_resolution }}",
-  "temporal_resolution": "{{ key_dataset_resource.temporal_resolution }}",
+  "use_example_application_link": null, 
+  "spatial_coverage": null, 
+  "temporal_resolution_comment": null, 
+  "update_frequency": null, 
+  "data_location_text": null, 
+  "comments": null, 
+  "spatial_resolution_all_available": null, 
+  "spatial_resolution_comment": null, 
+  "source_name": null, 
+  "geometry_source": null, 
+  "measures_subcategory_major": null, 
+  "measures_parent_category": null, 
+  "time_extent_end_yyyy": null, 
+  "geometry_type": null, 
+  "spatial_resolution": null, 
+  "data_formats": null, 
+  "*submitter_id": null, 
+  "license_type": null, 
+  "temporal_resolution": null, 
+  "project_id": null, 
+  "measures": null, 
+  "use_example_metrics": null, 
   "*type": "key_data_resource", 
-
-  {% if key_dataset_resource.time_extent_start_yyyy %}
-    "time_extent_start_yyyy": {{ key_dataset_resource.time_extent_start_yyyy }},
-  {% endif %}
-
-  "spatial_coverage": "{{ key_dataset_resource.spatial_coverage }}",
+  "use_example_application_text": null, 
+  "exposure_media": null, 
+  "spatial_bounding_box": null, 
+  "geographic_feature": null, 
+  "time_extent_start_yyyy": null, 
+  "measurement_method": null, 
   "*resources": {
-     "submitter_id": "{{ key_dataset_resource.resource_submitter_id }}"
-  },
-
-  "data_formats": [
-    {% for entry in key_dataset_resource.data_formats %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "data_location": [
-    {% for entry in key_dataset_resource.data_location %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "source_name": [
-    {% for entry in key_dataset_resource.source_name %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "*submitter_id": "{{ key_dataset_resource.submitter_id }}",
-  "model_methods": []
+    "submitter_id": null
+  }, 
+  "time_available_comment": null, 
+  "use_limitations": null, 
+  "includes_citizen_collected": null, 
+  "use_suggested": null, 
+  "use_strengths": null, 
+  "temporal_resolution_all_available": null, 
+  "data_link": null, 
+  "has_api": null, 
+  "intended_use": null, 
+  "display_type": null
 }

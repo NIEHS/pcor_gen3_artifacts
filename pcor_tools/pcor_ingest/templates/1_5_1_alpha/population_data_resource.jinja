@@ -1,0 +1,160 @@
+{
+  "type": "population_data_resource",
+  "display_type": "PopulationData",
+  "submitter_id": "{{ pop_data_resource.submitter_id }}",
+  "comments": "{{ pop_data_resource.comments }}",
+  "intended_use": "{{ pop_data_resource.intended_use }}",
+  "source_name": [
+    {% for entry in pop_data_resource.source_name %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "update_frequency": [
+    {% for entry in pop_data_resource.update_frequency %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+
+  {% if pop_data_resource.includes_citizen_collected %}
+      "includes_citizen_collected": true,
+  {% else %}
+       "includes_citizen_collected": false,
+  {% endif %}
+
+  {% if pop_data_resource.has_api %}
+      "has_api": true,
+  {% else %}
+       "has_api": false,
+  {% endif %}
+
+  {% if pop_data_resource.has_visualization_tool %}
+      "has_visualization_tool": true,
+  {% else %}
+       "has_visualization_tool": false,
+  {% endif %}
+  "individual_level": "{{ pop_data_resource.individual_level }}",
+  "exposure_media":  [
+        {% for media in pop_data_resource.exposure_media  %}
+            "{{ media }}"
+          {{ "," if not loop.last }}
+        {% endfor %}
+  ],
+  "measures": [
+        {% for measure in pop_data_resource.measures %}
+            "{{ measure }}"
+            {{ "," if not loop.last }}
+        {% endfor %}
+  ],
+    "measures_parent_category":  [
+    {% for entry in pop_data_resource.measures_parent %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_major": [
+    {% for entry in pop_data_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_minor": [
+    {% for entry in pop_data_resource.measures_subcategory_minor %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  {% if pop_data_resource.time_extent_start_yyyy  %}
+    "time_extent_start_yyyy": {{ pop_data_resource.time_extent_start_yyyy }},
+  {% endif %}
+  {% if pop_data_resource.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ pop_data_resource.time_extent_end_yyyy }},
+  {% endif %}
+  "time_available_comment": "{{ pop_data_resource.time_available_comment }}",
+  "temporal_resolution": [
+    {% for entry in pop_data_resource.temporal_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_resolution": [
+    {% for entry in pop_data_resource.spatial_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_coverage": [
+    {% for entry in pop_data_resource.spatial_coverage %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_type": [
+    {% for entry in pop_data_resource.geometry_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_source": [
+    {% for entry in pop_data_resource.geometry_source %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "model_methods":  [
+        {% for entry in pop_data_resource.model_methods  %}
+            "{{ entry }}"
+            {{ "," if not loop.last }}
+        {% endfor %}
+   ],
+  "population_studied": [
+    {% for pop_entry in pop_data_resource.population_studied %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "biospecimens_type": [
+    {% for pop_entry in pop_data_resource.biospecimens_type %}
+        "{{ pop_entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_formats": [
+    {% for entry in pop_data_resource.data_formats %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  {% if pop_data_resource.biospecimens %}
+      "biospecimens": true,
+  {% else %}
+       "biospecimens": false,
+  {% endif %}
+  {% if pop_data_resource.linkable_encounters %}
+      "linkable_encounters": true,
+  {% else %}
+       "linkable_encounters": false,
+  {% endif %}
+  {% if pop_data_resource.individual_level %}
+      "individual_level": true,
+  {% else %}
+       "individual_level": false,
+  {% endif %}
+  "data_location_text": [
+    {% for entry in pop_data_resource.data_location_text %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_link": [
+    {% for entry in pop_data_resource.data_link %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "resources": {
+    "node_id": "{{ pop_data_resource.resource_id }}",
+    "submitter_id": "{{ pop_data_resource.resource_submitter_id }}"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "type": "resource",
+  "resource_type": "{{resource.resource_type}}",
+  "submitter_id": "{{ resource.submitter_id }}",
+  "name": "{{ resource.name }}",
+  "short_name": "{{ resource.short_name }}",
+  "resource_url": "{{ resource.resource_url }}",
+  "description": "{{ resource.description }}",
+  "domain": [
+    {% for entry in resource.domain %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "access_type":  [
+    {% for entry in resource.access_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+{% if resource.resource_reference_link %}
+      "resource_reference_link": "{{ resource.resource_reference_link }}",
+{% endif %}
+  "publications":  [
+    {% for entry in resource.publications %}
+        {% if entry %}
+          "{{ entry }}"
+        {% endif %}
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "publication_links": [
+    {% for entry in resource.publication_links %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+     {% endfor %}
+   ],
+  "keywords":  [
+    {% for entry in resource.keywords %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  {% if resource.payment_required %}
+      "payment_required": true,
+  {% else %}
+       "payment_required": false,
+  {% endif %}
+  "resource_reference": "{{ resource.resource_reference }}",
+  {% if resource.resource_reference_link %}
+      "resource_reference_link": "{{ resource.resource_reference_link }}",
+  {% endif %}
+  "resource_use_agreement": "{{ resource.resource_use_agreement }}",
+  "resource_use_agreement_link": "{{ resource.resource_use_agreement_link }}",
+  {% if resource.is_static %}
+      "is_static": true,
+  {% else %}
+       "is_static": false,
+  {% endif %}
+  "projects": {
+    "node_id": "{{ resource.project.id }}",
+    "code": "{{ resource.project.code }}"
+  }
+}

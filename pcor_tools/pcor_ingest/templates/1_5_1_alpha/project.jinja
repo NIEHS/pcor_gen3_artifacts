@@ -1,0 +1,20 @@
+{
+  "type": "project",
+  "name": "{{ model.name }}",
+  "short_name": "{{ model.short_name }}",
+  "code": "{{ model.code }}",
+  "project_sponsor": [
+    {% for entry in model.project_sponsor %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "project_sponsor_type": [
+    {% for entry in model.project_sponsor_type %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "project_url": "{{ model.project_url }}",
+  "dbgap_accession_number": "{{ model.dbgap_accession_number }}"
+}
