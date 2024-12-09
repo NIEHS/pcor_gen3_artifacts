@@ -586,7 +586,7 @@
         "enabled": true,
         "fields": [
           "project_sponsor",
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
@@ -595,7 +595,6 @@
           "time_extent_start_year",
           "time_extent_end_year",
           "spatial_coverage",
-          "spatial_coverage_specific_regions",
           "resource_url"
         ],
         "linkFields": [
@@ -692,7 +691,7 @@
         "enabled": true,
         "fields": [
           "project_sponsor",
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
@@ -701,7 +700,6 @@
           "time_extent_start_year",
           "time_extent_end_year",
           "spatial_coverage",
-          "spatial_coverage_specific_regions",
           "resource_url"
           ],
         "linkFields": [
@@ -791,7 +789,7 @@
         "enabled": true,
         "fields": [
           "project_sponsor",
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "domain",
           "keywords",
@@ -892,7 +890,7 @@
         "enabled": true,
         "fields": [
           "project_sponsor",
-          "resource_name",
+          "resource_short_name",
           "resource_description",
           "keywords",
           "domain",
