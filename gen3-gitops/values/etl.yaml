@@ -88,8 +88,7 @@ etl:
           - name: spatial_coverage_specific_regions
           - name: geometry_type
           - name: model_methods
-          - name: metrics_derived_from_data_set
           - name: data_formats
-          - name: data_location
+          - name: data_location_text
         parent_props:
-          - path: resources[resource_name:long_name, resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
+          - path: resources[resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
