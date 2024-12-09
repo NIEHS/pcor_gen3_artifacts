@@ -91,6 +91,7 @@
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
+
   ],
   "model_methods":  [
     {% for entry in geo_spatial_data_resource.model_methods %}
