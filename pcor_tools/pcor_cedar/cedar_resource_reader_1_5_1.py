@@ -144,7 +144,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             result.model_data["geospatial_tool_resource"] = tool_data
         elif "KEY DATASETS DATA_151" in contents_json:
             key_dataset_data = CedarResourceReader_1_5_1.extract_key_dataset_data(contents_json, data_resource_key=data_resource_key, key=key_dataset_key)
-            result.model_data["key_dataset_data"] = key_dataset_data
+            result.model_data["key_dataset"] = key_dataset_data
         else:
             raise Exception("unknown data type")
 
@@ -266,7 +266,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             resource.publications.append(publication_citation["@value"])
 
         for publication_link in contents_json[key]["Publication"]["publication_link"]:
-            resource.publication_links.append(publication_link["@id"])
+            if publication_link:
+                resource.publication_links.append(publication_link["@id"])
 
         for keyword in contents_json[key]["keywords"]:
             if keyword["@value"]:
@@ -742,8 +743,10 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if item["@value"]:
                 key_dataset.data_location_text.append(item["@value"])
         for item in key_data_json["Data Download"]["data_link"]:
-            if item["@id"]:
+            if item:
                 key_dataset.data_link.append(item["@id"])
+            else:
+                key_dataset.data_link.append('')
         for item in key_data_json["license_type"]:
             if item["@value"]:
                 key_dataset.license_type.append(item["@value"])
@@ -769,8 +772,11 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 key_dataset.suggested_audience.append(item["@value"])
 
         for item in key_data_json["Dataset Tools"]["use_tool_link"]:
-            if item["@id"]:
+            if item:
                 key_dataset.use_tool_link.append(item["@id"])
+            else:
+                key_dataset.use_tool_link.append('')
+
         for item in key_data_json["Dataset Tools"]["use_tools_text"]:
             if item["@value"]:
                 key_dataset.use_tools_text.append(item["@value"])

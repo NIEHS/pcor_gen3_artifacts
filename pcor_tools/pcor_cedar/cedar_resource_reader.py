@@ -128,7 +128,7 @@ class CedarResourceReader:
             result.model_data["geospatial_tool_resource"] = tool_data
         elif "KEY DATASETS DATA" in contents_json:
             key_dataset_data = self.extract_key_dataset_data(contents_json)
-            result.model_data["key_dataset_data"] = key_dataset_data
+            result.model_data["key_dataset"] = key_dataset_data
         else:
             raise Exception("unknown data type")
 
