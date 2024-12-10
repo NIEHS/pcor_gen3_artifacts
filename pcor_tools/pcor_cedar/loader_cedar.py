@@ -7,6 +7,7 @@ import sys
 from datetime import datetime
 from optparse import OptionParser
 
+from pcor_cedar.cedar_loader_preprocessor import CedarLoaderPreprocessor
 from pcor_cedar.cedar_parser_factory import CedarParserFactory
 from pcor_ingest.pcor_reporter import PcorReporter
 
@@ -107,6 +108,10 @@ class LoaderCedar(Loader):
             # marshal the json data into the intermediate data model
 
             self.reader.parse(f.name, result)
+
+            # collapse other fields
+            preprocessor = CedarLoaderPreprocessor()
+            preprocessor.process(result.model_data)
 
             if not result.success:
                 logger.warning("unsuccessful parsing, do not process")
