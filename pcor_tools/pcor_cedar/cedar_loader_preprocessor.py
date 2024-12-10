@@ -66,21 +66,39 @@ class CedarLoaderPreprocessor:
         population_data_resource = data_model.get("population_data_resource", None)
         if population_data_resource:
             logger.info("processing population data resource %s" % population_data_resource)
-            population_data_resource.update_frequency.extend(population_data_resource.update_frequency_other)
+
+            if population_data_resource.update_frequency_other:
+                population_data_resource.update_frequency.extend(population_data_resource.update_frequency_other)
             population_data_resource.geometry_source.extend(
                 population_data_resource.geometry_source_other)
             population_data_resource.measures.extend(
                 population_data_resource.measures_other)
-            population_data_resource.model_methods.extend(population_data_resource.model_method_other)
+            population_data_resource.model_methods.extend(population_data_resource.model_methods_other)
             population_data_resource.spatial_coverage.extend(population_data_resource.spatial_coverage_other)
             population_data_resource.spatial_resolution.extend(population_data_resource.spatial_resolution_other)
             population_data_resource.temporal_resolution.extend(population_data_resource.temporal_resolution_other)
 
-        population_tool_resource = data_model.get("population_tool_resource", None)
-        if population_tool_resource:
-            logger.info("processing population tool resource %s" % population_tool_resource)
-            population_tool_resource.languages.extend(population_tool_resource.languages_other)
-            population_tool_resource.license_type.extend(population_tool_resource.license_type_other)
-            population_tool_resource.operating_system.extend(population_tool_resource.operating_system_other)
-            population_tool_resource.tool_type.extend(population_tool_resource.tool_type_other)
+        geo_tool_resource = data_model.get("geospatial_tool_resource", None)
+        if geo_tool_resource:
+            logger.info("processing geospatial tool resource %s" % geo_tool_resource)
+            geo_tool_resource.languages.extend(geo_tool_resource.languages_other)
+            geo_tool_resource.license_type.extend(geo_tool_resource.license_type_other)
+            geo_tool_resource.operating_system.extend(geo_tool_resource.operating_system_other)
+            geo_tool_resource.tool_type.extend(geo_tool_resource.tool_type_other)
 
+        key_data_resource = data_model.get("key_data_resource", None)
+        if key_data_resource:
+            logger.info("processing key data resource %s" % key_data_resource)
+            if key_data_resource.update_frequency_other:
+                key_data_resource.update_frequency.extend(key_data_resource.update_frequency_other)
+            key_data_resource.geographic_feature.extend(
+                key_data_resource.geographic_feature_other)
+            key_data_resource.geometry_source.extend(
+                key_data_resource.geometry_source_other)
+            key_data_resource.license_type.extend(key_data_resource.license_type_other)
+            key_data_resource.measurement_method.extend(key_data_resource.measurement_method_other)
+            key_data_resource.measures.extend(
+                key_data_resource.measures_other)
+            key_data_resource.model_methods.extend(key_data_resource.model_methods_other)
+            key_data_resource.spatial_coverage.extend(key_data_resource.spatial_coverage_other)
+            key_data_resource.spatial_resolution.extend(key_data_resource.spatial_resolution_other)
