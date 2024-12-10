@@ -86,7 +86,7 @@ class CedarLoaderPreprocessor:
             geo_tool_resource.operating_system.extend(geo_tool_resource.operating_system_other)
             geo_tool_resource.tool_type.extend(geo_tool_resource.tool_type_other)
 
-        key_data_resource = data_model.get("key_data_resource", None)
+        key_data_resource = data_model.get("key_dataset_data", None)
         if key_data_resource:
             logger.info("processing key data resource %s" % key_data_resource)
             if key_data_resource.update_frequency_other:
@@ -102,3 +102,10 @@ class CedarLoaderPreprocessor:
             key_data_resource.model_methods.extend(key_data_resource.model_methods_other)
             key_data_resource.spatial_coverage.extend(key_data_resource.spatial_coverage_other)
             key_data_resource.spatial_resolution.extend(key_data_resource.spatial_resolution_other)
+            key_data_resource.spatial_resolution_all_available.extend(
+                key_data_resource.spatial_resolution_all_other_available)
+            key_data_resource.temporal_resolution.extend(key_data_resource.temporal_resolution_other)
+            key_data_resource.temporal_resolution_all_available.extend(
+                key_data_resource.temporal_resolution_all_other_available)
+            key_data_resource.use_suggested.extend(
+                key_data_resource.use_suggested_other)
