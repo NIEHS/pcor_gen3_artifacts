@@ -878,19 +878,19 @@ portal:
                     {
                       "type": "link",
                       "label": "Dataset Location 1",
-                      "sourceField": "data_location_1",
+                      "sourceField": "data_location_text_1",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
                       "label": "Dataset Location 2",
-                      "sourceField": "data_location_2",
+                      "sourceField": "data_location_text_2",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
                       "label": "Dataset Location 3",
-                      "sourceField": "data_location_3",
+                      "sourceField": "data_location_text_3",
                       "default": "n/a"
                     }
                   ]
@@ -965,7 +965,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -974,7 +974,6 @@ portal:
               "time_extent_start_year",
               "time_extent_end_year",
               "spatial_coverage",
-              "spatial_coverage_specific_regions",
               "resource_url"
             ],
             "linkFields": [
@@ -1071,7 +1070,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -1080,7 +1079,6 @@ portal:
               "time_extent_start_year",
               "time_extent_end_year",
               "spatial_coverage",
-              "spatial_coverage_specific_regions",
               "resource_url"
               ],
             "linkFields": [
@@ -1170,7 +1168,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -1271,18 +1269,17 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "keywords",
               "domain",
               "comments",
-              "metrics_derived_from_data_set",
               "data_formats",
-              "data_location"
+              "data_location_text"
 
             ],
             "linkFields": [
-              "data_location"
+              "data_location_text"
             ]
           },
           "dropdowns": {
