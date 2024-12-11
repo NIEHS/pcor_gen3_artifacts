@@ -165,6 +165,7 @@ fence:
             - name: CMAQ-051324
             - name: BRFSS-092624
             - name: NHIS-092524
+            - name: ECDS-111524
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -326,6 +327,8 @@ fence:
         - /programs/CHORDS/projects/CMAQ-051324
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
+        - /programs/CHORDS/projects/ECDS-111524
+
       - id: all_programs_reader
         role_ids:
         - 'guppy_reader'
@@ -461,6 +464,8 @@ fence:
         - /programs/CHORDS/projects/CMAQ-051324
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
+        - /programs/CHORDS/projects/ECDS-111524
+
       roles:
       - id: 'mds_user'
         permissions:
