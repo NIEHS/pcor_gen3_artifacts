@@ -13,6 +13,8 @@ from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
 from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
 from pcor_ingest.ingest_context import PcorIngestConfiguration
+from pcor_ingest.measures_rollup import PcorMeasuresRollup
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"
@@ -28,8 +30,10 @@ before presenting to the jinja templates for Gen3 load
 """
 class CedarLoaderPreprocessor:
 
-    def __init__(self):
+    def __init__(self, pcor_ingest_configuration):
         self.cedar_config = CedarConfig()
+        self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
 
     def process(self, data_model):
         logger.info("process()")
@@ -57,6 +61,13 @@ class CedarLoaderPreprocessor:
                 geospatial_data_resource.measurement_method_other)
             geospatial_data_resource.measures.extend(
                 geospatial_data_resource.measures_other)
+
+            # add the measures rollup
+            measures_rollup = self.pcor_measures_rollup.process_measures(geospatial_data_resource.measures)
+            geospatial_data_resource.measures_parent = measures_rollup.measures_parents
+            geospatial_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+            geospatial_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
+
             geospatial_data_resource.model_methods.extend(geospatial_data_resource.model_methods_other)
             geospatial_data_resource.spatial_coverage.extend(geospatial_data_resource.spatial_coverage_other)
             geospatial_data_resource.spatial_resolution.extend(geospatial_data_resource.spatial_resolution_other)
@@ -68,7 +79,7 @@ class CedarLoaderPreprocessor:
             logger.info("processing population data resource %s" % population_data_resource)
 
             if population_data_resource.update_frequency_other:
-                population_data_resource.update_frequency.extend(population_data_resource.update_frequency_other)
+                population_data_resource.update_frequency.append(population_data_resource.update_frequency_other)
             population_data_resource.geometry_source.extend(
                 population_data_resource.geometry_source_other)
             population_data_resource.measures.extend(
@@ -90,7 +101,7 @@ class CedarLoaderPreprocessor:
         if key_data_resource:
             logger.info("processing key data resource %s" % key_data_resource)
             if key_data_resource.update_frequency_other:
-                key_data_resource.update_frequency.extend(key_data_resource.update_frequency_other)
+                key_data_resource.update_frequency.append(key_data_resource.update_frequency_other)
             key_data_resource.geographic_feature.extend(
                 key_data_resource.geographic_feature_other)
             key_data_resource.geometry_source.extend(
@@ -99,6 +110,13 @@ class CedarLoaderPreprocessor:
             key_data_resource.measurement_method.extend(key_data_resource.measurement_method_other)
             key_data_resource.measures.extend(
                 key_data_resource.measures_other)
+
+            # add the measures rollup
+            measures_rollup = self.pcor_measures_rollup.process_measures(key_data_resource.measures)
+            key_data_resource.measures_parent = measures_rollup.measures_parents
+            key_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+            key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
+
             key_data_resource.model_methods.extend(key_data_resource.model_methods_other)
             key_data_resource.spatial_coverage.extend(key_data_resource.spatial_coverage_other)
             key_data_resource.spatial_resolution.extend(key_data_resource.spatial_resolution_other)
