@@ -107,7 +107,6 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "project_id": "{{ project_code }}",
   "measures": [
     {% for entry in key_data_resource.measures %}
         "{{ entry }}"

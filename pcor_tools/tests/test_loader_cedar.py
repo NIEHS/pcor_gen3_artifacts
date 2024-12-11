@@ -17,14 +17,16 @@ class TestLoaderCedar(unittest.TestCase):
         #url = "https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2"
 
         # geo data
-        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/a683c649-6d2e-49bf-af39-bc39f39f14c2?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/a683c649-6d2e-49bf-af39-bc39f39f14c2?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
 
         # pop data
-        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/cc12b782-c07b-4ef9-9755-6556ff671473?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/cc12b782-c07b-4ef9-9755-6556ff671473?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
 
         # geo tool
         #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/87f92251-8f16-4709-814b-bc567505f301?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
 
+        # key dataset
+        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/c29a0f64-db03-4345-a74e-1bb44baa6c45?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
         result = loaderCedar.process_individual_load_of_cedar_resource_from_url(url)
         self.assertIsNotNone(result)
         self.assertTrue(result.success)
