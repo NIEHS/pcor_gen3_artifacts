@@ -57,5 +57,5 @@ class TestLoaderCedar(unittest.TestCase):
         result = PcorProcessResult()
         reader.parse(json_file, result)
         self.assertTrue(result.success)
-        self.assertIsNotNone(result.model_data["key_dataset_data"])
+        self.assertIsNotNone(result.model_data["key_dataset"])
 

@@ -584,7 +584,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_key_data_resource()")
         template = self.env.get_template("key_dataset_resource.jinja")
-        rendered = template.render(key_dataset_resource=key_data_resource).replace('"none"', 'null') \
+        rendered = template.render(key_data_resource=key_data_resource).replace('"none"', 'null') \
             .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered

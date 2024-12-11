@@ -86,7 +86,7 @@ class CedarLoaderPreprocessor:
             geo_tool_resource.operating_system.extend(geo_tool_resource.operating_system_other)
             geo_tool_resource.tool_type.extend(geo_tool_resource.tool_type_other)
 
-        key_data_resource = data_model.get("key_dataset_data", None)
+        key_data_resource = data_model.get("key_dataset", None)
         if key_data_resource:
             logger.info("processing key data resource %s" % key_data_resource)
             if key_data_resource.update_frequency_other:
