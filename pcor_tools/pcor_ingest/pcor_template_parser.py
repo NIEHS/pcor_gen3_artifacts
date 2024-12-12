@@ -28,6 +28,7 @@ class PcorTemplateParser:
     """
 
     def __init__(self, pcor_ingest_configuration):
+        self.pcor_ingest_configuration = pcor_ingest_configuration
         self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
         self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
         self.yyyy_pattern = r"\b(\d{4})\b"
