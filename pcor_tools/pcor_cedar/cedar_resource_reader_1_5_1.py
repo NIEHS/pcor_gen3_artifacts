@@ -420,8 +420,10 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 geoexposure.data_location_text.append(item["@value"])
 
         for item in contents_json[key]["Data Download"]["data_link"]:
-            if item["@id"]:
+            if item:
                 geoexposure.data_link.append(item["@id"])
+            else:
+                geoexposure.data_link.append('')
 
         return geoexposure
 
@@ -616,8 +618,10 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 population.data_location_text.append(item["@value"])
 
         for item in pop_data_json["Data Download"]["data_link"]:
-            if item["@id"]:
+            if item:
                 population.data_link.append(item["@id"])
+            else:
+                population.data_link.append('')
 
         population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
             pop_data_json["linkable_encounters"]["@value"])
