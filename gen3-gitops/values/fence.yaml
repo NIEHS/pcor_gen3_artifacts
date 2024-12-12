@@ -166,6 +166,9 @@ fence:
             - name: BRFSS-092624
             - name: NHIS-092524
             - name: ECDS-111524
+            - name: OSPO-AP-102924
+            - name: OSPO-AP-110724
+            - name: OneStop-092624
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -328,6 +331,9 @@ fence:
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
         - /programs/CHORDS/projects/ECDS-111524
+        - /programs/CHORDS/projects/OSPO-AP-102924
+        - /programs/CHORDS/projects/OSPO-AP-110724
+        - /programs/CHORDS/projects/OneStop-092624
 
       - id: all_programs_reader
         role_ids:
@@ -465,6 +471,9 @@ fence:
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
         - /programs/CHORDS/projects/ECDS-111524
+        - /programs/CHORDS/projects/OSPO-AP-102924
+        - /programs/CHORDS/projects/OSPO-AP-110724
+        - /programs/CHORDS/projects/OneStop-092624
 
       roles:
       - id: 'mds_user'
