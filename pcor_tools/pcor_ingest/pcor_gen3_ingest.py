@@ -292,6 +292,9 @@ class PcorGen3Ingest:
             if hasattr(data_resource, 'time_available_comment'):
                 discovery.time_available_comment = data_resource.time_available_comment if data_resource.time_available_comment else None
 
+            if hasattr(data_resource, 'intended_use'):
+                discovery.intended_use = data_resource.intended_use if data_resource.intended_use else None
+
             if hasattr(data_resource, 'data_location_text'):
                 if len(data_resource.data_location_text) > 0:
                     discovery.data_location_text_1 = data_resource.data_location_text[0]

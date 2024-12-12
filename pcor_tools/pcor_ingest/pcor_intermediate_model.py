@@ -209,6 +209,7 @@ class PcorDiscoveryMetadata:
         self.has_api = ""
         self.has_visualization_tool = ""
         self.is_citizen_collected = ""
+        self.intended_use = ""
         self.measures = []
         self.measures_parent = []
         self.measures_subcategory_major = []

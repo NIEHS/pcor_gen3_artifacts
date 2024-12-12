@@ -420,10 +420,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 geoexposure.data_location_text.append(item["@value"])
 
         for item in contents_json[key]["Data Download"]["data_link"]:
-            if item:
+            if '@id' in item and item["@id"]:
                 geoexposure.data_link.append(item["@id"])
-            else:
-                geoexposure.data_link.append('')
 
         return geoexposure
 
@@ -618,10 +616,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 population.data_location_text.append(item["@value"])
 
         for item in pop_data_json["Data Download"]["data_link"]:
-            if item:
+            if '@id' in item and item["@id"]:
                 population.data_link.append(item["@id"])
-            else:
-                population.data_link.append('')
 
         population.linkable_encounters = PcorTemplateParser.sanitize_boolean(
             pop_data_json["linkable_encounters"]["@value"])
@@ -747,10 +743,8 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             if item["@value"]:
                 key_dataset.data_location_text.append(item["@value"])
         for item in key_data_json["Data Download"]["data_link"]:
-            if item:
+            if '@id' in item and item["@id"]:
                 key_dataset.data_link.append(item["@id"])
-            else:
-                key_dataset.data_link.append('')
         for item in key_data_json["license_type"]:
             if item["@value"]:
                 key_dataset.license_type.append(item["@value"])
