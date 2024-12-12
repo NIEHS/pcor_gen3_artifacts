@@ -21,4 +21,10 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
 
         self.assertTrue(result.success)
 
-
+    def test_migrate_geoexposure(self):
+        pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
+        target_file = 'test_resources/GeoExposure_1.5.0 Center for Air, Climate, and Energy Solutions.xlsm'
+        cedar_configuration = CedarConfig()
+        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        name = cedar_migrate.migrate(target_file)
+        self.assertIsNotNone(name)

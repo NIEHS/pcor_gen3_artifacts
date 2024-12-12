@@ -26,10 +26,10 @@ class KeyDatasetResourceParser():
     """
 
     def __init__(self, pcor_ingest_configuration):
-        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
-        self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
-        self.yyyy_pattern = r"\b(\d{4})\b"
         self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
+        self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration.measures_rollup)
+        self.yyyy_pattern = r"\b(\d{4})\b"
 
     @staticmethod
     def make_complex_array_from_pubs(value):

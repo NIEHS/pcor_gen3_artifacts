@@ -14,6 +14,7 @@ from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.loader_cedar import LoaderCedar
+from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -35,9 +36,9 @@ class CedarMigrate():
         self.pcor_ingest_configuration = pcor_ingest_configuration
         self.cedar_access = CedarAccess()
         self.cedar_template_processor = CedarTemplateProcessor()
-        self.pcor_template_parser = PcorTemplateParser(pcor_ingest_configuration)
+        self.pcor_spreadsheet_reader = PcorSpreadsheetReader(pcor_ingest_configuration)
 
-    def reformat_json(self, model_data):
+    def reformat_json(self, model_data, target_version):
         """
         Take the model data and create a json document of the right format
 
@@ -55,7 +56,7 @@ class CedarMigrate():
         else:
             raise Exception("not geospatial_data_resource, resource not supported")
 
-        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, self.target_version)
+        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, target_version)
 
         return json_string
 
@@ -71,17 +72,18 @@ class CedarMigrate():
         result = PcorProcessResult()
         result.endpoint = self.pcor_ingest_configuration.gen3_endpoint
         result.template_source = target_path
-        self.pcor_template_parser.parse(target_path, result)
+        self.pcor_spreadsheet_reader.process_template_instance(target_path,result)
         return result
 
-
-    def migrate(self, source_file):
+    def migrate(self, source_file, target_version='1_5_1'):
         """
         migrate the individual source at the given location to the new target format
         Parameters
         ----------
        file path where the resource to migrate can be found
         source_file
+
+       cedar template version that is the target target_version
 
         Returns the name of the migrated file
         -------
@@ -94,10 +96,10 @@ class CedarMigrate():
             logger.exception("No source_file specified")
             raise Exception("no source_file specified for migration")
 
-        model = self.read_migrate_target(source_file)
+        result = self.read_migrate_target(source_file)
 
         # TODO: add annotation to submission comment?
-        migrated_json = self.reformat_json(model)
+        migrated_json = self.reformat_json(result.model_data, target_version=target_version)
 
         id = LoaderCedar.extract_id_for_resource(self.store_migrated(migrated_json))
         model_json = json.loads(migrated_json)
