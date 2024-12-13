@@ -229,7 +229,7 @@
       },
       "publication_link": [
          {%  if resource.publication_links|length == 0 %}
-                { "@value": null }
+                { "@id": "http://nolink" }
             {%  else %}
                  {% for entry in resource.publication_links %}
                             {
@@ -241,7 +241,7 @@
       ],
       "publication_citation": [
         {%  if resource.publications|length == 0 %}
-                { "@value": null }
+                { "@value": "" }
             {%  else %}
 
                 {% for entry in resource.publications %}
@@ -630,7 +630,7 @@
               {% endfor %}
         {% endif %}
       ],
-      "b": [
+      "data_location_text": [
          {%  if geospatial_data_resource.data_location|length == 0 %}
             { "@value": null }
         {%  else %}
