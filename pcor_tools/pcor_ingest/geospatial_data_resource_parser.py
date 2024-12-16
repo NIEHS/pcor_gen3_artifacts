@@ -67,8 +67,8 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'source_name':
                         geo_resource.source_name = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'update_frequency':
-                        geo_resource.update_frequency = PcorTemplateParser.camel_case_it(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.update_frequency.append(PcorTemplateParser.camel_case_it(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         geo_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
@@ -95,12 +95,11 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
-                        geo_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.temporal_resolution += PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution':
-                        geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    #elif template_df.iat[j, 0] == 'spatial_resolution_other': FIXME: we would need to update model to hold other
-                     #   geo_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        #geo_resource.spatial_resolution = PcorTemplateParser.combine_prop(geo_resource.spatial_resolution, temp_spatial_resolution_other)
+                        geo_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
+                    elif template_df.iat[j, 0] == 'spatial_resolution_other':
+                        geo_resource.spatial_resolution_other.append(PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'spatial_coverage':
                         geo_resource.spatial_coverage = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
@@ -108,9 +107,9 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'spatial_bounding_box':
                         geo_resource.spatial_bounding_box = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'geometry_type':
-                        geo_resource.geometry_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.geometry_type.append(PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        geo_resource.geometry_source = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        geo_resource.geometry_source.append(PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'model_methods':
                         geo_resource.model_methods = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'exposure_media':

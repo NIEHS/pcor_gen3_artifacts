@@ -7,6 +7,7 @@ import json
 import warnings
 import pandas as pd
 from datetime import datetime
+import validators
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
@@ -180,13 +181,13 @@ class PcorTemplateParser:
                     if template_df.iat[j, 0] == 'project_GUID':
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_name':
-                        project.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        project.name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         #if project_short_name is not empty, use it for project.code
                         if project.short_name:
-                            project.name = project.short_name.replace(' ', '').strip()
-                            project.code = project.name
+                            project.code = project.short_name.replace(' ', '').strip()
+                            project.code = project.short_name
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     # FixMe: do not collapse 'other' into the main prop
@@ -243,12 +244,12 @@ class PcorTemplateParser:
                         if field_name == 'resource_GUID':
                             resource.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_name':
-                            resource.long_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            resource.name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_short_name':
                             resource.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             # cleanup short name and use it as unique resource short name, no special characters or spaces
                             # do not use sanitize_column()
-                            resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
+                            #resource.name = str(template_df.iat[j, 1]).replace(' ', '').strip()
                         elif field_name == 'resource_type':
                             resource.resource_type = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_url':
@@ -274,9 +275,13 @@ class PcorTemplateParser:
                         elif field_name == 'date_verified':
                             resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_reference':
-                            resource.resource_reference = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                            resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            if validators.url(resource.resource_use_agreement ):
+                                resource.resource_use_agreement_link = resource.resource_use_agreement
+                            else:
+                                resource.resource_use_agreement_link = "http://nolink"
                         elif field_name == 'publications':
                            resource.publications = PcorTemplateParser.new_make_array(template_df.iat[j, 1], comma_delim=False)
                         elif field_name == 'publication_links':
@@ -285,6 +290,22 @@ class PcorTemplateParser:
                             resource.is_static = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                         elif field_name == 'Data_Resource' or field_name == 'Tool_Resource':
                             # validate needed props and guid assignment
+
+                            # process the publication references, if they are a link make them a link
+
+                            pub_refs = []
+                            pub_links = []
+
+                            for pub in resource.publications:
+                                pub_refs.append(pub)
+                                if validators.url(pub):
+                                    pub_links.append(pub)
+                                else:
+                                    pub_links.append("http://nolink")
+
+                            resource.publications = pub_refs
+                            resource.pub_links = pub_links
+
                             if resource.submitter_id is None or resource.submitter_id == '':
                                 resource.submitter_id = str(uuid.uuid4())
                             return resource

@@ -228,7 +228,7 @@
         "publication_citation": "https://schema.metadatacenter.org/properties/ab995a4e-a162-4820-936f-7a5dfcba3cdb"
       },
       "publication_link": [
-         {%  if resource.publication_links|length == 0 %}
+            {%  if resource.publication_links|length == 0 %}
                 { "@id": "http://nolink" }
             {%  else %}
                  {% for entry in resource.publication_links %}
@@ -240,7 +240,7 @@
           {% endif %}
       ],
       "publication_citation": [
-        {%  if resource.publications|length == 0 %}
+            {%  if resource.publications|length == 0 %}
                 { "@value": "" }
             {%  else %}
 
