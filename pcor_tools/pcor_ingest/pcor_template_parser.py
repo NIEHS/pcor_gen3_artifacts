@@ -304,7 +304,7 @@ class PcorTemplateParser:
                                     pub_links.append("http://nolink")
 
                             resource.publications = pub_refs
-                            resource.pub_links = pub_links
+                            resource.publication_links = pub_links
 
                             if resource.submitter_id is None or resource.submitter_id == '':
                                 resource.submitter_id = str(uuid.uuid4())

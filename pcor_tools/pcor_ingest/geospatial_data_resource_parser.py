@@ -2,6 +2,8 @@ import logging
 import traceback
 import warnings
 import pandas as pd
+import validators
+
 from pcor_ingest.pcor_intermediate_model import PcorGeospatialDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -95,7 +97,7 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'time_available_comment':
                         geo_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
-                        geo_resource.temporal_resolution += PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        geo_resource.temporal_resolution.append(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         geo_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1])))
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
@@ -123,5 +125,11 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                         geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':
                         geo_resource.data_location = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+
+        for entry in geo_resource.data_location:
+            if validators.url(entry):
+                geo_resource.data_link.append(entry)
+            else:
+                geo_resource.data_link.append("http://nolink")
 
         return geo_resource
