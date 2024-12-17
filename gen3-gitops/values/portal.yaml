@@ -669,7 +669,7 @@ portal:
                   "fields": [
                     {
                       "type": "block",
-                      "sourceField": "comment"
+                      "sourceField": "intended_use"
                     }
                   ]
                 },

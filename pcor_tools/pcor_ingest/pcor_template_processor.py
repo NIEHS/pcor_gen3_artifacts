@@ -300,7 +300,6 @@ class PcorTemplateProcessor:
                             resource.resource_type = model_data['geospatial_tool_resource'].display_type
 
                             discovery = self.pcor_ingest.create_discovery_from_resource(program, project, resource, geo_tool_resource)
-                            discovery.comment = geo_tool_resource.intended_use
 
                             for item in geo_tool_resource.tool_type:
                                 search_filter = AdvSearchFilter()
