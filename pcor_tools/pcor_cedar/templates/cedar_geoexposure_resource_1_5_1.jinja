@@ -306,10 +306,11 @@
       "resource_use_agreement": {
         "@value": "{{ resource.resource_use_agreement }}"
       },
-      "resource_use_agreement_link":   {%  if resource.resource_use_agreement_link == "" %}
+      "resource_use_agreement_link":
+            {%  if resource.resource_use_agreement_link == "" %}
                 {"@id": "http://nolink"},
             {% else %}
-                  {"@id": "{{ resource.resource_use_agreement_link }}",
+                  {"@id": "{{ resource.resource_use_agreement_link }}"},
             {%  endif %}
       "@id": "https://repo.metadatacenter.org/template-element-instances/76e2863d-a6e6-4283-8534-b384ce930fbc"
     },
@@ -370,8 +371,7 @@
     },
     "update_frequency_other": {
       "@value": "{{ geospatial_data_resource.update_frequency_other }}"
-    },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/8f2af0d8-a7c0-4fe0-89b6-4940864d1c78"
+    }
   },
   "GEOEXPOSURE DATA": {
     "@context": {
@@ -401,7 +401,7 @@
       "temporal_resolution_other": "https://schema.metadatacenter.org/properties/23b44298-3dde-43fd-bafb-77d19121600a"
     },
     "measures": [
-      {%  if geospatial_data_resource.measures|length == 0 %}
+        {%  if geospatial_data_resource.measures|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in geospatial_data_resource.measures %}
@@ -443,7 +443,7 @@
       "@value": "{{ geospatial_data_resource.time_extent_end_yyyy }}"
     },
     "temporal_resolution": [
-      {%  if geospatial_data_resource.temporal_resolution|length == 0 %}
+        {%  if geospatial_data_resource.temporal_resolution|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.temporal_resolution %}
@@ -479,7 +479,7 @@
         {% endif %}
     ],
     "spatial_coverage": [
-      {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
+        {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.spatial_coverage %}
@@ -576,7 +576,7 @@
     ],
     "data_formats": [
       {%  if geospatial_data_resource.data_formats|length == 0 %}
-        { "@value": null }
+          { "@value": null }
      {%  else %}
           {% for entry in geospatial_data_resource.data_formats %}
             {

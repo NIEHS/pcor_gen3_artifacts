@@ -109,7 +109,7 @@ class CedarMigrate():
 
         id = LoaderCedar.extract_id_for_resource(self.store_migrated(migrated_json))
         model_json = json.loads(migrated_json)
-        name = model_json["RESOURCE"]["name"]["@value"]
+        name = model_json["RESOURCE"]["resource_name"]["@value"]
         self.cedar_access.rename_resource(id, name)
         return name
 
