@@ -244,6 +244,7 @@ class PcorGen3Ingest:
         discovery.updated_datetime = resource.updated_datetime
         discovery.resource_reference = resource.resource_reference
         discovery.resource_use_agreement = resource.resource_use_agreement
+        discovery.resource_use_agreement_link = resource.resource_use_agreement_link
 
         if data_resource:
             if hasattr(data_resource, 'has_api'):
@@ -304,6 +305,15 @@ class PcorGen3Ingest:
 
                 if len(data_resource.data_location_text) > 2:
                     discovery.data_location_text_3 = data_resource.data_location_text[2]
+            if hasattr(data_resource, 'data_link'):
+                if len(data_resource.data_link) > 0:
+                    discovery.data_link_1 = data_resource.data_link[0]
+
+                if len(data_resource.data_link) > 1:
+                    discovery.data_link_2 = data_resource.data_link[1]
+
+                if len(data_resource.data_link) > 2:
+                    discovery.data_link_3 = data_resource.data_link[2]
 
             if hasattr(data_resource, 'source_name'):
                 discovery.source_name = data_resource.source_name if data_resource.source_name else None

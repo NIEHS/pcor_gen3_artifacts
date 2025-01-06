@@ -870,27 +870,51 @@ portal:
                       "default": "n/a"
                     },
                     {
-                      "type": "link",
+                      "type": "text",
                       "label": "Resource Use Agreement",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
                     },
-                    {
+                     {
                       "type": "link",
+                      "label": "Resource Use Agreement Link",
+                      "sourceField": "resource_use_agreement_link",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 1",
                       "sourceField": "data_location_text_1",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
+                      "label": "Dataset Location link 1 ",
+                      "sourceField": "data_location_link_1",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 2",
                       "sourceField": "data_location_text_2",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
+                      "label": "Dataset Location link 2 ",
+                      "sourceField": "data_location_link_2",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 3",
                       "sourceField": "data_location_text_3",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Dataset Location link 3 ",
+                      "sourceField": "data_location_link_3",
                       "default": "n/a"
                     }
                   ]
