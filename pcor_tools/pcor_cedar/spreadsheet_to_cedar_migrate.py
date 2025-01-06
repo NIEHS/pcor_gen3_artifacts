@@ -103,8 +103,6 @@ class CedarMigrate():
             submission.curation_comment = ""
 
         submission.curation_comment += "migrated from spreadsheet %s into CEDAR va pcor_tools" % source_file
-
-        # TODO: add annotation to submission comment?
         migrated_json = self.reformat_json(result.model_data, target_version=target_version)
 
         id = LoaderCedar.extract_id_for_resource(self.store_migrated(migrated_json))
