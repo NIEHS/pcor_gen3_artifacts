@@ -18,9 +18,9 @@ class TestLoaderCedar(unittest.TestCase):
 
         # geo data
         #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/a683c649-6d2e-49bf-af39-bc39f39f14c2?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
-        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/a08da876-2029-4cc2-8424-626778141200?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/a683c649-6d2e-49bf-af39-bc39f39f14c2?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
         # pop data
-        #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/cc12b782-c07b-4ef9-9755-6556ff671473?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
+        url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/cc12b782-c07b-4ef9-9755-6556ff671473?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2Fc3e2f654-d6d1-402a-a64f-b3743a47fea2'
 
         # geo tool
         #url = 'https://cedar.metadatacenter.org/instances/edit/https://repo.metadatacenter.org/template-instances/87f92251-8f16-4709-814b-bc567505f301?folderId=https:%2F%2Frepo.metadatacenter.org%2Ffolders%2F47ced533-508a-4b9e-a239-79e7dd819b2b'
