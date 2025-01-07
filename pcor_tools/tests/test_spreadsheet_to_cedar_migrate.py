@@ -36,3 +36,11 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
+
+    def test_migrate_geo_tool(self):
+        pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
+        target_file = 'test_resources/GeoExposureTool_1.5.0_EPA_Community_Multiscale_Air_Quality-CMAQ.xlsm'
+        cedar_configuration = CedarConfig()
+        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        name = cedar_migrate.migrate(target_file)
+        self.assertIsNotNone(name)

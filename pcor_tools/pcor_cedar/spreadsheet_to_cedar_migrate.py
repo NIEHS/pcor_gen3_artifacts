@@ -59,6 +59,10 @@ class CedarMigrate():
             logger.info("migrating a population_data_resource")
             json_string = self.cedar_template_processor.produce_population_cedar_instance(model_data, target_version)
             return json_string
+        elif model_data.get("geospatial_tool_resource"):
+            logger.info("migrating a geospatial_tool_resource")
+            json_string = self.cedar_template_processor.produce_geo_tool_cedar_instance(model_data, target_version)
+            return json_string
         else:
             raise Exception("not geospatial_data_resource, resource not supported")
 
