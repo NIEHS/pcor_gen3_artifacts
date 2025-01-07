@@ -289,7 +289,6 @@ class PcorPopDataResourceModel:
         self.update_frequency_other = ""
 
         # additional properties to describe the dataset
-        # FixMe: remove unused props
         self.biospecimens = False
         self.biospecimens_type = []
         self.created_datetime = ""

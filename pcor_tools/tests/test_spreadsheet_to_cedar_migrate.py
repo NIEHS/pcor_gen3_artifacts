@@ -28,3 +28,11 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
+
+    def test_migrate_population(self):
+        pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
+        target_file = 'test_resources/PopulationData_1.5.0 Health Care Cost Institute-2.xlsm'
+        cedar_configuration = CedarConfig()
+        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        name = cedar_migrate.migrate(target_file)
+        self.assertIsNotNone(name)

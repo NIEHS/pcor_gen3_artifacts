@@ -51,14 +51,18 @@ class CedarMigrate():
         json string with the new resource
         """
         logger.info('reformat_json()')
-        if model_data["geospatial_data_resource"]:
+        if model_data.get("geospatial_data_resource"):
             logger.info("migrating a geospatial_data_resource")
+            json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, target_version)
+            return json_string
+        elif model_data.get("population_data_resource"):
+            logger.info("migrating a population_data_resource")
+            json_string = self.cedar_template_processor.produce_population_cedar_instance(model_data, target_version)
+            return json_string
         else:
             raise Exception("not geospatial_data_resource, resource not supported")
 
-        json_string = self.cedar_template_processor.produce_geospatial_cedar_instance(model_data, target_version)
 
-        return json_string
 
     def store_migrated(self, migrated_json):
         logger.info("store_migrated")

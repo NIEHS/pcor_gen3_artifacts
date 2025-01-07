@@ -402,7 +402,7 @@
       "geometry_source_other": "https://schema.metadatacenter.org/properties/ffcb6b55-ac72-43ad-b80a-cd113054a419"
     },
     "exposure_media": [
-       {%  if population_data_resource.exposure_media|length == 0 %}
+        {%  if population_data_resource.exposure_media|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.exposure_media %}
@@ -414,7 +414,7 @@
         {% endif %}
     ],
     "measures": [
-     {%  if population_data_resource.measures|length == 0 %}
+        {%  if population_data_resource.measures|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.measures %}
@@ -428,14 +428,14 @@
     "measures_others": [
        {%  if population_data_resource.measures_other|length == 0 %}
             { "@value": null }
-        {%  else %}
+       {%  else %}
            {% for entry in population_data_resource.measures_other %}
                 {
                     "@value": "{{ entry }}"
                 }
             {{ "," if not loop.last }}
           {% endfor %}
-        {% endif %}
+       {% endif %}
     ],
     "time_extent_start": {
       "@value": "{{ population_data_resource.time_extent_start_yyyy }}"
@@ -450,7 +450,7 @@
         "@value": "{{ population_data_resource.spatial_resolution }}"
     },
     "spatial_resolution_other": [
-      {%  if population_data_resource.spatial_resolution_other|length == 0 %}
+        {%  if population_data_resource.spatial_resolution_other|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.spatial_resolution_other %}
@@ -458,11 +458,11 @@
                     "@value": "{{ entry }}"
                 }
             {{ "," if not loop.last }}
-            {% endfor %}
+           {% endfor %}
         {% endif %}
     ],
     "spatial_coverage": [
-      {%  if population_data_resource.spatial_coverage|length == 0 %}
+        {%  if population_data_resource.spatial_coverage|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in population_data_resource.spatial_coverage %}
@@ -474,7 +474,7 @@
         {% endif %}
     ],
     "geometry_type": [
-       {%  if population_data_resource.geometry_type|length == 0 %}
+        {%  if population_data_resource.geometry_type|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in population_data_resource.geometry_type %}
@@ -486,7 +486,7 @@
         {% endif %}
     ],
     "geometry_source": [
-       {%  if population_data_resource.geometry_source|length == 0 %}
+        {%  if population_data_resource.geometry_source|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in population_data_resource.geometry_source %}
@@ -498,31 +498,31 @@
         {% endif %}
     ],
     "model_methods": [
-      {%  if population_data_resource.model_methods|length == 0 %}
+        {%  if population_data_resource.model_methods|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.model_methods %}
-            {
-                "@value": "{{ entry }}"
-            }
-            {{ "," if not loop.last }}
+                {
+                    "@value": "{{ entry }}"
+                }
+                {{ "," if not loop.last }}
           {% endfor %}
         {% endif %}
     ],
     "population_studied": [
-      {%  if population_data_resource.population_studied|length == 0 %}
+        {%  if population_data_resource.population_studied|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.population_studied %}
-            {
-                "@value": "{{ entry }}"
-            }
-            {{ "," if not loop.last }}
-          {% endfor %}
+                {
+                    "@value": "{{ entry }}"
+                }
+                {{ "," if not loop.last }}
+           {% endfor %}
         {% endif %}
     ],
     "population_studied_other": [
-      {%  if population_data_resource.population_studied_other|length == 0 %}
+        {%  if population_data_resource.population_studied_other|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.population_studied_other %}
@@ -550,10 +550,10 @@
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.biospecimens_type %}
-            {
-                "@value": "{{ entry }}"
-            }
-            {{ "," if not loop.last }}
+                {
+                    "@value": "{{ entry }}"
+                }
+                {{ "," if not loop.last }}
           {% endfor %}
         {% endif %}
     ],
@@ -568,19 +568,19 @@
             "@value": "{{ population_data_resource.individual_level }}"
     },
     "model_methods_other": [
-      {%  if population_data_resource.model_methods_other|length == 0 %}
+        {%  if population_data_resource.model_methods_other|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in population_data_resource.model_methods_other %}
-            {
-                "@value": "{{ entry }}"
-            }
-            {{ "," if not loop.last }}
+                {
+                    "@value": "{{ entry }}"
+                }
+                {{ "," if not loop.last }}
           {% endfor %}
-        {% endif %}
+      {% endif %}
     ],
     "time_available_comment": {
-           {% for entry in population_data_resource.time_available_comment %}
+            "@value": "{{ population_data_resource.time_available_comment }}"
     },
     "Data Download": {
       "@context": {
@@ -588,27 +588,27 @@
         "data_location_text": "https://schema.metadatacenter.org/properties/2184be3f-99e9-455c-879d-6e73b9c6b226"
       },
       "data_link": [
-         {%  if population_data_resource.data_link|length == 0 %}
+        {%  if population_data_resource.data_link|length == 0 %}
             { "@id": "http://nolink" }
         {%  else %}
              {% for entry in population_data_resource.data_link %}
-                {
-                    "@id": "{{ entry }}"
-                }
-                {{ "," if not loop.last }}
-              {% endfor %}
+                    {
+                        "@id": "{{ entry }}"
+                    }
+                    {{ "," if not loop.last }}
+             {% endfor %}
         {% endif %}
       ],
       "data_location_text": [
          {%  if population_data_resource.data_location|length == 0 %}
             { "@value": null }
-        {%  else %}
+         {%  else %}
              {% for entry in population_data_resource.data_location %}
-                {
-                    "@value": "{{ entry }}"
-                }
-                {{ "," if not loop.last }}
-              {% endfor %}
+                   {
+                        "@value": "{{ entry }}"
+                    }
+                    {{ "," if not loop.last }}
+                {% endfor %}
         {% endif %}
       ],
       "@id": "https://repo.metadatacenter.org/template-element-instances/ca724a39-2cd8-4ab5-a694-9d1f55ef821d"
@@ -622,7 +622,7 @@
                     "@value": "{{ entry }}"
                 }
                 {{ "," if not loop.last }}
-              {% endfor %}
+             {% endfor %}
         {% endif %}
     ],
     "temporal_resolution_other": [
@@ -640,20 +640,20 @@
     "geometry_source_other": [
        {%  if population_data_resource.geometry_source_other|length == 0 %}
             { "@value": null }
-        {%  else %}
+       {%  else %}
              {% for entry in population_data_resource.geometry_source_other %}
                 {
                     "@value": "{{ entry }}"
                 }
                 {{ "," if not loop.last }}
-              {% endfor %}
-        {% endif %}
+             {% endfor %}
+       {% endif %}
     ],
     "@id": "https://repo.metadatacenter.org/template-element-instances/37edc447-7ab4-4ea1-99b4-802ea6754c07"
   },
   "schema:isBasedOn": "https://repo.metadatacenter.org/templates/0015b649-92a2-4e32-9cbd-f39f8b0ce7ad",
   "schema:name": "Population_Data_1.5.1_CDC_Behavior_Risk_Factor_Surveillance_Sys_BRFSS",
-  "schema:description": "",
+  "schema:description": "Population Data via jinja template",
   "pav:createdOn": "2024-11-21T11:48:47-08:00",
   "pav:createdBy": "https://metadatacenter.org/users/a76d649e-812a-4da2-8323-cb569b2346c1",
   "pav:lastUpdatedOn": "2024-11-22T10:57:15-08:00",

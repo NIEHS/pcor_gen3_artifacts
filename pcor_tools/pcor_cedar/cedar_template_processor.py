@@ -78,3 +78,24 @@ class CedarTemplateProcessor:
                      .replace('""','null'))
         logger.info("rendered: %s" % rendered)
         return rendered
+
+    def produce_population_cedar_instance(self, model, version_tag):
+        """
+        Create the json that is a new resource to add to CEDAR for population data
+        Parameters
+        ----------
+        model - the dictionary as found in PcorProcessResult that feeds the template
+
+        Returns
+        -------
+        string with the resource json
+        """
+        logger.info("produce_population_cedar_instance()")
+        template = self.env.get_template(f"population_data_resource_{version_tag}.jinja")
+        rendered = (template.render(submission=model["submission"], program=model["program"], project=model["project"], resource=model["resource"],
+                                    population_data_resource=model["population_data_resource"])
+                     .replace('"none"', 'null').replace('"None"', 'null')
+                     .replace('""','null'))
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
