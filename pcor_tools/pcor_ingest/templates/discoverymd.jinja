@@ -43,7 +43,6 @@
   "publication_link_2": "{{ discovery.publication_link_2 }}",
   "publication_link_3": "{{ discovery.publication_link_3 }}",
   "access_type": "{{ discovery.access_type }}",
-  "geometry_type": "{{ discovery.geometry_type }}",
   "resource_reference_1": "{{ discovery.resource_reference_1 }}",
   "resource_reference_2": "{{ discovery.resource_reference_2 }}",
   "has_api": "{{ discovery.has_api }}",
@@ -60,13 +59,14 @@
   "data_location_link_3": "{{ discovery.data_location_link_3 }}",
   {% if discovery.type != "GeoExposureTool"  %}
   "data_formats": "{{ discovery.data_formats }}",
+  "spatial_coverage": "{{ discovery.spatial_coverage }}",
+  "spatial_resolution": "{{ discovery.spatial_resolution }}",
+  "geometry_type": "{{ discovery.geometry_type }}",
   {% endif %}
   {% if discovery.type == "GeoExposureTool"  %}
   "tool_type": "{{ discovery.tool_type }}",
   {% endif %}
   "source_name": "{{ discovery.source_name }}",
-  "spatial_coverage": "{{ discovery.spatial_coverage }}",
-  "spatial_resolution": "{{ discovery.spatial_resolution }}",
   {% if discovery.time_extent_start_yyyy %}
       "time_extent_start_yyyy": {{ discovery.time_extent_start_yyyy }},
   {% endif %}
@@ -81,5 +81,4 @@
   "measures_parent": "{{ discovery.measures_parent }}",
   "measures_subcategory_major": "{{ discovery.measures_subcategory_major }}",
   "measures_subcategory_minor": "{{ discovery.measures_subcategory_minor }}"
-
 }
