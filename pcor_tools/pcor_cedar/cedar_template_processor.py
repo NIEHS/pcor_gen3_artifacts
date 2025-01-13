@@ -79,6 +79,26 @@ class CedarTemplateProcessor:
         logger.info("rendered: %s" % rendered)
         return rendered
 
+    def produce_key_dataset_cedar_instance(self, model, version_tag):
+        """
+        Create the json that is a new resource to add to CEDAR for geospatial data
+        Parameters
+        ----------
+        model - the dictionary as found in PcorProcessResult that feeds the template
+
+        Returns
+        -------
+        string with the resource json
+        """
+        logger.info("produce_key_dataset_cedar_instance()")
+        template = self.env.get_template(f"key_dataset_{version_tag}.jinja")
+        rendered = (template.render(submission=model["submission"], program=model["program"], project=model["project"], resource=model["resource"],
+                                    key_dataset=model["key_dataset"])
+                     .replace('"none"', 'null').replace('"None"', 'null')
+                     .replace('""','null'))
+        logger.info("rendered: %s" % rendered)
+        return rendered
+
     def produce_population_cedar_instance(self, model, version_tag):
         """
         Create the json that is a new resource to add to CEDAR for population data

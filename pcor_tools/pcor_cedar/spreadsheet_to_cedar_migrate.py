@@ -29,7 +29,7 @@ Tool to migrate spreadsheets in version 1.4.1 into cedar 1.5.1
 
 """
 
-class CedarMigrate():
+class SpreadsheetCedarMigrate():
 
     def __init__(self, cedar_config, pcor_ingest_configuration):
         self.cedar_config = cedar_config
@@ -62,6 +62,10 @@ class CedarMigrate():
         elif model_data.get("geospatial_tool_resource"):
             logger.info("migrating a geospatial_tool_resource")
             json_string = self.cedar_template_processor.produce_geo_tool_cedar_instance(model_data, target_version)
+            return json_string
+        elif model_data.get("key_dataset"):
+            logger.info("migrating a key_dataset")
+            json_string = self.cedar_template_processor.produce_key_dataset_cedar_instance(model_data, target_version)
             return json_string
         else:
             raise Exception("not geospatial_data_resource, resource not supported")

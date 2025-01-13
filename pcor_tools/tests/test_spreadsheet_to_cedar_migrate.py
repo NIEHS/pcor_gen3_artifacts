@@ -44,3 +44,4 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
+
