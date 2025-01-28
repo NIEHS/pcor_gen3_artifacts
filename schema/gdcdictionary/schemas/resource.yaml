@@ -67,17 +67,17 @@ properties:
     description: Internal identifier. # should we just use id?
     type: string
   name:
-    description: Unique name of resource.
+    description: Name of resource, typically project name.
     type: string
   short_name:
-    description: Name of resource.
+    description: Resource name abbreviation, typically project_short_name.
     type: string
   # no long name prop
   #long_name:
   #  description: Secondary name of resource.
   #  type: string
   resource_type:
-    description: Type of resource
+    description: Type of resource, should match template type.
     type: string
   resource_url:
     description: resource website
@@ -85,19 +85,23 @@ properties:
   description:
     description: A text description of the resource.
     type: string
-  
   domain:
-    description: Domain of the resource
+    description: Subject domain of the resource, broad categories.
+    type: array
+    items:
+      type: string
+  domain_other:
+    description: If "Other" is selected in previous field, type the domain name.
     type: array
     items:
       type: string
   keywords:
-    description: Comma delimiter keywords.
+    description: Enter keywords that describe the resource, preferably from controlled vocabulary, glossary, or MESH.
     type: array
     items:
       type: string
   access_type:
-     description: type of resource access
+     description: Type of resource access provided.
      type: array
      items:
        type: string
@@ -108,29 +112,29 @@ properties:
     description: Date that the resource was last verified.
     $ref: "_definitions.yaml#/datetime"
   resource_reference:
-    description: how to cite this resource, DOI preferred
+    description: Enter reference details for citing the resource in a publication (# - preferred data).
     type: string
   resource_reference_link:
     description: URL to online information about how to cite the resource.
     type: string
   resource_use_agreement:
-    description: agreement for use of the resource, include a link or full text or both, don't paraphrase
+    description: If agreement terms for using the resource are given, copy the exact terms here (# - preferred data).
     type: string
   resource_use_agreement_link:
-    description: link to the agreement for use of the resource
+    description: URL to online information about requirements/conditions for using the resource.
     type: string
   publications:
-    description: list of publications describing the resources
+    description: A citation and related link to a resource publication (# - preferred data field)
     type: array
     items:
       type: string
   publication_links:
-    description: link for each publication (provisional, mike is testing using the publication node as a more proper approach)
+    description: Link to corresponding publication(s).
     type: array
     items:
       type: string
   is_static:
-    description: yes if the resource is static, no if the resource is expected to be updated in the future
+    description: Check yes if the data are static or no if the resource is expected to be updated in the future.
     type: boolean
 
 # props to be used by key datasets

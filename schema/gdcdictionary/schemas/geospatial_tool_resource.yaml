@@ -66,18 +66,23 @@ properties:
     description: Optional submitter comment
     type: string
   tool_type:
-    description: The type of tool
+    description: Type of tool.
+    type: array
+    items:
+      type: string
+  tool_type_other:
+    description: If "Other" is selected in the previous field, enter the tool type here.
     type: array
     items:
       type: string
   intended_use:
-    description: Suggested, intended, or applied uses for dataset in environmental health research. This is drawn from the example applications and review of documentation from the data providers on the intended uses.
+    description: Brief description of how the data can be used in research projects, could include references to good data uses.
     type: string
   is_open:
-    description: is the tool open source
+    description: Is the tool open source?
     type: boolean
   operating_system:
-    description: The operating system the tool runs on
+    description: Type of operating system on which the tool runs.
     type: array
     items:
       type: string
@@ -87,8 +92,13 @@ properties:
       #- Apple MacOS
       #- Linux
       #- Microsoft Windows
+  operating_system_other:
+    description: If "Other" is selected in previous field, enter the type of system on which the tool runs.
+    type: array
+    items:
+      type: string
   languages:
-    description: Programming language
+    description: List the programming languages in which the tools is written.
     type: array
     items:
       type: string
@@ -102,8 +112,13 @@ properties:
       #  - Fortran
       #  - Go
       #  - Other
+  languages_other:
+    description: If "Other" was selected in previous field, enter the programming languages in which the tool(s) is written.
+    type: array
+    items:
+      type: string
   license_type:
-      description: license for use of software
+      description: Type of license needed for use of software.
       type: array
       items:
         type: string
@@ -120,6 +135,11 @@ properties:
         #  - MPL
         #  - Proprietary
         #  - Public Domain
+  license_type_other:
+    description: If "Other" is selected in previous field, enter the type of license needed for use of software.
+    type: array
+    items:
+      type: string
   suggested_audience:
       description: suggested audience to use this tool
       type: array
