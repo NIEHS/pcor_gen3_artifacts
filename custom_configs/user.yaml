@@ -163,6 +163,7 @@ authz:
         - name: OSPO-AP-102924
         - name: OSPO-AP-110724
         - name: OneStop-092624
+        - name: NIAID-DEP-120124
   policies:
   - id: 'mds_admin'
     description: 'be able to use metadata service'
@@ -328,6 +329,7 @@ authz:
     - /programs/CHORDS/projects/OSPO-AP-102924
     - /programs/CHORDS/projects/OSPO-AP-110724
     - /programs/CHORDS/projects/OneStop-092624
+    - /programs/CHORDS/projects/NIAID-DEP-120124
 
   - id: all_programs_reader
     role_ids:
@@ -468,6 +470,7 @@ authz:
     - /programs/CHORDS/projects/OSPO-AP-102924
     - /programs/CHORDS/projects/OSPO-AP-110724
     - /programs/CHORDS/projects/OneStop-092624
+    - /programs/CHORDS/projects/NIAID-DEP-120124
 
   roles:
   - id: 'mds_user'

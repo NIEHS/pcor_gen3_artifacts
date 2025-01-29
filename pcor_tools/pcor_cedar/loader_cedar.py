@@ -39,7 +39,7 @@ class LoaderCedar(Loader):
         reader_factory = CedarParserFactory()
         self.reader = reader_factory.instance(cedar_version)
         self.pcor_reporter = PcorReporter(pcor_ingest_configuration)
-        self.preprocessor = CedarLoaderPreprocessor(pcor_ingest_configuration)
+        #self.preprocessor = CedarLoaderPreprocessor(pcor_ingest_configuration)
         self.validate_sub_folders(pcor_ingest_configuration.working_directory)
         #cedar_folder = pcor_ingest_configuration.working_folder + "/cedar"
         #os.mkdir(cedar_folder)
@@ -110,7 +110,7 @@ class LoaderCedar(Loader):
             self.reader.parse(f.name, result)
 
             # collapse other fields
-            self.preprocessor.process(result.model_data)
+            #self.preprocessor.process(result.model_data)
 
             if not result.success:
                 logger.warning("unsuccessful parsing, do not process")

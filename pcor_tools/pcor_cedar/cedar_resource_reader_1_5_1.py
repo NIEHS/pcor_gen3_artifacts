@@ -799,12 +799,3 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
                 key_dataset.use_example_metrics.append(item["@value"])
 
         return key_dataset
-
-
-
-
-
-
-
-
-

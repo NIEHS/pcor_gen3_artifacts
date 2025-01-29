@@ -149,21 +149,23 @@ properties:
   # additional properties to describe the project
   short_name:
     type: string
-    description: Short display name/brief description for the project.
-
+    description: Project name abbreviation or short name, unique ID.
 # no long name prop
 #  long_name:
 #    type: string
 #    description: Display name/brief description for the project. # TOREVIEW
-
   project_sponsor:
-    description: the name of an agency, institution, consortium, or other body that oversees the projects and resources.  For academic programs that center around a lab or individual use the department or consortium name.
+    description: The name of an agency, institution, consortium, or other body that oversees the projects and resources. For academic programs that center around a lab or individual use the department or consortium name.
     type: array
     items:
       type: string
-
+  project_sponsor_other:
+    description: If "Other" is selected in the previous field, type the project sponsor name.
+    type: array
+    items:
+      type: string
   project_sponsor_type:
-    description: Type of project. If multiple use Multiple
+    description: Type of sponsor organization.
     type: array
     items:
       type: string
@@ -172,18 +174,19 @@ properties:
     #  - State Agency
     #  - Academic Institution
     #  - Non-profit Organization
-
+  project_sponsor_type_other:
+    description: If "Other" is selected in the previous field, type of sponsor organization.
+    type: array
+    items:
+      type: string
   project_url:
-    description: URL for the project
+    description: Link to project website.
     type: string
-
   # currently not use
   #description:
   #  description: Description of the project
   #  type: string
-
   programs:
     $ref: "_definitions.yaml#/to_one"
     description: >
       The program to which the project belongs.
-      
