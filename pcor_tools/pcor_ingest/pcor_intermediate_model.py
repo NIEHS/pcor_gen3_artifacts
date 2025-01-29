@@ -414,7 +414,7 @@ class PcorKeyDatasetModel:
         self.spatial_bounding_box = []
         self.spatial_coverage = []
         self.spatial_coverage_other = []
-        self.spatial_resolution = ""
+        self.spatial_resolution = []
         self.spatial_resolution_other = []
         self.spatial_resolution_all_available = []
         self.spatial_resolution_all_other_available = []
