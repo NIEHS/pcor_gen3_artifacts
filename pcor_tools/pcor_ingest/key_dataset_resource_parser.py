@@ -89,6 +89,8 @@ class KeyDatasetResourceParser():
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
+            project.project_sponsor_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 5]))
+
             project.project_sponsor_type = PcorTemplateParser.make_array(
                 PcorTemplateParser.sanitize_column(df.iat[i, 6]))
 
@@ -98,7 +100,6 @@ class KeyDatasetResourceParser():
             result.model_data["project"] = project
 
             # Resource and Key Dataset
-
             resource = PcorIntermediateResourceModel()
             resource.resource_type = "Data Resource"
             key_data_resource = PcorKeyDatasetModel()
@@ -110,19 +111,18 @@ class KeyDatasetResourceParser():
             resource.long_name = resource.name
 
             # domain L (11)
-
             resource.domain = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 11])
 
             # resource summary H (7)
-
             resource.description = PcorTemplateParser.sanitize_column(df.iat[i, 7])
 
             # keywords N (13)
-
             resource.keywords = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 13])
 
-            # measures P (15)
+            # key variables (14)
+            resource.use_key_variables = PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 14])
 
+            # measures P (15)
             measures = PcorTemplateParser.make_complex_array(df.iat[i, 15])
             measures_rollup = self.pcor_measures_rollup.process_measures(measures)
             key_data_resource.measures = measures_rollup.measures
@@ -131,31 +131,34 @@ class KeyDatasetResourceParser():
             key_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
             # format Q (16)
-
             key_data_resource.data_formats = PcorTemplateParser.make_array(
                 PcorTemplateParser.sanitize_column(df.iat[i, 16]))
 
             # data access url (17)
-            key_data_resource.data_location = PcorTemplateParser.make_complex_array(df.iat[i, 17])
+            key_data_resource.data_link = PcorTemplateParser.make_complex_array(df.iat[i, 17])
 
             # publications (18) [try delimit by ;]
 
             resource.publications = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 18])
 
             # publication links (19)
-
             resource.publication_links = KeyDatasetResourceParser.make_complex_array_from_pubs(df.iat[i, 19])
 
-            # spatial extent (20)
-            key_data_resource.spatial_coverage = PcorTemplateParser.sanitize_column(df.iat[i, 20])
+            # spatial coverage (20)
+            key_data_resource.spatial_coverage =  PcorTemplateParser.make_array(
+                PcorTemplateParser.sanitize_column(df.iat[i, 20]))
 
             # geometry type (21)
-
             key_data_resource.geometry_type = \
                 PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 21]))
 
             # spatial resolution X (23)
             key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 23])
+
+            # spatial resolution other (24)
+            val = PcorTemplateParser.sanitize_column(df.iat[i, 24])
+            if val:
+                key_data_resource.spatial_resolution_other.append(val)
 
             # temporal extent begin AB (27)
             key_data_resource.time_extent_start_yyyy = PcorTemplateParser.format_date_time(df.iat[i, 27])
@@ -173,10 +176,10 @@ class KeyDatasetResourceParser():
             key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
             # strengths AJ (35)
-            resource.strengths = PcorTemplateParser.sanitize_column(df.iat[i, 35])
+            resource.strengths = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 35])
 
             # limitations AK (36)
-            resource.limitations = PcorTemplateParser.sanitize_column(df.iat[i, 36])
+            resource.limitations = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 36])
 
             # example apps AF (3L)
             resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])

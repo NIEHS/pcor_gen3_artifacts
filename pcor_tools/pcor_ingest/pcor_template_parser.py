@@ -382,6 +382,27 @@ class PcorTemplateParser:
         return result
 
     @staticmethod
+    def make_array_split_semicolon(value):
+        """
+        Just avoiding 'None' when parsing spreadsheet
+        Parameters
+        ----------
+        value string to split into array
+
+        Returns
+        -------
+
+        """
+        result = []
+        val = PcorTemplateParser.sanitize_column(value)
+        if val:
+            result = [item.strip() for item in val.split(';')]
+            result = list(filter(bool, result)) #clean up any null items
+
+        return result
+
+
+    @staticmethod
     def make_array_and_camel_case(value):
         """
         Just avoiding 'None' when parsing spreadsheet, also camel case the entries

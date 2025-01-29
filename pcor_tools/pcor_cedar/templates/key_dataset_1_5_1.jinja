@@ -256,12 +256,20 @@
       ]
     },
     "resource_short_name": {
-      "@value": null
+       "@value": "{{ resource.short_name }}"
     },
     "keywords": [
-      {
-        "@value": null
-      }
+      {%  if resource.keywords|length == 0 %}
+                { "@value": "" }
+            {%  else %}
+
+                {% for entry in resource.keywords %}
+                    {
+                        "@value": "{{ entry }}"
+                    }
+                    {{ "," if not loop.last }}
+                {% endfor %}
+            {% endif %}
     ],
     "resource_url": {
           {%  if resource.resource_url %}
@@ -434,10 +442,10 @@
             {% endif %}
     ],
     "time_extent_start": {
-      "@value": "{{ key_dataset.time_extent_start }}"
+      "@value": "{{ key_dataset.time_extent_start_yyyy }}"
     },
     "time_extent_end": {
-      "@value": "{{ key_dataset.time_extent_end }}"
+      "@value": "{{ key_dataset.time_extent_end_yyyy }}"
     },
     "temporal_resolution": {
       "@value": "{{ key_dataset.temporal_resolution }}"
