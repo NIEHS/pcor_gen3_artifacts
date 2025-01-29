@@ -56,7 +56,7 @@
      "@value": "{{  submission.curator_email }}"
     },
     "comment": {
-       "@value": "{{ submission.curator_comment }}"
+       "@value": "{{ submission.curation_comment }}"
     },
     "@id": "https://repo.metadatacenter.org/template-element-instances/e4467151-11a2-4e80-a39f-4c0a3e7d3edb"
   },
@@ -143,8 +143,7 @@
     ],
     "project_url": {
         "@id": "{{ project.project_url }}"
-    },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/fbba98ba-2983-416d-8336-f6a255c7ccd6"
+    }
   },
   "RESOURCE": {
     "@context": {
@@ -169,7 +168,7 @@
       "resource_version": "https://schema.metadatacenter.org/properties/ff394466-be17-43d0-8a96-0734a14c9fa2"
     },
     "resource_GUID": {
-       "@value": "{{ resource.id }}"
+      "@value": null
     },
     "resource_name": {
        "@value": "{{ resource.name }}"
@@ -228,8 +227,8 @@
         "publication_citation": "https://schema.metadatacenter.org/properties/ab995a4e-a162-4820-936f-7a5dfcba3cdb"
       },
       "publication_link": [
-         {%  if resource.publication_links|length == 0 %}
-                { "@value": null }
+            {%  if resource.publication_links|length == 0 %}
+                { "@id": "http://nolink" }
             {%  else %}
                  {% for entry in resource.publication_links %}
                             {
@@ -240,8 +239,8 @@
           {% endif %}
       ],
       "publication_citation": [
-        {%  if resource.publications|length == 0 %}
-                { "@value": null }
+            {%  if resource.publications|length == 0 %}
+                { "@value": "" }
             {%  else %}
 
                 {% for entry in resource.publications %}
@@ -306,10 +305,11 @@
       "resource_use_agreement": {
         "@value": "{{ resource.resource_use_agreement }}"
       },
-      "resource_use_agreement_link":   {%  if resource.resource_use_agreement_link == "" %}
+      "resource_use_agreement_link":
+            {%  if resource.resource_use_agreement_link == "" %}
                 {"@id": "http://nolink"},
             {% else %}
-                  {"@id": "{{ resource.resource_use_agreement_link }}",
+                  {"@id": "{{ resource.resource_use_agreement_link }}"},
             {%  endif %}
       "@id": "https://repo.metadatacenter.org/template-element-instances/76e2863d-a6e6-4283-8534-b384ce930fbc"
     },
@@ -370,8 +370,7 @@
     },
     "update_frequency_other": {
       "@value": "{{ geospatial_data_resource.update_frequency_other }}"
-    },
-    "@id": "https://repo.metadatacenter.org/template-element-instances/8f2af0d8-a7c0-4fe0-89b6-4940864d1c78"
+    }
   },
   "GEOEXPOSURE DATA": {
     "@context": {
@@ -401,7 +400,7 @@
       "temporal_resolution_other": "https://schema.metadatacenter.org/properties/23b44298-3dde-43fd-bafb-77d19121600a"
     },
     "measures": [
-      {%  if geospatial_data_resource.measures|length == 0 %}
+        {%  if geospatial_data_resource.measures|length == 0 %}
             { "@value": null }
         {%  else %}
            {% for entry in geospatial_data_resource.measures %}
@@ -443,7 +442,7 @@
       "@value": "{{ geospatial_data_resource.time_extent_end_yyyy }}"
     },
     "temporal_resolution": [
-      {%  if geospatial_data_resource.temporal_resolution|length == 0 %}
+        {%  if geospatial_data_resource.temporal_resolution|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.temporal_resolution %}
@@ -479,7 +478,7 @@
         {% endif %}
     ],
     "spatial_coverage": [
-      {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
+        {%  if geospatial_data_resource.spatial_coverage|length == 0 %}
             { "@value": null }
         {%  else %}
           {% for entry in geospatial_data_resource.spatial_coverage %}
@@ -576,7 +575,7 @@
     ],
     "data_formats": [
       {%  if geospatial_data_resource.data_formats|length == 0 %}
-        { "@value": null }
+          { "@value": null }
      {%  else %}
           {% for entry in geospatial_data_resource.data_formats %}
             {
@@ -630,7 +629,7 @@
               {% endfor %}
         {% endif %}
       ],
-      "b": [
+      "data_location_text": [
          {%  if geospatial_data_resource.data_location|length == 0 %}
             { "@value": null }
         {%  else %}
