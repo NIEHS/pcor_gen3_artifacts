@@ -68,7 +68,7 @@ class CedarMigrate():
         json string with the new resource
         """
         logger.info('reformat_json()')
-        if model_data["geospatial_data_resource"]:
+        if model_data["key_data"]:
             logger.info("migrating a geospatial_data_resource")
         else:
             raise Exception("not geospatial_data_resource, resource not supported")

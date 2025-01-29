@@ -289,7 +289,6 @@ class PcorPopDataResourceModel:
         self.update_frequency_other = ""
 
         # additional properties to describe the dataset
-        # FixMe: remove unused props
         self.biospecimens = False
         self.biospecimens_type = []
         self.created_datetime = ""
@@ -415,7 +414,7 @@ class PcorKeyDatasetModel:
         self.spatial_bounding_box = []
         self.spatial_coverage = []
         self.spatial_coverage_other = []
-        self.spatial_resolution = [] # string in model converted in array to normalize
+        self.spatial_resolution = ""
         self.spatial_resolution_other = []
         self.spatial_resolution_all_available = []
         self.spatial_resolution_all_other_available = []

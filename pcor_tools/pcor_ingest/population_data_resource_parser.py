@@ -73,7 +73,9 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'source_name':
                         pop_resource.source_name = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'update_frequency':
-                        pop_resource.update_frequency = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.update_frequency.append(val)
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
@@ -110,12 +112,17 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'temporal_resolution':
                         pop_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'spatial_resolution':
-                        pop_resource.spatial_resolution = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    #elif template_df.iat[j, 0] == 'spatial_resolution_other': FIXME: decide how to handle other
-                    #    temp_spatial_resolution_other = PcorTemplateParser.camel_case_it(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    #    pop_resource.spatial_resolution = PcorTemplateParser.combine_prop(pop_resource.spatial_resolution, temp_spatial_resolution_other)
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(val))
+                    elif template_df.iat[j, 0] == 'spatial_resolution_other':
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.spatial_resolution_other.append(PcorTemplateParser.camel_case_it(val))
                     elif template_df.iat[j, 0] == 'spatial_coverage':
-                        pop_resource.spatial_coverage = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.spatial_coverage.append(val)
                     elif template_df.iat[j, 0] == 'spatial_coverage_specific_regions':
                         pop_resource.spatial_coverage_specific_regions = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(
                             template_df.iat[j, 1]))

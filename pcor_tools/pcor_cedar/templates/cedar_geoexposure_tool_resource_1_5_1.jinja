@@ -142,7 +142,7 @@
          "@id": "{{ project.project_url }}"
     }
   },
-  "TOOL RESOURCE": {
+   "TOOL RESOURCE": {
     "@context": {
       "tool_type": "https://schema.metadatacenter.org/properties/9402d51a-e4ae-442a-addd-55d9dfe51484",
       "operating_system": "https://schema.metadatacenter.org/properties/9194d801-345d-4787-a28d-608526784914",
@@ -271,7 +271,7 @@
         {% endif %}
     ]
   },
-  "RESOURCE": {
+   "RESOURCE": {
     "@context": {
       "resource_GUID": "https://schema.metadatacenter.org/properties/395d7b78-7df4-4f87-bf2d-ed737ea0a163",
       "resource_name": "https://schema.metadatacenter.org/properties/30180920-c9cd-4184-b862-517fbf0a6448",
@@ -406,36 +406,47 @@
       "@value": "{{ resource.is_static }}"
     },
     "Resource Reference_150": {
-      "@context": {
-        "resource_reference": "https://schema.metadatacenter.org/properties/708239b8-c6d7-4100-947e-27389304d5fc",
-        "resource_reference_link": "https://schema.metadatacenter.org/properties/1803de62-237c-4d4a-9df7-ba81c0f59326"
-      },
-      "resource_reference": {
-         "@value": "{{  resource.resource_reference }}"
-      },
-      "resource_reference_link": {
-          {%  if resource.resource_reference_link == "" %}
-                "@id": "http://nolink"
-            {% else %}
-                  "@id": "{{ resource.resource_reference_link }}"
-            {%  endif %}
+          "@context": {
+            "resource_reference": "https://schema.metadatacenter.org/properties/708239b8-c6d7-4100-947e-27389304d5fc",
+            "resource_reference_link": "https://schema.metadatacenter.org/properties/1803de62-237c-4d4a-9df7-ba81c0f59326"
+          },
+          "resource_reference": {
+             "@value": "{{  resource.resource_reference }}"
+          },
+          "resource_reference_link": {
+              {%  if resource.resource_reference_link == "" %}
+                    "@id": "http://nolink"
+                {% else %}
+                      "@id": "{{ resource.resource_reference_link }}"
+                {%  endif %}
+            }
      },
     "Resource Use Agreement_150": {
-      "@context": {
-        "resource_use_agreement": "https://schema.metadatacenter.org/properties/f62f7609-8ed8-44ca-9536-25d4d58d048c",
-        "resource_use_agreement_link": "https://schema.metadatacenter.org/properties/176d9215-4b01-437d-9520-84a348ff0056"
-      },
-      "resource_use_agreement": {
-        "@value": "{{ resource.resource_use_agreement }}"
-      },
-      "resource_use_agreement_link": {%  if resource.resource_use_agreement_link == "" %}
-                {"@id": "http://nolink"},
-            {% else %}
-                  {"@id": "{{ resource.resource_use_agreement_link }}",
-            {%  endif %}
+          "@context": {
+            "resource_use_agreement": "https://schema.metadatacenter.org/properties/f62f7609-8ed8-44ca-9536-25d4d58d048c",
+            "resource_use_agreement_link": "https://schema.metadatacenter.org/properties/176d9215-4b01-437d-9520-84a348ff0056"
+          },
+          "resource_use_agreement": {
+            "@value": "{{ resource.resource_use_agreement }}"
+          },
+          "resource_use_agreement_link":
+                {%  if resource.resource_use_agreement_link == "" %}
+                    {"@id": "http://nolink"}
+                {% else %}
+                      {"@id": "{{ resource.resource_use_agreement_link }}"}
+                {%  endif %}
     },
     "resource_version": {
         "@value": "{{ resource.resource_version }}"
     }
-  }
+  },
+  "schema:isBasedOn": "https://repo.metadatacenter.org/templates/7cd2ba54-929c-4b46-8c3e-6037588acf22",
+  "schema:name": "GeoExposure_Tool_1.5.1_Template metadata",
+  "schema:description": "migration of spreadsheet into CEDAR geo tool",
+  "pav:createdOn": "2025-01-07T08:36:12-08:00",
+  "pav:createdBy": "https://metadatacenter.org/users/a76d649e-812a-4da2-8323-cb569b2346c1",
+  "pav:lastUpdatedOn": "2025-01-07T08:36:12-08:00",
+  "oslc:modifiedBy": "https://metadatacenter.org/users/a76d649e-812a-4da2-8323-cb569b2346c1",
+  "@id": null
 }
+

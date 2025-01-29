@@ -1,6 +1,6 @@
 global:
   hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/44-migration-for-1_4_1-spreadsheets-into-cedar/custom_configs/schema.json
 
 
 sower:
