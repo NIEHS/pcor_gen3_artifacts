@@ -3,7 +3,7 @@ import unittest
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
-from pcor_cedar.spreadsheet_to_cedar_migrate import CedarMigrate
+from pcor_cedar.spreadsheet_to_cedar_migrate import SpreadsheetCedarMigrate
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
@@ -16,7 +16,7 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         target_file = 'test_resources/GeoExposure_1.5.0 Center for Air, Climate, and Energy Solutions.xlsm'
         cedar_configuration = CedarConfig()
-        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        cedar_migrate = SpreadsheetCedarMigrate(cedar_configuration, pcor_ingest_configuration)
         result = cedar_migrate.read_migrate_target(target_file)
 
         self.assertTrue(result.success)
@@ -25,7 +25,7 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         target_file = 'test_resources/GeoExposure_1.5.0 Center for Air, Climate, and Energy Solutions.xlsm'
         cedar_configuration = CedarConfig()
-        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        cedar_migrate = SpreadsheetCedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
 
@@ -33,7 +33,7 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         target_file = 'test_resources/PopulationData_1.5.0 Health Care Cost Institute-2.xlsm'
         cedar_configuration = CedarConfig()
-        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        cedar_migrate = SpreadsheetCedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
 
@@ -41,7 +41,7 @@ class TestSpreadsheetToCedarMigrate(unittest.TestCase):
         pcor_ingest_configuration = pcor_testing_utilities.get_pcor_ingest_configuration()
         target_file = 'test_resources/GeoExposureTool_1.5.0_EPA_Community_Multiscale_Air_Quality-CMAQ.xlsm'
         cedar_configuration = CedarConfig()
-        cedar_migrate = CedarMigrate(cedar_configuration, pcor_ingest_configuration)
+        cedar_migrate = SpreadsheetCedarMigrate(cedar_configuration, pcor_ingest_configuration)
         name = cedar_migrate.migrate(target_file)
         self.assertIsNotNone(name)
 

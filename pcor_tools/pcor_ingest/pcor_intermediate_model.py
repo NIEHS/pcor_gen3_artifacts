@@ -45,6 +45,7 @@ class PcorSubmissionInfoModel:
 
         # FixMe: remove unused props
         self.submit_final_location = ""
+        self.project_code = ""
 
 
 class PcorIntermediateProjectModel:

@@ -4,6 +4,7 @@ import warnings
 import pandas as pd
 from pcor_ingest.pcor_intermediate_model import PcorPopDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
+import validators
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -142,7 +143,13 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.data_formats = PcorTemplateParser.make_array_and_camel_case(
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':
-                        pop_resource.data_location = PcorTemplateParser.make_array(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        locations = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        for entry in locations:
+                            if validators.url(entry):
+                                pop_resource.data_link.append(entry)
+                                pop_resource.data_location_text.append("")
+                            else:
+                                pop_resource.data_location_text.append(entry)
+                                pop_resource.data_link.append("http://nolink")
 
         return pop_resource

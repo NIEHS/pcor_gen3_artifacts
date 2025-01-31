@@ -153,6 +153,8 @@ class PcorTemplateParser:
                         submission.curator_email = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'comment':
                         submission.curation_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'ProjectCode':
+                        submission.project_code = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'Program':
                         # validate needed props
                         return submission
@@ -276,8 +278,9 @@ class PcorTemplateParser:
                             resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                            if validators.url(resource.resource_use_agreement ):
+                            if validators.url(resource.resource_use_agreement):
                                 resource.resource_use_agreement_link = resource.resource_use_agreement
+                                resource.resource_use_agreement = ""
                             else:
                                 resource.resource_use_agreement_link = "http://nolink"
                         elif field_name == 'publications':
@@ -295,10 +298,11 @@ class PcorTemplateParser:
                             pub_links = []
 
                             for pub in resource.publications:
-                                pub_refs.append(pub)
                                 if validators.url(pub):
+                                    pub_refs.append("")
                                     pub_links.append(pub)
                                 else:
+                                    pub_refs.append(pub)
                                     pub_links.append("http://nolink")
 
                             resource.publications = pub_refs

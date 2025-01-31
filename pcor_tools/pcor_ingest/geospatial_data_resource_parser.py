@@ -124,12 +124,13 @@ class GeoSpatialDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'data_formats':
                         geo_resource.data_formats = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':
-                        geo_resource.data_location = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
-
-        for entry in geo_resource.data_location:
-            if validators.url(entry):
-                geo_resource.data_link.append(entry)
-            else:
-                geo_resource.data_link.append("http://nolink")
+                        locations = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        for entry in locations:
+                            if validators.url(entry):
+                                geo_resource.data_link.append(entry)
+                                geo_resource.data_location_text.append("")
+                            else:
+                                geo_resource.data_location_text.append(entry)
+                                geo_resource.data_link.append("http://nolink")
 
         return geo_resource
