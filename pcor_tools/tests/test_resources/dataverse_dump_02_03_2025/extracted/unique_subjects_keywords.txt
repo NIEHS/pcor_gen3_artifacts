@@ -1,0 +1,773 @@
+Unique Subjects:
+Computer and Information Science
+Earth and Environmental Sciences
+Engineering
+Mathematical Sciences
+Medicine, Health and Life Sciences
+Social Sciences
+
+Unique Keywords:
+AIDS
+Agency for Healthcare Research and Quality
+Air Pollution
+Anal Cancer
+Anthropogenic Emissions
+Applied Research
+BMI
+BRFSS
+Behavioral Risk Factor Surveillance System
+Black Carbon
+Bladder Cancer
+Bladder cancer
+Body Mass Index
+Bone cancer
+Brain Cancer
+Breast Cancer
+Bronchial cancer
+Bureau of Labor Statistics
+CDC
+CHIP
+CHIP eligibility
+COPD
+CPONDER
+Cancer
+Cancer statistics
+Carbon Dioxide (CO2)
+Carbon Monoxide (CO)
+Causal Inference
+Census Tract
+Centers for Disease Control and Prevention
+Cervical Cancer
+Cervix Uteri Cancer
+Children's Health Insurance Program
+Children's Medicaid eligibility
+Climate
+Climate Change
+Climate Change and Socioeconomic Scenarios
+Climate Equity
+Climate Indicator
+Climate Justice
+Climate Migration
+Climate Risk
+Climate Types
+Climate and Health Epidemiology
+Coal Workers’ pneumoconiosis
+Colon Cancer
+Compound Event
+Contiguous United States
+Corpus and Uterus
+Cumulative Risk
+Data 2010
+Death
+Death Certificate
+Death Index
+Department of Health and Human Services
+ED
+ED care
+ED cost
+ED diagnosis
+ED discharge
+ED payment source
+ER
+ER care
+ER cost
+ER diagnosis
+ER discharge
+ER payment
+ER payment source
+ER procedures
+Emergency Department
+Emergency department cost
+Emergency room
+Endocrine cancer
+Energy, CO2, solar, renewables, non-renewables, emissions
+Environment
+Environmental Contexts
+Environmental Health
+Environmental Justice
+Esophagial Cancer
+Exposure
+Exposure Assessment
+Exposure, Pollution, PM2.5
+Extreme Cold Events
+Extreme Heat Events
+Extreme Temperatures
+Eye cancer
+Flood, zipcode
+Greenhouse Gas
+HCUP
+HCUP net
+HCUPnet
+HHS
+HIV
+HIV test
+HIV/ AIDS policies
+HIVnet
+HMO
+Health Disparity
+Healthcare Cost and Utilization Project
+Healthcare cost
+Healthy People 2010
+Hispanic
+Hispanic origin
+Hodgkin lymphoma
+Hospital
+Hospital discharge
+Infrastructure
+Inpatient
+Inpatient care
+Interactive Tool for Hospital Statistics
+Joint Cancer
+Kaiser Family Foundation
+Kidney Cancer
+Kids' Inpatient Database
+Larynx Cancer
+Leukemia
+Linked Birth and Infant Death Dataset
+Liver Cancer
+Lung cancer
+Lymphoma
+MEPS
+MMWR Morbidity Tables
+MMWR Mortality Tables
+Matched Multiple Birth Dataset
+Medicaid
+Medicaid births
+Medicaid budget
+Medicaid enrollment
+Medicaid managed care
+Medicaid medically needy
+Medicaid physician's fees
+Medical Expenditure Panel Survey
+Medicare
+Medicare Advantage
+Medicare Claims Data
+Medicare access to services
+Medicare enrollment
+Medicare hospital payments
+Medicare population demographics
+Medicare prescription drugs
+Medicare service use
+Meteorological Factor
+Models, Statistical
+Mortality Rate
+Myeloma
+NDVI
+NIOSH
+NIS
+National Cancer Institute
+National Center for Health Statistics
+National Center for Health statistics
+National Center of Health Statistics
+National Death Index
+National Institute for Child Health and Human Development
+National Institute for Occupational Safety and Health
+National Longitudinal Survey of Young Men and Older Men
+National Longitudinal Survey of Young Women and Mature Women
+National Longitudinal Survey of Youth, 1979
+National Longitudinal Survey of Youth, 1997
+National Maternal and Infant Health Survey
+National Mortality Followback Survey
+National Survey of Family Growth
+Nationwide Emergency Department Sample
+Nationwide Inpatient Sample
+Nervous System Cancer
+Normalized Difference Vegetation Index
+Oral Cancer
+Ovarian Cancer
+Ozone (O3)
+PRAMS
+Pancreatic cancer
+Particulate Matter
+Patient's Rights
+Pharynx cancer
+Preconception
+Pregnancy Risk Assessment Monitoring System
+Prostate cancer
+Questionnaire
+Rectal Cancer
+Renal Cancer
+SEER
+SES
+SIDS
+SSI benficiaries
+STD
+STI
+Sexually Transmitted Disease
+Smoke
+Smoke, PM2.5, standardized weight
+Social Security Income beneficiaries
+Social Vulnerability Index
+Socio-Economic Variables
+Sociodemographic Vulnerability
+Special Supplemental Nutrition Program for Women, Infants and Children
+State Ambulatory Surgery Databases
+State Emergency Department Databases
+State Inpatient Databases
+Statistics Canada
+Surveillance Epidemiology and End Results
+Survey instrument
+Synthetic data
+TB
+The Urban Institute
+Tongue Cancer
+US Department of Labor
+Urban
+Uterine Cancer
+VitalStats
+Vulnerability
+WHO
+WIC
+Weather
+Wildfire
+Wildfires
+World Health Organization
+YPLL
+YRBSS
+Years of Potential Life Lost
+Youth Risk Behaviors Surveillance System
+abortion
+access to care
+access to health care
+accidents
+acculturation
+acquired immunodeficiency syndrome
+activities of daily living
+activity limitation
+adolescent
+adult immunizations
+adult obesity/ overweight rate
+adult well-being
+adults
+age
+air pollution
+air pollution data
+air quality
+alcohol
+alcohol consumption
+alcohol use
+ambulatory services
+anemia
+antenatal care
+arrests
+arthritis
+asbestosis
+assets
+asthma
+attitudes
+attitudes towards pregnancy
+barriers to care
+binge drinking
+birth
+birth defects
+birth outcomes
+birth rate
+birth weight
+births
+blood pressure
+brain cancer
+breast cancer
+breastfeeding
+bronchiectasis
+bronchitis
+built environment
+byssinosis
+cancer
+cancer incidence
+cancer mortality
+car
+cardiovascular
+cardiovascular disease
+care access
+care outcomes
+care quality
+care utilization
+cause of death
+census zcta
+cerebrovascular disease
+cervical cancer
+cesarean birth
+characteristics of job
+characteristics of mother
+charges
+chemical fumes
+child
+child care
+child death rate
+child development
+child overweight rate
+child support
+child welfare
+child well-being
+childbearing
+childbirth
+childbirth class
+childcare
+childhood immunizations
+childhood obesity
+children
+children discharges
+children hospital discharges
+children hospital patients
+children inpatient care
+children inpatient cost
+children's health
+cholesterol awareness
+chronic bronchitis
+chronic condition
+chronic disease indicators
+chronic obstructive pulmonary disease
+cigarette smoking
+citizenship status
+civic engagement
+clinical information
+cognition
+college
+colorectal cancer screening
+community based services
+comorbidities
+contraception
+contraceptives
+cost of care
+cost of living
+crime
+criminal activities
+data science
+dating violence
+death
+death rate
+death record
+decision making
+decision making processes
+delivery
+delivery payment method
+demographic data
+demographics
+dental health
+dental visits
+dentist
+dentists
+depression
+dermatology
+diabetes
+diagnosis
+diet
+dietary behaviors
+disabilities
+disability
+discharge
+disordered eating
+distribution
+divorce
+doctor visits
+drinking and driving
+drug use
+drugs
+drunk driving
+dual eligible enrollment
+dual eligibles
+eating disorders
+economy
+education
+educational aspirations
+emergency care
+emergency contraception
+emergency department
+emergency department cost
+emergency discharge
+emergency room care
+emergency room cost
+emergency room diagnosis
+emergency room payers
+emergency room payment source
+emergency room procedures
+emphysema
+employer based health premiums
+employer benefits
+employer coverage
+employment
+employment status
+enrollment practices for children
+environment
+environmental health
+environmental justice
+ethnicity
+exercise
+exposure assessment
+exposures
+eye diseases
+false claims act
+family background
+family well-being
+fatal injury
+federal aid
+fertility
+fertility rate
+fire
+firearms
+folic acid
+food behavior
+food programs
+food security
+food stamps
+for your health
+friendship
+fruit and vegetable
+fruit and vegetable consumption
+full time job
+funding opportunities
+future expectations
+gender
+general diet
+general health
+geoboundaries
+gestation
+gestational diabetes
+government assistance
+greenness
+greenspace
+gross state product
+growth chart
+gun
+guns
+health
+health access
+health attitudes
+health behaviors
+health care
+health care access
+health care coverage
+health care employment
+health care utilization
+health charges
+health conditions
+health cost
+health disparities
+health expenditures
+health insurance
+health insurance status
+health policy
+health professional shortage areas
+health promotion
+health related behaviors
+health services utilization
+health status
+health-care access
+health-care charges
+health-care outcomes
+health-care quality
+health-care utilization
+healthcare
+healthy eating
+healthy living
+hearing problems
+heart disease
+height
+helmet
+high risk pools
+hispanic origin
+homicide
+hospital
+hospital admission
+hospital care
+hospital characteristics
+hospital cost
+hospital discharge
+hospital discharges
+hospital inpatient expenses
+hospital length of stay
+hospital procedures
+hospital stay
+hospital stays
+hospitals
+hours per week worked
+household
+household composition
+household crowding
+household income
+human immunodeficiency virus
+hypersensitivity pneumonitis
+hypertension awareness
+illegal drugs
+illnesses
+immunization
+immunizations
+incarceration rate
+income
+income security
+individual insurance markets
+industry
+infant
+infant death
+infant health care
+infant healthcare
+infant illness
+infant morbidity
+infant mortality
+infant mortality rate
+infectious diseases
+influenza
+information access
+inheritable health conditions
+injury
+inmates
+inpatient
+inpatient care
+inpatient cost
+inpatient discharge
+insurance
+intent
+interstitial pulmonary diseases
+interventions for children
+intestinal cancer
+job satisfaction
+job search
+job training
+kidney cancer
+kidney disease
+length of hospital stay
+length of stay
+leukemia
+lifestyle
+limitations of activities
+linked birth/ infant death
+live birth
+live births
+liver cancer
+living arrangements
+local food systems
+low birth weight
+low-cost sensors
+low-income families
+lung cancer
+malignant mesothelioma
+malignant neoplasm
+mammography
+managed care
+marijuana
+marital history
+marriage
+matched multiples
+maternal
+maternal alcohol consumption
+maternal morbidity
+maternal tobacco use
+mechanism
+medicaid
+medicaid spending
+medical errors
+medical malpractice
+medical practice patterns
+medical procedure
+medical school graduates
+medicare
+medicare drug benefit
+medicare spending
+medication
+melanoma
+mental health
+mental health agency expenditures
+mental health coverage
+mental health professionals
+method of delivery
+metropolitan distribution
+military
+minority health
+morbidity
+mortality
+mortality rate
+motor vehicle
+motor vehicle deaths
+mouth cancer
+multiple births
+multiples
+multivitamin use
+mutiple birth
+mycobacterial infections
+natality
+national
+neighborhood
+non-hodgkin lymphoma
+non-physician providers
+non-teaching hospital
+nonelderly uninsured
+nonfatal injury
+nursing homes
+nutrition
+obesity
+occupation
+occupational fatalities
+occupational health
+optical cancer
+oral health
+osteoporosis
+ovarian cancer
+overtime
+overweight
+pap smear
+parent adolescent communication
+parental education
+parental employment
+parenting
+part time employment
+partnership building
+patient demographics
+patient safety
+patient satisfaction
+payment source
+pediatric hospital costs
+pediatric hospital discharges
+pediatric hospital patients
+pediatric patients
+peer networks
+perinatal mortality
+physical abuse
+physical activity
+physical inactivity
+physicians
+place of care
+pleural plaque
+pneumoconiosis
+pneumonia
+political participation
+population
+postal zipcode
+poverty
+poverty rate
+pregnancy
+pregnancy associated hypertension
+pregnancy complications
+pregnancy health related issues
+pregnancy history
+pregnancy intention
+pregnancy recognition
+pregnancy related morbidity
+premature mortality
+prenatal care
+prescription drugs
+prescription medicine
+preterm birth
+preterm births
+prevalence
+prevention
+preventive health
+primary payer
+private health insurance
+private insurance
+private sector coverage
+procedure
+program participation
+prostate cancer
+public assistance
+pulmonary conditions
+pulmonary tuberculosis
+quadruplets
+quality
+quality of care
+race
+region
+relationships
+renewal practices for children
+research findings
+residence
+respiratory conditions
+respiratory tuberculosis
+risk behaviors
+risk factor
+risk factors
+risky sexual behaviors
+rural
+rural health clinics
+rural hospital
+school
+school policies
+school violence
+schools
+seatbelt use
+self esteem
+self rated health
+self-pay
+sex
+sexual behaviors
+sexual experience
+sexual intercourse
+sexual partnerships
+sexual practices
+sexually transmitted disease
+sexually transmitted infections
+shift work
+silicosis
+simulations
+single service plan
+skin cancer
+sleep behaviors
+small group market
+smoke exposure
+smoking
+smoking during pregnancy
+social programs
+social services
+social support
+socioeconomic status
+spatial confounding, semi-synthetic data, neural networks
+specific populations
+state
+state budgets
+state fiscal distress
+stem cell research
+stillborn
+stomach cancer
+student attitudes
+substance use
+sudden infant death syndrome
+suicide
+suicide attempts
+suicide deaths
+sun exposure
+surveys
+taxes
+teaching hospital
+teen
+teen death rate
+testicular cancer
+thyroid cancer
+tobacco
+tobacco settlement funds
+tobacco use
+training programs
+transition to adulthood
+trauma
+treatment outcomes
+triplets
+trying to lose weight
+tuberculosis
+twin
+twins
+underlying cause of death
+unemployment
+unemployment rate
+uninsured
+unintended pregnancy
+urban
+urban hospital
+urbanization, pollution, pollution mitigation, Integrated Assessment Models
+vaccine
+vaccines
+vaginal birth
+validation
+vapors
+victims
+violence
+violent crime
+vital statistics
+vulva cancer
+weight
+weight gain
+welfare
+well baby care
+wildfires
+women's health
+work absences
+young adult
+youth
+youth history

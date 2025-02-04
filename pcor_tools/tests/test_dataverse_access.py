@@ -43,9 +43,14 @@ class TestDataverseAccess(unittest.TestCase):
             persistent_id = doi
             dataset_metadata = dataverse_access.get_dataset_metadata_by_persistent_id(persistent_id)
             temp_dataset_id = dataset_metadata['data']['datasetId']
+            title = dataset_metadata['data']['metadataBlocks']['citation']['fields'][0]['value']
+            if title is None:
+                filename = temp_dataset_id
+            else:
+                filename = title.replace(' ', '_').replace('/', '_').replace(':', '_').replace(',', '_').replace('.', '_')
             logger.info('Dataset Metadata: %s', dataset_metadata)
 
-            with open(f'test_resources/dataverse_dump/{temp_dataset_id}.json', 'w') as f:
+            with open(f'test_resources/dataverse_dump_02_03_2025/{filename}.json', 'w') as f:
                 json.dump(dataset_metadata, f, indent=4)
 
         self.assertIsNotNone(doi_list)
