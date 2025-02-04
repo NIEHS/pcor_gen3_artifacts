@@ -387,6 +387,12 @@
                 },
                 {
                   "type": "text",
+                  "label": "Domain Other",
+                  "sourceField": "domain_other",
+                  "default": "n/a"
+                },
+                {
+                  "type": "text",
                   "label": "Has API",
                   "sourceField": "has_api",
                   "default": "n/a"
@@ -441,20 +447,38 @@
                 },
                 {
                   "type": "text",
-                  "label": "Spatial Resolution",
-                  "sourceField": "spatial_resolution",
-                  "default": ""
-                },
-                {
-                  "type": "text",
                   "label": "Temporal Resolution",
                   "sourceField": "temporal_resolution",
                   "default": ""
                 },
                 {
                   "type": "text",
+                  "label": "Temporal Resolution Other",
+                  "sourceField": "temporal_resolution_other",
+                  "default": ""
+                },
+                {
+                  "type": "text",
+                  "label": "Spatial Resolution",
+                  "sourceField": "spatial_resolution",
+                  "default": ""
+                },
+                {
+                  "type": "text",
+                  "label": "Spatial Resolution Other",
+                  "sourceField": "spatial_resolution_other",
+                  "default": ""
+                },
+                {
+                  "type": "text",
                   "label": "Spatial Coverage",
                   "sourceField": "spatial_coverage",
+                  "default": ""
+                },
+                {
+                  "type": "text",
+                  "label": "Spatial Coverage Other",
+                  "sourceField": "spatial_coverage_other",
                   "default": ""
                 },
                 {

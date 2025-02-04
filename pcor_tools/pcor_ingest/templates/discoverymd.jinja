@@ -34,6 +34,7 @@
   "resource_url": "{{ discovery.resource_url }}",
   "type": "{{ discovery.type }}",
   "domain": "{{ discovery.domain }}",
+  "domain_other": "{{ discovery.domain_other }}",
   "publications": "{{ discovery.publications }}",
   "publications_1": "{{ discovery.publications_1 }}",
   "publications_2": "{{ discovery.publications_2 }}",
@@ -60,7 +61,11 @@
   {% if discovery.type != "GeoExposureTool"  %}
   "data_formats": "{{ discovery.data_formats }}",
   "spatial_coverage": "{{ discovery.spatial_coverage }}",
+  "spatial_coverage_other": "{{ discovery.spatial_coverage_other }}",
   "spatial_resolution": "{{ discovery.spatial_resolution }}",
+  "spatial_resolution_other": "{{ discovery.spatial_resolution_other }}",
+  "temporal_resolution": "{{ discovery.temporal_resolution }}",
+  "temporal_resolution_other": "{{ discovery.temporal_resolution_other }}",
   "geometry_type": "{{ discovery.geometry_type }}",
   {% endif %}
   {% if discovery.type == "GeoExposureTool"  %}
@@ -72,9 +77,6 @@
   {% endif %}
   {% if discovery.time_extent_end_yyyy %}
       "time_extent_end_yyyy": {{ discovery.time_extent_end_yyyy }},
-  {% endif %}
-  {% if discovery.temporal_resolution %}
-      "temporal_resolution": "{{ discovery.temporal_resolution }}",
   {% endif %}
   "time_available_comment": "{{ discovery.time_available_comment }}",
   "measures": "{{ discovery.measures }}",

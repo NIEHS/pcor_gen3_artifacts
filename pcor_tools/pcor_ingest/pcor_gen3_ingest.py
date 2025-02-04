@@ -203,6 +203,8 @@ class PcorGen3Ingest:
             discovery.tags.append(tag)
 
         discovery.domain = ', '.join(resource.domain)
+        if hasattr(resource, 'domain_other'):
+            discovery.domain_other = data_resource.domain_other
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
 
@@ -264,8 +266,12 @@ class PcorGen3Ingest:
                             search_filter.key = "Spatial Resolution"
                             search_filter.value = item
                             discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'spatial_resolution_other'):
+                discovery.spatial_resolution_other = ', '.join(data_resource.spatial_resolution_other) if data_resource.spatial_resolution_other else None
             if hasattr(data_resource, 'spatial_coverage'):
                 discovery.spatial_coverage = ', '.join(data_resource.spatial_coverage) if data_resource.spatial_coverage else None
+            if hasattr(data_resource, 'spatial_coverage_other'):
+                discovery.spatial_coverage_other = ', '.join(data_resource.spatial_coverage_other) if data_resource.spatial_coverage_other else None
             if hasattr(data_resource, 'temporal_resolution'):
                 discovery.temporal_resolution = ', '.join(data_resource.temporal_resolution) if data_resource.temporal_resolution else None
                 for item in data_resource.temporal_resolution:
@@ -275,6 +281,8 @@ class PcorGen3Ingest:
                             search_filter.key = "Temporal Resolution"
                             search_filter.value = item
                             discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'temporal_resolution_other'):
+                discovery.temporal_resolution_other = ', '.join(data_resource.temporal_resolution_other) if data_resource.temporal_resolution_other else None
             if hasattr(data_resource, 'geometry_type'):
                 discovery.geometry_type = ', '.join(data_resource.geometry_type) if data_resource.geometry_type else None
                 for item in data_resource.geometry_type:
