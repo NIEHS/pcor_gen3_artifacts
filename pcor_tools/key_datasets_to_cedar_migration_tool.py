@@ -1,12 +1,12 @@
 """
-Tool to migrate spreadsheet format into CEDAR (for indiv types, not key dataset)
+Tool to migrate the key datasets spreadsheet format into CEDAR
 
 Requites an env variable "CEDAR_PROPERTIES" to be set. see ./tests/test_resources/cedar_config_file.properties
 The env variable would be the absolute path to the location of that properties file
 
 run parameters
 
--i - absolute path to the spreadsheet
+-i - absolute path to the key datasets spreadsheet
 -t - target version, e.g. 1_5_1
 
 """
@@ -20,7 +20,6 @@ from optparse import OptionParser
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
 from pcor_cedar.migration import CedarMigrate
 from pcor_cedar.migration_key_dataset import CedarMigrateKeyDataset
-from pcor_cedar.spreadsheet_to_cedar_migrate import SpreadsheetCedarMigrate
 from pcor_ingest.ingest_context import PcorIngestConfiguration
 from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
@@ -74,8 +73,12 @@ def main():
     pcor_ingest_configuration = PcorIngestConfiguration(os.environ.get("PCOR_GEN3_CONFIG_LOCATION"))
     cedar_config = CedarConfig()
 
-    migrator = SpreadsheetCedarMigrate(cedar_config, pcor_ingest_configuration)
+    migrator = CedarMigrateKeyDataset(cedar_config, pcor_ingest_configuration)
     results = migrator.migrate(input_file, target_version)
+
+    for result in results:
+        if not result.success:
+            print("errors occurred, please consult log")
 
 if __name__ == "__main__":
     main()
