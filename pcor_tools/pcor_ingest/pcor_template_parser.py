@@ -8,6 +8,7 @@ import warnings
 import pandas as pd
 from datetime import datetime
 import validators
+from array import array
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
@@ -194,6 +195,7 @@ class PcorTemplateParser:
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     # FixMe: do not collapse 'other' into the main prop
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
+
                         project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         #project.project_sponsor = PcorTemplateParser.combine_prop(project.project_sponsor, temp_project_sponsor_other)
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
@@ -218,6 +220,17 @@ class PcorTemplateParser:
 
         logger.warning("no program found, return null")
         return None
+
+    def just_other(parent_array):
+        if parent_array == []:
+            return False
+
+        if len(parent_array) > 1:
+            return False
+
+        
+
+
 
     @staticmethod
     def extract_resource_data(template_df):
@@ -275,7 +288,13 @@ class PcorTemplateParser:
                         elif field_name == 'date_verified':
                             resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_reference':
-                            resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            ref = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            if validators.url(ref):
+                                resource.resource_reference = ""
+                                resource.resource_reference_link = ref
+                            else:
+                                resource.resource_reference = ref
+                                resource.resource_reference_link = "http://nolink"
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                             if validators.url(resource.resource_use_agreement):

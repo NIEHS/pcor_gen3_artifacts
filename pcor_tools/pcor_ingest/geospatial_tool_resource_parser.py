@@ -78,8 +78,8 @@ class GeoSpatialToolResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'languages':
                         geo_resource.languages = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'languages_other':
-                        temp_languages_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        geo_resource.languages = PcorTemplateParser.combine_prop(geo_resource.languages, temp_languages_other)
+                        geo_resource.languages_other = PcorTemplateParser.make_array_and_camel_case(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'license_type':
                         geo_resource.license_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'license_type_other':

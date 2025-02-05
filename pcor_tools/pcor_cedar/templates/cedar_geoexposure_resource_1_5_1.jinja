@@ -502,10 +502,10 @@
         {% endif %}
     ],
     "geometry_type": [
-       {%  if geospatial_data_resource.spatial_coverage_geometry_type|length == 0 %}
+       {%  if geospatial_data_resource.geometry_type|length == 0 %}
             { "@value": null }
         {%  else %}
-              {% for entry in geospatial_data_resource.spatial_coverage_geometry_type %}
+              {% for entry in geospatial_data_resource.geometry_type %}
                     {
                         "@value": "{{ entry }}"
                     }
@@ -514,10 +514,10 @@
         {% endif %}
     ],
     "geometry_source": [
-     {%  if geospatial_data_resource.spatial_coverage_geometry_source|length == 0 %}
+     {%  if geospatial_data_resource.geometry_source|length == 0 %}
             { "@value": null }
         {%  else %}
-              {% for entry in geospatial_data_resource.spatial_coverage_geometry_source %}
+              {% for entry in geospatial_data_resource.geometry_source %}
                     {
                         "@value": "{{ entry }}"
                     }

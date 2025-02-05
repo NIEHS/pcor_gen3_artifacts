@@ -311,7 +311,6 @@ class PcorPopDataResourceModel:
         self.measures_subcategory_minor = []
         self.model_methods = []
         self.model_methods_other = []
-        self.outcomes = []
         self.pcor_intermediate_resource_model = None
         self.population_studied = []
         self.population_studied_other = []
