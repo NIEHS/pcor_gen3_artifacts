@@ -57,11 +57,13 @@ class PcorSpreadsheetReader:
         self.result_handler = result_handler
         self.gen3_auth = gen3_auth
 
+        """
         if not gen3_auth:
             logger.info('doing auth')
             pcor_gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
+        """
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser(pcor_ingest_configuration)
         self.parsers["population_data_resource"] = PopulationDataResourceParser(pcor_ingest_configuration)

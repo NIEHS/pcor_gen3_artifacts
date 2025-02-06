@@ -1,19 +1,15 @@
+import json
 import logging
 import traceback
 import uuid
-import json
 import warnings
 
-from build.lib.pcor_ingest.pcor_reporter import PcorReporter
-from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_resource_reader import CedarResourceReader
-from pcor_ingest.pcor_template_parser import PcorTemplateParser
-
-from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, \
     PcorPopDataResourceModel, PcorGeoToolModel, PcorKeyDatasetModel
+from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
 logging.basicConfig(
     level=logging.DEBUG,

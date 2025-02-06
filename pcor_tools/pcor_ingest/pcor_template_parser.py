@@ -1,14 +1,13 @@
 import logging
-import math
 import re
 import traceback
 import uuid
-import json
 import warnings
-import pandas as pd
 from datetime import datetime
+
+import math
+import pandas as pd
 import validators
-from array import array
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest

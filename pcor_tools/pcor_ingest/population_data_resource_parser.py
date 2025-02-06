@@ -1,10 +1,12 @@
 import logging
 import traceback
 import warnings
+
 import pandas as pd
+import validators
+
 from pcor_ingest.pcor_intermediate_model import PcorPopDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
-import validators
 
 logging.basicConfig(
     level=logging.DEBUG,

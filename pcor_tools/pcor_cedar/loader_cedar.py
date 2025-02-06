@@ -5,22 +5,14 @@ import re
 import shutil
 import sys
 from datetime import datetime
-from optparse import OptionParser
-
-from pcor_cedar.cedar_loader_preprocessor import CedarLoaderPreprocessor
-from pcor_cedar.cedar_parser_factory import CedarParserFactory
-from pcor_ingest.pcor_reporter import PcorReporter
-
-from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
-
-from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
-from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 
 from pcor_cedar.cedar_access import CedarAccess
-from pcor_ingest.loader import Loader
-
 from pcor_cedar.cedar_config import CedarConfig
+from pcor_cedar.cedar_parser_factory import CedarParserFactory
+from pcor_ingest.loader import Loader
+from pcor_ingest.pcor_reporter import PcorReporter
+from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 
 logging.basicConfig(
     level=logging.DEBUG,

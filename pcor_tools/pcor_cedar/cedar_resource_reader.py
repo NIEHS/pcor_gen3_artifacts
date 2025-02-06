@@ -1,24 +1,18 @@
+import json
 import logging
-import math
-import re
 import traceback
 import uuid
-import json
 import warnings
+
 import validators
-import pandas as pd
-from datetime import datetime
 
 from pcor_cedar.cedar_config import CedarConfig
-from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_template_parser import PcorTemplateParser
-
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
-from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorGeospatialDataResourceModel, PcorGeoToolModel, PcorPopDataResourceModel, \
     PcorKeyDatasetModel
+from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
 logging.basicConfig(
     level=logging.DEBUG,

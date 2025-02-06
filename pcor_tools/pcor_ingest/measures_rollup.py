@@ -1,15 +1,8 @@
 import logging
-import math
-import re
-import traceback
-import uuid
-import json
-import warnings
+
 import pandas as pd
-from datetime import datetime
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
-    PcorSubmissionInfoModel, MeasuresArrays
+
+from pcor_ingest.pcor_intermediate_model import MeasuresArrays
 
 logging.basicConfig(
     level=logging.DEBUG,

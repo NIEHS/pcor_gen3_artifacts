@@ -1,8 +1,6 @@
-import os
 import json
 import logging
-import re
-import shutil
+import os
 import sys
 from optparse import OptionParser
 

@@ -2,10 +2,10 @@ import logging
 import sys
 import uuid
 import warnings
+
 import pandas as pd
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
-from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorKeyDatasetModel
@@ -27,7 +27,6 @@ class KeyDatasetResourceParser():
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest_configuration = pcor_ingest_configuration
-        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
         self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration.measures_rollup)
         self.yyyy_pattern = r"\b(\d{4})\b"
 
@@ -53,7 +52,7 @@ class KeyDatasetResourceParser():
         # spreadsheet
 
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=1, engine='openpyxl')
+        df = pd.read_excel(template_absolute_path, sheet_name=2, engine='openpyxl')
 
         ss_rows = df.shape[0]
         logging.debug("iterate looking for the start of the data")
@@ -71,14 +70,19 @@ class KeyDatasetResourceParser():
             submission.template_source = template_absolute_path
             result.model_data["submission"] = submission
 
-            if not submission.curator_email:
-                logging.error("no curator email in pcor ingest configuration")
-                raise Exception("no curator email in pcor ingest configuration")
+            #if not submission.curator_email:
+            #    logging.error("no curator email in pcor ingest configuration")
+            #    raise Exception("no curator email in pcor ingest configuration")
 
             # Program
 
             program = PcorIntermediateProgramModel()
             program.name = PcorTemplateParser.sanitize_column(df.iat[i, 0])
+            if not program.name:
+                logger.info("skipping blank row due to missing program name")
+                continue
+
+
             program.dbgap_accession_number = program.name
             result.model_data["program"] = program
 

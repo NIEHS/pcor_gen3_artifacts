@@ -5,6 +5,7 @@ import json
 import logging
 
 import requests
+
 from gen3.auth import Gen3Auth
 
 logger = logging.getLogger(__name__)

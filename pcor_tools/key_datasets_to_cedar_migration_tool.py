@@ -11,23 +11,14 @@ run parameters
 
 """
 
-import json
 import logging
 import os
 import sys
 from optparse import OptionParser
 
-from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
-from pcor_cedar.migration import CedarMigrate
+from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.migration_key_dataset import CedarMigrateKeyDataset
 from pcor_ingest.ingest_context import PcorIngestConfiguration
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
-
-from pcor_cedar.cedar_access import CedarAccess
-from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
-
-from pcor_cedar.cedar_config import CedarConfig
-from pcor_cedar.loader_cedar import LoaderCedar
 
 logging.basicConfig(
     level=logging.DEBUG,

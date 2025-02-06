@@ -1,19 +1,10 @@
 import json
 import logging
-import os
-import sys
-from optparse import OptionParser
-
-from pcor_cedar.cedar_parser_factory import CedarParserFactory
-from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
-from pcor_ingest.pcor_template_parser import PcorTemplateParser
-from pcor_ingest.pcor_template_process_result import PcorProcessResult
 
 from pcor_cedar.cedar_access import CedarAccess
-from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
-
-from pcor_cedar.cedar_config import CedarConfig
+from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
 from pcor_cedar.loader_cedar import LoaderCedar
+from pcor_ingest.pcor_template_process_result import PcorProcessResult
 from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
 
 logging.basicConfig(
