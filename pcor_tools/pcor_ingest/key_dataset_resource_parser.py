@@ -82,7 +82,6 @@ class KeyDatasetResourceParser():
                 logger.info("skipping blank row due to missing program name")
                 continue
 
-
             program.dbgap_accession_number = program.name
             result.model_data["program"] = program
 
@@ -93,7 +92,12 @@ class KeyDatasetResourceParser():
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
-            project.project_sponsor_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 5]))
+
+            temp_proj_sponsor_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 5]))
+
+            for entry in temp_proj_sponsor_other:
+                if entry not in project.project_sponsor:
+                    project.project_sponsor_other.pop(entry)
 
             project.project_sponsor_type = PcorTemplateParser.make_array(
                 PcorTemplateParser.sanitize_column(df.iat[i, 6]))
@@ -155,6 +159,9 @@ class KeyDatasetResourceParser():
             # geometry type (21)
             key_data_resource.geometry_type = \
                 PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 21]))
+
+            key_data_resource.spatial_resolution_all_available = (
+                PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 22]))
 
             # spatial resolution X (23)
             key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 23])
