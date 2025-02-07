@@ -189,7 +189,7 @@ class KeyDatasetResourceParser():
             metric = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
             if metric:
-                key_data_resource.use_example_metrics.append(metric)
+                key_data_resource.use_example_metrics = PcorTemplateParser.make_array_split_semicolon(metric)
 
             # example individual level metrics AI (34)
             key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
@@ -209,6 +209,10 @@ class KeyDatasetResourceParser():
             # tools supporting use AM (32)
             resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
             key_data_resource.tools_supporting_uses = resource.tools_supporting_uses
+
+            # key variables O (14)
+            key_data_resource.use_key_variables = PcorTemplateParser.make_array(
+                PcorTemplateParser.sanitize_column(df.iat[i, 14]))
 
             if resource.submitter_id is None or resource.submitter_id == '':
                 resource.submitter_id = str(uuid.uuid4())
