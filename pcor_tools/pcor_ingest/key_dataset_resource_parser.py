@@ -196,15 +196,19 @@ class KeyDatasetResourceParser():
 
             # strengths AJ (35)
             resource.strengths = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 35])
+            key_data_resource.use_strengths = resource.strengths
 
             # limitations AK (36)
             resource.limitations = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 36])
+            key_data_resource.use_limitations = resource.limitations
 
             # example apps AF (3L)
             resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])
+            key_data_resource.use_example_applications = resource.example_applications
 
             # tools supporting use AM (32)
             resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
+            key_data_resource.tools_supporting_uses = resource.tools_supporting_uses
 
             if resource.submitter_id is None or resource.submitter_id == '':
                 resource.submitter_id = str(uuid.uuid4())
