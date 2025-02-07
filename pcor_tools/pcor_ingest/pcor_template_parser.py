@@ -353,6 +353,23 @@ class PcorTemplateParser:
         else:
             return result
 
+    @staticmethod
+    def new_make_array_with_delim(value, delim=',', camel_case=False):
+
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+
+        if not clean_value:
+            return []
+
+        result = [item.strip() for item in value.split(delim)]
+
+        if camel_case:
+            camel_list = []
+            for item in result:
+                camel_list.append(PcorTemplateParser.camel_case_it(item))
+            return camel_list
+        else:
+            return result
 
     @staticmethod
     def make_complex_array(value, force_new_line_delimit=False):

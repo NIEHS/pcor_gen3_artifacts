@@ -183,6 +183,14 @@ class KeyDatasetResourceParser():
             # suggested uses AH (33) -> move this to comments - mc
             key_data_resource.comments = PcorTemplateParser.sanitize_column(df.iat[i, 33])
 
+            key_data_resource.use_suggested = PcorTemplateParser.new_make_array_with_delim(df.iat[i, 33],';', False)
+
+            # example metric AI (34) txlate to array entry
+            metric = PcorTemplateParser.sanitize_column(df.iat[i, 34])
+
+            if metric:
+                key_data_resource.use_example_metrics.append(metric)
+
             # example individual level metrics AI (34)
             key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
