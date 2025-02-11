@@ -117,6 +117,10 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if val:
                             pop_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(val))
+                    elif template_df.iat[j, 0] == 'spatial_resolution':
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(val))
                     elif template_df.iat[j, 0] == 'spatial_resolution_other':
                         val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if val:

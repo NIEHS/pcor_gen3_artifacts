@@ -4,6 +4,7 @@ import uuid
 import warnings
 
 import pandas as pd
+import validators
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
@@ -202,13 +203,25 @@ class KeyDatasetResourceParser():
             resource.limitations = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 36])
             key_data_resource.use_limitations = resource.limitations
 
-            # example apps AF (3L)
+            # example apps AF (37)
             resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])
-            key_data_resource.use_example_applications = resource.example_applications
+
+            if validators.url(resource.example_applications):
+                key_data_resource.use_example_application_text.append("")
+                key_data_resource.use_example_application_link.append(resource.example_applications)
+            else:
+                key_data_resource.use_example_application_text.append(resource.example_applications)
+                key_data_resource.use_example_application_link.append("http://nolink")
 
             # tools supporting use AM (32)
             resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
-            key_data_resource.tools_supporting_uses = resource.tools_supporting_uses
+
+            if validators.url(resource.tools_supporting_uses):
+                key_data_resource.use_tools_text.append("")
+                key_data_resource.use_tool_link.append(resource.tools_supporting_uses)
+            else:
+                key_data_resource.use_tools_text.append(resource.tools_supporting_uses)
+                key_data_resource.use_tool_link.append("http://nolink")
 
             # key variables O (14)
             key_data_resource.use_key_variables = PcorTemplateParser.make_array(
