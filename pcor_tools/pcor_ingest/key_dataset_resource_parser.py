@@ -90,6 +90,7 @@ class KeyDatasetResourceParser():
 
             project = PcorIntermediateProjectModel()
             project.code = PcorTemplateParser.sanitize_column(df.iat[i, 1])
+            logger.info("processing code: %s" % project.code)
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
@@ -98,7 +99,7 @@ class KeyDatasetResourceParser():
 
             for entry in temp_proj_sponsor_other:
                 if entry not in project.project_sponsor:
-                    project.project_sponsor_other.pop(entry)
+                    project.project_sponsor_other.append(entry)
 
             project.project_sponsor_type = PcorTemplateParser.make_array(
                 PcorTemplateParser.sanitize_column(df.iat[i, 6]))
