@@ -1,5 +1,7 @@
 import json
 import logging
+import os
+import re
 
 from pcor_cedar.cedar_access import CedarAccess
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
@@ -78,6 +80,29 @@ class SpreadsheetCedarMigrate():
         self.pcor_spreadsheet_reader.process_template_instance(target_path,result)
         return result
 
+    def migrate_dir(self, source_dir, target_version='1_5_1'):
+        logger.info('migrate_dir :: %s ' % (source_dir))
+        results = []
+
+        if not os.path.isdir(source_dir):
+            logger.error("source_dir is not a directory: %s" % (source_dir))
+            raise Exception("source dir is not a directory")
+
+        for source_file in os.listdir(source_dir):
+            file_entry = os.path.join(source_dir, source_file)
+            if os.path.isfile(file_entry):
+
+                if not re.search(".*xlsm$", source_file):
+                    continue
+
+                if source_file.startswith("~"):
+                    continue
+
+                if source_file.startswith("."):
+                    continue
+
+                results.append(self.migrate(file_entry, target_version))
+
     def migrate(self, source_file, target_version='1_5_1'):
         """
         migrate the individual source at the given location to the new target format
@@ -112,6 +137,7 @@ class SpreadsheetCedarMigrate():
         model_json = json.loads(migrated_json)
         name = model_json["RESOURCE"]["resource_name"]["@value"]
         self.cedar_access.rename_resource(id, name)
+        logger.info("returning name: %s" % name)
         return name
 
 

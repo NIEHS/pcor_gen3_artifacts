@@ -447,7 +447,11 @@
        "@value": "{{ population_data_resource.temporal_resolution }}"
     },
     "spatial_resolution": {
-        "@value": "{{ population_data_resource.spatial_resolution }}"
+         {%  if population_data_resource.spatial_resolution|length == 0 %}
+            "@value": null
+         {%  else %}
+            "@value": "{{ population_data_resource.spatial_resolution[0] }}"
+         {% endif %}
     },
     "spatial_resolution_other": [
         {%  if population_data_resource.spatial_resolution_other|length == 0 %}

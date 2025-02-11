@@ -184,17 +184,18 @@ class PcorTemplateParser:
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_name':
                         project.name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'ProjectCode':
+                        project.code = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         #if project_short_name is not empty, use it for project.code
-                        if project.short_name:
-                            project.code = project.short_name.replace(' ', '').strip()
-                            project.code = project.short_name
+                        #if project.short_name:
+                        #    project.code = project.short_name.replace(' ', '').strip()
+                        #    project.code = project.short_name
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     # FixMe: do not collapse 'other' into the main prop
                     elif template_df.iat[j, 0] == 'project_sponsor_other':
-
                         project.project_sponsor_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                         #project.project_sponsor = PcorTemplateParser.combine_prop(project.project_sponsor, temp_project_sponsor_other)
                     elif template_df.iat[j, 0] == 'project_sponsor_type':
@@ -226,10 +227,6 @@ class PcorTemplateParser:
 
         if len(parent_array) > 1:
             return False
-
-        
-
-
 
     @staticmethod
     def extract_resource_data(template_df):
@@ -498,9 +495,16 @@ class PcorTemplateParser:
 
     @staticmethod
     def camel_case_it(prop):
-        """ Make a string camel case """
-        if prop:
+        """ Make a string camel case, ignore if already all uppercase """
+
+        if not prop:
+            return None
+
+        uc_regex  = re.search("[a-z]*", prop)
+        if uc_regex:
             return prop.title()
+        else:
+            return prop
 
     @staticmethod
     def combine_prop(main_prop, other_prop):

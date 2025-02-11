@@ -131,14 +131,14 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'geometry_type':
                         pop_resource.geometry_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        pop_resource.geometry_source = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        pop_resource.geometry_source = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied':
                         pop_resource.population_studied = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(
                             template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied_other':
                         pop_resource.population_studied_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_formats':
-                        pop_resource.data_formats = PcorTemplateParser.make_array_and_camel_case(
+                        pop_resource.data_formats = PcorTemplateParser.make_array(
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'linkable_encounters':
                         pop_resource.linkable_encounters = PcorTemplateParser.sanitize_boolean(

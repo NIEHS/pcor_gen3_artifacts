@@ -98,12 +98,22 @@ class PcorSpreadsheetReader:
             return
 
         parser.parse(template_absolute_path, result)
+        PcorSpreadsheetReader.adjust_project_code(result)
+
         if not result.success:
             logger.error("error parsing: %s" % result)
             return result
         else:
             logger.debug('parsing successful: %s' % result)
             return result
+
+    @staticmethod
+    def adjust_project_code(result):
+        logger.info("adjust_project_code called")
+        submission = result.model_data['submission']
+        project = result.model_data['project']
+        if not submission.project_code:
+            submission.project_code = project.code
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):

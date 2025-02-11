@@ -41,6 +41,7 @@ def setup_arguments():
     parser = OptionParser()
     parser.add_option('-i', "--input_file", action='store', dest='input_file', default=None)
     parser.add_option('-t', "--target_version", action='store', dest='target_version', default=None)
+    parser.add_option('-d', "--input_dir", action='store', dest='input_dir', default=None)
     return parser.parse_args()[0]
 
 def main():
@@ -57,10 +58,20 @@ def main():
         logger.error("PCOR_GEN3_CONFIG_LOCATION not found in env. System exiting...")
         sys.exit()
 
+    cedar_config_file = os.environ.get("CEDAR_PROPERTIES")
+    pcor_ingest_configuration = PcorIngestConfiguration(os.environ.get("PCOR_GEN3_CONFIG_LOCATION"))
+    cedar_config = CedarConfig()
+
+    migrator = SpreadsheetCedarMigrate(cedar_config, pcor_ingest_configuration)
+
     input_file = args.input_file
-    if not input_file:
-        logger.exception("no input_file, specify this parameter with -i")
-        raise Exception("no -i parameter specified")
+    input_dir = args.input_dir
+
+    if input_file or input_dir:
+        pass
+    else:
+        logger.exception("no input_file or input_dir provided, specify this parameter with -i for input file or -d for input dir")
+        raise Exception("no -i or -d parameter specified")
 
     target_version = args.target_version
 
@@ -68,14 +79,15 @@ def main():
         logger.error("no target_version, specify this parameter with -t")
         raise Exception("no -t parameter specified")
 
-    cedar_config_file = os.environ.get("CEDAR_PROPERTIES")
     logger.info('input key datasets to load :: %s' % input_file)
-
-    pcor_ingest_configuration = PcorIngestConfiguration(os.environ.get("PCOR_GEN3_CONFIG_LOCATION"))
-    cedar_config = CedarConfig()
-
+    results = []
     migrator = SpreadsheetCedarMigrate(cedar_config, pcor_ingest_configuration)
-    results = migrator.migrate(input_file, target_version)
+
+    if input_file:
+        logger.info("load individual file")
+        results.append(migrator.migrate(input_file, target_version))
+    else:
+        results.extend(migrator.migrate_dir(input_dir, target_version))
 
 if __name__ == "__main__":
     main()
