@@ -1,15 +1,14 @@
 import json
-import os
 import logging
-import sys
-
-import requests
+import os
 import traceback
-from gen3.metadata import Gen3Metadata
-from gen3.submission import Gen3Submission
+from urllib.parse import quote
+
 from jinja2 import Environment, FileSystemLoader
 from requests import HTTPError
-from urllib.parse import quote
+
+from gen3.metadata import Gen3Metadata
+from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel

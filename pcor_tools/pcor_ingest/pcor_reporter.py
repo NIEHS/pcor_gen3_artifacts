@@ -3,13 +3,14 @@ import os
 import smtplib
 import traceback
 import warnings
-import pandas as pd
-from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import pandas as pd
 from jinja2 import Environment, FileSystemLoader
-from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
+
+from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 
 logger = logging.getLogger(__name__)
 

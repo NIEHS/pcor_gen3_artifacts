@@ -4,9 +4,8 @@ any cedar artifacts produced via jinja templates can be handled here
 """
 
 import json
-import os
 import logging
-import sys
+import os
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -22,7 +21,6 @@ class CedarTemplateProcessor:
         """
         Initialize ingest tool
         :param pcor_ingest_configuration: IngestConfiguration with Gen3 server properties
-        :param gen3_auth: Optional Gen3Auth object if auth is done
         :return:
         """
 

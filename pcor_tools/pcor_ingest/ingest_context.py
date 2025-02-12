@@ -31,6 +31,8 @@ class PcorIngestConfiguration:
 
     @staticmethod
     def dict_from_props(filename):
+
+
         """return a dictionary of properties file values"""
         logging.debug("dict_from_props()")
         logging.debug("filename: %s" % filename)

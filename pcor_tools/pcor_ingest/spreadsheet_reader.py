@@ -57,11 +57,13 @@ class PcorSpreadsheetReader:
         self.result_handler = result_handler
         self.gen3_auth = gen3_auth
 
+        """
         if not gen3_auth:
             logger.info('doing auth')
             pcor_gen3_auth = PcorGen3Auth(pcor_ingest_configuration)
             self.gen3_auth = pcor_gen3_auth.authenticate_to_gen3()
             logger.info("authenticated to Gen3")
+        """
 
         self.parsers["geospatial_data_resource"] = GeoSpatialDataResourceParser(pcor_ingest_configuration)
         self.parsers["population_data_resource"] = PopulationDataResourceParser(pcor_ingest_configuration)
@@ -96,12 +98,22 @@ class PcorSpreadsheetReader:
             return
 
         parser.parse(template_absolute_path, result)
+        PcorSpreadsheetReader.adjust_project_code(result)
+
         if not result.success:
             logger.error("error parsing: %s" % result)
             return result
         else:
             logger.debug('parsing successful: %s' % result)
             return result
+
+    @staticmethod
+    def adjust_project_code(result):
+        logger.info("adjust_project_code called")
+        submission = result.model_data['submission']
+        project = result.model_data['project']
+        if not submission.project_code:
+            submission.project_code = project.code
 
     @staticmethod
     def determine_template_instance_type(template_absolute_path):
