@@ -204,7 +204,7 @@ class PcorGen3Ingest:
 
         discovery.domain = ', '.join(resource.domain)
         if hasattr(resource, 'domain_other'):
-            discovery.domain_other = resource.domain_other
+            discovery.domain_other = ', '.join(resource.domain_other) if resource.domain_other else None
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
 
