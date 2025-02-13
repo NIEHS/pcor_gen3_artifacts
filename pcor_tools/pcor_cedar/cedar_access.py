@@ -1,7 +1,9 @@
 import json
 import logging
+import re
 import urllib.parse
 import urllib.parse
+import time
 
 import requests
 
@@ -26,6 +28,32 @@ class CedarAccess(object):
         self.cedar_config = CedarConfig(cedar_file_name)
         self.cedar_template_processor = CedarTemplateProcessor()
 
+    def retrieve_folder_contents(self, folder_id):
+        """
+        Retrieve the contents of the folder in CEDAR
+        Parameters
+        ----------
+        folder_id - gui only folder id
+
+        Returns CedarFolder object
+        -------
+
+        """
+
+        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/https%3A%2F%2Frepo.metadatacenter.org%2Ffolders%2F" + folder_id +"/contents"
+        headers = {"Content-Type": "application/json", "Accept": "application/json",
+                   "Authorization": self.cedar_config.build_request_headers_json()}
+        r = requests.get(api_url, headers=headers)
+        r_json = r.json()
+        logger.debug("r:%s", r_json)
+        if r.status_code not in [200, 201]:
+            logger.error("failed to find resource: %s" % r_json["errorMessage"])
+            raise Exception(r_json["errorMessage"])
+        return CedarAccess.parse_folder_listing(r_json)
+
+    """
+        TODO: deprecate
+    """
     def retrieve_chords_folder_contents(self):
         logger.info("retrieving chords folder contents")
         home_folder = self.cedar_config.cedar_properties["home_folder_id"]
@@ -36,6 +64,9 @@ class CedarAccess(object):
         logger.debug("r:%s", r_json)
         return r_json
 
+    """
+        TODO: deprecate
+    """
     def retrieve_loading_contents(self, cedar_directory=None):
         logger.info("retrieving loading contents")
 
@@ -101,7 +132,13 @@ class CedarAccess(object):
                    urllib.parse.quote_plus(resource_id))
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
-        r = requests.get(api_url, headers=headers)
+
+        try:
+            r = requests.get(api_url, headers=headers)
+        except:
+            time.sleep(30)
+            return self.retrieve_resource(resource_id)
+
         r_json = r.json()
 
         try:
@@ -120,6 +157,12 @@ class CedarAccess(object):
         folder = CedarFolder(folder_listing_json)
         return folder
 
+    @staticmethod
+    def extract_guid(text_to_extract):
+        re_text = "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}"
+        x = re.search(re_text, text_to_extract)
+        return x.group()
+
 
 class CedarFolder():
 
@@ -134,8 +177,9 @@ class CedarFolder():
                 raise Exception("No folder found")
 
             len_subfolders = len(cedar_file_json["resources"])
+            self.subfolders = []
+
             if len_subfolders > 0:
-                self.subfolders = []
                 for subfolder in cedar_file_json["resources"]:
                     self.subfolders.append(CedarFolder(folder_name=subfolder["schema:name"],
                                                        folder_id=subfolder["@id"], item_type=subfolder["resourceType"]))
