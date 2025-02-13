@@ -2,10 +2,11 @@ import logging
 import sys
 import uuid
 import warnings
+
 import pandas as pd
+import validators
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
-from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
     PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
     PcorSubmissionInfoModel, PcorKeyDatasetModel
@@ -27,7 +28,6 @@ class KeyDatasetResourceParser():
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest_configuration = pcor_ingest_configuration
-        self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
         self.pcor_measures_rollup = PcorMeasuresRollup(pcor_ingest_configuration.measures_rollup)
         self.yyyy_pattern = r"\b(\d{4})\b"
 
@@ -53,7 +53,7 @@ class KeyDatasetResourceParser():
         # spreadsheet
 
         warnings.simplefilter(action='ignore', category=UserWarning)
-        df = pd.read_excel(template_absolute_path, sheet_name=1, engine='openpyxl')
+        df = pd.read_excel(template_absolute_path, sheet_name=2, engine='openpyxl')
 
         ss_rows = df.shape[0]
         logging.debug("iterate looking for the start of the data")
@@ -71,14 +71,18 @@ class KeyDatasetResourceParser():
             submission.template_source = template_absolute_path
             result.model_data["submission"] = submission
 
-            if not submission.curator_email:
-                logging.error("no curator email in pcor ingest configuration")
-                raise Exception("no curator email in pcor ingest configuration")
+            #if not submission.curator_email:
+            #    logging.error("no curator email in pcor ingest configuration")
+            #    raise Exception("no curator email in pcor ingest configuration")
 
             # Program
 
             program = PcorIntermediateProgramModel()
             program.name = PcorTemplateParser.sanitize_column(df.iat[i, 0])
+            if not program.name:
+                logger.info("skipping blank row due to missing program name")
+                continue
+
             program.dbgap_accession_number = program.name
             result.model_data["program"] = program
 
@@ -86,10 +90,16 @@ class KeyDatasetResourceParser():
 
             project = PcorIntermediateProjectModel()
             project.code = PcorTemplateParser.sanitize_column(df.iat[i, 1])
+            logger.info("processing code: %s" % project.code)
             project.short_name = PcorTemplateParser.sanitize_column(df.iat[i, 2])
             project.name = PcorTemplateParser.sanitize_column(df.iat[i, 3])
             project.project_sponsor = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 4]))
-            project.project_sponsor_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 5]))
+
+            temp_proj_sponsor_other = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(df.iat[i, 5]))
+
+            for entry in temp_proj_sponsor_other:
+                if entry not in project.project_sponsor:
+                    project.project_sponsor_other.append(entry)
 
             project.project_sponsor_type = PcorTemplateParser.make_array(
                 PcorTemplateParser.sanitize_column(df.iat[i, 6]))
@@ -152,6 +162,9 @@ class KeyDatasetResourceParser():
             key_data_resource.geometry_type = \
                 PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(df.iat[i, 21]))
 
+            key_data_resource.spatial_resolution_all_available = (
+                PcorTemplateParser.make_complex_camel_case_array(df.iat[i, 22]))
+
             # spatial resolution X (23)
             key_data_resource.spatial_resolution = PcorTemplateParser.sanitize_column(df.iat[i, 23])
 
@@ -172,20 +185,48 @@ class KeyDatasetResourceParser():
             # suggested uses AH (33) -> move this to comments - mc
             key_data_resource.comments = PcorTemplateParser.sanitize_column(df.iat[i, 33])
 
+            key_data_resource.use_suggested = PcorTemplateParser.new_make_array_with_delim(df.iat[i, 33],';', False)
+
+            # example metric AI (34) txlate to array entry
+            metric = PcorTemplateParser.sanitize_column(df.iat[i, 34])
+
+            if metric:
+                key_data_resource.use_example_metrics = PcorTemplateParser.make_array_split_semicolon(metric)
+
             # example individual level metrics AI (34)
             key_data_resource.metrics_derived_from_data_set = PcorTemplateParser.sanitize_column(df.iat[i, 34])
 
             # strengths AJ (35)
             resource.strengths = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 35])
+            key_data_resource.use_strengths = resource.strengths
 
             # limitations AK (36)
             resource.limitations = PcorTemplateParser.make_array_split_semicolon(df.iat[i, 36])
+            key_data_resource.use_limitations = resource.limitations
 
-            # example apps AF (3L)
+            # example apps AF (37)
             resource.example_applications = PcorTemplateParser.sanitize_column(df.iat[i, 37])
+
+            if validators.url(resource.example_applications):
+                key_data_resource.use_example_application_text.append("")
+                key_data_resource.use_example_application_link.append(resource.example_applications)
+            else:
+                key_data_resource.use_example_application_text.append(resource.example_applications)
+                key_data_resource.use_example_application_link.append("http://nolink")
 
             # tools supporting use AM (32)
             resource.tools_supporting_uses = PcorTemplateParser.sanitize_column(df.iat[i, 38])
+
+            if validators.url(resource.tools_supporting_uses):
+                key_data_resource.use_tools_text.append("")
+                key_data_resource.use_tool_link.append(resource.tools_supporting_uses)
+            else:
+                key_data_resource.use_tools_text.append(resource.tools_supporting_uses)
+                key_data_resource.use_tool_link.append("http://nolink")
+
+            # key variables O (14)
+            key_data_resource.use_key_variables = PcorTemplateParser.make_array(
+                PcorTemplateParser.sanitize_column(df.iat[i, 14]))
 
             if resource.submitter_id is None or resource.submitter_id == '':
                 resource.submitter_id = str(uuid.uuid4())

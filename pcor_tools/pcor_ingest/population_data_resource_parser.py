@@ -1,7 +1,10 @@
 import logging
 import traceback
 import warnings
+
 import pandas as pd
+import validators
+
 from pcor_ingest.pcor_intermediate_model import PcorPopDataResourceModel
 from pcor_ingest.pcor_template_parser import PcorTemplateParser
 
@@ -78,6 +81,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                             pop_resource.update_frequency.append(val)
                     elif template_df.iat[j, 0] == 'includes_citizen_collected':
                         pop_resource.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'individual_level':
+                        pop_resource.individual_level = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_api':
                         pop_resource.has_api = PcorTemplateParser.sanitize_boolean(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'has_visualization_tool':
@@ -94,11 +99,8 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.measures_parent = measures_rollup.measures_parents
                         pop_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
                         pop_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
-                    elif template_df.iat[j, 0] == 'outcomes':
-                        pop_resource.outcomes = PcorTemplateParser.make_complex_camel_case_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'outcomes_other':
-                        temp_outcomes_other = PcorTemplateParser.make_complex_camel_case_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        pop_resource.outcomes = PcorTemplateParser.combine_prop(pop_resource.outcomes, temp_outcomes_other)
+                    elif template_df.iat[j, 0] == 'measures_others':
+                        pop_resource.measures_other = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'time_extent_start':
                         time_extent_start = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if time_extent_start is not None:
@@ -111,6 +113,10 @@ class PopulationDataResourceParser(PcorTemplateParser):
                         pop_resource.time_available_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'temporal_resolution':
                         pop_resource.temporal_resolution = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'spatial_resolution (highest)':
+                        val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                        if val:
+                            pop_resource.spatial_resolution.append(PcorTemplateParser.camel_case_it(val))
                     elif template_df.iat[j, 0] == 'spatial_resolution':
                         val = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         if val:
@@ -129,20 +135,32 @@ class PopulationDataResourceParser(PcorTemplateParser):
                     elif template_df.iat[j, 0] == 'geometry_type':
                         pop_resource.geometry_type = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'geometry_source':
-                        pop_resource.geometry_source = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                    elif template_df.iat[j, 0] == 'model_methods':
-                        pop_resource.model_methods = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        pop_resource.geometry_source = PcorTemplateParser.make_array(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied':
                         pop_resource.population_studied = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(
                             template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'population_studied_other':
-                        temp_population_studied_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
-                        pop_resource.population_studied = PcorTemplateParser.combine_prop(pop_resource.population_studied, temp_population_studied_other)
+                        pop_resource.population_studied_other = PcorTemplateParser.make_array_and_camel_case(PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_formats':
-                        pop_resource.data_formats = PcorTemplateParser.make_array_and_camel_case(
+                        pop_resource.data_formats = PcorTemplateParser.make_array(
+                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                    elif template_df.iat[j, 0] == 'linkable_encounters':
+                        pop_resource.linkable_encounters = PcorTemplateParser.sanitize_boolean(
+                            template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'biospecimens (from human)':
+                        pop_resource.biospecimens = PcorTemplateParser.sanitize_boolean(
+                            template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'biospecimens_type':
+                        pop_resource.biospecimens_type = PcorTemplateParser.make_array_and_camel_case(
                             PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
                     elif template_df.iat[j, 0] == 'data_location':
-                        pop_resource.data_location = PcorTemplateParser.make_array(
-                            PcorTemplateParser.sanitize_column(template_df.iat[j, 1]))
+                        locations = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
+                        for entry in locations:
+                            if validators.url(entry):
+                                pop_resource.data_link.append(entry)
+                                pop_resource.data_location_text.append("")
+                            else:
+                                pop_resource.data_location_text.append(entry)
+                                pop_resource.data_link.append("http://nolink")
 
         return pop_resource

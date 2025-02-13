@@ -1,16 +1,13 @@
 import logging
 import os
-import time
 import shutil
 from datetime import datetime
 
 from pcor_ingest.loader import Loader
-
-from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
-
-from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
+from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
 
 logging.basicConfig(
     level=logging.DEBUG,

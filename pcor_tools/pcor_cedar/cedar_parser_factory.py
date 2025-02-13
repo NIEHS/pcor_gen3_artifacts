@@ -1,17 +1,9 @@
 import logging
-import math
-import re
-import traceback
-import uuid
-import json
-import warnings
-import pandas as pd
-from datetime import datetime
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_resource_reader_1_5_0 import CedarResourceReader_1_5_0
 from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
-from pcor_ingest.ingest_context import PcorIngestConfiguration
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s: %(filename)s:%(funcName)s:%(lineno)d: %(message)s"

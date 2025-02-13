@@ -128,10 +128,10 @@
         {% endif %}
     ],
     "project_sponsor_type_other": [
-      {%  if project.project_sponsor_other|length == 0 %}
+      {%  if project.project_sponsor_type_other|length == 0 %}
             { "@value": null }
         {%  else %}
-            {% for entry in project.project_sponsor_other %}
+            {% for entry in project.project_sponsor_type_other %}
                 {
                     "@value": "{{ entry }}"
                 }

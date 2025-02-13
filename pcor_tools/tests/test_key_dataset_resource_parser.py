@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class TestKeyDatasetResourceParser(unittest.TestCase):
 
     def test_parse(self):
-        test_ss_path = 'test_resources/key-datasets-sample-1.2.xlsx'
+        test_ss_path = 'test_resources/CHORDS-key-datasets-list_1.3-catalog-crosswalk.xlsx'
         actual = []
         parser = KeyDatasetResourceParser(pcor_testing_utilities.get_pcor_ingest_configuration())
         parser.parse(test_ss_path, actual)

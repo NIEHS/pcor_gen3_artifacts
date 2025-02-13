@@ -1,12 +1,12 @@
 import logging
-import math
 import re
 import traceback
 import uuid
-import json
 import warnings
-import pandas as pd
 from datetime import datetime
+
+import math
+import pandas as pd
 import validators
 
 from pcor_ingest.measures_rollup import PcorMeasuresRollup
@@ -153,6 +153,8 @@ class PcorTemplateParser:
                         submission.curator_email = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'comment':
                         submission.curation_comment = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'ProjectCode':
+                        submission.project_code = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'Program':
                         # validate needed props
                         return submission
@@ -182,12 +184,14 @@ class PcorTemplateParser:
                         project.submitter_id = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_name':
                         project.name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                    elif template_df.iat[j, 0] == 'ProjectCode':
+                        project.code = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                     elif template_df.iat[j, 0] == 'project_short_name':
                         project.short_name = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         #if project_short_name is not empty, use it for project.code
-                        if project.short_name:
-                            project.code = project.short_name.replace(' ', '').strip()
-                            project.code = project.short_name
+                        #if project.short_name:
+                        #    project.code = project.short_name.replace(' ', '').strip()
+                        #    project.code = project.short_name
                     elif template_df.iat[j, 0] == 'project_sponsor':
                         project.project_sponsor = PcorTemplateParser.make_complex_array(template_df.iat[j, 1])
                     # FixMe: do not collapse 'other' into the main prop
@@ -216,6 +220,13 @@ class PcorTemplateParser:
 
         logger.warning("no program found, return null")
         return None
+
+    def just_other(parent_array):
+        if parent_array == []:
+            return False
+
+        if len(parent_array) > 1:
+            return False
 
     @staticmethod
     def extract_resource_data(template_df):
@@ -273,11 +284,18 @@ class PcorTemplateParser:
                         elif field_name == 'date_verified':
                             resource.verification_datetime = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
                         elif field_name == 'resource_reference':
-                            resource.resource_reference = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            ref = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
+                            if validators.url(ref):
+                                resource.resource_reference = ""
+                                resource.resource_reference_link = ref
+                            else:
+                                resource.resource_reference = ref
+                                resource.resource_reference_link = "http://nolink"
                         elif field_name == 'resource_use_agreement':
                             resource.resource_use_agreement = PcorTemplateParser.sanitize_column(template_df.iat[j, 1])
-                            if validators.url(resource.resource_use_agreement ):
+                            if validators.url(resource.resource_use_agreement):
                                 resource.resource_use_agreement_link = resource.resource_use_agreement
+                                resource.resource_use_agreement = ""
                             else:
                                 resource.resource_use_agreement_link = "http://nolink"
                         elif field_name == 'publications':
@@ -295,10 +313,11 @@ class PcorTemplateParser:
                             pub_links = []
 
                             for pub in resource.publications:
-                                pub_refs.append(pub)
                                 if validators.url(pub):
+                                    pub_refs.append("")
                                     pub_links.append(pub)
                                 else:
+                                    pub_refs.append(pub)
                                     pub_links.append("http://nolink")
 
                             resource.publications = pub_refs
@@ -331,6 +350,23 @@ class PcorTemplateParser:
         else:
             return result
 
+    @staticmethod
+    def new_make_array_with_delim(value, delim=',', camel_case=False):
+
+        clean_value = PcorTemplateParser.sanitize_column(value, False)
+
+        if not clean_value:
+            return []
+
+        result = [item.strip() for item in value.split(delim)]
+
+        if camel_case:
+            camel_list = []
+            for item in result:
+                camel_list.append(PcorTemplateParser.camel_case_it(item))
+            return camel_list
+        else:
+            return result
 
     @staticmethod
     def make_complex_array(value, force_new_line_delimit=False):
@@ -459,9 +495,16 @@ class PcorTemplateParser:
 
     @staticmethod
     def camel_case_it(prop):
-        """ Make a string camel case """
-        if prop:
+        """ Make a string camel case, ignore if already all uppercase """
+
+        if not prop:
+            return None
+
+        uc_regex  = re.search("[a-z]*", prop)
+        if uc_regex:
             return prop.title()
+        else:
+            return prop
 
     @staticmethod
     def combine_prop(main_prop, other_prop):

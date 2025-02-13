@@ -1,17 +1,12 @@
+import json
 import logging
-import os
 import urllib.parse
-from logging import exception
+import urllib.parse
 
 import requests
-import json
-
-from jinja2 import Environment, FileSystemLoader
 
 from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_template_processor import CedarTemplateProcessor
-import urllib.parse
-
 
 logging.basicConfig(
     level=logging.DEBUG,
