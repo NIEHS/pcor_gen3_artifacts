@@ -21,10 +21,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Set the flag to True for AWS Staging(gen3-gitops)
-AWS_STAGING_FLAG = False
+AWS_STAGING_FLAG = True
 if AWS_STAGING_FLAG:
     # Get the current month and day
-    values_current_month_day = datetime.now().strftime("aws_values_%m_%d")
+    values_current_month_day = datetime.now().strftime("aws_values_%y_%m_%d")
     gen3_gitops_values_path = os.path.join('../gen3-gitops', values_current_month_day)
 else:
     gen3_gitops_values_path = '../gen3-gitops/values'
