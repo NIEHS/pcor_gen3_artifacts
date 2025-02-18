@@ -41,3 +41,10 @@ class TestCedarAccess(unittest.TestCase):
         name = "test name - renamed2"
         cedar_access.rename_resource(id, name)
 
+    def test_retrieve_folder_contents(self):
+        cedar_access = CedarAccess()
+        working_dir = cedar_access.cedar_config.cedar_properties['working_directory']
+        input_folder = cedar_access.cedar_config.cedar_properties['cedar_folder']
+        actual = cedar_access.retrieve_folder_contents(input_folder)
+        self.assertIsNotNone(actual)
+
