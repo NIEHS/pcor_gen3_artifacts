@@ -87,7 +87,7 @@ class CedarBackup():
 
         # now zip it and delete the dir
         shutil.make_archive(os.path.join(output, "cedar_backup_" + iso_date), 'zip', temp_dir)
-        os.rmdirs(temp_dir)
+        os.removedirs(temp_dir)
 
 
     def recursive_backup(self, parent_folder_id,  temp_dir):

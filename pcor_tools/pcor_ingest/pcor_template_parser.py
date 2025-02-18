@@ -482,8 +482,8 @@ class PcorTemplateParser:
             #value = re.sub(r'\d\.\s+', '', value)
             value = re.sub(r'[•●]\s+', '', value)
             if escape_new_line:
-                value = re.sub(r'\n', '\\\\n', value)
-            value = re.sub(r'\t', "\\\\t", value) #must escape newlines for strings they are not valid json
+                value = re.sub(r'\n', ' ', value)
+            value = re.sub(r'\t', " ", value) #must escape newlines for strings they are not valid json
             value = value.replace('\xa0', ' ')
             return value.strip().replace('"', '')
         if isinstance(value, float):
