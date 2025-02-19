@@ -170,6 +170,7 @@ fence:
             - name: OSPO-AP-110724
             - name: OneStop-092624
             - name: NIAID-DEP-120124
+            - name: GRASP-071924
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -336,6 +337,7 @@ fence:
         - /programs/CHORDS/projects/OSPO-AP-110724
         - /programs/CHORDS/projects/OneStop-092624
         - /programs/CHORDS/projects/NIAID-DEP-120124
+        - /programs/CHORDS/projects/GRASP-071924
 
       - id: all_programs_reader
         role_ids:
@@ -477,6 +479,7 @@ fence:
         - /programs/CHORDS/projects/OSPO-AP-110724
         - /programs/CHORDS/projects/OneStop-092624
         - /programs/CHORDS/projects/NIAID-DEP-120124
+        - /programs/CHORDS/projects/GRASP-071924
 
       roles:
       - id: 'mds_user'
