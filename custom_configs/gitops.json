@@ -1005,7 +1005,6 @@
         "accessibleValidationField": "project_id"
       }
     }
-
   ],
   "connectSrcCSPWhitelist": [
     "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://rstudio.niehs.nih.gov"
