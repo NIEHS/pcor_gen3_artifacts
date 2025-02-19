@@ -35,7 +35,14 @@
   "type": "{{ discovery.type }}",
   "domain": "{{ discovery.domain }}",
   "domain_other": "{{ discovery.domain_other }}",
-  "publications": "{{ discovery.publications }}",
+  "publications":  [
+    {% for entry in discovery.publications %}
+        {% if entry %}
+          "{{ entry }}"
+        {% endif %}
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "publications_1": "{{ discovery.publications_1 }}",
   "publications_2": "{{ discovery.publications_2 }}",
   "publications_3": "{{ discovery.publications_3 }}",

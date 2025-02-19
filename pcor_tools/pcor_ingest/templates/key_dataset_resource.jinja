@@ -75,7 +75,7 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "time_extent_end_yyyy":  {{key_data_resource.time_extent_end_yyyy }},
+
   "geometry_type": [
     {% for entry in key_data_resource.geometry_type %}
         "{{ entry }}"
@@ -144,7 +144,12 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "time_extent_start_yyyy":  {{key_data_resource.time_extent_start_yyyy }},
+  {% if key_data_resource.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ key_data_resource.time_extent_start_yyyy }},
+  {% endif %}
+  {% if key_data_resource.time_extent_end_yyyy %}
+      "time_extent_start_yyyy": {{ key_data_resource.time_extent_end_yyyy }},
+  {% endif %}
   "measurement_method": [
     {% for entry in key_data_resource.measurement_method %}
         "{{ entry }}"

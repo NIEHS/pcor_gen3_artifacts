@@ -51,9 +51,17 @@ class PcorReporter():
 
         if self.pcor_ingest_configuration.mail_send_curator_email:
             if pcor_processing_result.success:
+                logger.info('\n\n\n\n')
+                logger.info('=======  SUCCESS  =======')
+                logger.info('Submission status: %s' % pcor_processing_result.success)
+                logger.info('Project Name: %s' % pcor_processing_result.project_name)
                 msg = self.produce_html_success_report(pcor_processing_result)
                 self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
             else:
+                logger.info('\n\n\n\n')
+                logger.info('=======  FAILED  =======')
+                logger.info('Submission status: %s' % pcor_processing_result.success)
+                logger.info('Project Name: %s' % pcor_processing_result.project_name)
                 msg = self.produce_html_error_report(pcor_processing_result)
                 self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
 
