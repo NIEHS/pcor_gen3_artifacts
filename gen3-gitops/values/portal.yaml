@@ -669,7 +669,7 @@ portal:
                   "fields": [
                     {
                       "type": "block",
-                      "sourceField": "comment"
+                      "sourceField": "intended_use"
                     }
                   ]
                 },
@@ -766,6 +766,12 @@ portal:
                     },
                     {
                       "type": "text",
+                      "label": "Domain Other",
+                      "sourceField": "domain_other",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Has API",
                       "sourceField": "has_api",
                       "default": "n/a"
@@ -820,20 +826,38 @@ portal:
                     },
                     {
                       "type": "text",
-                      "label": "Spatial Resolution",
-                      "sourceField": "spatial_resolution",
-                      "default": ""
-                    },
-                    {
-                      "type": "text",
                       "label": "Temporal Resolution",
                       "sourceField": "temporal_resolution",
                       "default": ""
                     },
                     {
                       "type": "text",
+                      "label": "Temporal Resolution Other",
+                      "sourceField": "temporal_resolution_other",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Spatial Resolution",
+                      "sourceField": "spatial_resolution",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Spatial Resolution Other",
+                      "sourceField": "spatial_resolution_other",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
                       "label": "Spatial Coverage",
                       "sourceField": "spatial_coverage",
+                      "default": ""
+                    },
+                    {
+                      "type": "text",
+                      "label": "Spatial Coverage Other",
+                      "sourceField": "spatial_coverage_other",
                       "default": ""
                     },
                     {
@@ -870,27 +894,51 @@ portal:
                       "default": "n/a"
                     },
                     {
-                      "type": "link",
+                      "type": "text",
                       "label": "Resource Use Agreement",
                       "sourceField": "resource_use_agreement",
                       "default": "n/a"
                     },
-                    {
+                     {
                       "type": "link",
+                      "label": "Resource Use Agreement Link",
+                      "sourceField": "resource_use_agreement_link",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 1",
-                      "sourceField": "data_location_1",
+                      "sourceField": "data_location_text_1",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
+                      "label": "Dataset Location link 1 ",
+                      "sourceField": "data_location_link_1",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 2",
-                      "sourceField": "data_location_2",
+                      "sourceField": "data_location_text_2",
                       "default": "n/a"
                     },
                     {
                       "type": "link",
+                      "label": "Dataset Location link 2 ",
+                      "sourceField": "data_location_link_2",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "text",
                       "label": "Dataset Location 3",
-                      "sourceField": "data_location_3",
+                      "sourceField": "data_location_text_3",
+                      "default": "n/a"
+                    },
+                    {
+                      "type": "link",
+                      "label": "Dataset Location link 3 ",
+                      "sourceField": "data_location_link_3",
                       "default": "n/a"
                     }
                   ]
@@ -965,7 +1013,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -974,7 +1022,6 @@ portal:
               "time_extent_start_year",
               "time_extent_end_year",
               "spatial_coverage",
-              "spatial_coverage_specific_regions",
               "resource_url"
             ],
             "linkFields": [
@@ -1071,7 +1118,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -1080,7 +1127,6 @@ portal:
               "time_extent_start_year",
               "time_extent_end_year",
               "spatial_coverage",
-              "spatial_coverage_specific_regions",
               "resource_url"
               ],
             "linkFields": [
@@ -1170,7 +1216,7 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "domain",
               "keywords",
@@ -1271,18 +1317,17 @@ portal:
             "enabled": true,
             "fields": [
               "project_sponsor",
-              "resource_name",
+              "resource_short_name",
               "resource_description",
               "keywords",
               "domain",
               "comments",
-              "metrics_derived_from_data_set",
               "data_formats",
-              "data_location"
+              "data_location_text"
 
             ],
             "linkFields": [
-              "data_location"
+              "data_location_text"
             ]
           },
           "dropdowns": {
@@ -1339,7 +1384,6 @@ portal:
             "accessibleValidationField": "project_id"
           }
         }
-
       ],
       "connectSrcCSPWhitelist": [
         "https://gen3.niehs.nih.gov", "https://chords.niehs.nih.gov", "https://localhost", "https://chords-health.org", "https://staging.chordshealth.org/", "https://www.niehs.nih.gov", "https://rstudio.niehs.nih.gov"

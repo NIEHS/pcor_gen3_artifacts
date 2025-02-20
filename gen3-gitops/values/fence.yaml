@@ -165,6 +165,12 @@ fence:
             - name: CMAQ-051324
             - name: BRFSS-092624
             - name: NHIS-092524
+            - name: ECDS-111524
+            - name: OSPO-AP-102924
+            - name: OSPO-AP-110724
+            - name: OneStop-092624
+            - name: NIAID-DEP-120124
+            - name: GRASP-071924
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -326,6 +332,13 @@ fence:
         - /programs/CHORDS/projects/CMAQ-051324
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
+        - /programs/CHORDS/projects/ECDS-111524
+        - /programs/CHORDS/projects/OSPO-AP-102924
+        - /programs/CHORDS/projects/OSPO-AP-110724
+        - /programs/CHORDS/projects/OneStop-092624
+        - /programs/CHORDS/projects/NIAID-DEP-120124
+        - /programs/CHORDS/projects/GRASP-071924
+
       - id: all_programs_reader
         role_ids:
         - 'guppy_reader'
@@ -454,12 +467,20 @@ fence:
         - /programs/CHORDS/projects/NRI-070924
         - /programs/CHORDS/projects/AgRisk-070924
         - /programs/CHORDS/projects/NLCD-TC-071524
+        - /programs/CHORDS/projects/Landslide-090624
         - /programs/CHORDS/projects/CASTNET-052224
         - /programs/CHORDS/projects/NEI-052424
         - /programs/CHORDS/projects/Landslide-101424
         - /programs/CHORDS/projects/CMAQ-051324
         - /programs/CHORDS/projects/BRFSS-092624
         - /programs/CHORDS/projects/NHIS-092524
+        - /programs/CHORDS/projects/ECDS-111524
+        - /programs/CHORDS/projects/OSPO-AP-102924
+        - /programs/CHORDS/projects/OSPO-AP-110724
+        - /programs/CHORDS/projects/OneStop-092624
+        - /programs/CHORDS/projects/NIAID-DEP-120124
+        - /programs/CHORDS/projects/GRASP-071924
+
       roles:
       - id: 'mds_user'
         permissions:
@@ -615,3 +636,4 @@ fence:
           - mds_admin
           - data_upload
           - services.sheepdog-admin
+

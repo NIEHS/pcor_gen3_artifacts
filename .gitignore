@@ -376,9 +376,11 @@ MigrationBackup/
 .venv
 *.swp
 .idea
-pcor_tools/tests/test_resources/*.json
+
 pcor_tools/tests/test_resources/*.properties
 pcor_tools/tests/pcor_work_dir
+pcor_tools/.newenv/
+pcor_tools/.test/
 
 #custom_configs/auto_generated_values.yaml
 #custom_configs/auto_generated_values_local.yaml

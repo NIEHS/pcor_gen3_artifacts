@@ -1,16 +1,13 @@
 import logging
 import os
-import time
 import shutil
 from datetime import datetime
 
 from pcor_ingest.loader import Loader
-
-from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
-
-from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
+from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
+from pcor_ingest.spreadsheet_reader import PcorSpreadsheetReader
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -115,7 +112,7 @@ class LoaderSpreadsheet(Loader):
             new_file_name = file_part + '~pcor~' + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm'
             return new_file_name
         except ValueError:
-            new_file_name = file_name.replace('.xlsm', '~pcor~'
-                                              + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.xlsm')
+            new_file_name = file_name.replace('.json', '~pcor~'
+                                              + str(datetime.now().strftime('_%y_%m_%d_%H%M%S')) + '.json')
             logger.info("new file name:%s" % new_file_name)
             return new_file_name

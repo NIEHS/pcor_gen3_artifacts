@@ -1,0 +1,80 @@
+{
+  "tags": [
+    {% for tag in discovery.tags %}
+      {
+        "name": "{{ tag.name }}",
+        "category": "{{ tag.category }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "advSearchFilters": [
+    {% for adv_search_filter in discovery.adv_search_filters %}
+      {
+        "key": "{{ adv_search_filter.key }}",
+        "value": "{{ adv_search_filter.value }}"
+      }{{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "program_name": "{{ discovery.program_name }}",
+  "program_type": "{{ discovery.program_type }}",
+  "program_url": "{{ discovery.program_url }}",
+  "project_name": "{{ discovery.project_name }}",
+  "project_short_name": "{{ discovery.project_short_name }}",
+  "project_sponsor": "{{ discovery.project_sponsor }}",
+  "project_sponsor_type": "{{ discovery.project_sponsor_type }}",
+  "project_url": "{{ discovery.project_url }}",
+  "project_description": "{{ discovery.project_description }}",
+  "name": "{{ discovery.name }}",
+  "short_name": "{{ discovery.short_name }}",
+  "verification_datetime": "{{ discovery.verification_datetime }}",
+  "payment_required": "{{ discovery.payment_required }}",
+  "comment": "{{ discovery.comment }}",
+  "description": "{{ discovery.description }}",
+  "resource_id": "{{ discovery.resource_id }}",
+  "resource_url": "{{ discovery.resource_url }}",
+  "type": "{{ discovery.type }}",
+  "domain": "{{ discovery.domain }}",
+  "publications": "{{ discovery.publications }}",
+  "publications_1": "{{ discovery.publications_1 }}",
+  "publications_2": "{{ discovery.publications_2 }}",
+  "publications_3": "{{ discovery.publications_3 }}",
+  "publication_links": "{{ discovery.publication_links }}",
+  "publication_link_1": "{{ discovery.publication_link_1 }}",
+  "publication_link_2": "{{ discovery.publication_link_2 }}",
+  "publication_link_3": "{{ discovery.publication_link_3 }}",
+  "access_type": "{{ discovery.access_type }}",
+  "geometry_type": "{{ discovery.geometry_type }}",
+  "resource_reference_1": "{{ discovery.resource_reference_1 }}",
+  "resource_reference_2": "{{ discovery.resource_reference_2 }}",
+  "has_api": "{{ discovery.has_api }}",
+  "has_visualization_tool": "{{ discovery.has_visualization_tool }}",
+  "is_citizen_collected": "{{ discovery.is_citizen_collected }}",
+  "resource_use_agreement": "{{ discovery.resource_use_agreement }}",
+  "data_location_1": "{{ discovery.data_location_1 }}",
+  "data_location_2": "{{ discovery.data_location_2 }}",
+  "data_location_3": "{{ discovery.data_location_3 }}",
+  {% if discovery.type != "GeoExposureTool"  %}
+  "data_formats": "{{ discovery.data_formats }}",
+  {% endif %}
+  {% if discovery.type == "GeoExposureTool"  %}
+  "tool_type": "{{ discovery.tool_type }}",
+  {% endif %}
+  "source_name": "{{ discovery.source_name }}",
+  "spatial_coverage": "{{ discovery.spatial_coverage }}",
+  "spatial_resolution": "{{ discovery.spatial_resolution }}",
+  {% if discovery.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ discovery.time_extent_start_yyyy }},
+  {% endif %}
+  {% if discovery.time_extent_end_yyyy %}
+      "time_extent_end_yyyy": {{ discovery.time_extent_end_yyyy }},
+  {% endif %}
+  {% if discovery.temporal_resolution %}
+      "temporal_resolution": "{{ discovery.temporal_resolution }}",
+  {% endif %}
+  "time_available_comment": "{{ discovery.time_available_comment }}",
+  "measures": "{{ discovery.measures }}",
+  "measures_parent": "{{ discovery.measures_parent }}",
+  "measures_subcategory_major": "{{ discovery.measures_subcategory_major }}",
+  "measures_subcategory_minor": "{{ discovery.measures_subcategory_minor }}"
+
+}

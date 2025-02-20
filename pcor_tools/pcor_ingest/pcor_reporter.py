@@ -3,13 +3,14 @@ import os
 import smtplib
 import traceback
 import warnings
-import pandas as pd
-from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import pandas as pd
 from jinja2 import Environment, FileSystemLoader
-from pcor_ingest.pcor_intermediate_model import PcorSubmissionInfoModel
+
+from pcor_ingest.population_data_resource_parser import PcorTemplateParser
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,8 @@ class PcorReporter():
         # Get the directory of the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
+        logger.info("script dir: %s" % script_dir)
+
         # Set the relative path to your template directory
         template_rel_path = 'templates'
 
@@ -46,12 +49,21 @@ class PcorReporter():
         :return: void
         """
 
-        if pcor_processing_result.success:
-            msg = self.produce_html_success_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
-        else:
-            msg = self.produce_html_error_report(pcor_processing_result)
-            self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
+        if self.pcor_ingest_configuration.mail_send_curator_email:
+            if pcor_processing_result.success:
+                logger.info('\n\n\n\n')
+                logger.info('=======  SUCCESS  =======')
+                logger.info('Submission status: %s' % pcor_processing_result.success)
+                logger.info('Project Name: %s' % pcor_processing_result.project_name)
+                msg = self.produce_html_success_report(pcor_processing_result)
+                self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='SUCCESS')
+            else:
+                logger.info('\n\n\n\n')
+                logger.info('=======  FAILED  =======')
+                logger.info('Submission status: %s' % pcor_processing_result.success)
+                logger.info('Project Name: %s' % pcor_processing_result.project_name)
+                msg = self.produce_html_error_report(pcor_processing_result)
+                self.send_email_report(pcor_processing_result=pcor_processing_result, email_text=msg, status='FAILED')
 
     def produce_html_error_report(self, pcor_processing_result):
 

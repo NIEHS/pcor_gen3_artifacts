@@ -1,15 +1,14 @@
 import json
-import os
 import logging
-import sys
-
-import requests
+import os
 import traceback
-from gen3.metadata import Gen3Metadata
-from gen3.submission import Gen3Submission
+from urllib.parse import quote
+
 from jinja2 import Environment, FileSystemLoader
 from requests import HTTPError
-from urllib.parse import quote
+
+from gen3.metadata import Gen3Metadata
+from gen3.submission import Gen3Submission
 from pcor_ingest.gen3auth import PcorGen3Auth
 from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, PcorDiscoveryMetadata, \
     Tag, AdvSearchFilter, PcorIntermediateProgramModel
@@ -175,7 +174,6 @@ class PcorGen3Ingest:
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
         discovery.project_url = project.project_url
-        discovery.project_description = project.description
         discovery.project_sponsor_type = project.project_sponsor_type
 
         '''
@@ -184,7 +182,7 @@ class PcorGen3Ingest:
         else:
             discovery.name = discovery.project_name + ":" + resource.name
         '''
-        discovery.name = resource.long_name
+        discovery.name = project.short_name
 
         discovery.payment_required = resource.payment_required
         discovery.verification_datetime = resource.verification_datetime
@@ -204,6 +202,8 @@ class PcorGen3Ingest:
             discovery.tags.append(tag)
 
         discovery.domain = ', '.join(resource.domain)
+        if hasattr(resource, 'domain_other'):
+            discovery.domain_other = ', '.join(resource.domain_other) if resource.domain_other else None
         discovery.publications = resource.publications
         discovery.publication_links = resource.publication_links
 
@@ -231,18 +231,21 @@ class PcorGen3Ingest:
         if len(resource.publication_links) > 2:
             discovery.publication_link_3 = resource.publication_links[2]
 
-        if len(resource.resource_reference) > 0:
+        '''
+        if resource.resource_reference:
             discovery.resource_reference_1 = resource.resource_reference[0]
 
         if len(resource.resource_reference) > 1:
             discovery.resource_reference_2 = resource.resource_reference[2]
-        
+        '''
+
         discovery.keywords = ','.join(resource.keywords)
         discovery.payment_required = resource.payment_required
         discovery.created_datetime = resource.created_datetime
         discovery.updated_datetime = resource.updated_datetime
         discovery.resource_reference = resource.resource_reference
         discovery.resource_use_agreement = resource.resource_use_agreement
+        discovery.resource_use_agreement_link = resource.resource_use_agreement_link
 
         if data_resource:
             if hasattr(data_resource, 'has_api'):
@@ -253,17 +256,74 @@ class PcorGen3Ingest:
                 discovery.is_citizen_collected = data_resource.includes_citizen_collected
             if hasattr(data_resource, 'data_formats'):
                 discovery.data_formats = ', '.join(data_resource.data_formats) if data_resource.data_formats else None
+            if hasattr(data_resource, 'spatial_resolution'):
+                discovery.spatial_resolution = ', '.join(data_resource.spatial_resolution) if data_resource.spatial_resolution else None
+                for item in data_resource.spatial_resolution:
+                    if data_resource.spatial_resolution:
+                        if data_resource.spatial_resolution != "Other":
+                            search_filter = AdvSearchFilter()
+                            search_filter.key = "Spatial Resolution"
+                            search_filter.value = item
+                            discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'spatial_resolution_other'):
+                discovery.spatial_resolution_other = ', '.join(data_resource.spatial_resolution_other) if data_resource.spatial_resolution_other else None
+            if hasattr(data_resource, 'spatial_coverage'):
+                discovery.spatial_coverage = ', '.join(data_resource.spatial_coverage) if data_resource.spatial_coverage else None
+            if hasattr(data_resource, 'spatial_coverage_other'):
+                discovery.spatial_coverage_other = ', '.join(data_resource.spatial_coverage_other) if data_resource.spatial_coverage_other else None
+            if hasattr(data_resource, 'temporal_resolution'):
+                discovery.temporal_resolution = ', '.join(data_resource.temporal_resolution) if data_resource.temporal_resolution else None
+                for item in data_resource.temporal_resolution:
+                    if data_resource.temporal_resolution:
+                        if data_resource.temporal_resolution != "Other":
+                            search_filter = AdvSearchFilter()
+                            search_filter.key = "Temporal Resolution"
+                            search_filter.value = item
+                            discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'temporal_resolution_other'):
+                discovery.temporal_resolution_other = ', '.join(data_resource.temporal_resolution_other) if data_resource.temporal_resolution_other else None
+            if hasattr(data_resource, 'geometry_type'):
+                discovery.geometry_type = ', '.join(data_resource.geometry_type) if data_resource.geometry_type else None
+                for item in data_resource.geometry_type:
+                    search_filter = AdvSearchFilter()
+                    search_filter.key = "Geometry Type"
+                    search_filter.value = item
+                    discovery.adv_search_filters.append(search_filter)
+            if hasattr(data_resource, 'tool_type'):
+                discovery.tool_type = ', '.join(data_resource.tool_type) if data_resource.tool_type else None
+            if hasattr(data_resource, 'comments'):
+                discovery.comments = data_resource.comments if data_resource.comments else None
+            if hasattr(data_resource, 'time_extent_start_yyyy'):
+                discovery.time_extent_start_yyyy = data_resource.time_extent_start_yyyy if data_resource.time_extent_start_yyyy else None
+            if hasattr(data_resource, 'time_extent_end_yyyy'):
+                discovery.time_extent_end_yyyy = data_resource.time_extent_end_yyyy if data_resource.time_extent_end_yyyy else None
+            if hasattr(data_resource, 'time_available_comment'):
+                discovery.time_available_comment = data_resource.time_available_comment if data_resource.time_available_comment else None
 
-            if len(data_resource.data_location) > 0:
-                discovery.data_location_1 = data_resource.data_location[0]
+            if hasattr(data_resource, 'intended_use'):
+                discovery.intended_use = data_resource.intended_use if data_resource.intended_use else None
 
-            if len(data_resource.data_location) > 1:
-                discovery.data_location_2 = data_resource.data_location[1]
+            if hasattr(data_resource, 'data_location_text'):
+                if len(data_resource.data_location_text) > 0:
+                    discovery.data_location_text_1 = data_resource.data_location_text[0]
 
-            if len(data_resource.data_location) > 2:
-                discovery.data_location_3 = data_resource.data_location[2]
+                if len(data_resource.data_location_text) > 1:
+                    discovery.data_location_text_2 = data_resource.data_location_text[1]
 
-            discovery.source_name = data_resource.source_name
+                if len(data_resource.data_location_text) > 2:
+                    discovery.data_location_text_3 = data_resource.data_location_text[2]
+            if hasattr(data_resource, 'data_link'):
+                if len(data_resource.data_link) > 0:
+                    discovery.data_location_link_1 = data_resource.data_link[0]
+
+                if len(data_resource.data_link) > 1:
+                    discovery.data_location_link_2 = data_resource.data_link[1]
+
+                if len(data_resource.data_link) > 2:
+                    discovery.data_location_link_3 = data_resource.data_link[2]
+
+            if hasattr(data_resource, 'source_name'):
+                discovery.source_name = data_resource.source_name if data_resource.source_name else None
 
         for item in resource.access_type:
             if item:
@@ -544,7 +604,7 @@ class PcorGen3Ingest:
         """
         logger.info("produce_key_data_resource()")
         template = self.env.get_template("key_dataset_resource.jinja")
-        rendered = template.render(key_dataset_resource=key_data_resource).replace('"none"', 'null') \
+        rendered = template.render(key_data_resource=key_data_resource).replace('"none"', 'null') \
             .replace('"None"', 'null').replace('""','null').replace('False', 'false').replace('True', 'true')
         logger.info("rendered: %s" % rendered)
         return rendered
@@ -694,7 +754,6 @@ class PcorGen3Ingest:
            project_sponsor
            project_sponsor_type
            project_url
-           description
            dbgap_accession_number
          }}
        }}
@@ -715,7 +774,6 @@ class PcorGen3Ingest:
             project.sponsor = result["data"]["project"][0]["project_sponsor"]
             project.sponsor_type = result["data"]["project"][0]["project_sponsor_type"]
             project.project_url = result["data"]["project"][0]["project_url"]
-            project.description = result["data"]["project"][0]["description"]
             project.dbgap_accession_number = result["data"]["project"][0]["dbgap_accession_number"]
             project.id = result["data"]["project"][0]["id"]
             return project

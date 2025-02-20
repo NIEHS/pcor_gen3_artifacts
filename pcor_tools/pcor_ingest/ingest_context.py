@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class PcorIngestConfiguration:
     """Configuration for ingesting data into PCOR catalog from some source"""
 
-    def __init__(self, pcor_config_file_name):
+    def __init__(self, pcor_config_file_name=None):
         """
         initialize a config structure
         :param pcor_config_file_name: file path to pcor properties file
@@ -31,6 +31,8 @@ class PcorIngestConfiguration:
 
     @staticmethod
     def dict_from_props(filename):
+
+
         """return a dictionary of properties file values"""
         logging.debug("dict_from_props()")
         logging.debug("filename: %s" % filename)

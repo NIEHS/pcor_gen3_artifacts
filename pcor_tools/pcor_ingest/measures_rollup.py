@@ -1,15 +1,8 @@
 import logging
-import math
-import re
-import traceback
-import uuid
-import json
-import warnings
+
 import pandas as pd
-from datetime import datetime
-from pcor_ingest.pcor_intermediate_model import PcorIntermediateProjectModel, \
-    PcorIntermediateResourceModel, PcorIntermediateProgramModel, \
-    PcorSubmissionInfoModel, MeasuresArrays
+
+from pcor_ingest.pcor_intermediate_model import MeasuresArrays
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -30,14 +23,14 @@ class PcorMeasuresRollupStructure:
 
 class PcorMeasuresRollup:
 
-    def __init__(self, pcor_ingest_configuration):
+    def __init__(self, measures_file):
         """
 
         Parameters
         ----------
         pcor_ingest_configuration PcorIngestConfiguration that contains configuration from properties file
         """
-        self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.measures_file = measures_file
         self.measures = self.build_measures_structure()
 
     def measures_rollup_as_dataframe(self):
@@ -50,7 +43,7 @@ class PcorMeasuresRollup:
 
         """
         logger.info("measures_rollup_as_dataframe")
-        df = pd.read_excel(self.pcor_ingest_configuration.measures_rollup, sheet_name='ForExport', engine='openpyxl')
+        df = pd.read_excel(self.measures_file, sheet_name='ForExport', engine='openpyxl')
         return df
 
     def build_measures_structure(self):

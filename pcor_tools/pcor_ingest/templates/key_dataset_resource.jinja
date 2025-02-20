@@ -1,86 +1,206 @@
 {
-  "measures": [
-    {% for entry in key_dataset_resource.measures %}
+ {% if key_data_resource.has_visualization_tool %}
+      "has_visualization_tool": true,
+  {% else %}
+       "has_visualization_tool": false,
+  {% endif %}
+
+ "measures_subcategory_minor": [
+    {% for entry in key_data_resource.measures_subcategory_minor %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
+  "model_methods": [
+    {% for entry in key_data_resource.model_methods %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
 
-  {% if key_dataset_resource.time_extent_end_yyyy %}
-    "time_extent_end_yyyy": {{ key_dataset_resource.time_extent_end_yyyy }},
-  {% endif %}
-
-  "metrics_derived_from_data_set": "{{ key_dataset_resource.metrics_derived_from_data_set }}",
+  ],
+  "use_example_application_link": [
+      {% for entry in key_data_resource.use_example_application_link %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_coverage": [
+    {% for entry in key_data_resource.spatial_coverage %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "temporal_resolution_comment": "{{key_data_resource.temporal_resolution_comment }}",
+  "update_frequency": [
+    {% for entry in key_data_resource.update_frequency %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_location_text": [
+    {% for entry in key_data_resource.data_location_text %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "comments": "{{key_data_resource.comments }}",
+  "spatial_resolution_all_available": [
+    {% for entry in key_data_resource.spatial_resolution_all_available %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_resolution_comment": "{{key_data_resource.spatial_resolution_comment }}",
+  "source_name":  [
+    {% for entry in key_data_resource.source_name %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_source": [
+    {% for entry in key_data_resource.geometry_source %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_subcategory_major": [
+    {% for entry in key_data_resource.measures_subcategory_major %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures_parent_category": [
+    {% for entry in key_data_resource.measures_parent_category %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
 
   "geometry_type": [
-    {% for entry in key_dataset_resource.geometry_type %}
+    {% for entry in key_data_resource.geometry_type %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
-  "time_available_comment": "{{ key_dataset_resource.time_available_comment }}",
-  "measures_parent_category":  [
-    {% for entry in key_dataset_resource.measures_parent %}
+  "spatial_resolution": [
+    {% for entry in key_data_resource.spatial_resolution %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
-  "display_type": "KeyDataResource",
-
-  "measures_subcategory_minor": [
-    {% for entry in key_dataset_resource.measures_subcategory_minor %}
+  "data_formats": [
+    {% for entry in key_data_resource.data_formats %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
-
-  "comments": "{{ key_dataset_resource.comments }}",
-  "measurement_method": [],
-
-  "measures_subcategory_major": [
-    {% for entry in key_dataset_resource.measures_subcategory_major %}
+  "*submitter_id": "{{key_data_resource.submitter_id }}",
+  "license_type": [
+    {% for entry in key_data_resource.license_type %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-
-  "spatial_resolution":  "{{ key_dataset_resource.spatial_resolution }}",
-  "temporal_resolution": "{{ key_dataset_resource.temporal_resolution }}",
+  "temporal_resolution": [
+    {% for entry in key_data_resource.temporal_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "measures": [
+    {% for entry in key_data_resource.measures %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "use_example_metrics": [
+    {% for entry in key_data_resource.use_example_metrics %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "*type": "key_data_resource", 
-
-  {% if key_dataset_resource.time_extent_start_yyyy %}
-    "time_extent_start_yyyy": {{ key_dataset_resource.time_extent_start_yyyy }},
+  "use_example_application_text":  [
+    {% for entry in key_data_resource.use_example_application_text %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "exposure_media": [
+    {% for entry in key_data_resource.exposure_media %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_bounding_box":  [
+    {% for entry in key_data_resource.spatial_bounding_box %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geographic_feature": [
+    {% for entry in key_data_resource.geographic_feature %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  {% if key_data_resource.time_extent_start_yyyy %}
+      "time_extent_start_yyyy": {{ key_data_resource.time_extent_start_yyyy }},
+  {% endif %}
+  {% if key_data_resource.time_extent_end_yyyy %}
+      "time_extent_start_yyyy": {{ key_data_resource.time_extent_end_yyyy }},
+  {% endif %}
+  "measurement_method": [
+    {% for entry in key_data_resource.measurement_method %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "*resources": {
+    "submitter_id": "{{key_data_resource.resource_submitter_id }}"
+  }, 
+  "time_available_comment": "{{key_data_resource.time_available_comment }}",
+  "use_limitations":  [
+    {% for entry in key_data_resource.use_limitations %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  {% if key_data_resource.includes_citizen_collected %}
+      "includes_citizen_collected": true,
+  {% else %}
+       "includes_citizen_collected": false,
+  {% endif %}
+  "use_suggested": [
+    {% for entry in key_data_resource.use_suggested %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "use_strengths": [
+    {% for entry in key_data_resource.use_strengths %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "temporal_resolution_all_available": [
+    {% for entry in key_data_resource.temporal_resolution_all_available %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_link":  [
+    {% for entry in key_data_resource.data_link %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+ {% if key_data_resource.has_api %}
+      "has_api": true,
+  {% else %}
+       "has_api": false,
   {% endif %}
 
-  "spatial_coverage": "{{ key_dataset_resource.spatial_coverage }}",
-  "*resources": {
-     "submitter_id": "{{ key_dataset_resource.resource_submitter_id }}"
-  },
-
-  "data_formats": [
-    {% for entry in key_dataset_resource.data_formats %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "data_location": [
-    {% for entry in key_dataset_resource.data_location %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "source_name": [
-    {% for entry in key_dataset_resource.source_name %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-
-  "*submitter_id": "{{ key_dataset_resource.submitter_id }}",
-  "model_methods": []
+  "intended_use": "{{key_data_resource.intended_use }}",
+  "display_type": "{{key_data_resource.display_type }}"
 }

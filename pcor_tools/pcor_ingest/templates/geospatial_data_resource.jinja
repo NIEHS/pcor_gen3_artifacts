@@ -1,17 +1,11 @@
 {
   "type": "geospatial_data_resource",
   "display_type": "GeoExposureData",
-  "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "comments": "{{ geo_spatial_data_resource.comments }}",
   "intended_use": "{{ geo_spatial_data_resource.intended_use }}",
+  "submitter_id": "{{ geo_spatial_data_resource.submitter_id }}",
   "source_name": [
     {% for entry in geo_spatial_data_resource.source_name %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "update_frequency":  [
-    {% for entry in geo_spatial_data_resource.update_frequency %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
@@ -21,26 +15,29 @@
   {% else %}
        "includes_citizen_collected": false,
   {% endif %}
-
+  "update_frequency":  [
+    {% for entry in geo_spatial_data_resource.update_frequency %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   {% if geo_spatial_data_resource.has_api %}
       "has_api": true,
   {% else %}
        "has_api": false,
   {% endif %}
-
   {% if geo_spatial_data_resource.has_visualization_tool %}
       "has_visualization_tool": true,
   {% else %}
        "has_visualization_tool": false,
   {% endif %}
-
   "measures":  [
     {% for entry in geo_spatial_data_resource.measures %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-    "measures_parent_category":  [
+  "measures_parent_category":  [
     {% for entry in geo_spatial_data_resource.measures_parent %}
         "{{ entry }}"
       {{ "," if not loop.last }}
@@ -64,32 +61,32 @@
   {% if geo_spatial_data_resource.time_extent_end_yyyy %}
       "time_extent_end_yyyy": {{ geo_spatial_data_resource.time_extent_end_yyyy }},
   {% endif %}
-  {% if geo_spatial_data_resource.time_extent_end_year %}
-      "time_extent_end_year": {{ geo_spatial_data_resource.time_extent_end_year }},
-  {% endif %}
   "time_available_comment": "{{ geo_spatial_data_resource.time_available_comment }}",
-  "temporal_resolution": "{{ geo_spatial_data_resource.temporal_resolution }}",
-  "spatial_resolution": "{{ geo_spatial_data_resource.spatial_resolution }}",
+  "temporal_resolution": [
+    {% for entry in geo_spatial_data_resource.temporal_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "spatial_resolution": [
+    {% for entry in geo_spatial_data_resource.spatial_resolution %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
   "spatial_coverage": [
     {% for entry in geo_spatial_data_resource.spatial_coverage %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "spatial_coverage_specific_regions": [
-    {% for entry in geo_spatial_data_resource.spatial_coverage_specific_regions %}
+  "spatial_bounding_box": [
+    {% for entry in geo_spatial_data_resource.spatial_bounding_box %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "spatial_bounding_box": "{{ geo_spatial_data_resource.spatial_bounding_box }}",
-  "geometry_type": [
-    {% for entry in geo_spatial_data_resource.geometry_type %}
-        "{{ entry }}"
-      {{ "," if not loop.last }}
-    {% endfor %}
-  ],
-  "geometry_source": [
+ "geometry_source": [
     {% for entry in geo_spatial_data_resource.geometry_source %}
         "{{ entry }}"
       {{ "," if not loop.last }}
@@ -97,6 +94,12 @@
   ],
   "model_methods":  [
     {% for entry in geo_spatial_data_resource.model_methods %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "geometry_type": [
+    {% for entry in geo_spatial_data_resource.geometry_type %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
@@ -119,8 +122,14 @@
       {{ "," if not loop.last }}
     {% endfor %}
   ],
-  "data_location": [
-    {% for entry in geo_spatial_data_resource.data_location %}
+  "data_location_text": [
+    {% for entry in geo_spatial_data_resource.data_location_text %}
+        "{{ entry }}"
+      {{ "," if not loop.last }}
+    {% endfor %}
+  ],
+  "data_link": [
+    {% for entry in geo_spatial_data_resource.data_link %}
         "{{ entry }}"
       {{ "," if not loop.last }}
     {% endfor %}
