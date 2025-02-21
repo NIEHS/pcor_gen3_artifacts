@@ -104,7 +104,7 @@ class CedarBackup():
                     self.recursive_backup(CedarAccess.extract_guid(entry.folder_id), subdir)
                 else:
                     time.sleep(CedarBackup.sleep_factor)
-                    resource_file = self.cedar_access.retrieve_resource(entry.folder_id)
+                    resource_file = self.cedar_access.retrieve_resource(CedarAccess.extract_guid(entry.folder_id))
                     with open(os.path.join(temp_dir,entry.folder_name.replace('/', '_') +'.json'), 'w') as f:
                         json.dump(resource_file, f)
 
