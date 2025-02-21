@@ -151,6 +151,43 @@ class CedarAccess(object):
         logger.debug("r:%s", r_json)
         return r_json
 
+    def retrieve_template(self, template_id):
+
+        """
+        Retrieve the template as a json-ld document
+        Parameters
+        ----------
+        template_id the GUID of the template
+
+        Returns
+        -------
+        JSON object that is the retrieved template
+
+        """
+        logger.info("retrieving template: %s" % template_id)
+        api_url = ("https://repo.metadatacenter.org/templates/" +
+                   urllib.parse.quote_plus(template_id))
+        headers = {"Content-Type": "application/json", "Accept": "application/json",
+                   "Authorization": self.cedar_config.build_request_headers_json()}
+
+        try:
+            r = requests.get(api_url, headers=headers)
+        except:
+            time.sleep(30)
+            return self.retrieve_template(template_id)
+
+        r_json = r.json()
+
+        try:
+            if r_json["statusCode"] != 200:
+                logger.error("failed to retrieve template: %s" % r_json["errorMessage"])
+                raise Exception(r_json["errorMessage"])
+        except KeyError:
+            pass
+
+        logger.debug("r:%s", r_json)
+        return r_json
+
     @staticmethod
     def parse_folder_listing(folder_listing_json):
         logger.info("parsing folder listing")
