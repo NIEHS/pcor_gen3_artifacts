@@ -451,8 +451,8 @@ portal:
         "homepageHref": "https://staging.chordshealth.org/",
         "index": {
           "introduction": {
-            "heading": "CHORDS - Climate and Health Outcomes Research Data Systems Catalog",
-            "text": "The CHORDS project aims to build and strengthen data infrastructure for patient-centered outcomes research on climate change and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes. The project also provides analytical and educational resources that will allow not only researchers, but also health practitioners, public health officials, and communities to assess the health effects associated with climate-related events, create and evaluate evidence-based interventions to protect communities, and anticipate and respond to potential adverse health outcomes resulting from these events.​",
+            "heading": "CHORDS - Connecting Health Outcomes Research Data Systems Catalog",
+            "text": "The CHORDS project aims to build and strengthen data infrastructure for patient-centered outcomes research on environment and health. We will achieve this goal by providing accessible, timely, harmonized, interoperable, and linkable data on environmental factors, exposures, and health outcomes. The project also provides analytical and educational resources that will allow not only researchers, but also health practitioners, public health officials, and communities to assess the health effects associated with environment-related events, create and evaluate evidence-based interventions to protect communities, and anticipate and respond to potential adverse health outcomes resulting from these events.​",
             "link": "/submission"
           },
           "buttons": [
@@ -508,15 +508,15 @@ portal:
       },
         "useProfileDropdown": false,
         "login": {
-          "title": "CHORDS - Climate and Health Outcomes Research Data Systems",
-          "subTitle": "Explore, Analyze, and Share Climate and Health Resources",
+          "title": "CHORDS - Connecting Health Outcomes Research Data Systems",
+          "subTitle": "Explore, Analyze, and Share Environment and Health Resources",
           "text": "",
           "contact": "If you have any questions about access or the registration process, please contact ",
           "email": "mike.conway@nih.gov"
         },
         "systemUse" : {
           "systemUseTitle" : "CHORDS Catalog Policy",
-          "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to climate and public health. NIEHS is not responsible for information that is hosted on these external data resources."],
+          "systemUseText" : ["You are accessing a U.S. Government System. System usage may be monitored, recorded, and subject to audit. Use of the system indicates consent to monitoring and recording.\n\nUnauthorized use of the system is prohibited and subject to criminal and civil penalties.\n\nThis system includes links to external resources, and may be used by the public and by researchers as an aid to locate data relevant to environment and public health. NIEHS is not responsible for information that is hosted on these external data resources."],
           "expireUseMsgDays" : 0
         },
         "footerLogos": [
@@ -551,7 +551,7 @@ portal:
             "searchBar": {
               "enabled": true,
               "inputSubtitle": "CHORDS Resource Search",
-              "placeholder": "Try searches such as 'Air quality', 'General exposure', 'Climate hazard'",
+              "placeholder": "Try searches such as 'Air quality', 'General exposure'",
               "searchableTextFields": [
                 "project_short_name",
                 "project_name",
