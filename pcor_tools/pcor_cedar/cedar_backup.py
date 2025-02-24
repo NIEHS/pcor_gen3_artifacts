@@ -54,7 +54,7 @@ class CedarBackup():
             logger.error("output directory %s does not exist", output)
             raise Exception("output directory %s does not exist")
 
-        iso_date = datetime.datetime.now().isoformat()
+        iso_date = datetime.datetime.now().isoformat().replace('/', '_')
 
         # create a temp directory under the output directory, this will be zipped later and
         # then deleted
@@ -74,7 +74,7 @@ class CedarBackup():
         except FileExistsError:
             pass
 
-        self.recursive_backup(templates, templates_dir)
+        self.recursive_backup_templates(templates, templates_dir)
 
         instances_dir = os.path.join(temp_dir, "instances")
         logger.info("instances dir: %s", instances_dir)
@@ -104,8 +104,28 @@ class CedarBackup():
                     self.recursive_backup(CedarAccess.extract_guid(entry.folder_id), subdir)
                 else:
                     time.sleep(CedarBackup.sleep_factor)
-                    resource_file = self.cedar_access.retrieve_resource(entry.folder_id)
+                    resource_file = self.cedar_access.retrieve_resource(CedarAccess.extract_guid(entry.folder_id))
                     with open(os.path.join(temp_dir,entry.folder_name.replace('/', '_') +'.json'), 'w') as f:
                         json.dump(resource_file, f)
+
+    def recursive_backup_templates(self, parent_folder_id,  temp_dir):
+        time.sleep(CedarBackup.sleep_factor)
+        folder_contents = self.cedar_access.retrieve_folder_contents(parent_folder_id)
+        if folder_contents.subfolders:
+            for entry in folder_contents.subfolders:
+                if entry.item_type == 'folder':
+                    subdir = os.path.join(temp_dir, entry.folder_name.replace('/', '_'))
+                    try:
+                        os.mkdir(subdir)
+                    except FileExistsError:
+                        pass
+                    self.recursive_backup(CedarAccess.extract_guid(entry.folder_id), subdir)
+                else:
+                    time.sleep(CedarBackup.sleep_factor)
+                    resource_file = self.cedar_access.retrieve_template(CedarAccess.extract_guid(entry.folder_id))
+                    with open(os.path.join(temp_dir,entry.folder_name.replace('/', '_') +'.json'), 'w') as f:
+                        json.dump(resource_file, f)
+
+
 
 

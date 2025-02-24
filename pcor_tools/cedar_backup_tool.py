@@ -49,6 +49,7 @@ def main():
         raise Exception("no -o parameter specified")
 
     cedar_backup = CedarBackup()
+    cedar_backup.backup(templates, instances, output)
 
 
 if __name__ == "__main__":
