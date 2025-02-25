@@ -170,9 +170,18 @@ class PcorGen3Ingest:
 
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program.name
-        if project.project_sponsor_other:
-            project.project_sponsor = project.project_sponsor + project.project_sponsor_other
-        discovery.project_sponsor = ','.join(project.project_sponsor)
+        if project.project_sponsor is not None and project.project_sponsor_other is not None:
+            temp_project_sponsor_list = []
+            temp_project_sponsor_list.extend(project.project_sponsor)
+            temp_project_sponsor_list.extend(project.project_sponsor_other)
+            # Remove 'other/Other' if it exists in the primary list
+            if 'other' in temp_project_sponsor_list:
+                temp_project_sponsor_list.remove('other')
+            if 'Other' in temp_project_sponsor_list:
+                temp_project_sponsor_list.remove('Other')
+            discovery.project_sponsor = ','.join(temp_project_sponsor_list)
+        else:
+            discovery.project_sponsor = ','.join(project.project_sponsor) if project.project_sponsor else None
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
         discovery.project_url = project.project_url
