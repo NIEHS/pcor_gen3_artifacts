@@ -57,7 +57,6 @@ authz:
         - name: CACES-050224
         - name: CASTNET-052224
         - name: CDC-ATSDR-SVI-022525
-        - name: CDC-ATSDR-SVI-071924
         - name: CDI-071824
         - name: CMAQ-051324
         - name: CONUS-TC-071524
@@ -71,7 +70,6 @@ authz:
         - name: ECDS-111524
         - name: EJI-022525
         - name: EJScreen-022525
-        - name: EPA-AQS-071924
         - name: EnviroAtlas-022525
         - name: FAQSD-071924
         - name: FIRMS-022525
@@ -81,7 +79,7 @@ authz:
         - name: GHG-Pathfinder-022525
         - name: GMTED2010-071524
         - name: GPW_v4-071224
-        - name: GRASP-071924
+        - name: GRASP-022525
         - name: GSUHI-071124
         - name: HCUP-022525
         - name: HMS-022525
@@ -96,7 +94,6 @@ authz:
         - name: LANDFIRE-022525
         - name: LCZ_Map-071124
         - name: Landslide-090624
-        - name: Landslide-101424
         - name: M2I3NVAER-071224
         - name: M2T1NXAER-071224
         - name: M2TMNXADG-071224
@@ -141,7 +138,6 @@ authz:
         - name: OSPO-AP-110724
         - name: OneStop-092624
         - name: OpenAQ-022525
-        - name: OpenAQ-071924
         - name: PLACES-022525
         - name: PM2.5-ACAG-07102024-GL
         - name: PM2.5-ACAG-07102024-NA
@@ -222,7 +218,6 @@ authz:
     - /programs/CHORDS/projects/CACES-050224
     - /programs/CHORDS/projects/CASTNET-052224
     - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
-    - /programs/CHORDS/projects/CDC-ATSDR-SVI-071924
     - /programs/CHORDS/projects/CDI-071824
     - /programs/CHORDS/projects/CMAQ-051324
     - /programs/CHORDS/projects/CONUS-TC-071524
@@ -236,7 +231,6 @@ authz:
     - /programs/CHORDS/projects/ECDS-111524
     - /programs/CHORDS/projects/EJI-022525
     - /programs/CHORDS/projects/EJScreen-022525
-    - /programs/CHORDS/projects/EPA-AQS-071924
     - /programs/CHORDS/projects/EnviroAtlas-022525
     - /programs/CHORDS/projects/FAQSD-071924
     - /programs/CHORDS/projects/FIRMS-022525
@@ -246,7 +240,7 @@ authz:
     - /programs/CHORDS/projects/GHG-Pathfinder-022525
     - /programs/CHORDS/projects/GMTED2010-071524
     - /programs/CHORDS/projects/GPW_v4-071224
-    - /programs/CHORDS/projects/GRASP-071924
+    - /programs/CHORDS/projects/GRASP-022525
     - /programs/CHORDS/projects/GSUHI-071124
     - /programs/CHORDS/projects/HCUP-022525
     - /programs/CHORDS/projects/HMS-022525
@@ -261,7 +255,6 @@ authz:
     - /programs/CHORDS/projects/LANDFIRE-022525
     - /programs/CHORDS/projects/LCZ_Map-071124
     - /programs/CHORDS/projects/Landslide-090624
-    - /programs/CHORDS/projects/Landslide-101424
     - /programs/CHORDS/projects/M2I3NVAER-071224
     - /programs/CHORDS/projects/M2T1NXAER-071224
     - /programs/CHORDS/projects/M2TMNXADG-071224
@@ -306,7 +299,6 @@ authz:
     - /programs/CHORDS/projects/OSPO-AP-110724
     - /programs/CHORDS/projects/OneStop-092624
     - /programs/CHORDS/projects/OpenAQ-022525
-    - /programs/CHORDS/projects/OpenAQ-071924
     - /programs/CHORDS/projects/PLACES-022525
     - /programs/CHORDS/projects/PM2.5-ACAG-07102024-GL
     - /programs/CHORDS/projects/PM2.5-ACAG-07102024-NA
@@ -362,7 +354,6 @@ authz:
     - /programs/CHORDS/projects/CACES-050224
     - /programs/CHORDS/projects/CASTNET-052224
     - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
-    - /programs/CHORDS/projects/CDC-ATSDR-SVI-071924
     - /programs/CHORDS/projects/CDI-071824
     - /programs/CHORDS/projects/CMAQ-051324
     - /programs/CHORDS/projects/CONUS-TC-071524
@@ -376,7 +367,6 @@ authz:
     - /programs/CHORDS/projects/ECDS-111524
     - /programs/CHORDS/projects/EJI-022525
     - /programs/CHORDS/projects/EJScreen-022525
-    - /programs/CHORDS/projects/EPA-AQS-071924
     - /programs/CHORDS/projects/EnviroAtlas-022525
     - /programs/CHORDS/projects/FAQSD-071924
     - /programs/CHORDS/projects/FIRMS-022525
@@ -386,7 +376,7 @@ authz:
     - /programs/CHORDS/projects/GHG-Pathfinder-022525
     - /programs/CHORDS/projects/GMTED2010-071524
     - /programs/CHORDS/projects/GPW_v4-071224
-    - /programs/CHORDS/projects/GRASP-071924
+    - /programs/CHORDS/projects/GRASP-022525
     - /programs/CHORDS/projects/GSUHI-071124
     - /programs/CHORDS/projects/HCUP-022525
     - /programs/CHORDS/projects/HMS-022525
@@ -401,7 +391,6 @@ authz:
     - /programs/CHORDS/projects/LANDFIRE-022525
     - /programs/CHORDS/projects/LCZ_Map-071124
     - /programs/CHORDS/projects/Landslide-090624
-    - /programs/CHORDS/projects/Landslide-101424
     - /programs/CHORDS/projects/M2I3NVAER-071224
     - /programs/CHORDS/projects/M2T1NXAER-071224
     - /programs/CHORDS/projects/M2TMNXADG-071224
@@ -446,7 +435,6 @@ authz:
     - /programs/CHORDS/projects/OSPO-AP-110724
     - /programs/CHORDS/projects/OneStop-092624
     - /programs/CHORDS/projects/OpenAQ-022525
-    - /programs/CHORDS/projects/OpenAQ-071924
     - /programs/CHORDS/projects/PLACES-022525
     - /programs/CHORDS/projects/PM2.5-ACAG-07102024-GL
     - /programs/CHORDS/projects/PM2.5-ACAG-07102024-NA
