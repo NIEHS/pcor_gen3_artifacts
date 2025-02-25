@@ -1,0 +1,5 @@
+.run
+.venv
+dist
+build
+.newenv

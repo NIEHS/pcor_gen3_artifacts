@@ -1,14 +1,10 @@
+import datetime
 import json
 import logging
 import os.path
-import datetime
-import time
 import shutil
+import time
 
-
-from pkg_resources import resource_filename
-
-from gen3utils.errors import FieldError
 from pcor_cedar.cedar_access import CedarAccess
 from pcor_cedar.cedar_config import CedarConfig
 
