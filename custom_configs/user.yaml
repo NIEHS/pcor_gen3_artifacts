@@ -152,6 +152,7 @@ authz:
         - name: TRI-071724
         - name: U.S.-PM2.5-022525
         - name: USFA-022525
+        - name: USGSP-121624
         - name: UVE_NA-071124
         - name: VNP46A2-07
         - name: WA-APCD-022525
@@ -313,6 +314,7 @@ authz:
     - /programs/CHORDS/projects/TRI-071724
     - /programs/CHORDS/projects/U.S.-PM2.5-022525
     - /programs/CHORDS/projects/USFA-022525
+    - /programs/CHORDS/projects/USGSP-121624
     - /programs/CHORDS/projects/UVE_NA-071124
     - /programs/CHORDS/projects/VNP46A2-07
     - /programs/CHORDS/projects/WA-APCD-022525
@@ -449,6 +451,7 @@ authz:
     - /programs/CHORDS/projects/TRI-071724
     - /programs/CHORDS/projects/U.S.-PM2.5-022525
     - /programs/CHORDS/projects/USFA-022525
+    - /programs/CHORDS/projects/USGSP-121624
     - /programs/CHORDS/projects/UVE_NA-071124
     - /programs/CHORDS/projects/VNP46A2-07
     - /programs/CHORDS/projects/WA-APCD-022525
