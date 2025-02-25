@@ -20,7 +20,6 @@ class CedarTemplateProcessor:
     def __init__(self):
         """
         Initialize ingest tool
-        :param pcor_ingest_configuration: IngestConfiguration with Gen3 server properties
         :return:
         """
 
