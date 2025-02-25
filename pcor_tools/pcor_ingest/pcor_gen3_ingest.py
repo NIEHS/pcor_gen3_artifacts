@@ -170,6 +170,8 @@ class PcorGen3Ingest:
 
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program.name
+        if project.project_sponsor_other:
+            project.project_sponsor = project.project_sponsor + project.project_sponsor_other
         discovery.project_sponsor = ','.join(project.project_sponsor)
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
@@ -354,7 +356,7 @@ class PcorGen3Ingest:
 
         filter_project_sponsor_list = [
             "United States Forestry Service (USFS)",
-            "United States Department of Agriculture (USDOA)",
+            "United States Department of Agriculture (USDA)",
             "United States Department of the Interior (USDOI)",
             "United States Geological Survey (USGS)",
             "National Aeronautics and Space Administration (NASA)",
