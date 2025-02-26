@@ -218,6 +218,7 @@ class PcorDiscoveryMetadata:
         self.name = ""
         self.payment_required = ""
         self.program_name = ""
+        self.project_code = ""
         self.project_description = ""
         self.project_name = ""
         self.project_short_name = ""

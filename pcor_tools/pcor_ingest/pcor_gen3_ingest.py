@@ -184,6 +184,7 @@ class PcorGen3Ingest:
             discovery.project_sponsor = ','.join(project.project_sponsor) if project.project_sponsor else None
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
+        discovery.project_code = project.code
         discovery.project_url = project.project_url
         discovery.project_sponsor_type = project.project_sponsor_type
 
@@ -683,7 +684,7 @@ class PcorGen3Ingest:
         existing_entry_guid = None
         if existing_discovery_entries:
             for entry_guid, existing_entry in existing_discovery_entries.items():
-                temp_entry_name = existing_entry['gen3_discovery']['name']
+                temp_entry_name = existing_entry['gen3_discovery']['project_code']
                 if temp_entry_name == new_entry_name:
                     entry_already_exist = True
                     existing_entry_guid = entry_guid
