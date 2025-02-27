@@ -8,6 +8,7 @@ from requests import HTTPError
 from pcor_ingest.pcor_gen3_ingest import PcorGen3Ingest
 from pcor_ingest.pcor_intermediate_model import AdvSearchFilter, Tag
 from pcor_ingest.pcor_template_process_result import PcorError
+from pcor_ingest.measures_rollup import PcorMeasuresRollup
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -24,6 +25,8 @@ class PcorTemplateProcessor:
 
     def __init__(self, pcor_ingest_configuration):
         self.pcor_ingest = PcorGen3Ingest(pcor_ingest_configuration)
+        self.pcor_ingest_configuration = pcor_ingest_configuration
+        self.pcor_measures_rollup = PcorMeasuresRollup(self.pcor_ingest_configuration.measures_rollup)
 
     def process(self, parsed_data):
 
@@ -112,6 +115,13 @@ class PcorTemplateProcessor:
                             geo_spatial_resource.resource_submitter_id = resource.submitter_id
                             geo_spatial_resource.submitter_id = resource.submitter_id
 
+                            if hasattr(geo_spatial_resource, 'measures'):
+                                # Add the measures rollup
+                                measures_rollup = self.pcor_measures_rollup.process_measures(geo_spatial_resource.measures)
+                                geo_spatial_resource.measures_parent = measures_rollup.measures_parents
+                                geo_spatial_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+                                geo_spatial_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
+
                             # parsed template field?
                             parsed_data.resource_detail_guid = geo_spatial_resource.submitter_id
 
@@ -140,7 +150,6 @@ class PcorTemplateProcessor:
 
                             # measures parent category
                             for item in geo_spatial_resource.measures_parent:
-
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Measures(category)"
                                 search_filter.value = item
@@ -156,20 +165,10 @@ class PcorTemplateProcessor:
                                     discovery.tags.append(tag)
 
                             for item in geo_spatial_resource.measures_subcategory_minor:
-
                                 search_filter = AdvSearchFilter()
                                 search_filter.key = "Measures(subcategory 2)"
                                 search_filter.value = item
                                 discovery.adv_search_filters.append(search_filter)
-
-                            # measures parent category
-                            for item in geo_spatial_resource.measures_parent:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Measures(category)"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
-                            for item in geo_spatial_resource.measures_subcategory_major:
                                 if PcorGen3Ingest.check_tag_present(item, discovery.tags):
                                     pass
                                 else:
@@ -177,23 +176,6 @@ class PcorTemplateProcessor:
                                     tag.name = item
                                     tag.category = "Measures(subcategory 2)"
                                     discovery.tags.append(tag)
-
-                            for item in geo_spatial_resource.measures:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Measures"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
-
-
-                                # remove lowest level measures
-                                #if PcorGen3Ingest.check_tag_present(item, discovery.tags):
-                                #    pass
-                                #else:
-                                #    tag = Tag()
-                                #    tag.name = item
-                                #    tag.category = "Measures"
-                                #    discovery.tags.append(tag)
 
                             logger.info("created discovery: %s" % discovery)
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
@@ -205,6 +187,13 @@ class PcorTemplateProcessor:
                             pop_data_resource.resource_id = resource_submit_status.id
                             pop_data_resource.resource_submitter_id = resource.submitter_id
                             pop_data_resource.submitter_id = resource.submitter_id
+
+                            if hasattr(pop_data_resource, 'measures'):
+                                # Add the measures rollup
+                                measures_rollup = self.pcor_measures_rollup.process_measures(pop_data_resource.measures)
+                                pop_data_resource.measures_parent = measures_rollup.measures_parents
+                                pop_data_resource.measures_subcategory_major = measures_rollup.measures_subcategories_major
+                                pop_data_resource.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
 
                             resource_submit_status = self.pcor_ingest.create_pop_data_resource(
                                 program_name=program.name,
@@ -343,6 +332,13 @@ class PcorTemplateProcessor:
                             key_dataset.resource_submitter_id = resource.submitter_id
                             key_dataset.submitter_id = resource.submitter_id
 
+                            if hasattr(key_dataset, 'measures'):
+                                # Add the measures rollup
+                                measures_rollup = self.pcor_measures_rollup.process_measures(key_dataset.measures)
+                                key_dataset.measures_parent = measures_rollup.measures_parents
+                                key_dataset.measures_subcategory_major = measures_rollup.measures_subcategories_major
+                                key_dataset.measures_subcategory_minor = measures_rollup.measures_subcategories_minor
+
                             resource_submit_status = self.pcor_ingest.create_key_dataset(
                                 program_name=program.name,
                                 project_code=project.code,
@@ -394,14 +390,7 @@ class PcorTemplateProcessor:
                                     tag.category = "Measures(subcategory 2)"
                                     discovery.tags.append(tag)
 
-                            for item in key_dataset.measures:
-                                search_filter = AdvSearchFilter()
-                                search_filter.key = "Measures"
-                                search_filter.value = item
-                                discovery.adv_search_filters.append(search_filter)
-
                             logger.info("created discovery: %s" % discovery)
-
                             discovery_result = self.pcor_ingest.decorate_resc_with_discovery(discovery)
                             logger.info("discovery_result: %s" % discovery_result)
 

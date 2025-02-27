@@ -679,13 +679,13 @@ class PcorGen3Ingest:
             False if entry does not exist
         """
         logger.info("check_discovery_exists()")
-        new_entry_name = new_entry['name']
+        new_entry_project_code = new_entry['project_code']
         entry_already_exist = False
         existing_entry_guid = None
         if existing_discovery_entries:
             for entry_guid, existing_entry in existing_discovery_entries.items():
-                temp_entry_name = existing_entry['gen3_discovery']['project_code']
-                if temp_entry_name == new_entry_name:
+                temp_entry_project_code = existing_entry['gen3_discovery']['project_code']
+                if temp_entry_project_code == new_entry_project_code:
                     entry_already_exist = True
                     existing_entry_guid = entry_guid
         return entry_already_exist, existing_entry_guid
