@@ -869,7 +869,7 @@ class PcorGen3Ingest:
             submission_status.traceback = traceback.format_exc()
             return submission_status
 
-    def delete_nodes(self, program, project, ordered_node_list, batch_size=100, verbose=True):
+    def delete_nodes(self, program, project, ordered_node_list, batch_size=1000, verbose=True):
         """
         Delete all records for a list of nodes from a project.
 
@@ -895,7 +895,7 @@ class PcorGen3Ingest:
         :param program: identifier of the program in Gen3
         :param project: project name/code
         """
-        logger.info('fetch project details')
+        logger.info('resubmission_cleanups()')
         ordered_node_list = ['geospatial_data_resource', 'geospatial_tool_resource', 'population_data_resource',
                              'key_data_resource',
                              'resource']
