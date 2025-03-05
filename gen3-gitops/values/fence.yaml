@@ -61,6 +61,7 @@ fence:
             - name: BenMAP-CE-022525
             - name: BioEco-Pathfinder-022525
             - name: CACES-050224
+            - name: CACES-KDS-050224
             - name: CASTNET-052224
             - name: CDC-ATSDR-SVI-022525
             - name: CDI-071824
@@ -223,6 +224,7 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE-022525
         - /programs/CHORDS/projects/BioEco-Pathfinder-022525
         - /programs/CHORDS/projects/CACES-050224
+        - /programs/CHORDS/projects/CACES-KDS-050224
         - /programs/CHORDS/projects/CASTNET-052224
         - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
         - /programs/CHORDS/projects/CDI-071824
@@ -360,6 +362,7 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE-022525
         - /programs/CHORDS/projects/BioEco-Pathfinder-022525
         - /programs/CHORDS/projects/CACES-050224
+        - /programs/CHORDS/projects/CACES-KDS-050224
         - /programs/CHORDS/projects/CASTNET-052224
         - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
         - /programs/CHORDS/projects/CDI-071824
