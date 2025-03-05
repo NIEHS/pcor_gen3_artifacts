@@ -82,6 +82,7 @@ authz:
         - name: GPW_v4-071224
         - name: GRASP-022525
         - name: GSUHI-071124
+        - name: HCCI-042924
         - name: HCUP-022525
         - name: HMS-022525
         - name: HMS-071224
@@ -245,6 +246,7 @@ authz:
     - /programs/CHORDS/projects/GPW_v4-071224
     - /programs/CHORDS/projects/GRASP-022525
     - /programs/CHORDS/projects/GSUHI-071124
+    - /programs/CHORDS/projects/HCCI-042924
     - /programs/CHORDS/projects/HCUP-022525
     - /programs/CHORDS/projects/HMS-022525
     - /programs/CHORDS/projects/HMS-071224
@@ -383,6 +385,7 @@ authz:
     - /programs/CHORDS/projects/GPW_v4-071224
     - /programs/CHORDS/projects/GRASP-022525
     - /programs/CHORDS/projects/GSUHI-071124
+    - /programs/CHORDS/projects/HCCI-042924
     - /programs/CHORDS/projects/HCUP-022525
     - /programs/CHORDS/projects/HMS-022525
     - /programs/CHORDS/projects/HMS-071224
