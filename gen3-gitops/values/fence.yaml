@@ -173,6 +173,7 @@ fence:
             - name: WONDER-022525
             - name: IPUMS-13125
             - name: NaNDA-123124
+            - name: gridMET-01282025
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -342,6 +343,7 @@ fence:
         - /programs/CHORDS/projects/WONDER-022525
         - /programs/CHORDS/projects/IPUMS-13125
         - /programs/CHORDS/projects/NaNDA-123124
+        - /programs/CHORDS/projects/gridMET-01282025
 
       - id: all_programs_reader
         role_ids:
@@ -486,6 +488,7 @@ fence:
         - /programs/CHORDS/projects/WONDER-022525
         - /programs/CHORDS/projects/IPUMS-13125
         - /programs/CHORDS/projects/NaNDA-123124
+        - /programs/CHORDS/projects/gridMET-01282025
 
       roles:
       - id: 'mds_user'
