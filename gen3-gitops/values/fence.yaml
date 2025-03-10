@@ -78,10 +78,12 @@ fence:
             - name: EJI-022525
             - name: EJScreen-022525
             - name: EnviroAtlas-022525
+            - name: ESDIS-021025
             - name: FAQSD-071924
             - name: FIRMS-022525
             - name: FireWeather-022525
             - name: GEOS-CF-071224
+            - name: GOES-R_FDC-030425
             - name: GFCC-071224
             - name: GHG-Pathfinder-022525
             - name: GMTED2010-071524
@@ -156,6 +158,8 @@ fence:
             - name: SEDAC-07102024
             - name: SmokeSense-022525
             - name: Storm_Events-0711-24
+            - name: TerraClimate-01132025
+            - name: TickData-022125
             - name: TIGER-Line-071824
             - name: TRI-071724
             - name: U.S.-PM2.5-022525
@@ -167,7 +171,8 @@ fence:
             - name: WF-Pathfinder-022525
             - name: WFSmokeExp-022525
             - name: WONDER-022525
-            - name: iPUMS-013125
+            - name: IPUMS-13125
+            - name: NaNDA-123124
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -242,10 +247,12 @@ fence:
         - /programs/CHORDS/projects/EJI-022525
         - /programs/CHORDS/projects/EJScreen-022525
         - /programs/CHORDS/projects/EnviroAtlas-022525
+        - /programs/CHORDS/projects/ESDIS-021025
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/FIRMS-022525
         - /programs/CHORDS/projects/FireWeather-022525
         - /programs/CHORDS/projects/GEOS-CF-071224
+        - /programs/CHORDS/projects/GOES-R_FDC-030425
         - /programs/CHORDS/projects/GFCC-071224
         - /programs/CHORDS/projects/GHG-Pathfinder-022525
         - /programs/CHORDS/projects/GMTED2010-071524
@@ -320,6 +327,8 @@ fence:
         - /programs/CHORDS/projects/SEDAC-07102024
         - /programs/CHORDS/projects/SmokeSense-022525
         - /programs/CHORDS/projects/Storm_Events-0711-24
+        - /programs/CHORDS/projects/TerraClimate-01132025
+        - /programs/CHORDS/projects/TickData-022125
         - /programs/CHORDS/projects/TIGER-Line-071824
         - /programs/CHORDS/projects/TRI-071724
         - /programs/CHORDS/projects/U.S.-PM2.5-022525
@@ -331,7 +340,8 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder-022525
         - /programs/CHORDS/projects/WFSmokeExp-022525
         - /programs/CHORDS/projects/WONDER-022525
-        - /programs/CHORDS/projects/iPUMS-013125
+        - /programs/CHORDS/projects/IPUMS-13125
+        - /programs/CHORDS/projects/NaNDA-123124
 
       - id: all_programs_reader
         role_ids:
@@ -381,10 +391,12 @@ fence:
         - /programs/CHORDS/projects/EJI-022525
         - /programs/CHORDS/projects/EJScreen-022525
         - /programs/CHORDS/projects/EnviroAtlas-022525
+        - /programs/CHORDS/projects/ESDIS-021025
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/FIRMS-022525
         - /programs/CHORDS/projects/FireWeather-022525
         - /programs/CHORDS/projects/GEOS-CF-071224
+        - /programs/CHORDS/projects/GOES-R_FDC-030425
         - /programs/CHORDS/projects/GFCC-071224
         - /programs/CHORDS/projects/GHG-Pathfinder-022525
         - /programs/CHORDS/projects/GMTED2010-071524
@@ -459,6 +471,8 @@ fence:
         - /programs/CHORDS/projects/SEDAC-07102024
         - /programs/CHORDS/projects/SmokeSense-022525
         - /programs/CHORDS/projects/Storm_Events-0711-24
+        - /programs/CHORDS/projectsTerraClimate-01132025
+        - /programs/CHORDS/projects/TickData-022125
         - /programs/CHORDS/projects/TIGER-Line-071824
         - /programs/CHORDS/projects/TRI-071724
         - /programs/CHORDS/projects/U.S.-PM2.5-022525
@@ -470,7 +484,8 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder-022525
         - /programs/CHORDS/projects/WFSmokeExp-022525
         - /programs/CHORDS/projects/WONDER-022525
-        - /programs/CHORDS/projects/iPUMS-013125
+        - /programs/CHORDS/projects/IPUMS-13125
+        - /programs/CHORDS/projects/NaNDA-123124
 
       roles:
       - id: 'mds_user'
