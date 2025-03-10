@@ -242,6 +242,12 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for domain in contents_json[key]["domain"]:
             if domain["@value"]:
                 resource.domain.append(domain["@value"])
+            if resource.domain:
+                if 'Climate Change' in resource.domain:
+                    resource.domain.remove('Climate Change')
+                if 'Weather And Climate' in resource.domain:
+                    resource.domain.remove('Weather And Climate')
+                    resource.domain.append('Longterm Weather')
 
         for domain in contents_json[key]["domain_other"]:
             if domain["@value"]:
@@ -268,6 +274,11 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         for keyword in contents_json[key]["keywords"]:
             if keyword["@value"]:
                 resource.keywords.append(keyword["@value"])
+            if resource.keywords:
+                if 'Climate Change' in resource.domain:
+                    resource.keywords.remove('Climate Change')
+                if 'Climate Changes' in resource.domain:
+                    resource.keywords.remove('Climate Changes')
 
         resource.payment_required = PcorTemplateParser.sanitize_boolean(
                     contents_json[key]["payment_required"]["@value"])

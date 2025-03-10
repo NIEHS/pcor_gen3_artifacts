@@ -72,7 +72,10 @@ class PcorReporter():
         :param pcor_processing_result: PcorProcessResult result data structure
         :return: html error report
         """
-        logger.info("produce_html_report()")
+        logger.info("produce_html_error_report()")
+        logger.info("pcor_processing_result.errors")
+        for error in pcor_processing_result.errors:
+            logger.info("pcor_processing_result.errors: %s" % error.message)
         template = self.env.get_template("error_report.html")
         template.globals['now'] = datetime.utcnow
         submission = pcor_processing_result.model_data.get("submission")
@@ -94,7 +97,7 @@ class PcorReporter():
         :param pcor_processing_result: PcorProcessResult result data structure
         :return: html error report
         """
-        logger.info("produce_html_report()")
+        logger.info("produce_html_success_report()")
         template = self.env.get_template("success_report.html")
         template.globals['now'] = datetime.utcnow
         submission = pcor_processing_result.model_data["submission"]
