@@ -802,7 +802,7 @@ class PcorGen3Ingest:
         metadata = Gen3Metadata(self.gen3_auth)
 
         # for now limit is set to 100, add batch query for faster response
-        response = metadata.query(query=query, return_full_metadata=True, limit=100)
+        response = metadata.query(query=query, return_full_metadata=True, limit=500)
         return response
 
     def submit_record(self, program, project, json_data):
@@ -920,6 +920,7 @@ class PcorGen3Ingest:
                 temp_project = entry.split('/')[-1]
                 project_list.append(temp_project)
         logger.info("project_list: %s" % project_list)
+        logger.info("Count:: %s" % len(project_list))
 
         # delete all projects and records
         for project in project_list:
