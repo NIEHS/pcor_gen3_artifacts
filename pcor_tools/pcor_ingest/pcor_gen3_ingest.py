@@ -773,7 +773,7 @@ class PcorGen3Ingest:
         logger.info("query:{}".format(json))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(query)
+        result = sub.query(query_txt=query, max_tries=5)
         logger.info("result:{}".format(result))
 
         if not result["data"]["project"]:
