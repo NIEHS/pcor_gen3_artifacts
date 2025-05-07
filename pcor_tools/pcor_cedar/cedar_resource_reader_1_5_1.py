@@ -268,7 +268,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             resource.publications.append(publication_citation["@value"])
 
         for publication_link in contents_json[key]["Publication"]["publication_link"]:
-            if publication_link["@id"]:
+            if '@id' in publication_link and publication_link["@id"]:
                 resource.publication_links.append(publication_link["@id"])
 
         for keyword in contents_json[key]["keywords"]:
@@ -315,9 +315,9 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         geoexposure.comments = contents_json[data_resource_key]["Comments"]["@value"]
         geoexposure.intended_use = contents_json[data_resource_key]["intended_use"]["@value"]
 
-        for source in contents_json[data_resource_key]["source_name"]:
-            if source["@value"]:
-                geoexposure.source_name.append(source["@value"])
+        for item in contents_json[data_resource_key]["source_name"]:
+            if item["@value"]:
+                geoexposure.source_name.append(item["@value"])
 
         geoexposure.includes_citizen_collected = PcorTemplateParser.sanitize_boolean(
                 contents_json[data_resource_key]["includes_citizen_collected"]["@value"])
@@ -543,7 +543,7 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
             for item in pop_data_json["temporal_resolution"]:
                 if item["@value"]:
                     population.temporal_resolution.append(item["@value"])
-        else:
+        elif pop_data_json["temporal_resolution"]["@value"]:
             population.temporal_resolution.append(pop_data_json["temporal_resolution"]["@value"])
 
         for item in pop_data_json["temporal_resolution_other"]:

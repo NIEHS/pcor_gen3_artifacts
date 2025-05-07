@@ -335,7 +335,7 @@ class PcorGen3Ingest:
                     discovery.data_location_link_3 = data_resource.data_link[2]
 
             if hasattr(data_resource, 'source_name'):
-                discovery.source_name = data_resource.source_name if data_resource.source_name else None
+                discovery.source_name = ', '.join(data_resource.source_name) if data_resource.source_name else None
 
         for item in resource.access_type:
             if item:
@@ -729,7 +729,7 @@ class PcorGen3Ingest:
         :param program_name: name field in program
         :return: PCORIntermediateProgramModel
         """
-        json = """{{
+        query_json = """{{
                  program(name: "{}") {{
                    id
                    name
@@ -737,10 +737,10 @@ class PcorGen3Ingest:
                  }}
                }}
                """.format(program_name)
-        logger.info("query:{}".format(json))
+        logger.info("query:{}".format(json.dumps(query_json, indent=2)))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(json)
+        result = sub.query(query_txt=json, max_tries=10)
         logger.info("result:{}".format(result))
 
         program = PcorIntermediateProgramModel()
@@ -757,7 +757,7 @@ class PcorGen3Ingest:
         :return: JSON with query result
         """
 
-        query = """{{
+        query_json = """{{
          project(code: "{}") {{
            id
            name
@@ -770,10 +770,10 @@ class PcorGen3Ingest:
          }}
        }}
        """.format(project_code)
-        logger.info("query:{}".format(json))
+        logger.info("query:{}".format(json.dumps(query_json, indent=2)))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(query_txt=query, max_tries=5)
+        result = sub.query(query_txt=query_json, max_tries=10)
         logger.info("result:{}".format(result))
 
         if not result["data"]["project"]:
