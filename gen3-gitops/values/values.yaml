@@ -1,5 +1,5 @@
 global:
-  hostname: "localhost"
+  hostname: "adimi02012643.niehs.nih.gov"
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 
