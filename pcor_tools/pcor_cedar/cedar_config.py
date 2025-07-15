@@ -34,7 +34,18 @@ class CedarConfig(object):
 
     """ init will load the cedar properties from the provided config file,
     which can be overwritten by a CEDAR_PROPERTIES env variable"""
-    def __init__(self, config_file=None):
+    def __init__(self, config_file=None, config_param=None):
+        """
+        Config for CEDAR access. This starts with CEDAR_PROPERTIES env variable, then config_file, then config_parm
+        :param config_file: optional file path to a config file
+        :param config_param: optional dictionary with cedar properties
+
+        props:
+
+        api_key=xxxxxxx
+        cedar_endpoint=https://resource.metadatacenter.org
+
+        """
 
         env_config_file = os.getenv('CEDAR_PROPERTIES')
         if env_config_file:
@@ -42,11 +53,13 @@ class CedarConfig(object):
         else:
             self.config_file = config_file
 
-        if env_config_file is None:
-            raise Exception("no CEDAR_PROPERTIES or config_file found")
-
-        logger.info("loading config file from %s", self.config_file)
-        self.cedar_properties = dict_from_props(self.config_file)
+        if self.config_file:
+            logger.info("loading config file from %s", self.config_file)
+            self.cedar_properties = dict_from_props(self.config_file)
+        elif config_param:
+            self.cedar_properties = config_param
+        else:
+            raise Exception("No source of parameters provided")
 
     def build_request_headers_json(self):
         auth_fmt = "apiKey {key}"
