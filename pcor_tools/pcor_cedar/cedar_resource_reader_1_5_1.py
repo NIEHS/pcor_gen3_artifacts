@@ -188,19 +188,19 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
         """
         project = PcorIntermediateProjectModel()
         project.id = contents_json[key]["ProjecCode"]["@value"]
-        project.name = PcorTemplateParser.sanitize_column(contents_json[key]["project_name"]["@value"], True)
-        project.short_name = PcorTemplateParser.sanitize_column(contents_json[key]["project_short_name"]["@value"], True)
-        project.code = PcorTemplateParser.sanitize_column(contents_json[key]["ProjecCode"]["@value"], True)
+        project.name = PcorTemplateParser.sanitize_column(contents_json[key]["project_name"]["@value"])
+        project.short_name = PcorTemplateParser.sanitize_column(contents_json[key]["project_short_name"]["@value"])
+        project.code = PcorTemplateParser.sanitize_column(contents_json[key]["ProjecCode"]["@value"])
 
         sponsors_in_json = contents_json[key]["project_sponsor"]
         for sponsor in sponsors_in_json:
             if sponsor["@value"]:
-               project.project_sponsor.append(PcorTemplateParser.sanitize_column(sponsor["@value"]), True)
+               project.project_sponsor.append(PcorTemplateParser.sanitize_column(sponsor["@value"]))
 
         sponsors_in_json = contents_json[key]["project_sponsor_other"]
         for sponsor in sponsors_in_json:
             if sponsor["@value"]:
-                project.project_sponsor_other.append(PcorTemplateParser.sanitize_column(sponsor["@value"]), True)
+                project.project_sponsor_other.append(PcorTemplateParser.sanitize_column(sponsor["@value"]))
 
 
         sponsor_types = contents_json[key]["project_sponsor_type"]
