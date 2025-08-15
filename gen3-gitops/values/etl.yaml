@@ -72,7 +72,6 @@ etl:
           - name: temporal_resolution
           - name: spatial_resolution
           - name: spatial_coverage
-          - name: spatial_coverage_specific_regions
           - name: geometry_type
           - name: model_methods
           - name: data_formats

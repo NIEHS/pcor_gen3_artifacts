@@ -1,5 +1,5 @@
 global:
-  hostname: "adimi02012643.niehs.nih.gov"
+  hostname: "localhost"
   dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
 
 
@@ -28,4 +28,4 @@ etl:
 
 indexd:
   image:
-  tag: "2023.01"
+    tag: "2023.01"
