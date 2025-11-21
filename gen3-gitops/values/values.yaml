@@ -1,6 +1,6 @@
 global:
   hostname: "localhost"
-  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/develop/custom_configs/schema.json
+  dictionaryUrl: https://raw.githubusercontent.com/NIEHS/pcor_gen3_artifacts/main/custom_configs/schema.json
 
 
 sower:
@@ -28,4 +28,4 @@ etl:
 
 indexd:
   image:
-    tag: "2023.01"
+  tag: "2023.01"
