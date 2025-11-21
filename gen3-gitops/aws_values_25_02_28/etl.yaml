@@ -38,19 +38,6 @@ etl:
           - name: exposure_media
         parent_props:
           - path: resources[resource_short_name:short_name, resource_url, resource_description:description, domain, keywords, access_type, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
-      - name: chordstaging_geospatial_tool_resource
-        doc_type: geospatial_tool_resource
-        type: aggregator
-        root: geospatial_tool_resource
-        props:
-          - name: project_id
-          - name: submitter_id
-          - name: tool_type
-          - name: intended_use
-          - name: operating_system
-          - name: languages
-        parent_props:
-          - path: resources[resource_short_name:short_name, resource_description:description, domain, keywords, access_type, payment_required, strengths, limitations, example_applications, tools_supporting_uses].projects[project_sponsor, project_sponsor_type]
       - name: chordstaging_population_data_resource
         doc_type: population_data_resource
         type: aggregator

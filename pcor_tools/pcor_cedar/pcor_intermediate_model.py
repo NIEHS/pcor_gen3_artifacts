@@ -1,7 +1,5 @@
 import logging
 
-ENV_CONFIG_LOCATION = 'PCOR_GEN3_CONFIG_LOCATION'
-
 logger = logging.getLogger(__name__)
 
 
@@ -17,7 +15,7 @@ class MeasuresArrays:
         self.measures_parents = []
 
 
-class PcorIntermediateProgramModel:
+class CedarIntermediateProgramModel:
     """
     Represents a program
     """
@@ -28,7 +26,7 @@ class PcorIntermediateProgramModel:
         self.dbgap_accession_number = None
 
 
-class PcorSubmissionInfoModel:
+class CedarSubmissionInfoModel:
     """
     Represents administrative information about a template (source, curator info and email)
     """
@@ -48,7 +46,7 @@ class PcorSubmissionInfoModel:
         self.project_code = ""
 
 
-class PcorIntermediateProjectModel:
+class CedarIntermediateProjectModel:
 
     def __init__(self):
         self.program = None
@@ -71,7 +69,7 @@ class PcorIntermediateProjectModel:
         self.submitter_id = ""
 
 
-class PcorIntermediateResourceModel:
+class CedarIntermediateResourceModel:
     """
     Represents an intermediate data model from some source (e.g. spreadsheet or CEDAR) that is to be ingested into Gen3
     This allows introduction of new curation tools that will follow the same pipeline on the Gen3 side
@@ -124,7 +122,7 @@ class SubmitResponse:
         self.submitter_id = ""
 
 
-class PcorProgramModel:
+class CedarProgramModel:
     """
     A program in Gen3
     """
@@ -137,7 +135,7 @@ class PcorProgramModel:
         self.dbgap_accession_number = ""
 
 
-class PcorGeospatialDataResourceModel:
+class CedarGeospatialDataResourceModel:
     """
     Represents a geospatial data resource subtype
     """
@@ -190,7 +188,7 @@ class PcorGeospatialDataResourceModel:
         self.time_extent_start_yyyy = None
 
 
-class PcorDiscoveryMetadata:
+class CedarDiscoveryMetadata:
     """
     Represents data for Discovery presentation of a resource
     """
@@ -273,7 +271,7 @@ class AdvSearchFilter:
         self.value = ""
 
 
-class PcorPopDataResourceModel:
+class CedarPopDataResourceModel:
     """
     Represents a pop data resource subtype
     """
@@ -312,7 +310,7 @@ class PcorPopDataResourceModel:
         self.measures_subcategory_minor = []
         self.model_methods = []
         self.model_methods_other = []
-        self.pcor_intermediate_resource_model = None
+        self.Cedar_intermediate_resource_model = None
         self.population_studied = []
         self.population_studied_other = []
         self.project_id = ""
@@ -341,7 +339,7 @@ class PcorPopDataResourceModel:
         self.vulnerable_population = []
 
 
-class PcorGeoToolModel:
+class CedarGeoToolModel:
     """
     Represents a geospatial tool resource subtype
     """
@@ -357,7 +355,7 @@ class PcorGeoToolModel:
         self.license_type_other = []
         self.operating_system = []
         self.operating_system_other = [] # new
-        self.pcor_intermediate_resource_model = None
+        self.Cedar_intermediate_resource_model = None
         self.project_id = ""
         self.project_submitter_id = ""
         self.resource_id = ""
@@ -369,7 +367,7 @@ class PcorGeoToolModel:
         self.updated_datetime = ""
 
 
-class PcorKeyDatasetModel:
+class CedarKeyDatasetModel:
     """
     Represents a key dataset subtype
     """
@@ -409,7 +407,7 @@ class PcorKeyDatasetModel:
         self.measures_subcategory_minor = []
         self.model_methods = []
         self.model_methods_other = []
-        self.pcor_intermediate_resource_model = None
+        self.Cedar_intermediate_resource_model = None
         self.resource_id = ""
         self.resource_submitter_id = ""
         self.spatial_bounding_box = []

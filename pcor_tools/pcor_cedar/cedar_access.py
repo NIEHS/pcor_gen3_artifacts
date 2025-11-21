@@ -40,7 +40,7 @@ class CedarAccess(object):
 
         """
 
-        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/https%3A%2F%2Frepo.metadatacenter.org%2Ffolders%2F" + folder_id +"/contents"
+        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/https%3A%2F%2Frepo.metadatacenter.org%2Ffolders%2F" + folder_id +"/contents?limit=500"
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
         r = requests.get(api_url, headers=headers)
@@ -77,7 +77,7 @@ class CedarAccess(object):
 
         loading_folder = urllib.parse.quote_plus(loading_folder)
 
-        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/" + loading_folder + "/contents"
+        api_url = self.cedar_config.cedar_properties["cedar_endpoint"] + "/folders/" + loading_folder + "/contents?limit=500"
         headers = {"Content-Type": "application/json", "Accept": "application/json",
                    "Authorization": self.cedar_config.build_request_headers_json()}
         r = requests.get(api_url, headers=headers)

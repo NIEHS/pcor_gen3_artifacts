@@ -34,7 +34,7 @@ setup(
     name="pcor_ingest",
     version="1.0.0",
     description="pcor catalog curation tools",
-    url="https://github.com/author_name/project_urlname/",
+    url="https://github.com/NIEHS/pcor_gen3_artifacts",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Mike Conway, Deep Patel",

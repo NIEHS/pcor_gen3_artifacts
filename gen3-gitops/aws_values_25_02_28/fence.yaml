@@ -1,7 +1,14 @@
 fence:
   enabled: true
-  FENCE_CONFIG:
-    MOCK_AUTH: true
+  replicaCount: 2
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
+    tag: 10.2.0
+
+  usersync:
+     #-- (bool) Whether to run Fence usersync or not.
+    usersync: true
+    userYamlS3Path: s3://cdis-gen3-users/staging-chords-health/user.yaml
 
   USER_YAML: |
     authz:
@@ -61,7 +68,6 @@ fence:
             - name: BenMAP-CE-022525
             - name: BioEco-Pathfinder-022525
             - name: CACES-050224
-            - name: CACES-KDS-050224
             - name: CASTNET-052224
             - name: CDC-ATSDR-SVI-022525
             - name: CDI-071824
@@ -78,19 +84,16 @@ fence:
             - name: EJI-022525
             - name: EJScreen-022525
             - name: EnviroAtlas-022525
-            - name: ESDIS-021025
             - name: FAQSD-071924
             - name: FIRMS-022525
             - name: FireWeather-022525
             - name: GEOS-CF-071224
-            - name: GOES-R_FDC-030425
             - name: GFCC-071224
             - name: GHG-Pathfinder-022525
             - name: GMTED2010-071524
             - name: GPW_v4-071224
             - name: GRASP-022525
             - name: GSUHI-071124
-            - name: HCCI-042924
             - name: HCUP-022525
             - name: HMS-022525
             - name: HMS-071224
@@ -158,8 +161,6 @@ fence:
             - name: SEDAC-07102024
             - name: SmokeSense-022525
             - name: Storm_Events-0711-24
-            - name: TerraClimate-01132025
-            - name: TickData-022125
             - name: TIGER-Line-071824
             - name: TRI-071724
             - name: U.S.-PM2.5-022525
@@ -171,9 +172,7 @@ fence:
             - name: WF-Pathfinder-022525
             - name: WFSmokeExp-022525
             - name: WONDER-022525
-            - name: IPUMS-13125
-            - name: NaNDA-123124
-            - name: gridMET-01282025
+            - name: iPUMS-013125
       policies:
       - id: 'mds_admin'
         description: 'be able to use metadata service'
@@ -231,7 +230,6 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE-022525
         - /programs/CHORDS/projects/BioEco-Pathfinder-022525
         - /programs/CHORDS/projects/CACES-050224
-        - /programs/CHORDS/projects/CACES-KDS-050224
         - /programs/CHORDS/projects/CASTNET-052224
         - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
         - /programs/CHORDS/projects/CDI-071824
@@ -248,19 +246,16 @@ fence:
         - /programs/CHORDS/projects/EJI-022525
         - /programs/CHORDS/projects/EJScreen-022525
         - /programs/CHORDS/projects/EnviroAtlas-022525
-        - /programs/CHORDS/projects/ESDIS-021025
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/FIRMS-022525
         - /programs/CHORDS/projects/FireWeather-022525
         - /programs/CHORDS/projects/GEOS-CF-071224
-        - /programs/CHORDS/projects/GOES-R_FDC-030425
         - /programs/CHORDS/projects/GFCC-071224
         - /programs/CHORDS/projects/GHG-Pathfinder-022525
         - /programs/CHORDS/projects/GMTED2010-071524
         - /programs/CHORDS/projects/GPW_v4-071224
         - /programs/CHORDS/projects/GRASP-022525
         - /programs/CHORDS/projects/GSUHI-071124
-        - /programs/CHORDS/projects/HCCI-042924
         - /programs/CHORDS/projects/HCUP-022525
         - /programs/CHORDS/projects/HMS-022525
         - /programs/CHORDS/projects/HMS-071224
@@ -328,8 +323,6 @@ fence:
         - /programs/CHORDS/projects/SEDAC-07102024
         - /programs/CHORDS/projects/SmokeSense-022525
         - /programs/CHORDS/projects/Storm_Events-0711-24
-        - /programs/CHORDS/projects/TerraClimate-01132025
-        - /programs/CHORDS/projects/TickData-022125
         - /programs/CHORDS/projects/TIGER-Line-071824
         - /programs/CHORDS/projects/TRI-071724
         - /programs/CHORDS/projects/U.S.-PM2.5-022525
@@ -341,9 +334,7 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder-022525
         - /programs/CHORDS/projects/WFSmokeExp-022525
         - /programs/CHORDS/projects/WONDER-022525
-        - /programs/CHORDS/projects/IPUMS-13125
-        - /programs/CHORDS/projects/NaNDA-123124
-        - /programs/CHORDS/projects/gridMET-01282025
+        - /programs/CHORDS/projects/iPUMS-013125
 
       - id: all_programs_reader
         role_ids:
@@ -376,7 +367,6 @@ fence:
         - /programs/CHORDS/projects/BenMAP-CE-022525
         - /programs/CHORDS/projects/BioEco-Pathfinder-022525
         - /programs/CHORDS/projects/CACES-050224
-        - /programs/CHORDS/projects/CACES-KDS-050224
         - /programs/CHORDS/projects/CASTNET-052224
         - /programs/CHORDS/projects/CDC-ATSDR-SVI-022525
         - /programs/CHORDS/projects/CDI-071824
@@ -393,19 +383,16 @@ fence:
         - /programs/CHORDS/projects/EJI-022525
         - /programs/CHORDS/projects/EJScreen-022525
         - /programs/CHORDS/projects/EnviroAtlas-022525
-        - /programs/CHORDS/projects/ESDIS-021025
         - /programs/CHORDS/projects/FAQSD-071924
         - /programs/CHORDS/projects/FIRMS-022525
         - /programs/CHORDS/projects/FireWeather-022525
         - /programs/CHORDS/projects/GEOS-CF-071224
-        - /programs/CHORDS/projects/GOES-R_FDC-030425
         - /programs/CHORDS/projects/GFCC-071224
         - /programs/CHORDS/projects/GHG-Pathfinder-022525
         - /programs/CHORDS/projects/GMTED2010-071524
         - /programs/CHORDS/projects/GPW_v4-071224
         - /programs/CHORDS/projects/GRASP-022525
         - /programs/CHORDS/projects/GSUHI-071124
-        - /programs/CHORDS/projects/HCCI-042924
         - /programs/CHORDS/projects/HCUP-022525
         - /programs/CHORDS/projects/HMS-022525
         - /programs/CHORDS/projects/HMS-071224
@@ -473,8 +460,6 @@ fence:
         - /programs/CHORDS/projects/SEDAC-07102024
         - /programs/CHORDS/projects/SmokeSense-022525
         - /programs/CHORDS/projects/Storm_Events-0711-24
-        - /programs/CHORDS/projects/TerraClimate-01132025
-        - /programs/CHORDS/projects/TickData-022125
         - /programs/CHORDS/projects/TIGER-Line-071824
         - /programs/CHORDS/projects/TRI-071724
         - /programs/CHORDS/projects/U.S.-PM2.5-022525
@@ -486,9 +471,7 @@ fence:
         - /programs/CHORDS/projects/WF-Pathfinder-022525
         - /programs/CHORDS/projects/WFSmokeExp-022525
         - /programs/CHORDS/projects/WONDER-022525
-        - /programs/CHORDS/projects/IPUMS-13125
-        - /programs/CHORDS/projects/NaNDA-123124
-        - /programs/CHORDS/projects/gridMET-01282025
+        - /programs/CHORDS/projects/iPUMS-013125
 
       roles:
       - id: 'mds_user'
@@ -646,3 +629,20 @@ fence:
           - data_upload
           - services.sheepdog-admin
 
+
+  # -- (map) External Secrets settings.
+  externalSecrets:
+    # -- (string) Will create the Helm "fence-jwt-keys" secret even if Secrets Manager is enabled. This is helpful if you are wanting to use External Secrets for some, but not all secrets.
+    createK8sJwtKeysSecret: false
+    # -- (string) Will create the Helm "fence-google-app-creds-secret" and "fence-google-storage-creds-secret" secrets even if Secrets Manager is enabled. This is helpful if you are wanting to use External Secrets for some, but not all secrets.
+    createK8sGoogleAppSecrets: true
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-jwt-keys"
+    fenceJwtKeys: "chordstaging-fence-jwt"
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-google-app-creds-secret"
+    fenceGoogleAppCredsSecret:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-google-storage-creds-secret"
+    fenceGoogleStorageCredsSecret:
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "fence-config"
+    fenceConfig: "chordstaging-fence-config"
+    # -- (string) Will override the name of the aws secrets manager secret. Default is "Values.global.environment-.Chart.Name-creds"
+    dbcreds: "chords_staging-fence-db-creds"

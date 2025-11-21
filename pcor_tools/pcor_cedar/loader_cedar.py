@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import sys
+import time
 from datetime import datetime
 
 from pcor_cedar.cedar_access import CedarAccess
@@ -43,19 +44,37 @@ class LoaderCedar(Loader):
         self.validate_sub_folders(work_dir=work_dir)
         logger.info('Getting listing of cedar resources')
         loader_collection = self.cedar_access.retrieve_loading_contents(directory)
-        for resource in loader_collection.subfolders:
-            logger.info("resource: %s" % resource)
+
+        # Sort subfolders by folder_name
+        sorted_subfolders = sorted(loader_collection.subfolders, key=lambda f: f.folder_name)
+
+        # default values
+        # start_index = 0
+        # end_index = None
+
+        # use to override the start and end index
+        start_index = 0  # zero-based index, for example, 5 will start from 6th item
+        end_index = None  # non-inclusive; for example 10, will process indices until 9
+
+        for i, resource in enumerate(sorted_subfolders[start_index:end_index], start=start_index):
+            logger.info(f"\n\n\n===== {i}: Processing: {resource.folder_name} =====")
+            logger.info("folder_id: %s" % resource.folder_id)
             if resource.item_type != 'instance':
                 logger.debug('skipping item, not an instance')
                 continue
             logger.info("have an instance")
             instance_json = self.cedar_access.retrieve_resource(LoaderCedar.extract_id_for_resource(resource.folder_id))
             logger.debug("instance json: %s" % instance_json)
+            # add sleep time
+            #logger.info("sleeping for 20 seconds before loading resource")
+            #time.sleep(20)
             self.load_resource(instance_json)
+            logger.info(f"===== {i}: Finished_Processing: {resource.folder_name} =====")
+            logger.info("folder_id: %s\n\n\n" % resource.folder_id)
 
     def process_individual_load_of_cedar_resource_from_url(self, resource_url=None):
         logger.info('process_individual_load')
-        logger.info('resource_url: %s' % resource_url)
+        logger.info(f"\n\n\n=====: resource_url: {resource_url} =====")
 
         # write the json to a file in processing and then proceed
         guid = LoaderCedar.extract_id_for_resource(resource_url)

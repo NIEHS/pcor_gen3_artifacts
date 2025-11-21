@@ -1,0 +1,30 @@
+from python:3.9
+
+ADD . pcor_tools
+
+WORKDIR pcor_tools
+
+RUN pip install -r requirements.txt
+
+ENV CEDAR_PROPERTIES=/etc/irods-ext/cedar.properties
+
+CMD python cedar_backup_tool.py -t f6d5c357-beab-421c-93d3-0498a582acfd -i e355737f-3f47-4001-9ae4-67c1ca5bca75 -o /backup michaelconway/cedarbackup:latest
+
+
+# docker run -i --rm -v /commons/infrastructure/prod/irods-ext/cedar.properties:/etc/irods-ext/cedar.properties -v /commons/infrastructure/prod/backup/cedar:/backup --name cedar_backup michaelconway/cedarbackup:latest > /var/log/ods/cedar_backup.log 2>&1
+
+
+
+# docker run -i --rm -v /Users/conwaymc/temp/cedar.properties:/etc/irods-ext/cedar.properties -v /Users/conwaymc/temp/cedarbk:/backup michaelconway/cedarbackup:latest
+
+
+# docker build -t michaelconway/cedarbackup:latest -f CedarBackupDockerfile .
+
+
+# /Users/conwaymc/temp/cedar.properties
+
+
+# 0 4 * * * /commons/infrastructure/prod/cedar_backup.sh
+
+
+

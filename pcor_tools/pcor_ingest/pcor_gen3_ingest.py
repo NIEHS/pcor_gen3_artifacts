@@ -170,9 +170,21 @@ class PcorGen3Ingest:
 
         discovery = PcorDiscoveryMetadata()
         discovery.program_name = program.name
-        discovery.project_sponsor = ','.join(project.project_sponsor)
+        if project.project_sponsor is not None and project.project_sponsor_other is not None:
+            temp_project_sponsor_list = []
+            temp_project_sponsor_list.extend(project.project_sponsor)
+            temp_project_sponsor_list.extend(project.project_sponsor_other)
+            # Remove 'other/Other' if it exists in the primary list
+            if 'other' in temp_project_sponsor_list:
+                temp_project_sponsor_list.remove('other')
+            if 'Other' in temp_project_sponsor_list:
+                temp_project_sponsor_list.remove('Other')
+            discovery.project_sponsor = ','.join(temp_project_sponsor_list)
+        else:
+            discovery.project_sponsor = ','.join(project.project_sponsor) if project.project_sponsor else None
         discovery.project_name = project.name
         discovery.project_short_name = project.short_name
+        discovery.project_code = project.code
         discovery.project_url = project.project_url
         discovery.project_sponsor_type = project.project_sponsor_type
 
@@ -323,7 +335,7 @@ class PcorGen3Ingest:
                     discovery.data_location_link_3 = data_resource.data_link[2]
 
             if hasattr(data_resource, 'source_name'):
-                discovery.source_name = data_resource.source_name if data_resource.source_name else None
+                discovery.source_name = ', '.join(data_resource.source_name) if data_resource.source_name else None
 
         for item in resource.access_type:
             if item:
@@ -354,7 +366,7 @@ class PcorGen3Ingest:
 
         filter_project_sponsor_list = [
             "United States Forestry Service (USFS)",
-            "United States Department of Agriculture (USDOA)",
+            "United States Department of Agriculture (USDA)",
             "United States Department of the Interior (USDOI)",
             "United States Geological Survey (USGS)",
             "National Aeronautics and Space Administration (NASA)",
@@ -667,13 +679,13 @@ class PcorGen3Ingest:
             False if entry does not exist
         """
         logger.info("check_discovery_exists()")
-        new_entry_name = new_entry['name']
+        new_entry_project_code = new_entry['project_code']
         entry_already_exist = False
         existing_entry_guid = None
         if existing_discovery_entries:
             for entry_guid, existing_entry in existing_discovery_entries.items():
-                temp_entry_name = existing_entry['gen3_discovery']['name']
-                if temp_entry_name == new_entry_name:
+                temp_entry_project_code = existing_entry['gen3_discovery']['project_code']
+                if temp_entry_project_code == new_entry_project_code:
                     entry_already_exist = True
                     existing_entry_guid = entry_guid
         return entry_already_exist, existing_entry_guid
@@ -717,7 +729,7 @@ class PcorGen3Ingest:
         :param program_name: name field in program
         :return: PCORIntermediateProgramModel
         """
-        json = """{{
+        query_json = """{{
                  program(name: "{}") {{
                    id
                    name
@@ -725,10 +737,10 @@ class PcorGen3Ingest:
                  }}
                }}
                """.format(program_name)
-        logger.info("query:{}".format(json))
+        logger.info("query:{}".format(json.dumps(query_json, indent=2)))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(json)
+        result = sub.query(query_txt=json, max_tries=10)
         logger.info("result:{}".format(result))
 
         program = PcorIntermediateProgramModel()
@@ -745,7 +757,7 @@ class PcorGen3Ingest:
         :return: JSON with query result
         """
 
-        query = """{{
+        query_json = """{{
          project(code: "{}") {{
            id
            name
@@ -758,10 +770,10 @@ class PcorGen3Ingest:
          }}
        }}
        """.format(project_code)
-        logger.info("query:{}".format(json))
+        logger.info("query:{}".format(json.dumps(query_json, indent=2)))
 
         sub = Gen3Submission(self.gen3_auth)
-        result = sub.query(query)
+        result = sub.query(query_txt=query_json, max_tries=10)
         logger.info("result:{}".format(result))
 
         if not result["data"]["project"]:
@@ -790,7 +802,7 @@ class PcorGen3Ingest:
         metadata = Gen3Metadata(self.gen3_auth)
 
         # for now limit is set to 100, add batch query for faster response
-        response = metadata.query(query=query, return_full_metadata=True, limit=100)
+        response = metadata.query(query=query, return_full_metadata=True, limit=500)
         return response
 
     def submit_record(self, program, project, json_data):
@@ -857,7 +869,7 @@ class PcorGen3Ingest:
             submission_status.traceback = traceback.format_exc()
             return submission_status
 
-    def delete_nodes(self, program, project, ordered_node_list, batch_size=100, verbose=True):
+    def delete_nodes(self, program, project, ordered_node_list, batch_size=1000, verbose=True):
         """
         Delete all records for a list of nodes from a project.
 
@@ -883,7 +895,7 @@ class PcorGen3Ingest:
         :param program: identifier of the program in Gen3
         :param project: project name/code
         """
-        logger.info('fetch project details')
+        logger.info('resubmission_cleanups()')
         ordered_node_list = ['geospatial_data_resource', 'geospatial_tool_resource', 'population_data_resource',
                              'key_data_resource',
                              'resource']
@@ -908,6 +920,7 @@ class PcorGen3Ingest:
                 temp_project = entry.split('/')[-1]
                 project_list.append(temp_project)
         logger.info("project_list: %s" % project_list)
+        logger.info("Count:: %s" % len(project_list))
 
         # delete all projects and records
         for project in project_list:

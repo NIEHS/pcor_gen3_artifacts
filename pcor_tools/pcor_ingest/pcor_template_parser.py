@@ -485,6 +485,7 @@ class PcorTemplateParser:
                 value = re.sub(r'\n', ' ', value)
             value = re.sub(r'\t', " ", value) #must escape newlines for strings they are not valid json
             value = value.replace('\xa0', ' ')
+            value = re.sub(r'[^\x00-\x7f]', r'', value)
             return value.strip().replace('"', '')
         if isinstance(value, float):
             if math.isnan(value):
