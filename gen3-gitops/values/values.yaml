@@ -28,4 +28,4 @@ etl:
 
 indexd:
   image:
-    tag: "2023.01"
+  tag: "2023.01"
