@@ -31,7 +31,6 @@ class CedarResourceReader_1_5_1(CedarResourceReader):
 
     def parse(self, template_absolute_path, result):
 
-        # example path /deep/documents/foo.xls
         logger.info("parse()")
 
         """

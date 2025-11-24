@@ -12,6 +12,7 @@ from pcor_cedar.cedar_config import CedarConfig
 from pcor_cedar.cedar_parser_factory import CedarParserFactory
 from pcor_cedar.cedar_resource_reader_1_5_1 import CedarResourceReader_1_5_1
 from pcor_ingest.loader import Loader
+from pcor_ingest.measures_rollup import PcorMeasuresRollup
 from pcor_ingest.pcor_reporter import PcorReporter
 from pcor_ingest.pcor_template_process_result import PcorProcessResult, PcorError
 from pcor_ingest.pcor_template_processor import PcorTemplateProcessor
@@ -31,9 +32,10 @@ class CedarBackupVisitor():
     def __init__(self):
         pass
 
-    def visit(self, cedar_model:dict, file_name:str):
+    def visit(self, cedar_model: dict, file_name: str, pcor_measures_rollup:PcorMeasuresRollup):
         """
         notifies this visitor via callback that there is a cedar document to be processed
+        :param pcor_measures_rollup: PcorMeasuresRollup object
         :param cedar_model: a dict with the CEDAR document contents
         :param file_name: the absolute path to the file that contains the CEDAR document contents
         :return: None (all processing is within the visitor)
@@ -66,22 +68,33 @@ class CedarBackupVisitorProcessor():
         
         :return: None
         """
+
         if not self.start_path:
             raise ValueError("start_path must be specified")
-            
-        import os
-        
+
+        logger.info(f"Starting backup visitor processor with start path: {self.start_path}")
+
         for root, dirs, files in os.walk(self.start_path):
             # Process all JSON files in the current directory
             for file in files:
                 if file.lower().endswith('.json'):
+                    if 'templates' in root:
+                        continue
+
+                    if 'Old_Versions' in root:
+                        continue
+
+                    if 'Template' in file:
+                        continue
+
                     json_path = os.path.join(root, file)
                     result = PcorProcessResult()
+                    logger.info(f"parsing: {json_path}")
                     self.cedar_resource_reader.parse(json_path, result)
                     if result.success:
 
                         try:
-                            self.visitor.visit(result.model_data,json_path)
+                            self.visitor.visit(result.model_data,json_path, self.cedar_resource_reader.pcor_measures_rollup)
                         except Exception as e:
                             # Log error but continue processing other files
                             logger.error(f"Error processing {json_path}: {str(e)}")
