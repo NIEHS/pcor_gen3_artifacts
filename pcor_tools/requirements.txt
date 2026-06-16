@@ -11,7 +11,7 @@ attrs==24.2.0
 backcall==0.2.0
 backoff==1.11.1
 beautifulsoup4==4.12.3
-bleach==6.1.0
+bleach==6.4.0
 cdislogging==1.1.1
 certifi==2024.8.30
 charset-normalizer==3.4.0
